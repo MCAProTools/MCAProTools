@@ -1,0 +1,9 @@
+[10-Apr-2015 11:07:10 America/Chicago] PHP Fatal error:  Call to undefined function is_ssl() in /home/cr3ative/mcaprotools.com/wp-content/themes/mca-child/header.php on line 2
+[11-Apr-2015 08:18:56 America/Chicago] PHP Fatal error:  Call to undefined function add_action() in /home/cr3ative/mcaprotools.com/wp-content/themes/mca-child/functions.php on line 32
+[12-Apr-2015 14:25:42 America/Chicago] PHP Fatal error:  Call to undefined function is_ssl() in /home/cr3ative/mcaprotools.com/wp-content/themes/mca-child/header.php on line 2
+[12-Apr-2015 15:31:47 America/Chicago] PHP Fatal error:  Call to undefined function add_action() in /home/cr3ative/mcaprotools.com/wp-content/themes/mca-child/functions.php on line 32
+[24-Apr-2015 11:50:12 America/Chicago] PHP Fatal error:  Call to undefined function add_action() in /home/cr3ative/mcaprotools.com/wp-content/themes/mca-child/functions.php on line 32
+[13-Mar-2016 05:15:36 UTC] PHP Fatal error:  Call to undefined function add_action() in /home/cr3ative/mcaprotools.com/wp-content/themes/mca-child/functions.php on line 30
+[13-Mar-2016 05:15:36 UTC] PHP Fatal error:  Call to undefined function get_header() in /home/cr3ative/mcaprotools.com/wp-content/themes/mca-child/404.php on line 1
+[14-Mar-2016 08:22:21 UTC] PHP Fatal error:  Call to undefined function add_action() in /home/cr3ative/mcaprotools.com/wp-content/themes/mca-child/functions.php on line 30
+[14-Mar-2016 08:22:21 UTC] PHP Fatal error:  Call to undefined function get_header() in /home/cr3ative/mcaprotools.com/wp-content/themes/mca-child/404.php on line 1

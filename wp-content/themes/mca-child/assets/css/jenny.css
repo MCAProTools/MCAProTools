@@ -1,0 +1,576 @@
+/*spoiler shortcode ultimate */
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans:400,700);
+body,h1, h2, h3, h4, h5, h6,.mca-spoiler .su-spoiler-title,
+.btn-mca span, .btn-mca-complete span, .btn-mca-start span,
+.course-start, .lesson input.quiz-submit.complete,
+.mca-hr, .head_tools h2,.head_tools h1,.catch h1,.catch p,
+.other_saying h1,.other_saying p,.table-landing table tbody tr th,
+.table-landing table tbody tr td,.lp-hangout h1,.lp-hangout h1 span,.lp-hangout h3,{
+	font-family: 'Myriad-Pro-Reg' !important;
+}
+
+h2, h3,.lp-hangout h1 span,
+.frm_form_field  .frm_primary_label,
+.marketting-sharing-section h3,
+.mca-spoiler .with_frm_style .frm_submit input[type=submit],
+.btn-mca span, .btn-mca-complete span, .btn-mca-start span,
+.course-start, .lesson input.quiz-submit.complete,.btn-hangout-coverage span,
+.essb_links .essb_link_facebook a, .essb_links.essb_template_default .essb_link_twitter a,
+.essb_links.essb_template_default .essb_link_google  a,.essb_links.essb_template_default .essb_link_linkedin  a,
+.referrer-name,.head_tools h1,.money_details h1,.other_saying h2,
+.table-landing table tbody tr th,.single-course .course-completion-rate, 
+.lp-hangout h1 span
+{
+	font-weight: bold!important;
+}
+h2, h3,#wrapper .sidebar .current_page_item > a, 
+#wrapper .sidebar .current-menu-item > a,
+.catch p.get_list p, .money_details p ,
+.money_details h1,.other_saying h2,
+.other_saying h1,.other_saying p,
+.tools_testi .testi_text p,
+.table-landing table tbody tr th,
+.table-landing table tbody tr td,textarea.mca_user_field{
+	color: #000!important;
+}
+h1 {
+	/*font-size: 50px!important;*/
+	font-size: 50px;
+}
+h2 {
+	font-size: 40px!important;
+	margin: 0px 0px 20px 0px!important;
+}
+
+h3{
+	font-size: 28px!important;
+	
+}
+
+h2.course-title, .single-course h2{
+	font-size: 1.618em!important;
+}
+
+
+h1 .h1-big{
+	font-size: 100px;
+}
+.menu-resources-container ul li.current-menu-item a, 
+.menu-marketing-container ul li.current-menu-item a,
+.menu-dashboard-side-container ul li.current-menu-item a,
+.menu-courses-container ul li.current-menu-item a
+{
+	font-weight: bold;
+}
+.menu-resources-container ul li a, 
+.menu-marketing-container ul li a,
+.menu-dashboard-side-container ul li a,
+.menu-courses-container ul li a
+{
+	font-size: 22px;
+}
+	
+.mca-spoiler{
+	border: 1px solid #003399!important;
+	-webkit-border-radius: 0px!important;
+	-moz-border-radius: 0px!important;
+	border-radius: 0px!important;
+	margin-bottom: 0.5em !important;	
+}
+
+.mca-spoiler .su-spoiler-title{
+	background: #003399!important;
+	color:white!important;
+	text-transform: uppercase!important;
+	font-size: 24px!important;
+	font-weight: normal !important;
+	padding:  14px 20px!important;
+  	-moz-border-radius: 0px!important;
+   	border-radius: 0px!important;  	
+}
+
+.mca-spoiler .su-spoiler-icon{
+	right: 21px!important;
+	left: auto!important;
+	top: 15px!important;
+}
+
+.su-spoiler-style-fancy > .su-spoiler-content{
+	padding: 25px!important;
+	font-size: 18px!important;
+}
+.su-spoiler-closed > .su-spoiler-content, .page-id-115 #main{
+	padding: 0px!important;
+}
+.mca-spoiler .with_frm_style input[type=text], .marketing-url-input input[type=text]{
+	color: #333333!important;
+	padding: 15px!important;
+	font-style: italic!important;
+	font-size: 18px!important;
+}
+.frm_form_field  .frm_primary_label{
+	margin: 10px 0px!important;
+}
+
+.landing-welcome{
+	background-image: url('../img/landing-welcome.png')!important;
+	text-align: center;
+	padding: 30px;
+	background-repeat: no-repeat;
+	background-position: center;
+	font-size: 26.52px;
+}
+.landing-welcome a, .landing-welcome, .landing-welcome a:hover{
+	color: #fff603;
+}
+.frm_form_field  .frm_primary_label{
+	
+	background-image: url('../img/mca_qicon.png')!important;
+	background-repeat: no-repeat!important;
+	padding-left: 24px!important;  /* width of the image plus a little extra padding */
+	display: block!important;  /* may not need this, but I've found I do */
+
+}
+.frm_form_field  .frm_primary_label,.marketting-sharing-section h3{
+	text-transform: uppercase!important;
+	color: #333333!important;
+	font-size: 20px!important;
+}
+
+.locked:before{
+	content: url('../img/locked.png')!important;
+	background-repeat: no-repeat!important;
+	padding-right: 24px!important;
+}
+.mca-spoiler .with_frm_style .frm_submit input[type=submit]{
+	background: #00cc33!important;
+	color:white!important;
+	float: right!important;
+	padding: 10px 30px !important;
+	font-size: 24px!important;
+	font-style: italic!important;
+}
+
+.btn-hangout-coverage{
+	width: 100%!important;
+	margin-bottom: 30px;
+}
+.btn-hangout-coverage span{
+	padding: 30px 0px!important;
+	font-size: 35px!important;
+	width: 100%!important;
+	font-style: italic!important;
+	line-height: 35px!important;
+}
+
+
+.btn-mca-buy-tools span{
+	font-style: italic!important;
+	font-weight: bold!important;
+	position: relative;
+}
+
+	.btn-mca-buy-tools span img {
+		margin: 0 !important;
+		width: 10%;
+	}
+
+
+.course-start, .lesson input.quiz-submit.complete{
+	background-color: #0b9b4c!important;
+}
+
+.mca-hr{
+    padding: 0!important;
+    border: none!important;
+    border-top: 2px solid #7f7f7f!important;
+    color: #333!important;
+    text-align: center!important;
+    font-style: italic!important;
+    margin: 20px 75px!important;
+}
+
+
+
+.mca-hr:after {
+content: "OR";
+display: inline-block!important;
+position: relative!important;
+top: -0.7em!important;
+font-size: 1.2em!important;
+padding: 0 0.50em!important;
+background: white!important;
+}
+
+.essb_displayed_shortcode {
+	text-align: center!important;
+}
+
+.essb_links .essb_link_facebook a, .essb_links.essb_template_default .essb_link_twitter a,
+.essb_links.essb_template_default .essb_link_google  a,.essb_links.essb_template_default .essb_link_linkedin  a{
+	color: white!important;
+	background-color: rgb(64, 87, 149)!important;
+	padding: 8px 10px!important;
+    background-image: none!important;
+    border-radius: 5px!important;
+    border-bottom: 5px solid #375287!important;
+}
+.essb_links.essb_template_default .essb_link_twitter a{
+	background-color: #65cbf3!important;
+	border-bottom: 5px solid #50a2c1!important;
+}
+.essb_links.essb_template_default .essb_link_google  a{
+	background-color: #bf391e!important;
+	border-bottom: 5px solid #972c18!important;
+}
+
+.essb_links.essb_template_default .essb_link_linkedin  a{
+	background-color: #29a2e6!important;
+	border-bottom: 5px solid #2080b7!important;
+}
+
+
+
+.woocommerce .product-title a{
+	font-size: 15px!important;
+}
+.woocommerce ul li{
+	margin-bottom: 55px!important;
+}
+
+
+
+.meter, .course .status{
+	height: 40px!important;
+}
+
+.course .status{
+	padding: 10px!important;
+}
+
+.meter>span, 
+.course .status{
+	padding: 10px 10px 0 0;
+	-moz-border-radius: 0px!important;
+	-webkit-border-radius: 0px!important;
+	border-radius: 0px!important;
+	background:#00cc00!important;
+}
+
+.mca-2kperweek-desc h2, .mca-2kperweek-desc{
+	color: white!important;
+}
+.mca-2kperweek-desc span{
+	color: #f6ff00!important;
+}
+.mca-2kperweek-desc{
+	background: #012990;
+	border-radius: 10px;
+}
+.su-button-style-default span{
+	border-top: none!important;
+}
+.mca-2kperweek-video{
+	margin: 30px 0px!important;
+	padding: 30px!important;
+	background: #de291e!important;
+}
+
+.referrer-menu > .pull-left > div {
+	line-height: initial;
+}
+
+	.referrer-menu > .pull-left {
+		margin-right: 20px;
+	}
+		.referrer-caption {
+			font-size: 24px;
+			margin: 20px 0 10px;
+		}
+
+		.referrer-name {
+			font-size: 34px;
+		}
+
+
+.btn-mca-send-video{
+	background-image: url('../img/arrow.png');
+	background-color: none!important;
+}
+
+
+.marketing-header {
+	margin-top: 75px !important;
+}
+
+.head_tools h2{
+	font-size: 65px!important;
+	line-height: 100% !important;
+}
+.head_tools h1{
+	text-transform: uppercase;
+	font-style: italic;
+	font-size: 87px!important;
+	line-height: 50px!important;
+}
+
+.catch h1{
+	font-size: 87px!important;
+}
+.catch p{
+	font-size: 47px!important;
+}
+.get_list h2{
+	font-size: 35px!important;
+	font-weight: normal!important;
+	line-height: 28px!important;
+}
+.get_list p, .money_details p {
+	font-size: 20px!important;
+	line-height: 100%;
+	font-family: tahoma!important;
+}
+.money_details h1{
+	font-size: 102!important;
+	font-family: tahoma!important;
+}
+.money_details h1 span{
+	color: #009907!important;
+}
+
+.other_saying h2{
+	font-size: 91px!important;
+	line-height: 35px;
+	font-family: tahoma!important;
+
+}
+.other_saying h1{
+	font-size: 121px!important;
+	font-style: italic;
+}
+.other_saying p{
+	font-size: 69px!important;
+	line-height: 65px!important;
+}
+.tools_testi .testi_text p{
+	line-height: 45px!important;
+	font-family: tahoma!important;
+	font-size: 26px!important;
+}
+
+.page-id-266 #main{
+	padding-left: 0px!important;
+	padding-right: 0px!important
+}
+.page-id-266 .avada-row{
+	max-width: 100%!important;
+	width: 100%!important;
+}
+
+.table-landing{
+	margin: 0px 10px;
+}
+.table-landing table tbody tr th,
+.table-landing table tbody tr td{
+	font-size: 30px!important;
+	font-style: italic;
+}
+
+.table-landing table tbody tr th{
+	background: #fff!important;
+}
+.table-landing table tbody tr td img{
+	margin: 0 auto!important;
+}
+.table-landing table tbody tr td:first-child{
+	text-align: left!important;
+}
+.table-landing table tbody .su-even td:last-child{
+	background: rgb(196, 234, 185)!important;
+}
+.table-landing table tbody tr td:last-child{
+	background: rgb(206, 244, 195)!important;
+}
+
+.table-landing table tbody tr td {
+font-size: 24px!important;
+text-align: center;
+}
+
+textarea.mca_user_field {
+	width: 100%;
+	margin-top: 15px;
+	min-height: 75px;
+	resize: none;
+	font-size: 14px;
+}
+
+.lp-hangout img, .lp-hangout{
+	margin-bottom: 0px!important;
+}
+.lp-hangout{
+	padding: 50px 0px;
+}
+.lp-hangout h2{
+	font-size: 46px!important;
+}
+.lp-hangout h1{
+	font-size: 	65px!important;
+	margin: 0!important;
+
+}
+.lp-hangout .post-content p{
+	margin-bottom: 0px!important;
+}
+.lp-hangout h3{
+	color: 	#ff0000!important;
+}
+.hangout-comments{
+	background: white!important;
+	max-width: 1160px!important;
+	margin: 0 auto!important;
+	padding: 30px!important;
+	border-radius: 5px!important;
+}
+table.affwp-table td{
+	word-break: break-all!important;
+}
+
+.sales-btn span{
+	border:none!important;
+}
+@media only screen and (max-width: 768px) {
+	#sidebar {
+		width: 100%;
+	}
+
+	.table-landing table tbody tr th, .table-landing table tbody tr td{
+		font-size: 16px!important;
+	}
+	.landing-welcome{
+		font-size: 19.52px!important;
+	}
+	.sales-btn{
+		padding: 0!important;
+	}
+	.sales-btn span{
+		font-size: 25px!important;
+	}
+	.hangout-comments{
+		width: 100%!important;
+	}
+
+	.single-course .status {
+		width: 100%;
+		margin-bottom: 10px;
+	}
+
+	.quiz-submit {
+		width: 100% !important;
+  		font-size: 18px !important;
+	}
+}
+@media only screen and (max-width: 480px) {
+
+	.sales-btn{
+		padding: 0!important;
+	}
+	.sales-btn span{
+		font-size: 20px!important;
+	}
+
+	.landing-welcome{
+		font-size: 18px!important;
+	}
+	.table-landing table{
+		word-break:break-all!important;
+	}
+	.table-landing table tbody tr th, .table-landing table tbody tr td{
+		font-size: 14px!important;
+	}
+
+	.btn-mca-buy-tools span {
+		padding: 0px!important;
+		font-size: 18px!important;
+	}
+		.btn-mca-buy-tools img:first-child {
+			margin-right: 4% !important;
+		}
+
+		.btn-mca-buy-tools img:last-child {
+			margin-left: 4% !important;
+		}
+
+}
+
+
+@media only screen and (min-width: 480px) {
+	.btn-mca-buy-tools span {
+		padding: 15px 0px!important;
+		font-size: 25px!important;
+	}
+		.btn-mca-buy-tools img:first-child {
+			margin-right: 4% !important;
+		}
+
+		.btn-mca-buy-tools img:last-child {
+			margin-left: 4% !important;
+		}
+}
+
+
+@media only screen and (min-width: 768px) {
+	.btn-mca-buy-tools span{
+		 padding: 28px 0px!important;
+  		font-size: 46px!important;
+	}
+
+	#sidebar {
+		width: 23%;
+	}
+
+	/*Jazer*/
+	.single-course .status,
+	.single-course .meter {
+		clear: none;
+		margin: 0;
+		float: left;
+	}
+		
+		.single-course .status {
+			width: 25%;
+			margin-right: 25px !important;
+		}
+
+		.single-course .meter {
+			width: 70%;
+		}
+
+		.single-course .course-completion-rate {
+			margin-bottom: 15px;
+			color: #000;
+		}
+
+	.btn-mca span, .btn-mca-start span,.course-start, .lesson input.quiz-submit.complete{
+		border: 0px!important;
+		padding: 30px 60px!important;
+		font-size: 48px!important;
+		font-style: italic!important;
+	}
+
+}
+
+@media only screen and (min-width: 1024px) {
+	.btn-mca-buy-tools span{
+		padding: 60px 0px!important;
+		font-size: 65px!important;
+	}
+
+		.btn-mca-buy-tools img:first-child {
+			margin-right: 8% !important;
+		}
+
+		.btn-mca-buy-tools img:last-child {
+			margin-left: 8% !important;
+		}
+}

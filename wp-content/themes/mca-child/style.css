@@ -1,0 +1,210 @@
+/*
+
+
+
+
+
+
+
+Theme Name: MCA - Avada Child
+
+
+
+
+
+
+
+Description: Child theme for the Avada
+
+
+
+
+
+
+
+Author: Cr3ative Marketing
+
+
+
+
+
+
+
+Template: Avada
+
+
+
+
+
+
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Import CSS Dependencies ( Note: All dependecies are enqueued on functions.php; )
+
+
+
+
+
+
+
+-------------------------------------------------------------- 
+
+
+
+
+
+
+
+	Please refer on function.php;
+
+
+
+
+
+
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Avada CSS Modifications
+
+
+
+
+
+
+
+-------------------------------------------------------------- */
+
+
+
+
+
+
+
+.sidebar .widget li {
+
+  margin: 0;
+
+  line-height: 185%;
+
+  padding: 0;
+
+  display: block;
+
+}	
+
+
+
+	
+
+
+
+
+
+.cart-totals-buttons {
+
+    box-sizing: border-box;
+
+    border: 1px solid;
+
+    overflow: hidden;
+
+    padding: 30px;
+
+	float:right;
+
+}
+
+
+
+
+
+.woocommerce .checkout_coupon {
+
+
+
+  margin-bottom: 40px;
+
+
+
+  display: block !important;
+
+
+
+  display: none !important;
+
+
+
+}
+
+#post-45 > div > div > form > div.cart-collaterals > div.cart_totals > div {
+	display: none;
+}
+
+
+
+
+#popmake-1460 {
+  border: 5px solid #F00 !important;
+  background-color: #fff;
+  padding: 25px;
+}
+
+
+
+
+.buy-content {
+  margin: 25px !important;
+}
+
+
+
+.popmake.theme-2456 .popmake-close {
+    margin-left: -20px;
+    font-size: 24px;
+    
+}
+
+
+.popmake.theme-2456 {
+    padding: 25px;
+    background-color: #fff;
+    width: 50%;
+    min-width:480px;
+    border: 5px solid red;
+    box-shadow: px px px px rgba( 0, 0, 0, 0 );
+}
+
+
+.su-column-size-1-3 {
+  width: 29% !important; 
+}

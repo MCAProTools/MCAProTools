@@ -208,3 +208,30 @@ Template: Avada
 .su-column-size-1-3 {
   width: 29% !important; 
 }
+
+
+.page-id-115 .avada-row {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.su-button-style-default {
+    border-width: 1px;
+    border-style: solid;
+}
+.su-button {
+    display: inline-block !important;
+    text-align: center;
+    text-decoration: none !important;
+    box-sizing: content-box !important;
+    -moz-box-sizing: content-box !important;
+    -webkit-box-sizing: content-box !important;
+    transition: all .2s;
+    -o-transition: all .2s;
+    -ie-transition: all .2s;
+    -moz-transition: all .2s;
+    -webkit-transition: all .2s;
+}
+.su-button-style-default span {
+    display: block;
+}

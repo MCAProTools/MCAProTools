@@ -1,5 +1,4 @@
 <?php
-
 function avada_child_scripts() {
 
 
@@ -240,7 +239,7 @@ function user_lesson_complete() {
 			$next_url = get_permalink(absint( $next_course ));
 			$message = 'You will get redirected to next course in <span id="lesson-timer">0</span> second(s).';
 		} else {
-			$next_url = 'http://mcaprotools.com/training-hub/';
+			$next_url = get_site_url() . '/training-hub/';
 			$message = 'You will get redirected to training hub in <span id="lesson-timer">0</span> second(s).';
 		}
 	}
@@ -306,7 +305,7 @@ function user_course_start() {
 	if($first_lesson)
 		$next_url = get_permalink(absint( $first_lesson[0]->ID ));
 	else
-		$next_url = 'http://mcaprotools.com/training-hub/';
+		$next_url = get_site_url() . '/training-hub/';
 	?>
 
 	
@@ -1055,7 +1054,7 @@ function wcs_redirect_product_based ( $order_id ){
 		// Add whatever product id you want below here
 		if ( $item['product_id'] == 171 ) {
 			// change below to the URL that you want to send your customer to
-			wp_redirect('http://mcaprotools.com/');
+			wp_redirect(get_site_url());
 		}
 	}
 }

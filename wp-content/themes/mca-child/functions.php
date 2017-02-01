@@ -1202,3 +1202,13 @@ function mca_admin_styles() {
     wp_enqueue_style( 'admin_stylesheet' );
 }
 add_action( 'admin_enqueue_scripts', 'mca_admin_styles' );
+
+add_action( 'wp_enqueue_scripts', 'load_old_jquery_fix', 100 );
+
+function load_old_jquery_fix() {
+    if ( ! is_admin() ) {
+        wp_deregister_script( 'jquery' );
+        wp_register_script( 'jquery', ( "//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" ), false, '1.11.3' );
+        wp_enqueue_script( 'jquery' );
+    }
+}

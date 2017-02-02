@@ -109,245 +109,170 @@
 		<?php
 		if(have_posts()): the_post();
 		?>
-		<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-			<?php echo avada_render_rich_snippets_for_pages(); ?>
-			<?php if( ! post_password_required($post->ID) ): // 1 ?>
-			<?php global $smof_data; if(!$smof_data['featured_images_pages'] ): // 2 ?>
-			<?php
-			if( avada_number_of_featured_images() > 0 || get_post_meta( $post->ID, 'pyre_video', true ) ): // 3
-			?>
-			<div class="fusion-flexslider flexslider post-slideshow">
-				<ul class="slides">
-					<?php if(get_post_meta($post->ID, 'pyre_video', true)): ?>
-					<li>
-						<div class="full-video">
-							<?php echo get_post_meta($post->ID, 'pyre_video', true); ?>
-						</div>
-					</li>
-					<?php endif; ?>
-					<?php if( has_post_thumbnail() && get_post_meta( $post->ID, 'pyre_show_first_featured_image', true ) != 'yes' ): ?>
-					<?php $attachment_image = wp_get_attachment_image_src(get_post_thumbnail_id(), 'full'); ?>
-					<?php $full_image = wp_get_attachment_image_src(get_post_thumbnail_id(), 'full'); ?>
-					<?php $attachment_data = wp_get_attachment_metadata(get_post_thumbnail_id()); ?>
-					<li>
-						<a href="<?php echo $full_image[0]; ?>" rel="prettyPhoto[gallery<?php the_ID(); ?>]" title="<?php echo get_post_field('post_excerpt', get_post_thumbnail_id()); ?>"><img src="<?php echo $attachment_image[0]; ?>" alt="<?php echo get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true); ?>" /></a>
-					</li>
-					<?php endif; ?>
-					<?php
-					$i = 2;
-					while($i <= $smof_data['posts_slideshow_number']):
-					$attachment_new_id = kd_mfi_get_featured_image_id('featured-image-'.$i, 'page');
-					if($attachment_new_id):
-					?>
-					<?php $attachment_image = wp_get_attachment_image_src($attachment_new_id, 'full'); ?>
-					<?php $full_image = wp_get_attachment_image_src($attachment_new_id, 'full'); ?>
-					<?php $attachment_data = wp_get_attachment_metadata($attachment_new_id); ?>
-					<li>
-						<a href="<?php echo $full_image[0]; ?>" rel="prettyPhoto[gallery<?php the_ID(); ?>]" title="<?php echo get_post_field('post_excerpt', $attachment_new_id); ?>"><img src="<?php echo $attachment_image[0]; ?>" alt="<?php echo get_post_meta($attachment_new_id, '_wp_attachment_image_alt', true); ?>" /></a>
-					</li>
-					<?php endif; $i++; endwhile; ?>
-				</ul>
-			</div>
-			<?php endif; // 3 ?>
-			<?php endif; // 2 ?>
-			<?php endif; // 1 password check ?>
-			<div class="post-content">
-                <div id="landing-box"><center>
-                        <h1 style="font-size: 65px !important; line-height: 100%;">Motor Club Of America Has You Protected!</h1>
+            <div id="post-26" class="post-26 page type-page status-publish hentry">
+                <span class="entry-title" style="display: none;">Benefits of MCA Membership</span><span class="vcard" style="display: none;"><span class="fn"><a href="http://mcaprotools.com/author/ptadmin/" title="Posts by MCAPT Admin" rel="author">MCAPT Admin</a></span></span><span class="updated" style="display:none;">2015-07-07T14:59:34+00:00</span>																		<div class="post-content">
+                    <script type="text/javascript">
+                        jQuery(document).ready(function($) {
 
-                        <div class="videoWrapper">
-                            <?php echo do_shortcode('[protool_mca_user meta_key="mcabenefits" referrer_data="yes" referrer_key="ref" display_type="single_line"]'); ?>
+                            var ref   = $.cookie( 'affwp_ref' );
+                            var visit = $.cookie( 'affwp_ref_visit_id' );
 
-                        </div>
+                            // If a referral var is present and a referral cookie is not already set
+                            if( ref && visit ) {
 
-                    </center><strong>We all know how life happens. </strong>Cars run out of gas, batteries die, and even the safest of drivers get into both major and minor car accidents. <em>When the unexpected happens, our members can be rest assured knowing that <strong>MCA has them covered</strong>.</em>
-                    <blockquote><span style="line-height: 1.5;">Regardless of what the case is, rely on MCA to deliver peace of mind when you need it the most. </span></blockquote>
+                                // Fire an ajax request to log the hit
+                                $.ajax({
+                                    type: "POST",
+                                    data: {
+                                        action      : 'affwp_track_conversion',
+                                        affiliate   : ref,
+                                        amount      : '$0.00',
+                                        status      : 'pending',
+                                        description : 'The user will decide if they want to purchase MCA here.',
+                                        context     : '',
+                                        reference   : '',
+                                        campaign    : '',
+                                        md5         : '48f5b0b6f0d112f0eceb3e02eb40762a'
+                                    },
+                                    url: affwp_scripts.ajaxurl,
+                                    success: function (response) {
+                                        if ( window.console && window.console.log ) {
+                                            console.log( response );
+                                        }
+                                    }
 
+                                }).fail(function (response) {
+                                    if ( window.console && window.console.log ) {
+                                        console.log( response );
+                                    }
+                                }).done(function (response) {
+                                });
 
-                    <br/>
-                    <h1>The MCA Coverage Plans</h1>
-                    The membership coverage plans from Motor Club of America provide the service you deserve and the peace of mind you most desperately want when the unexpected occurs at home, on the road or at the job. <strong>Your coverage is not only limited</strong> to roadside assistance, but<strong> you also have the added assurance</strong> of <em>personal accidental coverage, emergency room benefits, discounts on prescription drugs, dental care and vision care.</em> Help is literally a phone call away.
+                            }
 
-                    <strong>MCA provides top notch customer service</strong> and a variety of packages to best suit your needs and budget. When you join MCA, you are in good company…
-                    <blockquote>We have over 7,000,000 motorists that rely on MCA’s 86 years of experience to protect them.</blockquote>
-                    When you purchase a Security Plan from MCA, <strong><em>your coverage begins 24 hours after your payment has been processed</em></strong>. As a member, you're never locked into a contract. Members are welcome to cancel their accounts at anytime, without any hidden or cancellation fees. Full refunds are granted within 72 hours, and half refunds are granted within 30 days of activating your membership.
+                        });
+                    </script>
+                    <div id="landing-box"><center><p></p>
+                            <h1 style="font-size: 65px !important; line-height: 100%;">Motor Club Of America Has You Protected!</h1>
+                            <div class="videoWrapper">
+                                <div class="wistia_responsive_padding" style="padding:56.25% 0 0 0;position:relative;"><div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;"><div class="wistia_video_foam_dummy" data-source-container-id="" style="border: 0px; display: block; height: 0px; margin: 0px; padding: 0px; position: static; visibility: hidden; width: auto;"></div><iframe src="//fast.wistia.net/embed/iframe/u2e9a1kesz?seo=false&amp;videoFoam=true" allowtransparency="true" frameborder="0" scrolling="no" class="wistia_embed" name="wistia_embed" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" webkitallowfullscreen="webkitallowfullscreen" oallowfullscreen="oallowfullscreen" msallowfullscreen="msallowfullscreen" width="750" height="422" style="width: 750px; height: 422px;"></iframe></div></div>
+                                <script src="//fast.wistia.net/assets/external/E-v1.js" async=""></script>
+                            </div>
+                            <p></p></center><strong>We all know how life happens. </strong>Cars run out of gas, batteries die, and even the safest of drivers get into both major and minor car accidents. <em>When the unexpected happens, our members can be rest assured knowing that <strong>MCA has them covered</strong>.</em><p></p>
+                        <blockquote><p><span style="line-height: 1.5;">Regardless of what the case is, rely on MCA to deliver peace of mind when you need it the most.&nbsp;</span></p></blockquote>
+                        <p></p>
+                        <h1>The MCA Coverage Plans</h1>
+                        <p>The membership coverage plans from Motor Club of America provide the service you deserve and the peace of mind you most desperately want when the unexpected occurs at home, on the road or at the job. <strong>Your coverage is not only limited</strong> to roadside assistance, but<strong> you also have the added assurance</strong> of <em>personal accidental coverage, emergency room benefits, discounts on prescription drugs, dental care and vision care.</em> Help is literally a phone call away.</p>
+                        <p><strong>MCA provides top notch customer service</strong> and a variety of packages to best suit your needs and budget. When you join MCA, you are in good company…</p>
+                        <blockquote><p>We have over 7,000,000 motorists that rely on MCA’s 86 years of experience to protect them.</p></blockquote>
+                        <p>When you purchase a Security Plan from MCA, <strong><em>your coverage begins 24 hours after your payment has been processed</em></strong>. As a member, you’re never locked into a contract.&nbsp;Members are welcome to cancel their accounts at anytime, without any hidden or cancellation fees. Full refunds are granted within 72 hours, and half refunds are granted within 30 days of activating your membership.</p>
+                        <p></p>
+                        <h1 style="text-align: center;">COVERAGE FEATURES</h1>
+                        <p>&nbsp;</p>
+                        <h2><strong>UNLIMITED&nbsp;Security Roadside Assistance</strong></h2>
+                        <p>As a member of our Security plan, you will receive <strong>unlimited roadside assistance</strong>, unlike our competitors which will only provide you 2-4 service calls per year. <span style="text-decoration: underline;"><em>Unlimited roadside assistance means 1 service call per day throughout the entire year</em></span>.</p>
+                        <p>If we’re unable to get your 4 wheel passenger vehicle back on the road safely, it will be towed to the nearest service facility. You will also receive <strong>unlimited lockout service, unlimited fuel delivery, unlimited tire changing, and unlimited battery boosting.</strong></p>
+                        <p><strong>&nbsp;</strong></p>
+                        <hr>
+                        <p>&nbsp;</p>
+                        <h2><strong>Travel Assistance Reimbursement</strong></h2>
+                        <p>When a members vehicle is disabled in an auto accident,<strong> Motor Club of America will reimburse up to $500.00</strong> for a rental car, lodging, or meals if the incident happened more than 50 miles away from the registered home address on your account.</p>
+                        <p>To be reimbursed, simply give us a call to receive your claim form, and submit the required information to us within 90 days.</p>
+                        <p>&nbsp;</p>
+                        <hr>
+                        <p>&nbsp;</p>
+                        <h2><strong>Planning and Travel Reservations</strong></h2>
+                        <p>MCA offers free and easy to read, step by step computerized mapping services free of charge to our members. Simply fill out a Travel information card or give us a call. This includes places of interest, resort, motel and hotel information found along your route. <strong>You also have a one-stop reservation service for airline travel, car rental, and hotel discounts.</strong></p>
+                        <p>&nbsp;</p>
+                        <p class="lp-prepaid"><strong>DO NOT SIGN UP OR GO FURTHER IF YOU DO NOT HAVE A BANK CARD OR CREDIT CARD.</strong> THIS IS FOR SERIOUS PEOPLE, NOT TEMPORARY PRE PAID PEOPLE. IF YOU HAVE PREPAID, THE SIGNUP OR BUSINESS WONT WORK FOR YOU!</p>
+                        <div class="su-button-center"><a href="#" class="su-button su-button-style-default btn-mca-complete btn-mca-start myBtn pum-trigger" style="color: rgb(255, 255, 255); background-color: rgb(222, 43, 32); border-color: rgb(178, 34, 26); border-radius: 5px; cursor: pointer;" target="_self"><span style="color:#FFFFFF;padding:0px 34px;font-size:25px;line-height:50px;border-color:#e86b63;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;text-shadow:none;-moz-text-shadow:none;-webkit-text-shadow:none"> GET MCA TOTAL SECURITY</span></a></div>
+                        <p>&nbsp;</p>
+                        <p class="lp-prepaid"><strong>NO PREPAID DEBIT CARDS</strong> THAT YOU BUY &amp; LOAD FROM 7 ELEVEN, WALMART OR ANYTHING LIKE THAT. DO NOT PAY BY EBT TRANSFER BANK DRAFT. THAT WILL TAKE TOO LONG! If you dont have a bank account, GO GET ONE.</p>
+                        <p>&nbsp;</p>
+                        <hr>
+                        <p>&nbsp;</p>
+                        <h2><strong>Arrest Bonds</strong></h2>
+                        <p><strong>Your Motor Club Membership card may be used in lieu of cash bail up to $500.00</strong> when involved in a traffic violation. Although this certificate will be accepted in many states, in some states arrest bond certificates are not acceptable.</p>
+                        <p><em>In Maryland the certificate is acceptable for $1,000.00</em>, and in other states they are accepted for lesser amounts than $500.00. Simply give us a call at the toll free number located on the back of your membership card to receive the assistance you need.</p>
+                        <p>&nbsp;</p>
+                        <hr>
+                        <p>&nbsp;</p>
+                        <h2><strong>Bail Bonds</strong></h2>
+                        <p><span style="line-height: 1.5;"><strong>MCA will arrange up to a $25,000.00 bond to release you</strong> from incarceration if you’re driving a vehicle and charged with a moving traffic law violation such as vehicular manslaughter or auto related negligent homicide.</span></p>
+                        <p><span style="line-height: 1.5;"> Simply call the toll-free number on the back of your membership card to receive assistance. <em>Our legal department will provide the best assistance possible to <strong>release you from incarceration</strong>.</em></span></p>
+                        <p>&nbsp;</p>
+                        <hr>
+                        <p>&nbsp;</p>
+                        <h2><strong>Attorney Fees</strong></h2>
+                        <p><strong>Motor Club of America will pay up to $2,000.00</strong> for your attorney to defend you against police charges resulting from driving your covered auto:</p>
+                        <ul>
+                            <li>Up to $200.00 for covered moving violations (non-criminal)</li>
+                            <li>Up to $500.00 covered auto related personal injury matters</li>
+                            <li>Up to $500.00 covered vehicle damage issues</li>
+                            <li>Up to $2,000.00 covered negligent homicide / vehicular manslaughter</li>
+                        </ul>
+                        <p>&nbsp;</p>
+                        <p class="lp-prepaid"><strong>DO NOT SIGN UP OR GO FURTHER IF YOU DO NOT HAVE A BANK CARD OR CREDIT CARD.</strong> THIS IS FOR SERIOUS PEOPLE, NOT TEMPORARY PRE PAID PEOPLE. IF YOU HAVE PREPAID, THE SIGNUP OR BUSINESS WONT WORK FOR YOU!</p>
+                        <div class="su-button-center"><a href="#" class="su-button su-button-style-default btn-mca-complete btn-mca-start myBtn pum-trigger" style="color: rgb(255, 255, 255); background-color: rgb(222, 43, 32); border-color: rgb(178, 34, 26); border-radius: 5px; cursor: pointer;" target="_self"><span style="color:#FFFFFF;padding:0px 34px;font-size:25px;line-height:50px;border-color:#e86b63;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;text-shadow:none;-moz-text-shadow:none;-webkit-text-shadow:none"> GET MCA TOTAL SECURITY</span></a></div>
+                        <p>&nbsp;</p>
+                        <p class="lp-prepaid"><strong>NO PREPAID DEBIT CARDS</strong> THAT YOU BUY &amp; LOAD FROM 7 ELEVEN, WALMART OR ANYTHING LIKE THAT. DO NOT PAY BY EBT TRANSFER BANK DRAFT. THAT WILL TAKE TOO LONG! If you dont have a bank account, GO GET ONE.</p>
+                        <hr>
+                        <p>&nbsp;</p>
+                        <h2><strong>Stolen Vehicle Reward</strong></h2>
+                        <p><strong>MCA will pay a $5,000.00 reward</strong> to the law enforcement agency or individual responsible for providing the accurate information leading to the arrest and conviction of the person(s) responsible for the crime. <em>The reward is not payable to you, your family, or other members on your MCA membership account.</em></p>
+                        <p>&nbsp;</p>
+                        <hr>
+                        <p>&nbsp;</p>
+                        <h2><strong>Credit Card Protection</strong></h2>
+                        <p>Identity theft has become more prevalent. <strong>If you ever become a victim, MCA will cover financial losses of up to $1000.00</strong> plus work with you to help you recover from the act.</p>
+                        <p>&nbsp;</p>
+                        <hr>
+                        <p>&nbsp;</p>
+                        <h2><strong>Hotel | Rental Car | RX | Vision | Dental</strong></h2>
+                        <p><strong>Our discount card is an easy way to help you and your family</strong> receive discounts on all of your Prescription, Vision, Dental needs, Hotel, and Rental Car needs. <em>You received a unique membership card allowing you to receive up to:</em></p>
+                        <ul>
+                            <li>65% discount on prescriptions at the most popular pharmacies</li>
+                            <li>50% off dental procedures</li>
+                            <li>50% off eye wear and eye exams</li>
+                            <li>50% off rental cars at all of the most popular rental car agencies</li>
+                            <li>15% off major hotel and motel chains</li>
+                        </ul>
+                        <p>&nbsp;</p>
+                        <p class="lp-prepaid"><strong>DO NOT SIGN UP OR GO FURTHER IF YOU DO NOT HAVE A BANK CARD OR CREDIT CARD.</strong> THIS IS FOR SERIOUS PEOPLE, NOT TEMPORARY PRE PAID PEOPLE. IF YOU HAVE PREPAID, THE SIGNUP OR BUSINESS WONT WORK FOR YOU!</p>
+                        <div class="su-button-center"><a href="#" class="su-button su-button-style-default btn-mca-complete btn-mca-start myBtn pum-trigger" style="color: rgb(255, 255, 255); background-color: rgb(222, 43, 32); border-color: rgb(178, 34, 26); border-radius: 5px; cursor: pointer;" target="_self"><span style="color:#FFFFFF;padding:0px 34px;font-size:25px;line-height:50px;border-color:#e86b63;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;text-shadow:none;-moz-text-shadow:none;-webkit-text-shadow:none"> GET MCA TOTAL SECURITY</span></a></div>
+                        <p>&nbsp;</p>
+                        <p class="lp-prepaid"><strong>NO PREPAID DEBIT CARDS</strong> THAT YOU BUY &amp; LOAD FROM 7 ELEVEN, WALMART OR ANYTHING LIKE THAT. DO NOT PAY BY EBT TRANSFER BANK DRAFT. THAT WILL TAKE TOO LONG! If you dont have a bank account, GO GET ONE.</p>
+                        <p>&nbsp;</p>
+                        <hr>
+                        <p>&nbsp;</p>
+                        <h2><strong>Emergency Reimbursement Benefits</strong></h2>
+                        <p><strong>Members receive up to $500.00 in emergency cash</strong> for Emergency Room or Trauma Center treatment. This benefit will only be covered due to injury in a covered accident. Includes up to $100.00 in cost for each of the following:</p>
+                        <ul>
+                            <li>Cast or Splints</li>
+                            <li>Ambulance Service</li>
+                            <li>Anesthetics</li>
+                            <li>X-Rays</li>
+                            <li>ER Facility</li>
+                        </ul>
+                        <p>&nbsp;</p>
+                        <hr>
+                        <h2><strong><br>
+                                Daily Hospital Benefit</strong></h2>
+                        <p><strong>Receive up to $54,750.00 in hospital cash benefits.</strong> That means as a member, you will receive $150.00 per day beginning the first day you are hospitalized as a result of a covered accident. <strong>MCA will cover your hospital stay up to 365 consecutive days</strong>. Once discharged, you have up to 90 days to file a claim.</p>
+                        <p>&nbsp;</p>
+                        <hr>
+                        <p>&nbsp;</p>
+                        <h2><strong>Accidental Death Benefit</strong></h2>
+                        <p>As a member, you may enroll, free of charge, in&nbsp;our <strong>$10,000 Accidental Death Coverage</strong>. You may upgrade to our Total Security package to receive <em>additional coverage up to $50,000.</em></p>
+                        <p>&nbsp;</p>
+                        <p class="lp-prepaid"><strong>DO NOT SIGN UP OR GO FURTHER IF YOU DO NOT HAVE A BANK CARD OR CREDIT CARD.</strong> THIS IS FOR SERIOUS PEOPLE, NOT TEMPORARY PRE PAID PEOPLE. IF YOU HAVE PREPAID, THE SIGNUP OR BUSINESS WONT WORK FOR YOU!</p>
+                        <div class="su-button-center"><a href="#" class="su-button su-button-style-default btn-mca-complete btn-mca-start myBtn pum-trigger" style="color: rgb(255, 255, 255); background-color: rgb(222, 43, 32); border-color: rgb(178, 34, 26); border-radius: 5px; cursor: pointer;" target="_self"><span style="color:#FFFFFF;padding:0px 34px;font-size:25px;line-height:50px;border-color:#e86b63;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;text-shadow:none;-moz-text-shadow:none;-webkit-text-shadow:none"> GET MCA TOTAL SECURITY</span></a></div>
+                        <p>&nbsp;</p>
+                        <p class="lp-prepaid"><strong>NO PREPAID DEBIT CARDS</strong> THAT YOU BUY &amp; LOAD FROM 7 ELEVEN, WALMART OR ANYTHING LIKE THAT. DO NOT PAY BY EBT TRANSFER BANK DRAFT. THAT WILL TAKE TOO LONG! If you dont have a bank account, GO GET ONE.</p>
 
-
-                    <br/>
-                    <h1 style="text-align: center;">COVERAGE FEATURES</h1>
-                    &nbsp;
-                    <h2><strong>UNLIMITED Security Roadside Assistance</strong></h2>
-                    As a member of our Security plan, you will receive <strong>unlimited roadside assistance</strong>, unlike our competitors which will only provide you 2-4 service calls per year. <span style="text-decoration: underline;"><em>Unlimited roadside assistance means 1 service call per day throughout the entire year</em></span>.
-
-                    If we're unable to get your 4 wheel passenger vehicle back on the road safely, it will be towed to the nearest service facility. You will also receive <strong>unlimited lockout service, unlimited fuel delivery, unlimited tire changing, and unlimited battery boosting.</strong>
-
-                    <strong> </strong>
-
-                    <hr />
-
-                    &nbsp;
-                    <h2><strong>Travel Assistance Reimbursement</strong></h2>
-                    When a members vehicle is disabled in an auto accident,<strong> Motor Club of America will reimburse up to $500.00</strong> for a rental car, lodging, or meals if the incident happened more than 50 miles away from the registered home address on your account.
-
-                    To be reimbursed, simply give us a call to receive your claim form, and submit the required information to us within 90 days.
-
-                    &nbsp;
-
-                    <hr />
-
-                    &nbsp;
-                    <h2><strong>Planning and Travel Reservations</strong></h2>
-                    MCA offers free and easy to read, step by step computerized mapping services free of charge to our members. Simply fill out a Travel information card or give us a call. This includes places of interest, resort, motel and hotel information found along your route. <strong>You also have a one-stop reservation service for airline travel, car rental, and hotel discounts.</strong>
-
-                    &nbsp;
-                    <p class="lp-prepaid"><strong>DO NOT SIGN UP OR GO FURTHER IF YOU DO NOT HAVE A BANK CARD OR CREDIT CARD.</strong> THIS IS FOR SERIOUS PEOPLE, NOT TEMPORARY PRE PAID PEOPLE. IF YOU HAVE PREPAID, THE SIGNUP OR BUSINESS WONT WORK FOR YOU!</p>
-                    [protool_button url="#" background="#de2b20" size="12" center="yes" radius="5" class="btn-mca-complete btn-mca-start popmake-buy-mca"]GET MCA TOTAL SECURITY[/protool_button]
-
-                    &nbsp;
-                    <p class="lp-prepaid"><strong>NO PREPAID DEBIT CARDS</strong> THAT YOU BUY &amp; LOAD FROM 7 ELEVEN, WALMART OR ANYTHING LIKE THAT. DO NOT PAY BY EBT TRANSFER BANK DRAFT. THAT WILL TAKE TOO LONG! If you dont have a bank account, GO GET ONE.</p>
-                    &nbsp;
-
-                    <hr />
-
-                    &nbsp;
-                    <h2><strong>Arrest Bonds</strong></h2>
-                    <strong>Your Motor Club Membership card may be used in lieu of cash bail up to $500.00</strong> when involved in a traffic violation. Although this certificate will be accepted in many states, in some states arrest bond certificates are not acceptable.
-
-                    <em>In Maryland the certificate is acceptable for $1,000.00</em>, and in other states they are accepted for lesser amounts than $500.00. Simply give us a call at the toll free number located on the back of your membership card to receive the assistance you need.
-
-                    &nbsp;
-
-                    <hr />
-
-                    &nbsp;
-                    <h2><strong>Bail Bonds</strong></h2>
-                    <span style="line-height: 1.5;"><strong>MCA will arrange up to a $25,000.00 bond to release you</strong> from incarceration if you're driving a vehicle and charged with a moving traffic law violation such as vehicular manslaughter or auto related negligent homicide.</span>
-
-                    <span style="line-height: 1.5;"> Simply call the toll-free number on the back of your membership card to receive assistance. <em>Our legal department will provide the best assistance possible to <strong>release you from incarceration</strong>.</em></span>
-
-                    &nbsp;
-
-                    <hr />
-
-                    &nbsp;
-                    <h2><strong>Attorney Fees</strong></h2>
-                    <strong>Motor Club of America will pay up to $2,000.00</strong> for your attorney to defend you against police charges resulting from driving your covered auto:
-                    <ul>
-                        <li>Up to $200.00 for covered moving violations (non-criminal)</li>
-                        <li>Up to $500.00 covered auto related personal injury matters</li>
-                        <li>Up to $500.00 covered vehicle damage issues</li>
-                        <li>Up to $2,000.00 covered negligent homicide / vehicular manslaughter</li>
-                    </ul>
-                    &nbsp;
-                    <p class="lp-prepaid"><strong>DO NOT SIGN UP OR GO FURTHER IF YOU DO NOT HAVE A BANK CARD OR CREDIT CARD.</strong> THIS IS FOR SERIOUS PEOPLE, NOT TEMPORARY PRE PAID PEOPLE. IF YOU HAVE PREPAID, THE SIGNUP OR BUSINESS WONT WORK FOR YOU!</p>
-                    [protool_button url="#" background="#de2b20" size="12" center="yes" radius="5" class="btn-mca-complete btn-mca-start popmake-buy-mca"]GET MCA TOTAL SECURITY[/protool_button]
-
-                    &nbsp;
-                    <p class="lp-prepaid"><strong>NO PREPAID DEBIT CARDS</strong> THAT YOU BUY &amp; LOAD FROM 7 ELEVEN, WALMART OR ANYTHING LIKE THAT. DO NOT PAY BY EBT TRANSFER BANK DRAFT. THAT WILL TAKE TOO LONG! If you dont have a bank account, GO GET ONE.</p>
-
-
-                    <hr />
-
-                    &nbsp;
-                    <h2><strong>Stolen Vehicle Reward</strong></h2>
-                    <strong>MCA will pay a $5,000.00 reward</strong> to the law enforcement agency or individual responsible for providing the accurate information leading to the arrest and conviction of the person(s) responsible for the crime. <em>The reward is not payable to you, your family, or other members on your MCA membership account.</em>
-
-                    &nbsp;
-
-                    <hr />
-
-                    &nbsp;
-                    <h2><strong>Credit Card Protection</strong></h2>
-                    Identity theft has become more prevalent. <strong>If you ever become a victim, MCA will cover financial losses of up to $1000.00</strong> plus work with you to help you recover from the act.
-
-                    &nbsp;
-
-                    <hr />
-
-                    &nbsp;
-                    <h2><strong>Hotel | Rental Car | RX | Vision | Dental</strong></h2>
-                    <strong>Our discount card is an easy way to help you and your family</strong> receive discounts on all of your Prescription, Vision, Dental needs, Hotel, and Rental Car needs. <em>You received a unique membership card allowing you to receive up to:</em>
-                    <ul>
-                        <li>65% discount on prescriptions at the most popular pharmacies</li>
-                        <li>50% off dental procedures</li>
-                        <li>50% off eye wear and eye exams</li>
-                        <li>50% off rental cars at all of the most popular rental car agencies</li>
-                        <li>15% off major hotel and motel chains</li>
-                    </ul>
-                    &nbsp;
-                    <p class="lp-prepaid"><strong>DO NOT SIGN UP OR GO FURTHER IF YOU DO NOT HAVE A BANK CARD OR CREDIT CARD.</strong> THIS IS FOR SERIOUS PEOPLE, NOT TEMPORARY PRE PAID PEOPLE. IF YOU HAVE PREPAID, THE SIGNUP OR BUSINESS WONT WORK FOR YOU!</p>
-                    [protool_button url="#" background="#de2b20" size="12" center="yes" radius="5" class="btn-mca-complete btn-mca-start popmake-buy-mca"]GET MCA TOTAL SECURITY[/protool_button]
-
-                    &nbsp;
-                    <p class="lp-prepaid"><strong>NO PREPAID DEBIT CARDS</strong> THAT YOU BUY &amp; LOAD FROM 7 ELEVEN, WALMART OR ANYTHING LIKE THAT. DO NOT PAY BY EBT TRANSFER BANK DRAFT. THAT WILL TAKE TOO LONG! If you dont have a bank account, GO GET ONE.</p>
-                    &nbsp;
-
-                    <hr />
-
-                    &nbsp;
-                    <h2><strong>Emergency Reimbursement Benefits</strong></h2>
-                    <strong>Members receive up to $500.00 in emergency cash</strong> for Emergency Room or Trauma Center treatment. This benefit will only be covered due to injury in a covered accident. Includes up to $100.00 in cost for each of the following:
-                    <ul>
-                        <li>Cast or Splints</li>
-                        <li>Ambulance Service</li>
-                        <li>Anesthetics</li>
-                        <li>X-Rays</li>
-                        <li>ER Facility</li>
-                    </ul>
-                    &nbsp;
-
-                    <hr />
-
-                    <h2><strong>
-                            Daily Hospital Benefit</strong></h2>
-                    <strong>Receive up to $54,750.00 in hospital cash benefits.</strong> That means as a member, you will receive $150.00 per day beginning the first day you are hospitalized as a result of a covered accident. <strong>MCA will cover your hospital stay up to 365 consecutive days</strong>. Once discharged, you have up to 90 days to file a claim.
-
-                    &nbsp;
-
-                    <hr />
-
-                    &nbsp;
-                    <h2><strong>Accidental Death Benefit</strong></h2>
-                    As a member, you may enroll, free of charge, in our <strong>$10,000 Accidental Death Coverage</strong>. You may upgrade to our Total Security package to receive <em>additional coverage up to $50,000.</em>
-
-                    &nbsp;
-                    <p class="lp-prepaid"><strong>DO NOT SIGN UP OR GO FURTHER IF YOU DO NOT HAVE A BANK CARD OR CREDIT CARD.</strong> THIS IS FOR SERIOUS PEOPLE, NOT TEMPORARY PRE PAID PEOPLE. IF YOU HAVE PREPAID, THE SIGNUP OR BUSINESS WONT WORK FOR YOU!</p>
-                    [protool_button url="#" background="#de2b20" size="12" center="yes" radius="5" class="btn-mca-complete btn-mca-start popmake-buy-mca"]GET MCA TOTAL SECURITY[/protool_button]
-
-                    &nbsp;
-                    <p class="lp-prepaid"><strong>NO PREPAID DEBIT CARDS</strong> THAT YOU BUY &amp; LOAD FROM 7 ELEVEN, WALMART OR ANYTHING LIKE THAT. DO NOT PAY BY EBT TRANSFER BANK DRAFT. THAT WILL TAKE TOO LONG! If you dont have a bank account, GO GET ONE.</p>
-                    [affiliate_conversion_script amount="$0.00" description="The user will decide if they want to purchase MCA here." status="pending"]
-
+                    </div>
                 </div>
-				<?php // the_content(); ?>
-				<?php avada_link_pages(); ?>
-			</div>
-			<?php if( ! post_password_required($post->ID) ): ?>
-			<?php if(class_exists('Woocommerce')): ?>
-			<?php 
-			$woo_thanks_page_id = get_option('woocommerce_thanks_page_id');
-			if( ! get_option('woocommerce_thanks_page_id') ) {
-				$is_woo_thanks_page = false;
-			} else {
-				$is_woo_thanks_page = is_page( get_option( 'woocommerce_thanks_page_id' ) );
-			}
-			?>
-			<?php if($smof_data['comments_pages'] && !is_cart() && !is_checkout() && !is_account_page() && ! $is_woo_thanks_page ): ?>
-				<?php
-				wp_reset_query();
-				comments_template();
-				?>
-			<?php endif; ?>
-			<?php else: ?>
-			<?php if($smof_data['comments_pages']): ?>
-				<?php
-				wp_reset_query();
-				comments_template();
-				?>
-			<?php endif; ?>
-			<?php endif; ?>
-			<?php endif; // password check ?>
-		</div>
+            </div>
 		<?php endif; ?>
 	</div>
 	<?php if( $sidebar_exists == true ): ?>
@@ -375,4 +300,50 @@
 	</div>
 	<?php endif; ?>
 	<?php endif; ?>
+    <!-- The Modal -->
+    <div id="myModal" class="mca-modal email-optin">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">Close</span>
+
+            <h3 style="text-align: center; font-size: 35px !important;">GET! "MCA Total Security" TODAY!</h3>
+
+            <center>
+                <div><div class="wistia_responsive_padding" style="padding:56.25% 0 0 0;position:relative;"><div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;"><iframe src="//fast.wistia.net/embed/iframe/n7oh47e7hr?seo=false&videoFoam=true" allowtransparency="true" frameborder="0" scrolling="no" class="wistia_embed" name="wistia_embed" allowfullscreen mozallowfullscreen webkitallowfullscreen oallowfullscreen msallowfullscreen width="100%" height="100%"></iframe></div></div>
+                    <script src="//fast.wistia.net/assets/external/E-v1.js" async></script>
+                    <div></div>
+                </div>
+            </center>
+            <div class="buy-content">
+
+                ONLY <strong>$20.00 / PER MONTH!</strong>
+
+                <a class="buy-mca-button" href="https://www.tvcmatrix.com/secure/cart/addItem.aspx?qty=1&amp;itID=9135&amp;PromoID=83&amp;uid=[protool_mca_user meta_key='mca_member' referrer_data='yes' referrer_key='ref' display_type='single_line']" target="_blank"><img src="http://mcaprotools.s3-us-west-2.amazonaws.com/wp-content/uploads/2015/03/buy_now_button1.png" alt="buy_now_button" width="592" height="123" /></a>
+
+                GET A SPECIAL WELCOME CALL WHEN YOU ORDER TODAY!
+
+            </div>
+        </div>
+
+        <div class="modal-content-active-membership">
+            <span class="close">Close</span>
+            <h3>Do You Have An Active Motor Club of America Account?</h3>
+            <div class="buttons-row">
+                <div class="left-col">
+                    <a href="https://www.tvcmatrix.com/secure/cart/addItem.aspx?qty=1&itID=9135&PromoID=83&uid=felontofortune" class="btn">No…I DO NOT!</a>
+                    <p>
+                        If you do not have an "Active" Motor Club of America account, select this option.
+                    </p>
+                </div>
+                <div class="right-col">
+                    <a href="#" class="btn yesido">YES... I DO!</a>
+                    <p>
+                        Selecting this options means you already have an "Active" Motor Club of America account.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
 <?php get_footer(); ?>

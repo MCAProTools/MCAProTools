@@ -13,7 +13,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
 <section class="course-lessons">
-
     <?php
 
         /**

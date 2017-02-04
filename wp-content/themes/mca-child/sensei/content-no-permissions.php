@@ -14,7 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 global $woothemes_sensei, $post;
 ?>
         	<article <?php post_class(); ?>>
-
                 <?php
                 if ( is_singular( 'course' ) ) { ?>
                 	<article <?php post_class( array( 'course', 'post' ) ); ?>>

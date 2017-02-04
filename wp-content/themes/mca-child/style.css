@@ -188,7 +188,7 @@ Template: Avada
     background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
 
-/* Modal Content */
+/* Modal Content - JUAN */
 .modal-content, .modal-content-active-membership {
     background-color: #fefefe;
     margin: auto;
@@ -266,4 +266,19 @@ Template: Avada
 }
 .modal-content-active-membership .right-col .btn {
     background: #3085ae !important;
+}
+
+.lesson footer {
+    text-align: center;
+}
+
+#main .course .course-meta, #main .course-container .course-meta {
+    margin-bottom: 20px;
+    clear: none;
+}
+
+@media only screen and (min-width: 768px) {
+    .single.logged-in #main .type-course header h1 {
+        margin-right: 0px;
+    }
 }

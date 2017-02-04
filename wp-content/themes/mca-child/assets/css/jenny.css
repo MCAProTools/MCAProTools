@@ -534,7 +534,7 @@ table.affwp-table td{
 	.single-course .meter {
 		clear: none;
 		margin: 0;
-		float: left;
+		float: right;
 	}
 		
 		.single-course .status {

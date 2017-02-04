@@ -9,10 +9,12 @@ wp-content/upgrade/
 wp-content/uploads/
 wp-content/wp-cache-config.php
 wp-content/plugins/hello.php
-
-/.htaccess
+wp-content/themes/twentyfifteen
+wp-content/themes/twentyseventeen/
+.htaccess
 /license.txt
 /readme.html
 /sitemap.xml
 /sitemap.xml.gz
 .idea
+/.htaccess

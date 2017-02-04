@@ -19,7 +19,7 @@ function avada_child_scripts() {
 		//Steve's Custom CSS
 		wp_enqueue_style( 'steve-child-custom', get_stylesheet_directory_uri() . '/assets/css/steve.css', array(), $theme_info->get( 'Version' ) );
 		wp_register_script( "mca_save_user_information", get_stylesheet_directory_uri() .'/assets/js/mca_save_user_information.js', array('jquery') );
-	   	wp_localize_script( 'mca_save_user_information', 'myAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));        
+	   	wp_localize_script( 'mca_save_user_information', 'myAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
 	   	wp_enqueue_script( 'mca_save_user_information' );
 
 	}
@@ -40,7 +40,7 @@ function affwp_custom_affiliate_username_mca_shortcode( $atts, $content = null )
 		$user_info = get_userdata( $affiliate->user_id );
 	}
 	// get the affiliate username and set a default if no affiliate is being tracked
-	$affiliate_user_name = isset( $user_info->mca_username ) ? $user_info->mca_username : 'aberlin'; 
+	$affiliate_user_name = isset( $user_info->mca_username ) ? $user_info->mca_username : 'aberlin';
 	$content = '<a class="yellow-button" href="http://'  . $affiliate_user_name .'.mcaprotoools.com/join">I Don\'t Have A<br>MCA Account!</a>';
 	return do_shortcode( $content );
 
@@ -78,7 +78,7 @@ add_shortcode( 'affiliate_referral_url_username', 'affwp_custom_referral_url_sho
  */
 function affwp_custom_force_frontend_scripts( $ret ) {
 	global $post;
-	if ( 
+	if (
 		has_shortcode( $post->post_content, 'affiliate_creatives' ) ||
 
 		has_shortcode( $post->post_content, 'affiliate_graphs' ) ||
@@ -86,7 +86,7 @@ function affwp_custom_force_frontend_scripts( $ret ) {
 		has_shortcode( $post->post_content, 'affiliate_settings' ) ||
 		has_shortcode( $post->post_content, 'affiliate_stats' ) ||
 		has_shortcode( $post->post_content, 'affiliate_urls' ) ||
-		has_shortcode( $post->post_content, 'affiliate_visits' ) 
+		has_shortcode( $post->post_content, 'affiliate_visits' )
 	) {
 		$ret = true;
 	}
@@ -232,7 +232,7 @@ function user_lesson_complete() {
 			}
 		}
 
-		if(!$next_course_found) 
+		if(!$next_course_found)
 			$next_course = 0;
 
 		if($next_course != 0) {
@@ -244,7 +244,7 @@ function user_lesson_complete() {
 		}
 	}
 
-	?>	
+	?>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 		<script type="text/javascript">
 			jQuery(document).ready(function($){
@@ -254,17 +254,17 @@ function user_lesson_complete() {
 			    display = document.querySelector('#lesson-timer');
 			    startTimer(redirect_second, display);
 			});
-			
+
 
 			function startTimer(seconds, display) {
 			    function timer() {
-			        
 
-			        display.textContent = seconds; 
+
+			        display.textContent = seconds;
 
 			        if (seconds <= 1) {
 			        	console.log('<?php echo $next_url; ?>');
-			        	
+
 			        	// return false;
 			        	clearInterval(myTimer);
 			        	window.location.href='<?php echo $next_url; ?>';
@@ -284,7 +284,7 @@ add_action('sensei_user_lesson_end', 'user_lesson_complete');
 function user_course_start() {
 	global $post;
 
-	$post_args = array(	
+	$post_args = array(
 			'post_type' 	=> 'lesson',
 			'post_status'       => 'publish',
 			'posts_per_page' => 1,
@@ -308,16 +308,16 @@ function user_course_start() {
 		$next_url = get_site_url() . '/training-hub/';
 	?>
 
-	
+
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 		<script type="text/javascript">
 			jQuery(document).ready(function($){
-				
+
 		 		window.location.href="<?php echo $next_url; ?>";
 		 	});
 		 </script>
 	<?php
-	
+
 }
 add_action('sensei_user_course_start', 'user_course_start');
 //removes auto add <p></p> tag on landing page
@@ -639,7 +639,7 @@ function mca_load_user_courses_content( $user = false, $manage = false ) {
 	ob_start();
 	?>
 
-	<?php do_action( 'sensei_before_user_courses' ); ?>
+	<?php  do_action( 'sensei_before_user_courses' ); ?>
 
 	<?php
 	if( $manage && ( ! isset( $woothemes_sensei->settings->settings['messages_disable'] ) || ! $woothemes_sensei->settings->settings['messages_disable'] ) ) {
@@ -674,13 +674,13 @@ function mca_load_user_courses_content( $user = false, $manage = false ) {
 
                 	$course_link_message = 'Start Course!';
 
-                	$post_args = array(	
+                	$post_args = array(
                 		'post_type' 		=> 'course',
 						'orderby'         	=> 'menu_order date',
 		    			'order'           	=> 'ASC',
 		    			'post_status'       => 'publish'
 					);
-					
+
 					$posts_array = get_posts( $post_args );
 					if ( count( $posts_array ) > 0 ) {
 						$is_first_item = true;
@@ -811,7 +811,7 @@ function mca_sensei_course_meta() {
 				// Success message
 		   		if ( $completed_course ) { ?>
 		   			<div class="status completed"><?php echo apply_filters( 'sensei_complete_text', __( 'Completed', 'woothemes-sensei' ) ); ?></div>
-		   			<?php 
+		   			<?php
 					$has_quizzes = $woothemes_sensei->post_types->course->course_quizzes( $post->ID, true );
 					if( has_filter( 'sensei_results_links' ) || $has_quizzes ) { ?>
 		   				<p class="sensei-results-links">
@@ -825,7 +825,7 @@ function mca_sensei_course_meta() {
 		   				?></p>
 		   			<?php } ?>
 		   		<?php } else { ?>
-		    		<?php 
+		    		<?php
 		    			$course_lessons = $woothemes_sensei->frontend->course->course_lessons( $post->ID );
 						$total_lessons = count( $course_lessons );
 
@@ -835,14 +835,12 @@ function mca_sensei_course_meta() {
     						$single_lesson_complete = WooThemes_Sensei_Utils::user_completed_lesson( $user_lesson_status );
     						if ( $single_lesson_complete ) {
 								$lessons_completed++;
-							} // End 
+							} // End
     					}
 
     					$progress_percentage = abs( round( ( doubleval( $lessons_completed ) * 100 ) / ( $total_lessons ), 0 ) );
     					if ( 50 < $progress_percentage ) { $class = ' green'; } elseif ( 25 <= $progress_percentage && 50 >= $progress_percentage ) { $class = ' orange'; } else { $class = ' red'; }
 		                echo '<div class="course-completion-rate">' . sprintf( __( 'Currently completed %1$s of %2$s in total', 'woothemes-sensei' ), $lessons_completed, $total_lessons ) . '</div>';
-		                echo '<div class="status in-progress">In Progress</div>';
-		                echo '<div class="meter' . $class . '"><span style="width:' . $progress_percentage . '%">' . $progress_percentage. '%</span></div>';
 		    		 ?>
 		    	<?php } ?>
 		    <?php } else {
@@ -861,7 +859,7 @@ function mca_sensei_course_meta() {
 
 } // End sensei_course_meta()
 
-add_filter('sensei_course_meta', 'mca_sensei_course_meta');
+// add_filter('sensei_course_meta', 'mca_sensei_course_meta');
 
 add_filter( 'su/data/shortcodes', 'register_my_custom_shortcode' );
 
@@ -893,7 +891,7 @@ function register_my_custom_shortcode( $shortcodes ) {
 				'name' => __( 'Referrer Variable', 'su' ),
 				'desc' => __( 'The expected variable that will catch the referrer\'s ID or Username', 'su' )
 			),
-			
+
 
 			'editable' => array(
 				'type' => 'select',
@@ -970,15 +968,15 @@ function get_mca_user_information( $atts, $content = null ) {
 
 		$user = get_user_by( 'login', $username );
 		$user_id = $user->ID;
-		
+
 		if($atts['meta_key'] == 'displayname') {
 			$meta_value = $user->first_name . ' ' . $user->last_name;
 		} elseif($atts['meta_key'] == 'useravatar') {
 			$meta_value = get_avatar($user_id, 400);
 		} else {
-			$meta_value  = get_user_meta($user_id, $atts['meta_key'], true);	
+			$meta_value  = get_user_meta($user_id, $atts['meta_key'], true);
 		}
-		
+
 		if(empty($meta_value))
 			$user_id = 1;
 	}
@@ -993,7 +991,7 @@ function get_mca_user_information( $atts, $content = null ) {
 	} elseif ($atts['meta_key'] == 'userlocation') {
 		$geolocation = unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$_SERVER['REMOTE_ADDR']));
 		// $geolocation = unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip=97.76.202.238'));
-		
+
 		if(!empty($geolocation['geoplugin_city']))
 			$meta_value = $geolocation['geoplugin_city'];
 
@@ -1029,7 +1027,7 @@ function get_mca_user_information( $atts, $content = null ) {
 function save_mca_user_information() {
 	if ( !wp_verify_nonce( $_POST['nonce'], "mca_user_info_nonce")) {
       exit("No naughty business please");
-   	}   
+   	}
 
    	global $current_user;
 
@@ -1060,7 +1058,7 @@ function wcs_redirect_product_based ( $order_id ){
 }
 
 
-add_action( 'woocommerce_thankyou', 'wcs_redirect_product_based' ); 
+add_action( 'woocommerce_thankyou', 'wcs_redirect_product_based' );
 
 function filter_affiliate_username($content) {
 	if ( ! affwp_is_affiliate() ) {
@@ -1070,7 +1068,7 @@ function filter_affiliate_username($content) {
 	$affiliate           = affwp_get_affiliate( affwp_get_affiliate_id() );
 	$user_info           = get_userdata( $affiliate->user_id );
 	$affiliate_user_name = $user_info->user_login;
-	
+
 	$referrer = $_GET['ref'];
 	$content = str_replace("{referrer}", $referrer, $content);
 	$content = str_replace("{affiliate_username}", $affiliate_user_name, $content);
@@ -1121,24 +1119,24 @@ function check_page_access() {
 
 	// 143 id of Register Godaddy Domain Lesson
 	$has_access_marketing =  WooThemes_Sensei_Utils::user_completed_lesson( intval(143), $current_user->ID  ) == 1 ? true : false;
-	
+
 	// 142 id of Marketing Section Course
 	$has_access = WooThemes_Sensei_Utils::user_completed_course( intval(142), $current_user->ID ) == 1 ? true : false;
-	
+
 	// 10 id of Marketing Hub Page
 	// 12 id of Resources Page
 	// add any page id here you want to lock
 	$pid = 10;
 	$pid2 = 12;
 
-	// $post->post_parent==$pid||is_page($pid) || 
+	// $post->post_parent==$pid||is_page($pid) ||
 
 	// Resources Marketing Hub Restriction
 
 	// Allowed Sub Page
 	// 61 Business Links
 	// 63 Pro Tools Links
-	if(is_page() && ($post->post_parent==$pid||is_page($pid))) { 
+	if(is_page() && ($post->post_parent==$pid||is_page($pid))) {
 		if(!$has_access_marketing || ($has_access_marketing && !$has_access && !is_page(61) && !is_page(63) && !is_page($pid))) {
 	?>
 			 <script type="text/javascript">
@@ -1158,9 +1156,9 @@ function check_page_access() {
 		}
 
 	?>
-    
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	
+
 	<script type="text/javascript">
 		jQuery(document).ready(function($){
 
@@ -1179,12 +1177,12 @@ function check_page_access() {
 					var caption = $(this).find('a').html();
 					$(this).html('<span class="locked">' + caption + '</span>');
 				});
-					
-			} 
 
-			
+			}
+
+
 		});
-		
+
 	</script>
 	<?php
 }

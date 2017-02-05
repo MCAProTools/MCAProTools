@@ -747,7 +747,8 @@ function mca_load_user_courses_content($user = false, $manage = false)
                 }
                 ?>
                 <a class="start-course-btn" href="<?php echo $course_link; ?>"><?php echo $course_link_message; ?></a>
-            <?php } // End If Statement ?>
+            <?php } // End If Statement
+            ?>
 
         </div>
 
@@ -761,7 +762,8 @@ function mca_load_user_courses_content($user = false, $manage = false)
                 echo $complete_html;
             } else { ?>
                 <div class="sensei-message info"><?php echo $no_complete_message; ?></div>
-            <?php } // End If Statement ?>
+            <?php } // End If Statement
+            ?>
 
         </div>
 
@@ -898,7 +900,8 @@ function mca_sensei_course_meta()
             // User needs to register
             wp_register('<div class="status register">', '</div>');
         } // End If Statement
-    } // End If Statement ?>
+    } // End If Statement
+    ?>
 
     </section><?php
 
@@ -1263,3 +1266,56 @@ function load_old_jquery_fix()
 if (isset($_POST['reset-course'])) {
     $success = WooThemes_Sensei_Utils::sensei_remove_user_from_course($_POST['course_id'], $_POST['user_id']);
 }
+
+// custom login form
+
+function my_page_template_redirect()
+{
+    if (is_page('login') && is_user_logged_in()) {
+        wp_redirect(home_url('/training-hub'));
+        exit();
+    }
+}
+
+// add_action('template_redirect', 'my_page_template_redirect');
+function redirect_login_page()
+{
+    $login_page = home_url('/login/');
+    $page_viewed = basename($_SERVER['REQUEST_URI']);
+
+    if ($page_viewed == "wp-login.php" && $_SERVER['REQUEST_METHOD'] == 'GET') {
+        wp_redirect($login_page);
+        exit;
+    }
+}
+
+add_action('init', 'redirect_login_page');
+
+function login_failed()
+{
+    $login_page = home_url('/login/');
+    wp_redirect($login_page . '?login=failed');
+    exit;
+}
+
+add_action('wp_login_failed', 'login_failed');
+
+function verify_username_password($user, $username, $password)
+{
+    $login_page = home_url('/login');
+    if ($username == "" || $password == "") {
+        wp_redirect($login_page . "?login=empty");
+        exit;
+    }
+}
+
+add_filter('authenticate', 'verify_username_password', 1, 3);
+
+function logout_page()
+{
+    $login_page = home_url('/login/');
+    wp_redirect($login_page . "?login=false");
+    exit;
+}
+
+add_action('wp_logout', 'logout_page');

@@ -1131,19 +1131,21 @@ add_filter('the_content', 'filter_affiliate_username');
 // custom login form
 function my_page_template_redirect()
 {
-    $login_page = home_url('/login');
-    $guest_allowed = array(
-        "whatismca",
-        "benefits",
-        "testimonials",
-        "notsleepingvideo",
-        "losingsleep",
-        "2kperweek",
-        "login"
-    );
-    if ($_SERVER['REQUEST_METHOD'] == 'GET' && !is_page($guest_allowed)) {
-        wp_redirect($login_page);
-        exit;
+    if (!is_user_logged_in()) {
+        $login_page = home_url('/login');
+        $guest_allowed = array(
+            "whatismca",
+            "benefits",
+            "testimonials",
+            "notsleepingvideo",
+            "losingsleep",
+            "2kperweek",
+            "login"
+        );
+        if ($_SERVER['REQUEST_METHOD'] == 'GET' && !is_page($guest_allowed)) {
+            wp_redirect($login_page);
+            exit;
+        }
     }
 }
 
@@ -1181,10 +1183,10 @@ function check_page_access()
 {
     global $current_user, $post;
     $classes = get_body_class();
-    if (in_array('post-type-archive-course', $classes)) {
-        wp_redirect('/training-hub/');
-        exit;
-    }
+//    if (in_array('post-type-archive-course', $classes)) {
+//        wp_redirect('/training-hub/');
+//        exit;
+//    }
 
     // 143 id of Register Godaddy Domain Lesson
     $has_access_marketing = WooThemes_Sensei_Utils::user_completed_lesson(intval(143), $current_user->ID) == 1 ? true : false;

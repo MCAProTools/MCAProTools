@@ -1128,6 +1128,27 @@ function filter_affiliate_username($content)
 
 add_filter('the_content', 'filter_affiliate_username');
 
+// custom login form
+function my_page_template_redirect()
+{
+    $login_page = home_url('/login');
+    $guest_allowed = array(
+        "whatismca",
+        "benefits",
+        "testimonials",
+        "notsleepingvideo",
+        "losingsleep",
+        "2kperweek",
+        "login"
+    );
+    if ($_SERVER['REQUEST_METHOD'] == 'GET' && !is_page($guest_allowed)) {
+        wp_redirect($login_page);
+        exit;
+    }
+}
+
+add_action('template_redirect', 'my_page_template_redirect');
+
 function filter_referrer_menu($items)
 {
     $username = $_GET['ref'];
@@ -1249,6 +1270,7 @@ function mca_admin_styles()
     wp_enqueue_style('admin_stylesheet');
 }
 
+
 add_action('admin_enqueue_scripts', 'mca_admin_styles');
 
 add_action('wp_enqueue_scripts', 'load_old_jquery_fix', 100);
@@ -1267,29 +1289,6 @@ if (isset($_POST['reset-course'])) {
     $success = WooThemes_Sensei_Utils::sensei_remove_user_from_course($_POST['course_id'], $_POST['user_id']);
 }
 
-// custom login form
-
-function my_page_template_redirect()
-{
-    if (is_page('login') && is_user_logged_in()) {
-        wp_redirect(home_url('/training-hub'));
-        exit();
-    }
-}
-
-// add_action('template_redirect', 'my_page_template_redirect');
-function redirect_login_page()
-{
-    $login_page = home_url('/login/');
-    $page_viewed = basename($_SERVER['REQUEST_URI']);
-
-    if ($page_viewed == "wp-login.php" && $_SERVER['REQUEST_METHOD'] == 'GET') {
-        wp_redirect($login_page);
-        exit;
-    }
-}
-
-add_action('init', 'redirect_login_page');
 
 function login_failed()
 {

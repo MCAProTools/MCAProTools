@@ -623,3 +623,7 @@ div.userpro-clear {
 #my-courses #customer_login {
     display: none;
 }
+
+#landing-box iframe {
+    max-width: 100%;
+}

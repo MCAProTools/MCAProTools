@@ -797,3 +797,4 @@ if (class_exists('Woocommerce')) {
     <?php endif; ?>
 <?php endif; ?>
 <?php get_footer(); ?>
+<?php echo wp_logout_url(); ?>

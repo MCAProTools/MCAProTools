@@ -1419,7 +1419,7 @@ $body_classes[] = 'mobile-menu-design-' . $smof_data['mobile_menu_design'];
 	<?php get_template_part( 'slidingbar' ); ?>
 	<?php endif; ?>
 	<?php
-	get_template_part( 'framework/templates/header' );
+	 get_template_part( 'framework/templates/header' );
 	avada_header_template( 'Below' );
 	if( $smof_data['header_position'] == 'Left' || $smof_data['header_position'] == 'Right' ) {
 		get_template_part('framework/headers/side-header');

@@ -28,7 +28,7 @@
 	}
 
 	if( is_array( $sidebar_1 ) &&
-		( $sidebar_1[0] || $sidebar_1[0] === '0' ) 
+		( $sidebar_1[0] || $sidebar_1[0] === '0' )
 	) {
 		$sidebar_exists = true;
 	} else {
@@ -61,26 +61,25 @@
 	if(get_post_meta($post->ID, 'pyre_sidebar_position', true) == 'right') {
 		$sidebar_left = 2;
 	}
-	
 	if( $smof_data['pages_global_sidebar']  || ( class_exists( 'TribeEvents' ) &&  is_events_archive() ) ) {
 		if( $smof_data['pages_sidebar'] != 'None' ) {
 			$sidebar_1 = $smof_data['pages_sidebar'];
-			
+
 			if( $smof_data['default_sidebar_pos'] == 'Right' ) {
 				$content_css = 'float:left;';
-				$sidebar_css = 'float:right;';	
+				$sidebar_css = 'float:right;';
 				$sidebar_left = 2;
 			} else {
 				$content_css = 'float:right;';
 				$sidebar_css = 'float:left;';
 				$sidebar_left = 1;
-			}			
+			}
 		}
 
 		if( $smof_data['pages_sidebar_2'] != 'None' ) {
 			$sidebar_2 = $smof_data['pages_sidebar_2'];
 		}
-		
+
 		if( $smof_data['pages_sidebar'] != 'None' && $smof_data['pages_sidebar_2'] != 'None' ) {
 			$double_sidebars = true;
 		}
@@ -88,14 +87,14 @@
 		$sidebar_1 = '0';
 		$sidebar_2 = '0';
 	}
-	
+
 	if($double_sidebars == true) {
 		$content_css = 'float:left;';
 		$sidebar_css = 'float:left;';
 		$sidebar_2_css = 'float:left;';
 	} else {
 		$sidebar_left = 1;
-	}	
+	}
 
 	if(class_exists('Woocommerce')) {
 		if(is_cart() || is_checkout() || is_account_page() || (get_option('woocommerce_thanks_page_id') && is_page(get_option('woocommerce_thanks_page_id')))) {
@@ -158,7 +157,7 @@
 			</div>
 			<?php if( ! post_password_required($post->ID) ): ?>
 			<?php if(class_exists('Woocommerce')): ?>
-			<?php 
+			<?php
 			$woo_thanks_page_id = get_option('woocommerce_thanks_page_id');
 			if( ! get_option('woocommerce_thanks_page_id') ) {
 				$is_woo_thanks_page = false;

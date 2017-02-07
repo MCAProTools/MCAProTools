@@ -1320,3 +1320,24 @@ function logout_page()
 }
 
 add_action('wp_logout', 'logout_page');
+
+
+function show_template() {
+    if( is_super_admin() ){
+        global $template;
+        print_r($template);
+    }
+}
+add_action('wp_footer', 'show_template');
+
+
+// add profile image shortcode
+function profile_image_shortcode() {
+    $args = array(
+        'size' => 250
+    );
+    $url = get_avatar_url(get_current_user_id(), $args);?>
+    <img class="myautimg" src="<?php echo $url; ?>">
+<?php }
+
+add_shortcode( 'profileimage', 'profile_image_shortcode' );

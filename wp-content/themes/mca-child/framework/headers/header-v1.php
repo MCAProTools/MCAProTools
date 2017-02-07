@@ -24,6 +24,7 @@
                     <?php endif; ?>
                 </a>
             </div>
+            <?php if (is_user_logged_in()) { ?>
             <?php if ($smof_data['ubermenu']): ?>
             <nav id="nav-uber" class="clearfix">
                 <?php else: ?>
@@ -41,10 +42,9 @@
                     </div>
                 <?php endif; ?>
                 <?php if (tf_checkIfMenuIsSetByLocation('main_navigation') && $smof_data['mobile_menu_design'] == 'classic' && !$smof_data['ubermenu']): ?>
-                    <?php if (is_user_logged_in()) { ?>
-                        <div class="mobile-nav-holder main-menu"></div>
-                    <?php } ?>
+                    <div class="mobile-nav-holder main-menu"></div>
                 <?php endif; ?>
+                <?php } ?>
         </div>
     </header>
     <?php if (tf_checkIfMenuIsSetByLocation('main_navigation') && $smof_data['mobile_menu_design'] == 'modern' && !$smof_data['ubermenu']): ?>

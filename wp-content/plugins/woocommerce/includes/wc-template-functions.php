@@ -2135,7 +2135,7 @@ if ( ! function_exists( 'woocommerce_account_navigation' ) ) {
 	 * My Account navigation template.
 	 */
 	function woocommerce_account_navigation() {
-		wc_get_template( 'myaccount/navigation.php' );
+		 wc_get_template( 'myaccount/navigation.php' );
 	}
 }
 

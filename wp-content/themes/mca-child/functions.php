@@ -1375,3 +1375,47 @@ function profile_image_shortcode()
 <?php }
 
 add_shortcode('profileimage', 'profile_image_shortcode');
+
+add_action( 'wp_head', 'remove_my_action' );
+function remove_my_action(){
+    remove_action('woocommerce_before_my_account', 'avada_woocommerce_before_my_account');
+}
+
+add_action('woocommerce_before_my_account', 'mca_woocommerce_before_my_account');
+function mca_woocommerce_before_my_account( $order_count, $edit_address = false)
+{
+    global $smof_data, $woocommerce, $current_user;
+    $edit_address = is_wc_endpoint_url('edit-address');
+    ?>
+    <p class="avada_myaccount_user">
+		<span class="myaccount_user_container">
+			<span class="username">
+			<?php
+            printf(
+                __( 'Hello, %s:', 'Avada' ),
+                $current_user->display_name
+            );
+            ?>
+			</span>
+            <?php if($smof_data['woo_acc_msg_1']): ?>
+                <span class="msg">
+				<?php echo $smof_data['woo_acc_msg_1']; ?>
+			</span>
+            <?php endif; ?>
+            <?php if($smof_data['woo_acc_msg_2']): ?>
+                <span class="msg">
+				<?php echo $smof_data['woo_acc_msg_2']; ?>
+			</span>
+            <?php endif; ?>
+            <span class="view-cart">
+				<a href="<?php echo get_permalink(get_option('woocommerce_cart_page_id')); ?>"><?php _e('View Cart', 'Avada' ); ?></a>
+			</span>
+		</span>
+    </p>
+
+    <?php do_action( 'woocommerce_account_navigation' ); ?>
+
+    <div class="woocommerce-content-box avada-myaccount-data">
+    <?php
+}
+

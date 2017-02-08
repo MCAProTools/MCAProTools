@@ -1440,6 +1440,7 @@ function avada_woocommerce_before_my_account( $order_count, $edit_address = fals
 	$edit_address = is_wc_endpoint_url('edit-address');
 	?>
 	<p class="avada_myaccount_user">
+
 		<span class="myaccount_user_container">
 			<span class="username">
 			<?php
@@ -1509,6 +1510,7 @@ function avada_woocommerce_before_my_account( $order_count, $edit_address = fals
 				<?php _e('Edit Account' , 'Avada' ); ?>
 			</a>
 		</li>
+
 	</ul>
 
 	<div class="woocommerce-content-box avada-myaccount-data">

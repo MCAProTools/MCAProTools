@@ -1292,6 +1292,37 @@ if (isset($_POST['reset-course'])) {
 }
 
 
+function mca_start_course()
+{
+    // handle start taking this course button
+    global $post, $current_user;
+// Check if the user is taking the course
+    $is_user_taking_course = Sensei_Utils::user_started_course($post->ID, $current_user->ID);
+// Handle user starting the course
+    if (isset($_POST['course_start'])
+        && wp_verify_nonce($_POST['woothemes_sensei_start_course_noonce'], 'woothemes_sensei_start_course_noonce')
+        && !$is_user_taking_course
+    ) {
+
+        // Start the course
+        $activity_logged = Sensei_Utils::user_start_course($current_user->ID, $post->ID);
+        $this->data = new stdClass();
+        $this->data->is_user_taking_course = false;
+        if ($activity_logged) {
+            $this->data->is_user_taking_course = true;
+
+            // Refresh page to avoid re-posting
+            ?>
+
+            <script type="text/javascript"> window.location = '<?php echo get_permalink( $post->ID ); ?>'; </script>
+
+            <?php
+        } // End If Statement
+    } // End If Statement
+}
+
+add_action('wp', 'mca_start_course');
+
 function login_failed()
 {
     $login_page = home_url('/login/');
@@ -1322,22 +1353,25 @@ function logout_page()
 add_action('wp_logout', 'logout_page');
 
 
-//function show_template() {
-//    if( is_super_admin() ){
-//        global $template;
-//        print_r($template);
-//    }
-//}
-//add_action('wp_footer', 'show_template');
+function show_template()
+{
+    if (is_super_admin()) {
+        global $template;
+        print_r($template);
+    }
+}
+
+add_action('wp_footer', 'show_template');
 
 
 // add profile image shortcode
-function profile_image_shortcode() {
+function profile_image_shortcode()
+{
     $args = array(
         'size' => 250
     );
-    $url = get_avatar_url(get_current_user_id(), $args);?>
+    $url = get_avatar_url(get_current_user_id(), $args); ?>
     <img class="myautimg" src="<?php echo $url; ?>">
 <?php }
 
-add_shortcode( 'profileimage', 'profile_image_shortcode' );
+add_shortcode('profileimage', 'profile_image_shortcode');

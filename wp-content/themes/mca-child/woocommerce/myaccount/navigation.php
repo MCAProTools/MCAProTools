@@ -23,6 +23,14 @@ if (!defined('ABSPATH')) {
 do_action('woocommerce_before_account_navigation');
 ?>
 <ul class="woocommerce-side-nav avada-myaccount-nav">
+    <li class="">
+        <a class="address" href="#">
+            Change Address </a>
+    </li>
+    <li class="active">
+        <a class="account" href="#">
+            Edit Account </a>
+    </li>
     <?php foreach (wc_get_account_menu_items() as $endpoint => $label) : ?>
         <li class="<?php echo wc_get_account_menu_item_classes($endpoint); ?>">
             <a href="<?php echo esc_url(wc_get_account_endpoint_url($endpoint)); ?>"><?php echo esc_html($label); ?></a>

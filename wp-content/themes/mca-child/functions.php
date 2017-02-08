@@ -1381,7 +1381,7 @@ function remove_my_action(){
     remove_action('woocommerce_before_my_account', 'avada_woocommerce_before_my_account');
 }
 
-add_action('woocommerce_before_my_account', 'mca_woocommerce_before_my_account');
+ add_action('woocommerce_before_my_account', 'mca_woocommerce_before_my_account');
 function mca_woocommerce_before_my_account( $order_count, $edit_address = false)
 {
     global $smof_data, $woocommerce, $current_user;

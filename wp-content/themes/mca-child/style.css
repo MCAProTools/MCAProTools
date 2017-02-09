@@ -627,3 +627,29 @@ div.userpro-clear {
 #landing-box iframe {
     max-width: 100%;
 }
+
+.woocommerce-MyAccount-navigation-link--dashboard {
+    display: none;
+}
+
+.woocommerce-side-nav {
+    float: left;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 23%;
+}
+
+.woocommerce-MyAccount-content {
+    float: right;
+    width: 71%;
+}
+
+@media only screen and (max-width: 800px) {
+    .woocommerce-MyAccount-content {
+        float: none;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100% !important;
+    }
+}

@@ -368,8 +368,7 @@ div.userpro-clear {
     color: rgb(170, 170, 170);
     cursor: auto;
     display: inline-block;
-    font-family: Roboto;
-    font-size: 13px;
+    font-size: 14px;
     font-stretch: normal;
     font-style: normal;
     font-variant-caps: normal;
@@ -652,4 +651,12 @@ div.userpro-clear {
         margin-right: auto;
         width: 100% !important;
     }
+}
+
+.page-id-510 .myBtn {
+    max-width: 90%;
+}
+
+#post-510 .videoWrapper iframe, #post-510 .videoWrapper video {
+    height: 900px !important;
 }

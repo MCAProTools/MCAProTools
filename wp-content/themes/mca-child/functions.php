@@ -1147,6 +1147,10 @@ function my_page_template_redirect()
             exit;
         }
     }
+    if (is_user_logged_in() && is_page('login')) {
+        wp_redirect(home_url());
+        exit;
+    }
 }
 
 add_action('template_redirect', 'my_page_template_redirect');
@@ -1177,7 +1181,6 @@ function filter_referrer_menu($items)
 }
 
 add_filter('wp_nav_menu_objects', 'filter_referrer_menu', 10, 2);
-
 
 
 if (function_exists('affiliate_wp')) {
@@ -1297,10 +1300,8 @@ function profile_image_shortcode()
 add_shortcode('profileimage', 'profile_image_shortcode');
 
 
-
-
-    function check_page_access()
-    {
+function check_page_access()
+{
     global $current_user, $post;
     $classes = get_body_class();
 //    if (in_array('post-type-archive-course', $classes)) {
@@ -1348,34 +1349,34 @@ add_shortcode('profileimage', 'profile_image_shortcode');
 
     ?>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
-        <script type="text/javascript">
-            jQuery(document).ready(function ($) {
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
 
-                $('#nav li.locked-menu').each(function () {
-                    // Exceptions
-                    if (($(this).hasClass('marketing-hub') && "<?php echo $has_access_marketing; ?>") || "<?php echo $has_access; ?>") {
-                        $(this).removeClass('locked-menu');
-                    } else {
-                        var caption = $(this).find('a').html();
-                        $(this).html('<span class="locked">' + caption + '</span>');
-                    }
-                });
-
-                if ("<?php echo $has_access_marketing; ?>" && !"<?php echo $has_access; ?>") {
-                    $('#menu-marketing li.locked-menu').each(function () {
-                        var caption = $(this).find('a').html();
-                        $(this).html('<span class="locked">' + caption + '</span>');
-                    });
-
+            $('#nav li.locked-menu').each(function () {
+                // Exceptions
+                if (($(this).hasClass('marketing-hub') && "<?php echo $has_access_marketing; ?>") || "<?php echo $has_access; ?>") {
+                    $(this).removeClass('locked-menu');
+                } else {
+                    var caption = $(this).find('a').html();
+                    $(this).html('<span class="locked">' + caption + '</span>');
                 }
-
-
             });
 
-        </script>
-<?php
+            if ("<?php echo $has_access_marketing; ?>" && !"<?php echo $has_access; ?>") {
+                $('#menu-marketing li.locked-menu').each(function () {
+                    var caption = $(this).find('a').html();
+                    $(this).html('<span class="locked">' + caption + '</span>');
+                });
+
+            }
+
+
+        });
+
+    </script>
+    <?php
 }
 
 // add_filter('template_redirect', 'check_page_access');

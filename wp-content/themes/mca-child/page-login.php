@@ -174,7 +174,7 @@ if (class_exists('Woocommerce')) {
                         <?php
                         $args = array(
                             'redirect' => home_url(),
-                            'label_username' => __('Username or E-mail'),
+                            'label_username' => __('Username'),
                             'label_password' => __('Password'),
                         );
                         wp_login_form($args);

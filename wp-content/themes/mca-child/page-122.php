@@ -195,15 +195,17 @@ if (class_exists('Woocommerce')) {
                                 <p class="smaller">*Enter Your Email Below to Watch the FREE Video*</p>
 
                                 <form method="post" class="af-form-wrapper" accept-charset="UTF-8" action="https://www.aweber.com/scripts/addlead.pl">
-                                    <textarea style="display:none;" name="listname">awlist3813448</textarea><textarea style="display:none;"
-                                                                                                                      name="redirect"
-                                                                                                                      id="redirect_ec539077ddfbfd0ed6a1a4e4f7bb8862">http://mcaprotools.com/whatismca/?ref=</textarea><input
+                                    <textarea style="display:none;" name="listname">awlist3813448</textarea>
+                                    <textarea style="display:none;"
+                                              name="redirect"
+                                              id="redirect_ec539077ddfbfd0ed6a1a4e4f7bb8862">http://mcaprotools.com/whatismca/?ref=<?php if (isset($_GET['ref'])) echo $_GET['ref']; ?></textarea><input
                                         type="hidden" name="meta_required" value="email"><br>
                                     <input class="input-email" name="email" type="text" placeholder="Email Address*">
 
                                     <p></p>
 
-                                    <div class="btn-mca-send-video"><a style="display: inline-block" href="http://mcaprotools.com" class="su-button su-button-style-default"
+                                    <div class="btn-mca-send-video"><a style="display: inline-block" href="http://mcaprotools.com"
+                                                                       class="su-button su-button-style-default"
                                                                        style="color:#FFFFFF;background-color:#2D89EF;border-color:#246ebf;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px"
                                                                        target="_self"><span
                                                 style="color:#FFFFFF;padding:0px 16px;font-size:13px;line-height:26px;border-color:#6cacf4;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;text-shadow:none;-moz-text-shadow:none;-webkit-text-shadow:none">  <input

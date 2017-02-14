@@ -1,4 +1,6 @@
-<?php get_header(); ?>
+<?php
+/* Template Name: not sleeping video */
+get_header(); ?>
 <?php
 $content_css = '';
 $sidebar_css = '';

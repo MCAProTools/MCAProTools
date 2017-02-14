@@ -1,4 +1,6 @@
-<?php get_header(); ?>
+<?php
+/* Template Name: 2kperweek */
+get_header(); ?>
 <?php
 $content_css = '';
 $sidebar_css = '';

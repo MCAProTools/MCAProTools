@@ -1151,6 +1151,82 @@ function my_page_template_redirect()
         wp_redirect(home_url());
         exit;
     }
+
+    global $current_user, $post;
+    $classes = get_body_class();
+    if (in_array('post-type-archive-course', $classes)) {
+        wp_redirect('/training-hub/');
+        exit;
+    }
+
+    // 143 id of Register Godaddy Domain Lesson
+    $has_access_marketing = WooThemes_Sensei_Utils::user_completed_lesson(intval(143), $current_user->ID) == 1 ? true : false;
+
+    // 142 id of Marketing Section Course
+    $has_access = WooThemes_Sensei_Utils::user_completed_course(intval(142), $current_user->ID) == 1 ? true : false;
+
+    // 10 id of Marketing Hub Page
+    // 12 id of Resources Page
+    // add any page id here you want to lock
+    $pid = 10;
+    $pid2 = 12;
+
+    // $post->post_parent==$pid||is_page($pid) ||
+
+    // Resources Marketing Hub Restriction
+
+    // Allowed Sub Page
+    // 61 Business Links
+    // 63 Pro Tools Links
+    if (is_page() && ($post->post_parent == $pid || is_page($pid))) {
+        if (!$has_access_marketing || ($has_access_marketing && !$has_access && !is_page(61) && !is_page(63) && !is_page($pid))) {
+            ?>
+            <script type="text/javascript">
+                window.location.href = "/no-access/";
+            </script>
+            <?php exit;
+        }
+    }
+
+    // Resources Page Restriction
+    if (is_page() && ($post->post_parent == $pid2 || is_page($pid2)) && !$has_access) { ?>
+        <script type="text/javascript">
+            window.location.href = "/no-access/";
+        </script>
+        <?php
+        exit;
+    }
+
+    ?>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+
+            $('#nav li.locked-menu').each(function () {
+                // Exceptions
+                if (($(this).hasClass('marketing-hub') && "<?php echo $has_access_marketing; ?>") || "<?php echo $has_access; ?>") {
+                    $(this).removeClass('locked-menu');
+                } else {
+                    var caption = $(this).find('a').html();
+                    $(this).html('<span class="locked">' + caption + '</span>');
+                }
+            });
+
+            if ("<?php echo $has_access_marketing; ?>" && !"<?php echo $has_access; ?>") {
+                $('#menu-marketing li.locked-menu').each(function () {
+                    var caption = $(this).find('a').html();
+                    $(this).html('<span class="locked">' + caption + '</span>');
+                });
+
+            }
+
+
+        });
+
+    </script>
+    <?php
 }
 
 add_action('template_redirect', 'my_page_template_redirect');
@@ -1298,86 +1374,4 @@ function profile_image_shortcode()
 <?php }
 
 add_shortcode('profileimage', 'profile_image_shortcode');
-
-
-function check_page_access()
-{
-    global $current_user, $post;
-    $classes = get_body_class();
-//    if (in_array('post-type-archive-course', $classes)) {
-//        wp_redirect('/training-hub/');
-//        exit;
-//    }
-
-    // 143 id of Register Godaddy Domain Lesson
-    $has_access_marketing = WooThemes_Sensei_Utils::user_completed_lesson(intval(143), $current_user->ID) == 1 ? true : false;
-
-    // 142 id of Marketing Section Course
-    $has_access = WooThemes_Sensei_Utils::user_completed_course(intval(142), $current_user->ID) == 1 ? true : false;
-
-    // 10 id of Marketing Hub Page
-    // 12 id of Resources Page
-    // add any page id here you want to lock
-    $pid = 10;
-    $pid2 = 12;
-
-    // $post->post_parent==$pid||is_page($pid) ||
-
-    // Resources Marketing Hub Restriction
-
-    // Allowed Sub Page
-    // 61 Business Links
-    // 63 Pro Tools Links
-    if (is_page() && ($post->post_parent == $pid || is_page($pid))) {
-        if (!$has_access_marketing || ($has_access_marketing && !$has_access && !is_page(61) && !is_page(63) && !is_page($pid))) {
-            ?>
-            <script type="text/javascript">
-                window.location.href = "/no-access/";
-            </script>
-            <?php exit;
-        }
-    }
-
-    // Resources Page Restriction
-    if (is_page() && ($post->post_parent == $pid2 || is_page($pid2)) && !$has_access) { ?>
-        <script type="text/javascript">
-            window.location.href = "/no-access/";
-        </script>
-        <?php
-        exit;
-    }
-
-    ?>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-
-    <script type="text/javascript">
-        jQuery(document).ready(function ($) {
-
-            $('#nav li.locked-menu').each(function () {
-                // Exceptions
-                if (($(this).hasClass('marketing-hub') && "<?php echo $has_access_marketing; ?>") || "<?php echo $has_access; ?>") {
-                    $(this).removeClass('locked-menu');
-                } else {
-                    var caption = $(this).find('a').html();
-                    $(this).html('<span class="locked">' + caption + '</span>');
-                }
-            });
-
-            if ("<?php echo $has_access_marketing; ?>" && !"<?php echo $has_access; ?>") {
-                $('#menu-marketing li.locked-menu').each(function () {
-                    var caption = $(this).find('a').html();
-                    $(this).html('<span class="locked">' + caption + '</span>');
-                });
-
-            }
-
-
-        });
-
-    </script>
-    <?php
-}
-
-// add_filter('template_redirect', 'check_page_access');
 

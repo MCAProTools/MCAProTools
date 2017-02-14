@@ -214,7 +214,7 @@ if (class_exists('Woocommerce')) {
             <form method="post" class="af-form-wrapper" accept-charset="UTF-8" action="https://www.aweber.com/scripts/addlead.pl">
                 <textarea name="listname"
                           style="display:none;"><?php echo do_shortcode("[protool_mca_user meta_key='aweber_list' referrer_data='yes' referrer_key='ref' display_type='single_line']"); ?></textarea>
-                <textarea style="display:none;" name="redirect" id="redirect_ec539077ddfbfd0ed6a1a4e4f7bb8862">http://mcaprotools.com.localhost/whatismca/?ref=<?php echo do_shortcode('[protool_mca_user meta_key="referrer" referrer_key="ref"]'); ?></textarea>
+                <textarea style="display:none;" name="redirect" id="redirect_ec539077ddfbfd0ed6a1a4e4f7bb8862">http://mcaprotools.com/whatismca/?ref=<?php echo do_shortcode('[protool_mca_user meta_key="referrer" referrer_key="ref"]'); ?></textarea>
                 <input type="hidden" name="meta_required" value="email"/>
                 <input class="input-email" name="email" type="text" placeholder="Email Address*"/>
                 <input style="margin-top: 15px; width: 100%;" type="image" class="alignnone size-full wp-image-450"

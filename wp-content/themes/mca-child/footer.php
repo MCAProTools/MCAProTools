@@ -207,7 +207,6 @@ if ((get_option('show_on_front') && get_option('page_for_posts') && is_home()) |
         $('.buy-mca-button').click(function() {
             $('.modal-content').hide();
             $('.modal-content-active-membership').show();
-            return false;
         });
     })
     (jQuery);

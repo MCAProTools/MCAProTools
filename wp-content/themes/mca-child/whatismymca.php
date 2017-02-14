@@ -1,5 +1,5 @@
 <?php
-// Template Name: 100% Width
+/* Template Name: whatismca */
 get_header(); ?>
     <div id="post-510" class="post-510 page type-page status-publish hentry">
         <span class="entry-title" style="display: none;">MCA Sales Page / Business Overview</span><span class="vcard" style="display: none;"><span
@@ -7,37 +7,43 @@ get_header(); ?>
                     Admin</a></span></span><span class="updated" style="display:none;">2016-03-08T15:05:12+00:00</span>
 
         <div class="post-content">
-            <div id="home">
-                <div class="fusion-fullwidth fullwidth-box hundred-percent-fullwidth hangout"
-                     style="background-attachment:scroll;background-image: url(http://mcaprotools.com/wp-content/uploads/2015/03/head_bg.jpg);background-position:center center;background-repeat:no-repeat;-webkit-background-size:cover;-moz-background-size:cover;-o-background-size:cover;background-size:cover;border-color:#eae9e9;border-bottom-width: 0px;border-top-width: 0px;border-bottom-style: solid;border-top-style: solid;padding-bottom:0px;padding-left:0px;padding-right:0px;padding-top:20px;">
-                    <h1 class="mca-pre-title">You’re Invited To Join Me &amp; Benefit From </h1>
+            <div  id="home">
 
-                    <h1 class="mca-title">Motor Club of America</h1>
+                <h1 class="mca-pre-title">You’re Invited To Join Me &amp; Benefit From </h1>
 
-                    <div class="landing-welcome">My name is <a href="#">MCAPT ADMIN</a> &amp; I want to <strong><a href="#">SHARE THIS
-                                VIDEO</a></strong> with YOU!
-                    </div>
-                    <div class="videoWrapper" style="max-height: 480px; max-width: 100%; margin: 0 auto;">
-                        <div class="wistia_responsive_padding" style="padding:75.0% 0 0 0;position:relative;">
-                            <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
-                                <div class="wistia_video_foam_dummy" data-source-container-id=""
-                                     style="border: 0px; display: block; height: 0px; margin: 0px; padding: 0px; position: static; visibility: hidden; width: auto;"></div>
-                                <iframe src="//fast.wistia.net/embed/iframe/qbqx9wfv5d?seo=false&amp;videoFoam=true" allowtransparency="true"
-                                        frameborder="0" scrolling="no" class="wistia_embed" name="wistia_embed"
-                                        allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen"
-                                        webkitallowfullscreen="webkitallowfullscreen" oallowfullscreen="oallowfullscreen"
-                                        msallowfullscreen="msallowfullscreen"
-                                        style="max-width: 100%; height: 800px;"></iframe>
-                            </div>
-                        </div>
-                        <script src="//fast.wistia.net/assets/external/E-v1.js" async=""></script>
-                    </div>
+                <h1 class="mca-title">Motor Club of America</h1>
+
+                <?php
+                $username = $_GET['ref'];
+                $user = get_user_by('login', $username);
+                $name = $user ? $user->first_name . " " . $user->last_name : "MCAPT ADMIN";
+                ?>
+                <div class="landing-welcome">My name is <a href="#"><?php echo $name; ?></a> &amp; I want to <strong><a href="#">SHARE THIS
+                            VIDEO</a></strong> with YOU!
                 </div>
-            </div><br />
+                <div class="videoWrapper" style="max-width: 100%; margin: 0 auto;">
+                    <div class="wistia_responsive_padding" style="padding:75.0% 0 0 0;position:relative;">
+                        <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
+                            <div class="wistia_video_foam_dummy" data-source-container-id=""
+                                 style="border: 0px; display: block; height: 0px; margin: 0px; padding: 0px; position: static; visibility: hidden; width: auto;"></div>
+                            <iframe src="//fast.wistia.net/embed/iframe/qbqx9wfv5d?seo=false&amp;videoFoam=true" allowtransparency="true"
+                                    frameborder="0" scrolling="no" class="wistia_embed" name="wistia_embed"
+                                    allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen"
+                                    webkitallowfullscreen="webkitallowfullscreen" oallowfullscreen="oallowfullscreen"
+                                    msallowfullscreen="msallowfullscreen"
+                                    style="max-width: 100%; height: 800px;"></iframe>
+                        </div>
+                    </div>
+                    <script src="//fast.wistia.net/assets/external/E-v1.js" async=""></script>
+                </div>
+
+            </div>
+            <br/>
+
             <div class="fusion-fullwidth fullwidth-box hundred-percent-fullwidth get_started"
                  style="background-attachment:scroll;background-image: url(http://mcaprotools.com/wp-content/uploads/2015/03/get_started.jpg);background-position:center center;background-repeat:no-repeat;-webkit-background-size:cover;-moz-background-size:cover;-o-background-size:cover;background-size:cover;border-color:#eae9e9;border-bottom-width: 0px;border-top-width: 0px;border-bottom-style: solid;border-top-style: solid;padding-bottom:0px;padding-left:0px;padding-right:0px;padding-top:0px;">
 
-                <div class="container clearfix">
+                <div class="clearfix">
                     <div class="leftside">
                         <h3>GET STARTED TODAY!</h3>
 
@@ -584,7 +590,7 @@ get_header(); ?>
                 ONLY <strong>$20.00 / PER MONTH!</strong>
 
                 <a class="buy-mca-button"
-                   href="https://www.tvcmatrix.com/secure/cart/addItem.aspx?qty=1&amp;itID=9135&amp;PromoID=83&amp;uid=[protool_mca_user meta_key='mca_member' referrer_data='yes' referrer_key='ref' display_type='single_line']"
+                   href="https://www.tvcmatrix.com/secure/cart/addItem.aspx?qty=1&amp;itID=9135&amp;PromoID=83&amp;uid=<?php if (isset($_GET['ref'])) echo $_GET['ref']; ?>"
                    target="_blank"><img src="http://mcaprotools.s3-us-west-2.amazonaws.com/wp-content/uploads/2015/03/buy_now_button1.png"
                                         alt="buy_now_button" width="592" height="123"/></a>
 
@@ -600,15 +606,14 @@ get_header(); ?>
 
             <div class="buttons-row">
                 <div class="left-col">
-                    <a href="https://www.tvcmatrix.com/secure/cart/addItem.aspx?qty=1&itID=9135&PromoID=83&uid=felontofortune" class="btn">No…I DO
+                    <a href="https://www.tvcmatrix.com/secure/cart/addItem.aspx?qty=1&amp;itID=9135&amp;PromoID=83&amp;uid=<?php if (isset($_GET['ref'])) echo $_GET['ref']; ?>" class="btn">No…I DO
                         NOT!</a>
-
                     <p>
                         If you do not have an "Active" Motor Club of America account, select this option.
                     </p>
                 </div>
                 <div class="right-col">
-                    <a href="#" class="btn yesido">YES... I DO!</a>
+                    <a href="/mcaprotools-invite" class="btn yesido">YES... I DO!</a>
 
                     <p>
                         Selecting this options means you already have an "Active" Motor Club of America account.

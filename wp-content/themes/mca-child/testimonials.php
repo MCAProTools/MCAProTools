@@ -1,4 +1,6 @@
-<?php get_header(); ?>
+<?php
+/* Template Name: Testimonials */
+get_header(); ?>
 	<?php
 	$content_css = '';
 	$sidebar_css = '';
@@ -255,7 +257,7 @@
 
                 ONLY <strong>$20.00 / PER MONTH!</strong>
 
-                <a class="buy-mca-button" href="https://www.tvcmatrix.com/secure/cart/addItem.aspx?qty=1&amp;itID=9135&amp;PromoID=83&amp;uid=[protool_mca_user meta_key='mca_member' referrer_data='yes' referrer_key='ref' display_type='single_line']" target="_blank"><img src="http://mcaprotools.s3-us-west-2.amazonaws.com/wp-content/uploads/2015/03/buy_now_button1.png" alt="buy_now_button" width="592" height="123" /></a>
+                <a class="buy-mca-button" href="https://www.tvcmatrix.com/secure/cart/addItem.aspx?qty=1&amp;itID=9135&amp;PromoID=83&amp;uid=<?php if (isset($_GET['ref'])) echo $_GET['ref']; ?>" target="_blank"><img src="http://mcaprotools.s3-us-west-2.amazonaws.com/wp-content/uploads/2015/03/buy_now_button1.png" alt="buy_now_button" width="592" height="123" /></a>
 
                 GET A SPECIAL WELCOME CALL WHEN YOU ORDER TODAY!
 
@@ -267,13 +269,13 @@
             <h3>Do You Have An Active Motor Club of America Account?</h3>
             <div class="buttons-row">
                 <div class="left-col">
-                    <a href="https://www.tvcmatrix.com/secure/cart/addItem.aspx?qty=1&itID=9135&PromoID=83&uid=felontofortune" class="btn">No…I DO NOT!</a>
+                    <a href="https://www.tvcmatrix.com/secure/cart/addItem.aspx?qty=1&itID=9135&PromoID=83&uid=<?php if (isset($_GET['ref'])) echo $_GET['ref']; ?>" class="btn">No…I DO NOT!</a>
                     <p>
                         If you do not have an "Active" Motor Club of America account, select this option.
                     </p>
                 </div>
                 <div class="right-col">
-                    <a href="#" class="btn yesido">YES... I DO!</a>
+                    <a href="/mcaprotools-invite" class="btn yesido">YES... I DO!</a>
                     <p>
                         Selecting this options means you already have an "Active" Motor Club of America account.
                     </p>

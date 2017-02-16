@@ -180,11 +180,11 @@ if (class_exists('Woocommerce')) {
                         wp_login_form($args);
                         $login  = (isset($_GET['login']) ) ? $_GET['login'] : 0;
                         if ( $login === "failed" ) {
-                            echo '<p class="login-msg"><strong>ERROR:</strong> Invalid username and/or password.</p>';
+                            echo '<p class="login-msg">Invalid username and/or password.</p>';
                         } elseif ( $login === "empty" ) {
-                            echo '<p class="login-msg"><strong>ERROR:</strong> Username and/or Password is empty.</p>';
+                            echo '<p class="login-msg">Username and/or Password is empty.</p>';
                         } elseif ( $login === "false" ) {
-                            echo '<p class="login-msg"><strong>ERROR:</strong> You are logged out.</p>';
+                            echo '<p class="login-msg">You are logged out.</p>';
                         }
                         ?>
                     </div>

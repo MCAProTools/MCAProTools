@@ -206,10 +206,11 @@ if (class_exists('Woocommerce')) {
 
                                     <p></p>
 
-                                    <div class="btn-mca-send-video"><a style="display: inline-block" href="http://mcaprotools.com"
-                                                                       class="su-button su-button-style-default"
-                                                                       style="color:#FFFFFF;background-color:#2D89EF;border-color:#246ebf;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px"
-                                                                       target="_self"><span
+                                    <div class="btn-mca-send-video">
+                                        <a style="display: inline-block" href="http://mcaprotools.com"
+                                           class="su-button su-button-style-default"
+                                           style="color:#FFFFFF;background-color:#2D89EF;border-color:#246ebf;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px"
+                                           target="_self"><span
                                                 style="color:#FFFFFF;padding:0px 16px;font-size:13px;line-height:26px;border-color:#6cacf4;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;text-shadow:none;-moz-text-shadow:none;-webkit-text-shadow:none">  <input
                                                     type="image" class="alignnone size-full wp-image-450"
                                                     src="http://mcaprotools.com/wp-content/uploads/2015/02/send_me_video.png" alt="send_me_video"

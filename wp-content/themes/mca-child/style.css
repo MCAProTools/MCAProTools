@@ -253,15 +253,30 @@ Template: Avada
 }
 
 .modal-content-active-membership .left-col {
-    display: inline-block;
-    width: 45%;
+    display: block;
+    width: 100%;
     vertical-align: top;
 }
 
 .modal-content-active-membership .right-col {
-    display: inline-block;
-    width: 45%;
+    display: block;
+    width: 100%;
     vertical-align: top;
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width: 768px) {
+    .modal-content-active-membership .left-col {
+        display: inline-block;
+        width: 45%;
+        vertical-align: top;
+    }
+
+    .modal-content-active-membership .right-col {
+        display: inline-block;
+        width: 45%;
+        vertical-align: top;
+    }
 }
 
 .modal-content-active-membership p {
@@ -658,5 +673,105 @@ div.userpro-clear {
 }
 
 #post-510 .videoWrapper iframe, #post-510 .videoWrapper video {
-    height: 900px !important;
+
 }
+
+.get-started h3, .clearfix.get-started p {
+    color: white !important;
+}
+
+.get-started .leftside {
+    text-align: center;
+}
+
+.get-started .rightside {
+    text-align: center;
+}
+
+.get-started .leftside .su-button-center {
+    margin-bottom: 20px;
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width: 768px) {
+    .get-started h3, .clearfix.get-started p {
+        color: inherit !important;
+    }
+
+    .get-started .leftside {
+        margin-left: 20px;
+        text-align: left;
+    }
+
+    .get-started .rightside {
+        margin-right: 20px;
+        text-align: left;
+    }
+}
+
+.membership .benefits .b-box {
+    padding-left: 120px;
+    background-size: 100px !important;
+    background-position: 10px center !important;
+}
+
+.membership .benefits .col-sm-6:first-child .b-box:nth-child(1) {
+    background: url('img/benefits-icons/204245.svg') no-repeat left center;
+}
+
+.membership .benefits .col-sm-6:first-child .b-box:nth-child(2) {
+    background: url('img/benefits-icons/204180.svg') no-repeat left center;
+}
+
+.membership .benefits .col-sm-6:first-child .b-box:nth-child(3) {
+    background: url('img/benefits-icons/214687.svg') no-repeat left center;
+}
+
+.membership .benefits .col-sm-6:first-child .b-box:nth-child(4) {
+    background: url('img/benefits-icons/193011.png') no-repeat left center;
+}
+
+.membership .benefits .col-sm-6:first-child .b-box:nth-child(5) {
+    background: url('img/benefits-icons/235797.svg') no-repeat left center;
+}
+
+.membership .benefits .col-sm-6:first-child .b-box:nth-child(6) {
+    background: url('img/benefits-icons/236999.svg') no-repeat left center;
+}
+
+.membership .benefits .col-sm-6:last-child .b-box:nth-child(1) {
+    background: url('img/benefits-icons/172812.svg') no-repeat left center;
+}
+
+.membership .benefits .col-sm-6:last-child .b-box:nth-child(2) {
+    background: url('img/benefits-icons/234735.svg') no-repeat left center;
+}
+
+.membership .benefits .col-sm-6:last-child .b-box:nth-child(3) {
+    background: url('img/benefits-icons/308836.svg') no-repeat left center;
+}
+
+.membership .benefits .col-sm-6:last-child .b-box:nth-child(4) {
+    background: url('img/benefits-icons/190642.svg') no-repeat left center;
+}
+
+.membership .benefits .col-sm-6:last-child .b-box:nth-child(5) {
+    background: url('img/benefits-icons/234788.svg') no-repeat left center;
+}
+
+.membership .benefits .col-sm-6:last-child .b-box:nth-child(6) {
+    background: url('img/benefits-icons/201623.svg') no-repeat left center;
+}
+
+p.login-msg {
+    background: #ffd7d5;
+    color: black;
+    padding: 5px;
+    text-align: center;
+    font-size: 14px;
+    border: 1px solid #ffb0ae;
+    width: 90%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+

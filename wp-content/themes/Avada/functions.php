@@ -1342,9 +1342,9 @@ function avada_get_the_password_form() {
 /**
  * Woo Config
  */
-if( class_exists('Woocommerce') ) {
-	include_once( get_template_directory() . '/framework/woo-config.php' );
-}
+//if( class_exists('Woocommerce') ) {
+//	include_once( get_template_directory() . '/framework/woo-config.php' );
+//}
 
 // make wordpress respect the search template on an empty search
 if(! is_admin() ) {

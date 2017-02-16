@@ -2114,10 +2114,6 @@ body #header-sticky.sticky-header .sticky-shadow { -webkit-box-shadow: 0 1px 3px
 
 <?php else: ?>
 
-.woocommerce form.checkout .col-2, .woocommerce form.checkout #order_review_heading, .woocommerce form.checkout #order_review {
-	display: none;
-}
-
 <?php endif; ?>
 
 <?php if( ! $smof_data['responsive'] ): ?>

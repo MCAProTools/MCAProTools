@@ -264,7 +264,7 @@ get_header(); ?>
                             </div>
                             <p><!-- /benefits --></p>
 
-                            <p style="font-size: 20px !important; font-style: italic; margin-bottom: 40px;"><strong>DO NOT SIGN UP OR GO FURTHER
+                            <p class="do-not-sign" style="font-size: 20px !important; font-style: italic; margin-bottom: 40px;"><strong>DO NOT SIGN UP OR GO FURTHER
                                     IF YOU DO NOT HAVE A BANK CARD OR CREDIT CARD.</strong> <span style="text-decoration: underline;">THIS IS FOR SERIOUS PEOPLE,</span>
                                 NOT TEMPORARY PRE PAID PEOPLE. IF YOU HAVE PREPAID, THE SIGNUP OR BUSINESS WONT WORK FOR YOU!</p>
 
@@ -274,7 +274,7 @@ get_header(); ?>
                                    target="_self"><span
                                         style="color:#FFFFFF;padding:0px 58px;font-size:40px;line-height:80px;border-color:#e86b63;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;text-shadow:none;-moz-text-shadow:none;-webkit-text-shadow:none"> BUY MCA TOTAL SECURITY TODAY!</span></a>
                             </div>
-                            <p style="font-size: 20px !important; font-style: italic; margin-bottom: 40px;"><strong style="font-style: normal;">NO
+                            <p class="prepaid-debit-cards" style="font-size: 20px !important; font-style: italic; margin-bottom: 40px;"><strong style="font-style: normal;">NO
                                     PREPAID DEBIT CARDS</strong> THAT YOU BUY &amp; LOAD FROM 7 ELEVEN, WALMART OR ANYTHING LIKE THAT. </p>
                         </div>
                     </div>

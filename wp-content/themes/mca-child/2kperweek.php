@@ -164,7 +164,7 @@ if (class_exists('Woocommerce')) {
                                                                 src="http://mcaprotools.s3-us-west-2.amazonaws.com/wp-content/uploads/2015/02/stop_and_watch21.png"
                                                                 alt="stop_and_watch2" width="200" height="65"
                                                                 srcset="http://mcaprotools.com/wp-content/uploads/2015/02/stop_and_watch21.png 200w, http://mcaprotools.com/wp-content/uploads/2015/02/stop_and_watch21-100x33.png 100w, http://mcaprotools.com/wp-content/uploads/2015/02/stop_and_watch21-120x39.png 120w"
-                                                                sizes="(max-width: 200px) 100vw, 200px"> You’re Going To Want To Watch This!</h2>
+                                                                sizes="(max-width: 200px) 100vw, 200px" class="youre-going-text"> You’re Going To Want To Watch This!</h2>
 
                     <div class="su-row">
                         <div style="float: left" class="su-column su-column-size-3-5 mca-2kperweek-video">

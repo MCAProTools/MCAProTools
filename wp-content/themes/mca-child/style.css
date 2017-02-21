@@ -936,6 +936,186 @@ padding-right: 30px !important;
     margin-bottom: -20px;
     margin-top: 70px;
 }
+.page-template-benefits div#landing-box h1 {
+    font-size: 32px !important;
+}
+span.regardless-text {
+    font-size: 18px !important;
+    line-height: 20px !important;
+}
+p.we-have {
+    line-height: 20px !important;
+    font-size: 18px !important;
+}
+.page-template-benefits h2 strong {
+    font-size: 26px;
+    line-height: 30px !important;
+}
+.page-template-benefits a.su-button.su-button-style-default.btn-mca-complete.btn-mca-start.myBtn.pum-trigger span {
+    font-size: 17px !important;
+    line-height: 26px !important;
+    padding: 20px 10px !important;
+}
+.page-template-benefits ul {
+    font-size: 18px;
+    text-align: left;
+}
+.page-template-benefits ul li {
+    margin-bottom: 10px;
+}
+}
+
+/* #### iPhone 4+ Portrait or Landscape #### */
+@media screen and (min-device-width: 320px) and (-webkit-min-device-pixel-ratio: 2){
+  /* some CSS here */
+}
+
+/* #### iPhone 5 Portrait or Landscape #### */
+@media (device-height: 568px) and (device-width: 320px) and (-webkit-min-device-pixel-ratio: 2){
+  /* some CSS here */
+}
+
+/* #### iPhone 6 and 6 plus Portrait or Landscape #### */
+@media (min-device-height: 667px) and (min-device-width: 375px) and (-webkit-min-device-pixel-ratio: 3){
+  /* some CSS here */
+}
+
+/* #### Tablets Portrait or Landscape #### */
+@media screen and (min-device-width: 768px) and (max-device-width: 1024px){
+  /* some CSS here */
+}
+    font-size: 28px !important;
+}
+.page-template-whatismymca h1.mca-title {
+    font-size: 54px !important;
+}
+.page-template-whatismymca .landing-welcome {
+    padding: 15px 30px;
+    background-color: #CE000C;
+    line-height: 28px;
+}
+.leftside .su-button-center a span {
+    font-size: 26px !important;
+}
+div#company h4 {
+    font-size: 41px;
+    margin-bottom: 10px !important;
+}
+div#company h5 {
+    font-size: 24px;
+}
+.membership .benefits.row .b-box {
+    padding-left: 105px;
+    background-size: 75px !important;
+    background-position: 10px 0px !important;
+    margin-bottom: 35px;
+}
+.membership .benefits.row .b-box strong {
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+.page-template-whatismymca .su-button-center span {
+    line-height: 32px !important;
+    padding: 20px 5px !important;
+}
+.su-button-center a.myBtn.su-button.su-button-style-default.sales-btn {
+    margin-bottom: 50px;
+}
+p.do-not-sign {
+    padding: 0px 20px;
+    line-height: 25px !important;
+}
+p.prepaid-debit-cards {
+	padding: 0 20px !important;
+    line-height: 25px !important;
+}
+.fusion-fullwidth.fullwidth-box.membership {
+    padding-bottom: 0 !important;
+}
+.fusion-fullwidth.fullwidth-box.testimonials h1 {
+    font-size: 46px !important;
+    margin-bottom: 15px;
+}
+.fusion-fullwidth.fullwidth-box.testimonials h2 {
+    font-size: 30px !important;
+    line-height: 36px !important;
+    padding: 0px 25px;
+}
+.fusion-fullwidth.fullwidth-box.testimonials h1 {
+    font-size: 42px !important;
+    margin-bottom: 15px;
+    line-height: 46px !important;
+    padding: 0px 17px;
+}
+body .testimonials .testi_text {
+    padding-right: 20px;
+    padding-left: 20px;
+}
+body .testimonials .testi_text p {
+    font-size: 20px !important;
+    line-height: 24px;
+}
+.su-button-center a.myBtn.su-button.su-button-style-default.sales-btn span {
+    font-size: 18px !important;
+}
+.fusion-fullwidth.fullwidth-box.how_much_head h2 {
+    font-size: 38px !important;
+padding-right: 30px !important;
+	padding-left: 30px !important;
+}
+.fusion-fullwidth.fullwidth-box.how_much_head h1 {
+    font-size: 40px !important;
+    margin-bottom: 15px !important;
+	padding-right: 30px !important;
+	padding-left: 30px !important;
+}
+.fusion-fullwidth.fullwidth-box.how_much_head {
+    padding-top: 36px !important;
+    padding-bottom: 25px !important;
+}
+.fusion-fullwidth.fullwidth-box.how_much h1 {
+    font-size: 36px !important;
+    padding: 0 30px;
+    margin-bottom: 15px;
+}
+.fusion-fullwidth.fullwidth-box.how_much h2 {
+    font-size: 34px !important;
+    padding: 0 30px;
+}
+.fusion-fullwidth.fullwidth-box.how_it_works {
+    padding-top: 0 !important;
+}
+.fusion-fullwidth.fullwidth-box.how_it_works div h1 {
+    font-size: 36px !important;
+    padding: 0 20px;
+}
+.fusion-fullwidth.fullwidth-box.how_it_works div h2 {
+    font-size: 21px !important;
+}
+.how_it_works .how_box {
+    padding-right: 20px;
+    padding-left: 20px;
+}
+.how_it_works .how_box h3 {
+    font-size: 36px !important;
+    margin-bottom: 10px !important;
+}
+.fusion-fullwidth.fullwidth-box.faq {
+    padding-top: 50px !important;
+}
+.fusion-fullwidth.fullwidth-box.faq h2 {
+    font-size: 32px !important;
+    margin-bottom: 15px !important;
+}
+.fusion-fullwidth.fullwidth-box.faq .faq_box {
+    margin-bottom: 40px;
+}
+.fusion-fullwidth.fullwidth-box.faq h3 {
+    font-size: 35px !important;
+    padding: 0 25px !important;
+    margin-bottom: -20px;
+    margin-top: 70px;
+}
 }
 
 /* #### iPhone 4+ Portrait or Landscape #### */

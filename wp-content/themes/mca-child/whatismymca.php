@@ -356,7 +356,7 @@ get_header(); ?>
                         </div>
                         <h1><span style="font-weight: normal;">HAVE YOU</span> HEARD ENOUGH?</h1>
 
-                        <p style="font-size: 20px !important; font-style: italic; margin-bottom: 40px;"><strong>DO NOT SIGN UP OR GO FURTHER IF
+                        <p class="do-not-sign" style="font-size: 20px !important; font-style: italic; margin-bottom: 40px;"><strong>DO NOT SIGN UP OR GO FURTHER IF
                                 YOU DO NOT HAVE A BANK CARD OR CREDIT CARD.</strong> <span
                                 style="text-decoration: underline;">THIS IS FOR SERIOUS PEOPLE,</span>
                             NOT TEMPORARY PRE PAID PEOPLE. IF YOU HAVE PREPAID, THE SIGNUP OR BUSINESS WONT WORK FOR YOU!</p>

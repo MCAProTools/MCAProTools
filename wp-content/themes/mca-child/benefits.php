@@ -161,7 +161,7 @@ get_header(); ?>
                                 <script src="//fast.wistia.net/assets/external/E-v1.js" async=""></script>
                             </div>
                             <p></p></center><strong>We all know how life happens. </strong>Cars run out of gas, batteries die, and even the safest of drivers get into both major and minor car accidents. <em>When the unexpected happens, our members can be rest assured knowing that <strong>MCA has them covered</strong>.</em><p></p>
-                        <blockquote><p><span style="line-height: 1.5;">Regardless of what the case is, rely on MCA to deliver peace of mind when you need it the most.&nbsp;</span></p></blockquote>
+                        <blockquote><p><span class="regardless-text" style="line-height: 1.5;">Regardless of what the case is, rely on MCA to deliver peace of mind when you need it the most.&nbsp;</span></p></blockquote>
                         <p></p>
                         <h1>The MCA Coverage Plans</h1>
                         <p>The membership coverage plans from Motor Club of America provide the service you deserve and the peace of mind you most desperately want when the unexpected occurs at home, on the road or at the job. <strong>Your coverage is not only limited</strong> to roadside assistance, but<strong> you also have the added assurance</strong> of <em>personal accidental coverage, emergency room benefits, discounts on prescription drugs, dental care and vision care.</em> Help is literally a phone call away.</p>

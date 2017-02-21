@@ -166,24 +166,24 @@ get_header(); ?>
                         <h1>The MCA Coverage Plans</h1>
                         <p>The membership coverage plans from Motor Club of America provide the service you deserve and the peace of mind you most desperately want when the unexpected occurs at home, on the road or at the job. <strong>Your coverage is not only limited</strong> to roadside assistance, but<strong> you also have the added assurance</strong> of <em>personal accidental coverage, emergency room benefits, discounts on prescription drugs, dental care and vision care.</em> Help is literally a phone call away.</p>
                         <p><strong>MCA provides top notch customer service</strong> and a variety of packages to best suit your needs and budget. When you join MCA, you are in good company…</p>
-                        <blockquote><p>We have over 7,000,000 motorists that rely on MCA’s 86 years of experience to protect them.</p></blockquote>
+                        <blockquote><p class="we-have">We have over 7,000,000 motorists that rely on MCA’s 86 years of experience to protect them.</p></blockquote>
                         <p>When you purchase a Security Plan from MCA, <strong><em>your coverage begins 24 hours after your payment has been processed</em></strong>. As a member, you’re never locked into a contract.&nbsp;Members are welcome to cancel their accounts at anytime, without any hidden or cancellation fees. Full refunds are granted within 72 hours, and half refunds are granted within 30 days of activating your membership.</p>
                         <p></p>
                         <h1 style="text-align: center;">COVERAGE FEATURES</h1>
                         <p>&nbsp;</p>
-                        <h2><strong>UNLIMITED&nbsp;Security Roadside Assistance</strong></h2>
+                        <h2 class="unlimited-security"><strong>UNLIMITED&nbsp;Security Roadside Assistance</strong></h2>
                         <p>As a member of our Security plan, you will receive <strong>unlimited roadside assistance</strong>, unlike our competitors which will only provide you 2-4 service calls per year. <span style="text-decoration: underline;"><em>Unlimited roadside assistance means 1 service call per day throughout the entire year</em></span>.</p>
                         <p>If we’re unable to get your 4 wheel passenger vehicle back on the road safely, it will be towed to the nearest service facility. You will also receive <strong>unlimited lockout service, unlimited fuel delivery, unlimited tire changing, and unlimited battery boosting.</strong></p>
                         <p><strong>&nbsp;</strong></p>
                         <hr>
                         <p>&nbsp;</p>
-                        <h2><strong>Travel Assistance Reimbursement</strong></h2>
+                        <h2 class="travel-assistance"><strong>Travel Assistance Reimbursement</strong></h2>
                         <p>When a members vehicle is disabled in an auto accident,<strong> Motor Club of America will reimburse up to $500.00</strong> for a rental car, lodging, or meals if the incident happened more than 50 miles away from the registered home address on your account.</p>
                         <p>To be reimbursed, simply give us a call to receive your claim form, and submit the required information to us within 90 days.</p>
                         <p>&nbsp;</p>
                         <hr>
                         <p>&nbsp;</p>
-                        <h2><strong>Planning and Travel Reservations</strong></h2>
+                        <h2 class="planning-travel"><strong>Planning and Travel Reservations</strong></h2>
                         <p>MCA offers free and easy to read, step by step computerized mapping services free of charge to our members. Simply fill out a Travel information card or give us a call. This includes places of interest, resort, motel and hotel information found along your route. <strong>You also have a one-stop reservation service for airline travel, car rental, and hotel discounts.</strong></p>
                         <p>&nbsp;</p>
                         <p class="lp-prepaid"><strong>DO NOT SIGN UP OR GO FURTHER IF YOU DO NOT HAVE A BANK CARD OR CREDIT CARD.</strong> THIS IS FOR SERIOUS PEOPLE, NOT TEMPORARY PRE PAID PEOPLE. IF YOU HAVE PREPAID, THE SIGNUP OR BUSINESS WONT WORK FOR YOU!</p>
@@ -193,19 +193,19 @@ get_header(); ?>
                         <p>&nbsp;</p>
                         <hr>
                         <p>&nbsp;</p>
-                        <h2><strong>Arrest Bonds</strong></h2>
+                        <h2 class="arrest-bonds"><strong>Arrest Bonds</strong></h2>
                         <p><strong>Your Motor Club Membership card may be used in lieu of cash bail up to $500.00</strong> when involved in a traffic violation. Although this certificate will be accepted in many states, in some states arrest bond certificates are not acceptable.</p>
                         <p><em>In Maryland the certificate is acceptable for $1,000.00</em>, and in other states they are accepted for lesser amounts than $500.00. Simply give us a call at the toll free number located on the back of your membership card to receive the assistance you need.</p>
                         <p>&nbsp;</p>
                         <hr>
                         <p>&nbsp;</p>
-                        <h2><strong>Bail Bonds</strong></h2>
+                        <h2 class="bail-bonds"><strong>Bail Bonds</strong></h2>
                         <p><span style="line-height: 1.5;"><strong>MCA will arrange up to a $25,000.00 bond to release you</strong> from incarceration if you’re driving a vehicle and charged with a moving traffic law violation such as vehicular manslaughter or auto related negligent homicide.</span></p>
                         <p><span style="line-height: 1.5;"> Simply call the toll-free number on the back of your membership card to receive assistance. <em>Our legal department will provide the best assistance possible to <strong>release you from incarceration</strong>.</em></span></p>
                         <p>&nbsp;</p>
                         <hr>
                         <p>&nbsp;</p>
-                        <h2><strong>Attorney Fees</strong></h2>
+                        <h2 class="attorney-fees"><strong>Attorney Fees</strong></h2>
                         <p><strong>Motor Club of America will pay up to $2,000.00</strong> for your attorney to defend you against police charges resulting from driving your covered auto:</p>
                         <ul>
                             <li>Up to $200.00 for covered moving violations (non-criminal)</li>
@@ -220,17 +220,17 @@ get_header(); ?>
                         <p class="lp-prepaid"><strong>NO PREPAID DEBIT CARDS</strong> THAT YOU BUY &amp; LOAD FROM 7 ELEVEN, WALMART OR ANYTHING LIKE THAT. DO NOT PAY BY EBT TRANSFER BANK DRAFT. THAT WILL TAKE TOO LONG! If you dont have a bank account, GO GET ONE.</p>
                         <hr>
                         <p>&nbsp;</p>
-                        <h2><strong>Stolen Vehicle Reward</strong></h2>
+                        <h2 class="stolen-vehicle"><strong>Stolen Vehicle Reward</strong></h2>
                         <p><strong>MCA will pay a $5,000.00 reward</strong> to the law enforcement agency or individual responsible for providing the accurate information leading to the arrest and conviction of the person(s) responsible for the crime. <em>The reward is not payable to you, your family, or other members on your MCA membership account.</em></p>
                         <p>&nbsp;</p>
                         <hr>
                         <p>&nbsp;</p>
-                        <h2><strong>Credit Card Protection</strong></h2>
+                        <h2 class="cc-protection"><strong>Credit Card Protection</strong></h2>
                         <p>Identity theft has become more prevalent. <strong>If you ever become a victim, MCA will cover financial losses of up to $1000.00</strong> plus work with you to help you recover from the act.</p>
                         <p>&nbsp;</p>
                         <hr>
                         <p>&nbsp;</p>
-                        <h2><strong>Hotel | Rental Car | RX | Vision | Dental</strong></h2>
+                        <h2 class="hotel-car"><strong>Hotel | Rental Car | RX | Vision | Dental</strong></h2>
                         <p><strong>Our discount card is an easy way to help you and your family</strong> receive discounts on all of your Prescription, Vision, Dental needs, Hotel, and Rental Car needs. <em>You received a unique membership card allowing you to receive up to:</em></p>
                         <ul>
                             <li>65% discount on prescriptions at the most popular pharmacies</li>
@@ -247,7 +247,7 @@ get_header(); ?>
                         <p>&nbsp;</p>
                         <hr>
                         <p>&nbsp;</p>
-                        <h2><strong>Emergency Reimbursement Benefits</strong></h2>
+                        <h2 class="emergency-benefits"><strong>Emergency Reimbursement Benefits</strong></h2>
                         <p><strong>Members receive up to $500.00 in emergency cash</strong> for Emergency Room or Trauma Center treatment. This benefit will only be covered due to injury in a covered accident. Includes up to $100.00 in cost for each of the following:</p>
                         <ul>
                             <li>Cast or Splints</li>
@@ -258,13 +258,13 @@ get_header(); ?>
                         </ul>
                         <p>&nbsp;</p>
                         <hr>
-                        <h2><strong><br>
+                        <h2 class="daily-hospital"><strong><br>
                                 Daily Hospital Benefit</strong></h2>
                         <p><strong>Receive up to $54,750.00 in hospital cash benefits.</strong> That means as a member, you will receive $150.00 per day beginning the first day you are hospitalized as a result of a covered accident. <strong>MCA will cover your hospital stay up to 365 consecutive days</strong>. Once discharged, you have up to 90 days to file a claim.</p>
                         <p>&nbsp;</p>
                         <hr>
                         <p>&nbsp;</p>
-                        <h2><strong>Accidental Death Benefit</strong></h2>
+                        <h2 class="accidental-death"><strong>Accidental Death Benefit</strong></h2>
                         <p>As a member, you may enroll, free of charge, in&nbsp;our <strong>$10,000 Accidental Death Coverage</strong>. You may upgrade to our Total Security package to receive <em>additional coverage up to $50,000.</em></p>
                         <p>&nbsp;</p>
                         <p class="lp-prepaid"><strong>DO NOT SIGN UP OR GO FURTHER IF YOU DO NOT HAVE A BANK CARD OR CREDIT CARD.</strong> THIS IS FOR SERIOUS PEOPLE, NOT TEMPORARY PRE PAID PEOPLE. IF YOU HAVE PREPAID, THE SIGNUP OR BUSINESS WONT WORK FOR YOU!</p>

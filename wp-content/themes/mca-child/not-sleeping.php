@@ -144,8 +144,7 @@ if (class_exists('Woocommerce')) {
                                                         alt="arrow" width="83" height="100"></div>
                                 <div class="su-button-center"><a href="#" class="myBtn su-button su-button-style-default ls-btn"
                                                                  style="color:#FFFFFF;background-color:#de2b20;border-color:#b2221a;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px"
-                                                                 target="_self"><span
-                                            style="color:#FFFFFF;padding:0px 42px;font-size:30px;line-height:60px;border-color:#e86b63;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;text-shadow:none;-moz-text-shadow:none;-webkit-text-shadow:none"> CLICK HERE TO ENTER NOW!</span></a>
+                                                                 target="_self"><span class="click-here-redbtn" style="color:#FFFFFF;padding:0px 42px;font-size:30px;line-height:60px;border-color:#e86b63;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;text-shadow:none;-moz-text-shadow:none;-webkit-text-shadow:none"> CLICK HERE TO ENTER NOW!</span></a>
                                 </div>
                                 <div class="fb-like fb_iframe_widget" style="float: left; height: 80px; width: 100%; text-align: left;"
                                      data-href="http://mcaprotools.com/" data-width="100%" data-layout="standard" data-action="like"

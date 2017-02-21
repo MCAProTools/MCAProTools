@@ -155,7 +155,7 @@ get_header(); ?>
                         });
                     </script>
                     <div id="landing-box"><center><p></p>
-                            <h1 style="font-size: 65px !important; line-height: 100%;">Motor Club Of America Has You Protected!</h1>
+                            <h1 style="font-size: 65px; line-height: 100%;">Motor Club Of America Has You Protected!</h1>
                             <div class="videoWrapper">
                                 <div class="wistia_responsive_padding" style="padding:56.25% 0 0 0;position:relative;"><div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;"><div class="wistia_video_foam_dummy" data-source-container-id="" style="border: 0px; display: block; height: 0px; margin: 0px; padding: 0px; position: static; visibility: hidden; width: auto;"></div><iframe src="//fast.wistia.net/embed/iframe/u2e9a1kesz?seo=false&amp;videoFoam=true" allowtransparency="true" frameborder="0" scrolling="no" class="wistia_embed" name="wistia_embed" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" webkitallowfullscreen="webkitallowfullscreen" oallowfullscreen="oallowfullscreen" msallowfullscreen="msallowfullscreen" width="750" height="422" style="width: 750px; height: 422px;"></iframe></div></div>
                                 <script src="//fast.wistia.net/assets/external/E-v1.js" async=""></script>

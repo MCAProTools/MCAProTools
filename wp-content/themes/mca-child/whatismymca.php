@@ -46,27 +46,28 @@ get_header(); ?>
                      style="background-attachment:scroll;background-image: url(http://mcaprotools.com/wp-content/uploads/2015/03/get_started.jpg);background-position:center center;background-repeat:no-repeat;-webkit-background-size:cover;-moz-background-size:cover;-o-background-size:cover;background-size:cover;border-color:#eae9e9;border-bottom-width: 0px;border-top-width: 0px;border-bottom-style: solid;border-top-style: solid;padding-bottom:0px;padding-left:0px;padding-right:0px;padding-top:0px;">
 
                     <div class="clearfix get-started">
-                        <div class="leftside">
+                        <div class="leftside get-started-block">
                             <h3>GET STARTED TODAY!</h3>
 
-                            <p>MCA (Motor Club Of America) is a unique motor club serving the United States, Canada, and Puerto Rico. Offering
+                            <p class="get-started-text">MCA (Motor Club Of America) is a unique motor club serving the United States, Canada, and Puerto Rico.</p>
+                            <p class="get-started-text">Offering
                                 24/7 emergency roadside assistance plans, membership discounts, and the most reliable service in the auto club
                                 industry.</p>
 
-                            <div class="su-button-center"><a href="#" class="myBtn su-button su-button-style-default"
+                            <div class="su-button-center"><a href="#" class="myBtn su-button su-button-style-default join-left-arrow"
                                                              style="color:#FFFFFF;background-color:#de2b20;border-color:#b2221a;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px"
                                                              target="_self"><span
-                                        style="color:#FFFFFF;padding:0px 58px;font-size:40px;line-height:80px;border-color:#e86b63;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;text-shadow:none;-moz-text-shadow:none;-webkit-text-shadow:none"> JOIN MCA TODAY!</span></a>
+                                        style="color:#FFFFFF;padding:0px 58px;font-size:40px;line-height:80px;border-color:#e86b63;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;text-shadow:none;-moz-text-shadow:none;-webkit-text-shadow:none"> JOIN MCA HERE!</span></a>
                             </div>
                         </div>
-                        <div class="rightside">
+                        <div class="rightside get-started-block">
                             <h3>GOT QUESTIONS?</h3>
 
-                            <p>Our agents are available 24 hours a day, 7 days a week to answer any question you may have about our service!</p>
+                            <p class="get-started-text">Our agents are available 24 hours a day, 7 days a week to answer any question you may have about our service!</p>
 
                             <p><span class="phone">1 (800) 435-7622</span></p>
 
-                            <p>Visit our FAQ’s page for common questions and answers, or you can also call MCA &amp; get your answers
+                            <p class="get-started-text">Visit our FAQ’s page for common questions and answers, or you can also call MCA &amp; get your answers
                                 directly!</p>
                         </div>
                     </div>
@@ -295,7 +296,7 @@ get_header(); ?>
                         <h2>Testimonials from real MCA customers</h2>
 
                         <div class="testi_video">
-                            <video preload="auto" controls="controls" width="720" height="450&quot;">
+                            <video preload="auto" controls="controls" width="720" height="450&quot;" poster="http://mcaprotools.com/wp-content/uploads/2017/02/video1-1.png">
                                 <source src="https://s3-us-west-2.amazonaws.com/mcaprotools/MCA+Proof+Greg+2015.mp4" type="video/mp4">
                             </video>
                         </div>
@@ -310,14 +311,14 @@ get_header(); ?>
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="testi_video">
-                                    <video preload="auto" controls="controls" width="560" height="315&quot;">
+                                    <video preload="auto" controls="controls" width="560" height="315&quot;" poster="http://mcaprotools.com/wp-content/uploads/2017/02/video2.png">
                                         <source src="https://s3-us-west-2.amazonaws.com/mcaprotools/MCA+Proof+Jessie.mp4" type="video/mp4">
                                     </video>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="testi_video">
-                                    <video preload="auto" controls="controls" width="560" height="315&quot;">
+                                    <video preload="auto" controls="controls" width="560" height="315&quot;" poster="http://mcaprotools.com/wp-content/uploads/2017/02/video3.png">
                                         <source src="https://s3-us-west-2.amazonaws.com/mcaprotools/MCA+JR+Proof.mp4" type="video/mp4">
                                     </video>
                                 </div>
@@ -332,14 +333,14 @@ get_header(); ?>
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="testi_video">
-                                    <video preload="auto" controls="controls" width="560" height="315&quot;">
+                                    <video preload="auto" controls="controls" width="560" height="315&quot;" poster="http://mcaprotools.com/wp-content/uploads/2017/02/video4.png">
                                         <source src="https://s3-us-west-2.amazonaws.com/mcaprotools/MCA+Aaron+Zachry+Proof.mp4" type="video/mp4">
                                     </video>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="testi_video">
-                                    <video preload="auto" controls="controls" width="560" height="315&quot;">
+                                    <video preload="auto" controls="controls" width="560" height="315&quot;" poster="http://mcaprotools.com/wp-content/uploads/2017/02/video5.png">
                                         <source src="https://s3-us-west-2.amazonaws.com/mcaprotools/MCA+2014+Testimonials+Mix.mp4"
                                                 type="video/mp4">
                                     </video>

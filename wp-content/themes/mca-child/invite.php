@@ -29,17 +29,13 @@ get_header(); ?>
                         <div class="get_list invite-2">
                             <div class="col-md-6">
                                 <h2>Add Your Own Videos</h2>
-                                <p>We make it easy for you to brand yourself<br>
-                                    by changing any of our videos with your<br>
-                                    own, just use the embed code and your<br>
+                                <p>We make it easy for you to brand yourself by changing any of our videos with your own, just use the embed code and your<br>
                                     ready to go!</p>
                             </div>
                             <div class="col-md-6">
                                 <h2>Traffic Stats &amp; Analytics</h2>
-                                <p>We all want to know how well our sales funnels<br>
-                                    are doing, so we provide the most important<br>
-                                    information to you so you can make the best<br>
-                                    decisions about your marketing efforts.</p>
+                                <p>We all want to know how well our sales funnels are doing, so we provide the most important<br>
+                                    information to you so you can make the best decisions about your marketing efforts.</p>
                             </div>
                         </div>
                     </div>
@@ -47,14 +43,11 @@ get_header(); ?>
                         <div class="get_list invite-3">
                             <div class="col-md-6">
                                 <h2>1 – 2 – 3 Business Training</h2>
-                                <p>Getting started online is not always the<br>
-                                    easiest if your new, we provide training<br>
-                                    course to guide &amp; help set you up!</p>
+                                <p>Getting started online is not always the easiest if your new, we provide training course to guide &amp; help set you up!</p>
                             </div>
                             <div class="col-md-6">
                                 <h2>Creative Graphics</h2>
-                                <p>We provide you with graphics to use on your<br>
-                                    social media posts, or your personal websites.</p>
+                                <p>We provide you with graphics to use on your social media posts, or your personal websites.</p>
                             </div>
                         </div>
                     </div>
@@ -62,17 +55,11 @@ get_header(); ?>
                         <div class="get_list invite-4">
                             <div class="col-md-6">
                                 <h2>Discounted Print Materials</h2>
-                                <p>We have partnered with some of the top<br>
-                                    print providers in the industry to bring<br>
-                                    you low cost high quality business cards,<br>
-                                    handouts &amp; other print materials!</p>
+                                <p>We have partnered with some of the top print providers in the industry to bring you low cost high quality business cards, handouts &amp; other print materials!</p>
                             </div>
                             <div class="col-md-6">
                                 <h2>Social Media Tools</h2>
-                                <p>We make it easy to share your sales pages &amp;<br>
-                                    customize the “message” of any post right from<br>
-                                    our marketing hub. Compatiable with all major<br>
-                                    social media platforms!</p>
+                                <p>We make it easy to share your sales pages &amp; customize the “message” of any post right from our marketing hub. Compatiable with all major social media platforms!</p>
                             </div>
                         </div>
                     </div>
@@ -80,14 +67,11 @@ get_header(); ?>
                         <div class="get_list invite-5">
                             <div class="col-md-6">
                                 <h2>Autoresponder Series</h2>
-                                <p>You get 20+ high converting professionally<br>
-                                    written email follow up series for MCA &amp; MCA<br>
-                                    Pro Tools!</p>
+                                <p>You get 20+ high converting professionally written email follow up series for MCA &amp; MCA Pro Tools!</p>
                             </div>
                             <div class="col-md-6">
                                 <h2>Everything You Need</h2>
-                                <p>Thats right! We got everything you need to<br>
-                                    run you MCA business “right out of the box”.</p>
+                                <p>Thats right! We got everything you need to run you MCA business “right out of the box”.</p>
                             </div>
                         </div>
                     </div>

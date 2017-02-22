@@ -763,6 +763,53 @@ div.userpro-clear {
     background: url('img/benefits-icons/201623.svg') no-repeat left center;
 }
 
+/* mcaprotools-invite */
+.get_list .col-md-6 {
+    padding-left: 120px;
+    background-size: 100px !important;
+    background-position: 10px center !important;
+}
+
+.get_list.invite-1 .col-md-6:first-child {
+    background: url('img/protools-icons/235188.svg') no-repeat left center;
+}
+
+.get_list.invite-1 .col-md-6:last-child {
+    background: url('img/protools-icons/306239.svg') no-repeat left center;
+}
+
+.get_list.invite-2 .col-md-6:first-child {
+    background: url('img/protools-icons/308856.svg') no-repeat left center;
+}
+
+.get_list.invite-2 .col-md-6:last-child {
+    background: url('img/protools-icons/235266.svg') no-repeat left center;
+}
+
+.get_list.invite-3 .col-md-6:first-child {
+    background: url('img/protools-icons/201655.svg') no-repeat left center;
+}
+
+.get_list.invite-3 .col-md-6:last-child {
+    background: url('img/protools-icons/283600.svg') no-repeat left center;
+}
+
+.get_list.invite-4 .col-md-6:first-child {
+    background: url('img/protools-icons/265741.svg') no-repeat left center;
+}
+
+.get_list.invite-4 .col-md-6:last-child {
+    background: url('img/protools-icons/204324.svg') no-repeat left center;
+}
+
+.get_list.invite-5 .col-md-6:first-child {
+    background: url('img/protools-icons/196357.svg') no-repeat left center;
+}
+
+.get_list.invite-5 .col-md-6:last-child {
+    background: url('img/protools-icons/283590.svg') no-repeat left center;
+}
+
 p.login-msg {
     background: #ffd7d5;
     color: black;
@@ -774,6 +821,32 @@ p.login-msg {
     margin: 0 auto;
     margin-bottom: 20px;
 }
+
+/* cart & checkout*/
+#billing_company_field {
+    display: none;
+}
+
+#order_comments_field {
+    display: none;
+}
+
+#authnet-save-card {
+    -webkit-appearance: checkbox;
+    border-radius: 0;
+    width: auto;
+}
+
+.woocommerce-checkout-review-order .order-total strong {
+    min-width: 200px;
+    display: block;
+}
+
+.cart-collaterals > .cart_totals.calculated_shipping {
+    display: none;
+}
+
+
 
 /* #### Mobile Phones Portrait #### */
 @media screen and (max-device-width: 480px) and (orientation: portrait){
@@ -963,158 +1036,67 @@ p.we-have {
 .page-template-benefits ul li {
     margin-bottom: 10px;
 }
+div#lp h {
+    font-size: 32px !important;
+    line-height: 38px !important;
 }
-
-/* #### iPhone 4+ Portrait or Landscape #### */
-@media screen and (min-device-width: 320px) and (-webkit-min-device-pixel-ratio: 2){
-  /* some CSS here */
+body .su-column-size-1-3 {
+	width: 100% !important;
 }
-
-/* #### iPhone 5 Portrait or Landscape #### */
-@media (device-height: 568px) and (device-width: 320px) and (-webkit-min-device-pixel-ratio: 2){
-  /* some CSS here */
+.join-left-arrow {
+        padding-left: 58px;
+    padding-right: 15px;
+    font-family: Arial;
+    font-style: italic;
+    background: url(http://mcaprotools.com/wp-content/uploads/2017/02/right-arrow.png);
+    background-repeat: no-repeat;
+    background-color: #cb0100 !important;
+    background-size: 36px;
+    background-position: 15px 16px;
 }
-
-/* #### iPhone 6 and 6 plus Portrait or Landscape #### */
-@media (min-device-height: 667px) and (min-device-width: 375px) and (-webkit-min-device-pixel-ratio: 3){
-  /* some CSS here */
+.fusion-fullwidth.fullwidth-box.hundred-percent-fullwidth.get_started {
+    background: none !important;
 }
-
-/* #### Tablets Portrait or Landscape #### */
-@media screen and (min-device-width: 768px) and (max-device-width: 1024px){
-  /* some CSS here */
+.leftside.get-started-block {
+    background: url(http://mcaprotools.com/wp-content/uploads/2017/02/blue-bg.png);
+    padding: 40px 22px 20px;
 }
-    font-size: 28px !important;
+.rightside.get-started-block {
+    background: url(http://mcaprotools.com/wp-content/uploads/2017/02/red-bg.png);
+    padding: 30px 22px 10px;
 }
-.page-template-whatismymca h1.mca-title {
-    font-size: 54px !important;
+.get_started p.get-started-text {
+	    line-height: 22px !important;
+    font-size: 14px !important;
 }
-.page-template-whatismymca .landing-welcome {
-    padding: 15px 30px;
-    background-color: #CE000C;
-    line-height: 28px;
+.leftside .su-button-center a.join-left-arrow span {
+    font-size: 23px !important;
 }
-.leftside .su-button-center a span {
-    font-size: 26px !important;
+h1.motor-club-text {
+    font-size: 40px !important;
 }
-div#company h4 {
-    font-size: 41px;
-    margin-bottom: 10px !important;
+.page-template-invite.page h1 {
+	font-size: 40px !important;
 }
-div#company h5 {
-    font-size: 24px;
+.page-template-invite.page .container.bullet-points-container {
+    margin-left: -30px;
 }
-.membership .benefits.row .b-box {
-    padding-left: 105px;
+.page-template-invite.page .get_list .col-md-6 {
+    padding-left: 95px;
     background-size: 75px !important;
     background-position: 10px 0px !important;
     margin-bottom: 35px;
 }
-.membership .benefits.row .b-box strong {
-    font-size: 25px;
-    margin-bottom: 10px;
-}
-.page-template-whatismymca .su-button-center span {
-    line-height: 32px !important;
-    padding: 20px 5px !important;
-}
-.su-button-center a.myBtn.su-button.su-button-style-default.sales-btn {
-    margin-bottom: 50px;
-}
-p.do-not-sign {
-    padding: 0px 20px;
-    line-height: 25px !important;
-}
-p.prepaid-debit-cards {
-	padding: 0 20px !important;
-    line-height: 25px !important;
-}
-.fusion-fullwidth.fullwidth-box.membership {
-    padding-bottom: 0 !important;
-}
-.fusion-fullwidth.fullwidth-box.testimonials h1 {
-    font-size: 46px !important;
-    margin-bottom: 15px;
-}
-.fusion-fullwidth.fullwidth-box.testimonials h2 {
-    font-size: 30px !important;
-    line-height: 36px !important;
-    padding: 0px 25px;
-}
-.fusion-fullwidth.fullwidth-box.testimonials h1 {
-    font-size: 42px !important;
-    margin-bottom: 15px;
-    line-height: 46px !important;
-    padding: 0px 17px;
-}
-body .testimonials .testi_text {
-    padding-right: 20px;
-    padding-left: 20px;
-}
-body .testimonials .testi_text p {
-    font-size: 20px !important;
-    line-height: 24px;
-}
-.su-button-center a.myBtn.su-button.su-button-style-default.sales-btn span {
-    font-size: 18px !important;
-}
-.fusion-fullwidth.fullwidth-box.how_much_head h2 {
-    font-size: 38px !important;
-padding-right: 30px !important;
-	padding-left: 30px !important;
-}
-.fusion-fullwidth.fullwidth-box.how_much_head h1 {
-    font-size: 40px !important;
-    margin-bottom: 15px !important;
-	padding-right: 30px !important;
-	padding-left: 30px !important;
-}
-.fusion-fullwidth.fullwidth-box.how_much_head {
-    padding-top: 36px !important;
-    padding-bottom: 25px !important;
-}
-.fusion-fullwidth.fullwidth-box.how_much h1 {
-    font-size: 36px !important;
-    padding: 0 30px;
-    margin-bottom: 15px;
-}
-.fusion-fullwidth.fullwidth-box.how_much h2 {
-    font-size: 34px !important;
-    padding: 0 30px;
-}
-.fusion-fullwidth.fullwidth-box.how_it_works {
-    padding-top: 0 !important;
-}
-.fusion-fullwidth.fullwidth-box.how_it_works div h1 {
-    font-size: 36px !important;
-    padding: 0 20px;
-}
-.fusion-fullwidth.fullwidth-box.how_it_works div h2 {
-    font-size: 21px !important;
-}
-.how_it_works .how_box {
-    padding-right: 20px;
-    padding-left: 20px;
-}
-.how_it_works .how_box h3 {
-    font-size: 36px !important;
+.page-template-invite.page .get_list .col-md-6 h2 {
+    font-size: 23px !important;
     margin-bottom: 10px !important;
 }
-.fusion-fullwidth.fullwidth-box.faq {
-    padding-top: 50px !important;
+.page-template-invite.page .container.bullet-points-container {
+    margin-left: -30px;
+    margin-right: -34px;
 }
-.fusion-fullwidth.fullwidth-box.faq h2 {
-    font-size: 32px !important;
-    margin-bottom: 15px !important;
-}
-.fusion-fullwidth.fullwidth-box.faq .faq_box {
-    margin-bottom: 40px;
-}
-.fusion-fullwidth.fullwidth-box.faq h3 {
-    font-size: 35px !important;
-    padding: 0 25px !important;
-    margin-bottom: -20px;
-    margin-top: 70px;
+.page-template-invite.page .get_list .col-md-6 p {
+    font-size: 16px !important;
 }
 }
 
@@ -1136,4 +1118,26 @@ padding-right: 30px !important;
 /* #### Tablets Portrait or Landscape #### */
 @media screen and (min-device-width: 768px) and (max-device-width: 1024px){
   /* some CSS here */
+}
+
+/* Desktops and laptops ----------- */
+@media only screen  and (min-width : 768px) {
+.videoWrapper {
+    width: 720px !important;
+}
+}
+
+/* Large screens ----------- */
+@media only screen  and (min-width : 1824px) {
+/* Styles */
+}
+
+.testi_video video {
+    width: 95%;
+    height: auto;
+}
+.testimonials .testi_video {
+    max-width: 720px;
+    margin: 0 auto;
+    margin-bottom: 62px;
 }

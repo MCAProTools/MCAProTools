@@ -17,15 +17,11 @@ get_header(); ?>
                         <div class="get_list invite-1">
                             <div class="col-md-6">
                                 <h2>Personalized Sales Pages</h2>
-                                <p>Our marketing systems consistently<br>
-                                    generate some of the highest optin<br>
-                                    rates in the industry.</p>
+                                <p>Our marketing systems consistently generate some of the highest optin rates in the industry.</p>
                             </div>
                             <div class="col-md-6">
                                 <h2>Detailed Presentation Video</h2>
-                                <p>We make sure to included everything your<br>
-                                    prospects need to know about MCA in an<br>
-                                    attractive video presensation…</p>
+                                <p>We make sure to included everything your prospects need to know about MCA in an attractive video presensation…</p>
                             </div>
                         </div>
                     </div>

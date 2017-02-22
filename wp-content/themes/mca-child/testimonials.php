@@ -182,18 +182,18 @@ get_header(); ?>
                                 </div>
                                 <p><h style="font-size:60px; line-height:55px;">ARE YOU READY TO MAKE SOME MONEY? IT IS YOUR TURN!</h></p></h1>
                             <div class="su-row">
-                                <p>  </p><div class="su-column su-column-size-1-3"><div class="su-column-inner su-clearfix">
+                                <p>  </p><div class="su-column"><div class="su-column-inner su-clearfix">
                                         <div class="videoWrapper">
                                             <div class="wistia_responsive_padding" style="padding:56.25% 0 0 0;position:relative;"><div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;"><div class="wistia_video_foam_dummy" data-source-container-id="" style="border: 0px; display: block; height: 0px; margin: 0px; padding: 0px; position: static; visibility: hidden; width: auto;"></div><iframe src="//fast.wistia.net/embed/iframe/zf6xsm1xd4?seo=false&amp;videoFoam=true" allowtransparency="true" frameborder="0" scrolling="no" class="wistia_embed" name="wistia_embed" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" webkitallowfullscreen="webkitallowfullscreen" oallowfullscreen="oallowfullscreen" msallowfullscreen="msallowfullscreen" width="319" height="179" style="width: 319px; height: 179px;"></iframe></div></div>
                                             <script src="//fast.wistia.net/assets/external/E-v1.js" async=""></script>
                                         </div>
                                     </div></div>
-                                <div class="su-column su-column-size-1-3"><div class="su-column-inner su-clearfix">
+                                <div class="su-column"><div class="su-column-inner su-clearfix">
                                         <div class="videoWrapper"><div class="wistia_responsive_padding" style="padding:56.25% 0 0 0;position:relative;"><div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;"><div class="wistia_video_foam_dummy" data-source-container-id="" style="border: 0px; display: block; height: 0px; margin: 0px; padding: 0px; position: static; visibility: hidden; width: auto;"></div><iframe src="//fast.wistia.net/embed/iframe/prtfu6829o?seo=false&amp;videoFoam=true" allowtransparency="true" frameborder="0" scrolling="no" class="wistia_embed" name="wistia_embed" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" webkitallowfullscreen="webkitallowfullscreen" oallowfullscreen="oallowfullscreen" msallowfullscreen="msallowfullscreen" width="319" height="179" style="width: 319px; height: 179px;"></iframe></div></div>
                                             <script src="//fast.wistia.net/assets/external/E-v1.js" async=""></script>
                                         </div>
                                     </div></div>
-                                <div class="su-column su-column-size-1-3"><div class="su-column-inner su-clearfix">
+                                <div class="su-column"><div class="su-column-inner su-clearfix">
                                         <div class="videoWrapper"><div class="wistia_responsive_padding" style="padding:56.25% 0 0 0;position:relative;"><div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;"><div class="wistia_video_foam_dummy" data-source-container-id="" style="border: 0px; display: block; height: 0px; margin: 0px; padding: 0px; position: static; visibility: hidden; width: auto;"></div><iframe src="//fast.wistia.net/embed/iframe/k5pu51p75t?seo=false&amp;videoFoam=true" allowtransparency="true" frameborder="0" scrolling="no" class="wistia_embed" name="wistia_embed" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" webkitallowfullscreen="webkitallowfullscreen" oallowfullscreen="oallowfullscreen" msallowfullscreen="msallowfullscreen" width="319" height="179" style="width: 319px; height: 179px;"></iframe></div></div>
                                             <script src="//fast.wistia.net/assets/external/E-v1.js" async=""></script>
                                         </div>

@@ -33,8 +33,7 @@ get_header(); ?>
                             </div>
                             <div class="col-md-6">
                                 <h2>Traffic Stats &amp; Analytics</h2>
-                                <p>We all want to know how well our sales funnels are doing, so we provide the most important<br>
-                                    information to you so you can make the best decisions about your marketing efforts.</p>
+                                <p>We all want to know how well our sales funnels are doing, so we provide the most important information to you so you can make the best decisions about your marketing efforts.</p>
                             </div>
                         </div>
                     </div>

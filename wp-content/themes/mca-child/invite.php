@@ -29,8 +29,7 @@ get_header(); ?>
                         <div class="get_list invite-2">
                             <div class="col-md-6">
                                 <h2>Add Your Own Videos</h2>
-                                <p>We make it easy for you to brand yourself by changing any of our videos with your own, just use the embed code and your<br>
-                                    ready to go!</p>
+                                <p>We make it easy for you to brand yourself by changing any of our videos with your own, just use the embed code and your ready to go!</p>
                             </div>
                             <div class="col-md-6">
                                 <h2>Traffic Stats &amp; Analytics</h2>

@@ -1250,7 +1250,7 @@ function logout_page()
 add_action('wp_logout', 'logout_page');
 
 
-function show_template()
+/*function show_template()
 {
     if (is_super_admin()) {
         global $template;
@@ -1258,7 +1258,7 @@ function show_template()
     }
 }
 
-add_action('wp_footer', 'show_template');
+add_action('wp_footer', 'show_template');*/
 
 
 // add profile image shortcode
@@ -1287,7 +1287,8 @@ function my_page_template_redirect()
             "login",
             "mcaprotools-invite",
             "checkout",
-            "cart"
+            "cart",
+            "hangout"
         );
         if ($_SERVER['REQUEST_METHOD'] == 'GET' && !is_page($guest_allowed)) {
             wp_redirect($login_page);

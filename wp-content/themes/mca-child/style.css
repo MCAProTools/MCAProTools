@@ -1098,6 +1098,12 @@ h1.motor-club-text {
 .page-template-invite.page .get_list .col-md-6 p {
     font-size: 16px !important;
 }
+.page-id-970 div#ls-arrow {
+	display: none;
+}
+h1.entry-title {
+    line-height: 30px !important;
+}
 }
 
 /* #### iPhone 4+ Portrait or Landscape #### */

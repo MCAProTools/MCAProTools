@@ -1150,3 +1150,13 @@ h1.entry-title {
 .page-id-115 .videoWrapper {
     height: 440px;
 }
+h4.account-setup-text a {
+    display: block;
+    text-align: center;
+    width: 100%;
+    background-color: #FB0000;
+    color: #FFF;
+    border-radius: 6px;
+    font-size: 20px;
+    padding: 20px;
+}

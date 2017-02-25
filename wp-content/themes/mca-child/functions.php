@@ -1059,15 +1059,15 @@ function get_mca_user_information($atts, $content = null)
     if ($atts['editable'] == 'yes') {
         $nonce = wp_create_nonce('mca_user_info_nonce');
 
-        $html = '<div class="' . $atts['class'] . '">';
+        $html = '<div class="' . $atts['class'] . '"><form onsubmit="return false">';
         if ($atts['display_type'] == 'single_line')
-            $html .= '<input type="text" class="mca_user_field" data-meta_key="' . $atts['meta_key'] . '" placeholder="' . $atts['placeholder'] . '" value="' . $meta_value . '">';
+            $html .= '<input type="text" required class="mca_user_field" data-meta_key="' . $atts['meta_key'] . '" placeholder="' . $atts['placeholder'] . '" value="' . $meta_value . '">';
         else
             $html .= '<textarea class="mca_user_field" data-meta_key="' . $atts['meta_key'] . '" placeholder="' . $atts['placeholder'] . '">' . $meta_value . '</textarea>';
 
-        $html .= '<button class="save-user-info" data-nonce="' . $nonce . '" data-message="' . $atts['save_message'] . '">SAVE</button>';
+        $html .= '<button type="submit" class="save-user-info" data-nonce="' . $nonce . '" data-message="' . $atts['save_message'] . '">SAVE</button>';
         $html .= '<div class="mca_user_message"></div>';
-        $html .= '</div>';
+        $html .= '</form></div>';
     }
 
     return $html;
@@ -1082,11 +1082,16 @@ function save_mca_user_information()
     global $current_user;
 
     $meta_key = $_POST['meta_key'];
-    $meta_value = $_POST['meta_value'];
-    update_user_meta($current_user->ID, $meta_key, $meta_value);
-    $response['html'] = $meta_key;
-    $response['save_message'] = $_POST['save_message'];
-    echo json_encode($response);
+	$meta_value = $_POST['meta_value'];
+	if($meta_value != '') {
+	    update_user_meta($current_user->ID, $meta_key, $meta_value);
+	    $response['html'] = $meta_key;
+	    $response['save_message'] = $_POST['save_message'];
+	}
+	else {
+		$response['save_message'] = 'Please fill in the required field.';
+	}
+	echo json_encode($response);
     die();
 }
 

@@ -1104,6 +1104,19 @@ h1.motor-club-text {
 h1.entry-title {
     line-height: 30px !important;
 }
+.navigation .locked:before {
+    display: none;
+}
+.navigation .locked {
+    border-bottom: 1px solid #DBDBDB;
+    color: #333333;
+    padding: 10px 12px;
+    display: block;
+    background: url(/wp-content/uploads/2017/02/locked-small.png);
+    background-repeat: no-repeat;
+    background-position: 12px 7px;
+    padding-left: 37px;
+}
 }
 
 /* #### iPhone 4+ Portrait or Landscape #### */

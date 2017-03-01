@@ -224,7 +224,7 @@ function user_lesson_complete()
     $lesson_ids = sensei_get_prev_next_lessons($post->ID);
     if ($lesson_ids['next_lesson'] != 0) {
         $next_url = get_permalink(absint($lesson_ids['next_lesson']));
-        $message = 'You will get redirected to next lesson in <span id="lesson-timer">0</span> second(s).';
+        $message = 'You will get redirected to the next lesson in <span id="lesson-timer">0</span> second(s).';
     } else {
         // $course_ids = sensei_get_prev_next_courses( $post->ID );
         $post_args = array('post_type' => 'course',
@@ -257,7 +257,7 @@ function user_lesson_complete()
 
         if ($next_course != 0) {
             $next_url = get_permalink(absint($next_course));
-            $message = 'You will get redirected to next course in <span id="lesson-timer">0</span> second(s).';
+            $message = 'You will get redirected to the next course in <span id="lesson-timer">0</span> second(s).';
         } else {
             $next_url = get_site_url() . '/training-hub/';
             $message = 'You will get redirected to training hub in <span id="lesson-timer">0</span> second(s).';
@@ -270,6 +270,7 @@ function user_lesson_complete()
         jQuery(document).ready(function ($) {
             $('.empty-container').html('<div class="sensei-message tick">Congratulations! You have completed this lesson.</div>');
             $('.sensei-message').append('<?php echo $message; ?>');
+            <?php if ($next_course != 0) { echo '$(\'.sensei-message\').replaceWith(\'<div class="sensei-message"><a href="'.$next_url.'" style="display: block; text-align: center;"><img src="/wp-content/uploads/2017/02/full-badge.png" /></a></div>\');'; } ?>
             var redirect_second = 3,
                 display = document.querySelector('#lesson-timer');
             startTimer(redirect_second, display);
@@ -287,7 +288,9 @@ function user_lesson_complete()
 
                     // return false;
                     clearInterval(myTimer);
-                    window.location.href = '<?php echo $next_url; ?>';
+                    <?php if ($next_course == 0) : ?>
+                       window.location.href = '<?php echo $next_url; ?>';
+                    <?php endif; ?>
                 }
                 seconds--;
             };

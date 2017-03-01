@@ -1122,6 +1122,10 @@ body #main .course .course-meta .course-start {
     padding: 20px 15px;
     font-size: 15px;
 }
+.dont-just-text {
+    font-size: 20px !important;
+    line-height: 30px !important;
+}
 }
 
 /* #### iPhone 4+ Portrait or Landscape #### */

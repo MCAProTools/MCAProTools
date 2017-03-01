@@ -73,19 +73,34 @@ get_header(); ?>
                             </div>
                         </div>
                     </div>
-                    <div class="money_details">
-                        <p><img src="http://mcaprotools.s3-us-west-2.amazonaws.com/wp-content/uploads/2015/03/price47.png" alt="price47" width="885" height="151" class="aligncenter size-full wp-image-2242" srcset="http://mcaprotools.com/wp-content/uploads/2015/03/price47.png 885w, http://mcaprotools.com/wp-content/uploads/2015/03/price47-300x51.png 300w, http://mcaprotools.com/wp-content/uploads/2015/03/price47-100x17.png 100w, http://mcaprotools.com/wp-content/uploads/2015/03/price47-120x20.png 120w, http://mcaprotools.com/wp-content/uploads/2015/03/price47-500x85.png 500w" sizes="(max-width: 885px) 100vw, 885px"></p>
-                        <h2 style="margin-bottom: 25px;">(You only pay once for <span style="background-color: #ffe519; margin-bottom: 25px;">lifetime access to MCA PRO TOOLS!</span>)</h2>
-                        <div class="su-button-center"><a href="http://mcaprotools.com/checkout/?add-to-cart=171" class="su-button su-button-style-default btn-mca-buy-tools su-button-wide" style="color:#fff; width: 100%; background-color:#ff0000;border-color:#cc0000;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px" target="_self"><span style="color:#fff;padding:0px 70px;font-size:48px;line-height:96px;border-color:#ff4d4d;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;text-shadow:none;-moz-text-shadow:none;-webkit-text-shadow:none"> <img src="http://mcaprotools.s3-us-west-2.amazonaws.com/wp-content/uploads/2015/03/left-arrow.png" alt="">BUY MCA PRO TOOLS<img src="http://mcaprotools.s3-us-west-2.amazonaws.com/wp-content/uploads/2015/03/mca-buy-arrow-right.png" alt=""></span></a></div>
-                    </div>
-                    <p><img src="http://mcaprotools.s3-us-west-2.amazonaws.com/wp-content/uploads/2015/03/feedback.png" alt="feedback" width="817" height="1516" class="aligncenter size-full wp-image-2041" srcset="http://mcaprotools.com/wp-content/uploads/2015/03/feedback.png 817w, http://mcaprotools.com/wp-content/uploads/2015/03/feedback-162x300.png 162w, http://mcaprotools.com/wp-content/uploads/2015/03/feedback-552x1024.png 552w, http://mcaprotools.com/wp-content/uploads/2015/03/feedback-54x100.png 54w, http://mcaprotools.com/wp-content/uploads/2015/03/feedback-120x223.png 120w, http://mcaprotools.com/wp-content/uploads/2015/03/feedback-500x928.png 500w" sizes="(max-width: 817px) 100vw, 817px">
-                    </p></div>
+                </div>
+
+                <div class="money_details">
+                    <p style="text-align: center;"><img src="/wp-content/uploads/2017/03/price.png" /></p>
+                    <div class="fusion-fullwidth fullwidth-box how_much_head mca-pro-invite" style="background-attachment:scroll;background-image: url(http://mcaprotools.s3-us-west-2.amazonaws.com/wp-content/uploads/2015/03/how_much.jpg);background-position:center center;background-repeat:no-repeat;-webkit-background-size:cover;-moz-background-size:cover;-o-background-size:cover;background-size:cover;border-color:#eae9e9;border-bottom-width: 0px;border-top-width: 0px;border-bottom-style: solid;border-top-style: solid;padding-bottom:0px;padding-left:0px;padding-right:0px;padding-top:0px;">
+                        <div class="avada-row">
+                        	<div class="su-button-center" style="text-align: center;">
+	                        	<a href="http://mcaprotools.com/checkout/?add-to-cart=171" target="_self">
+									<img src="/wp-content/uploads/2017/03/instant-access-button.png" />
+								</a>
+							</div>
+						</div>
+                	</div>
+                	<div class="container" style="margin: 20px auto;">
+                		<h2 class="dont-just-text" style="margin-bottom: 25px; line-height: 55px; text-align: center;">Don't Just Take Our Word! <span style="background-color: #ffe519; margin-bottom: 25px;">Hear It From Others</span> Using MCA PRO TOOLS!</h2>
+                	</div>
+                </div>
+                <p><img src="http://mcaprotools.s3-us-west-2.amazonaws.com/wp-content/uploads/2015/03/feedback.png" alt="feedback" width="817" height="1516" class="aligncenter size-full wp-image-2041" srcset="http://mcaprotools.com/wp-content/uploads/2015/03/feedback.png 817w, http://mcaprotools.com/wp-content/uploads/2015/03/feedback-162x300.png 162w, http://mcaprotools.com/wp-content/uploads/2015/03/feedback-552x1024.png 552w, http://mcaprotools.com/wp-content/uploads/2015/03/feedback-54x100.png 54w, http://mcaprotools.com/wp-content/uploads/2015/03/feedback-120x223.png 120w, http://mcaprotools.com/wp-content/uploads/2015/03/feedback-500x928.png 500w" sizes="(max-width: 817px) 100vw, 817px">
+                </p>
+                
                 <p></p><center><p></p>
                     <h1 style="font-size: 90px;">GET MCA PRO TOOLS NOW!</h1>
                     <h2 style="margin-bottom: 45px; !important">Before We Close The Doors Or Raise The Price!</h2>
                     <p></p></center><p></p>
                 <div class="fusion-fullwidth fullwidth-box how_much_head mca-pro-invite" style="background-attachment:scroll;background-image: url(http://mcaprotools.s3-us-west-2.amazonaws.com/wp-content/uploads/2015/03/how_much.jpg);background-position:center center;background-repeat:no-repeat;-webkit-background-size:cover;-moz-background-size:cover;-o-background-size:cover;background-size:cover;border-color:#eae9e9;border-bottom-width: 0px;border-top-width: 0px;border-bottom-style: solid;border-top-style: solid;padding-bottom:0px;padding-left:0px;padding-right:0px;padding-top:0px;"><div class="avada-row">
-                        <div class="su-button-center"><a href="http://mcaprotools.com/checkout/?add-to-cart=171" class="su-button su-button-style-default btn-mca-buy-tools su-button-wide" style="color:#fff; width: 100%; background-color:#ff0000;border-color:#cc0000;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px" target="_self"><span style="color:#fff;padding:0px 70px;font-size:48px;line-height:96px;border-color:#ff4d4d;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;text-shadow:none;-moz-text-shadow:none;-webkit-text-shadow:none"> <img src="http://mcaprotools.s3-us-west-2.amazonaws.com/wp-content/uploads/2015/03/left-arrow.png" alt="">BUY MCA PRO TOOLS<img src="http://mcaprotools.s3-us-west-2.amazonaws.com/wp-content/uploads/2015/03/mca-buy-arrow-right.png" alt=""></span></a></div>
+                        <div class="su-button-center"><a href="http://mcaprotools.com/checkout/?add-to-cart=171" target="_self">
+									<img src="/wp-content/uploads/2017/03/instant-access-button.png" />
+								</a></div>
                     </div></div>
                 <div class="container">
                 </div>

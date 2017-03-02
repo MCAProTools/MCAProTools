@@ -1205,3 +1205,30 @@ h4.account-setup-text a {
     background-color: #FB0000 !important;
     font-size: 18px;
 }
+.single-product div#content {
+    width: 100%;
+}
+.related.products li.product {
+    padding: 20px;
+}
+.related.products .fusion-title .title-sep.sep-double {
+	border-bottom-width: 0;
+}
+ul.tabs.wc-tabs a {
+    font-size: 16px;
+}
+.single_variation_wrap {
+    overflow: hidden;
+}
+.woocommerce-variation-add-to-cart {
+    overflow: hidden;
+}
+.summary .single_variation_wrap .variations_button .button {
+	    float: left !important;
+}
+.woocommerce-variation-add-to-cart {
+    float: right;
+}
+.woocommerce-variation.single_variation {
+    text-align: right;
+}

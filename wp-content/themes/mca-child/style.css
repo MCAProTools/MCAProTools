@@ -1232,3 +1232,31 @@ ul.tabs.wc-tabs a {
 .woocommerce-variation.single_variation {
     text-align: right;
 }
+.cart.shop_table thead tr th {
+    font-family: 'Droid Sans', sans-serif !important;
+    font-size: 18px !important;
+}
+body .shop_table tbody tr {
+    height: 70px;
+}
+.cart_totals.calculated_shipping h2 {
+    border: none;
+}
+.cart_totals table td, .cart_totals table th {
+	padding-top: 0;
+	padding-bottom: 0;
+    font-family: 'Droid Sans', sans-serif !important;
+    font-size: 16px;
+}
+table.shop_table.cart a.product-title {
+    font-family: 'Droid Sans', sans-serif !important;
+}
+table.shop_table.cart span.woocommerce-Price-amount.amount {
+    font-size: 16px;
+}
+.cart_totals.calculated_shipping .wc-proceed-to-checkout {
+    display: none;
+}
+dl.variation dt.variation-RunSize {
+    font-size: 17px;
+}

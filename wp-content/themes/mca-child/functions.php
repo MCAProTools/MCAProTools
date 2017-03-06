@@ -1,8 +1,6 @@
 <?php
 function avada_child_scripts()
 {
-
-
     if (!is_admin() && !in_array($GLOBALS['pagenow'], array('wp-login.php', 'wp-register.php'))) {
 
         $theme_info = wp_get_theme();
@@ -21,13 +19,10 @@ function avada_child_scripts()
         wp_register_script("mca_save_user_information", get_stylesheet_directory_uri() . '/assets/js/mca_save_user_information.js', array('jquery'));
         wp_localize_script('mca_save_user_information', 'myAjax', array('ajaxurl' => admin_url('admin-ajax.php')));
         wp_enqueue_script('mca_save_user_information');
-
     }
-
 }
 
 add_action('wp_enqueue_scripts', 'avada_child_scripts');
-
 /**
  * [affiliate_username_mca] shortcode
  * Outputs an anchor link with the currently tracked affiliate's username
@@ -44,11 +39,9 @@ function affwp_custom_affiliate_username_mca_shortcode($atts, $content = null)
     $affiliate_user_name = isset($user_info->mca_username) ? $user_info->mca_username : 'aberlin';
     $content = '<a class="yellow-button" href="http://' . $affiliate_user_name . '.mcaprotoools.com/join">I Don\'t Have A<br>MCA Account!</a>';
     return do_shortcode($content);
-
 }
 
 add_shortcode('affiliate_username', 'affwp_custom_affiliate_username_shortcode');
-
 /**
  * [affiliate_referral_url_username] shortcode
  */
@@ -58,7 +51,6 @@ function affwp_custom_referral_url_shortcode($atts, $content = null)
         return;
     }
     shortcode_atts(array(
-
         'url' => ''
     ), $atts, 'affiliate_referral_url_username');
     if (!empty($content)) {
@@ -70,11 +62,9 @@ function affwp_custom_referral_url_shortcode($atts, $content = null)
     $user_info = get_userdata($affiliate->user_id);
     $affiliate_user_name = $user_info->user_login;
     return add_query_arg(affiliate_wp()->tracking->get_referral_var(), $affiliate_user_name, $base);
-
 }
 
 add_shortcode('affiliate_referral_url_username', 'affwp_custom_referral_url_shortcode');
-
 /**
  * Force the frontend scripts to load on pages with these shortcodes
  */
@@ -93,9 +83,7 @@ function affwp_custom_force_frontend_scripts($ret)
     ) {
         $ret = true;
     }
-
     return $ret;
-
 }
 
 add_filter('affwp_force_frontend_scripts', 'affwp_custom_force_frontend_scripts');
@@ -196,7 +184,6 @@ function affwp_custom_affiliate_visits_shortcode($atts, $content = null)
 }
 
 add_shortcode('affiliate_visits', 'affwp_custom_affiliate_visits_shortcode');
-
 
 // SENSEI
 function start_course_text()
@@ -341,16 +328,12 @@ function user_course_start()
         });
     </script>
     <?php
-
 }
 
 add_action('sensei_user_course_start', 'user_course_start');
 //removes auto add <p></p> tag on landing page
-
 if (is_page(510)) {
-
     remove_filter('the_content', 'wpautop');
-
 }
 
 
@@ -910,10 +893,8 @@ function mca_sensei_course_meta()
 
 } // End sensei_course_meta()
 
-// add_filter('sensei_course_meta', 'mca_sensei_course_meta');
 
 add_filter('su/data/shortcodes', 'register_my_custom_shortcode');
-
 function register_my_custom_shortcode($shortcodes)
 {
     $shortcodes['mca_user'] = array(
@@ -987,11 +968,8 @@ function register_my_custom_shortcode($shortcodes)
         'icon' => 'info-circle',
         'function' => 'get_mca_user_information'
     );
-
-
     return $shortcodes;
 }
-
 
 function get_mca_user_information($atts, $content = null)
 {
@@ -1135,8 +1113,6 @@ function filter_affiliate_username($content)
 }
 
 add_filter('the_content', 'filter_affiliate_username');
-
-
 function filter_referrer_menu($items)
 {
     $username = $_GET['ref'];
@@ -1257,7 +1233,6 @@ function logout_page()
 
 add_action('wp_logout', 'logout_page');
 
-
 /*function show_template()
 {
     if (is_super_admin()) {
@@ -1265,7 +1240,6 @@ add_action('wp_logout', 'logout_page');
         print_r($template);
     }
 }
-
 add_action('wp_footer', 'show_template');*/
 
 
@@ -1316,4 +1290,4 @@ function my_page_template_redirect()
     }
 }
 
- add_action('template_redirect', 'my_page_template_redirect');
+add_action('template_redirect', 'my_page_template_redirect');

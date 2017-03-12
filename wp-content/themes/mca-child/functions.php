@@ -233,6 +233,7 @@ function user_lesson_complete()
             if ($next_course == $lesson_course_id) {
                 $next_course = $post_item->ID;
                 $next_course_found = true;
+                $course_name_display = $post_item->post_title;
                 break;
             } else {
                 $next_course = $post_item->ID;
@@ -257,11 +258,13 @@ function user_lesson_complete()
         jQuery(document).ready(function ($) {
             $('.empty-container').html('<div class="sensei-message tick">Congratulations! You have completed this lesson.</div>');
             $('.sensei-message').append('<?php echo $message; ?>');
-            <?php if ($next_course != 0) { echo '$(\'.sensei-message\').replaceWith(\'<div class="sensei-message"><a href="'.$next_url.'" style="display: block; text-align: center;"><img src="/wp-content/uploads/2017/02/full-badge.png" /></a></div>\');'; } ?>
+            <?php if ($next_course != 0) { echo '$(\'.sensei-message\').replaceWith(\'<div class="sensei-message badge-div"> <img src="/wp-content/uploads/2017/03/badge.png" /><br /> <h2 class="congrats-text">Congratulations</h2> <h3>'.$course_name_display.' Course</h3> <h2 class="congrats-text">Completed</h2> <a href="'.$next_url.'" style="display: block; text-align: center;">Go to the next course...</a> </div>\');'; } ?>
             var redirect_second = 3,
                 display = document.querySelector('#lesson-timer');
             startTimer(redirect_second, display);
         });
+
+
 
 
         function startTimer(seconds, display) {

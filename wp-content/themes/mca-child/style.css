@@ -1260,3 +1260,31 @@ table.shop_table.cart span.woocommerce-Price-amount.amount {
 dl.variation dt.variation-RunSize {
     font-size: 17px;
 }
+.sensei-message.badge-div {
+    text-align: center;
+}
+.sensei-message.badge-div img {
+    margin-bottom: 20px;
+}
+.sensei-message.badge-div h2.congrats-text {
+    text-transform: uppercase;
+    font-family: sans-serif !important;
+}
+.sensei-message.badge-div h3 {
+    font-weight: 100 !important;
+    font-family: sans-serif !important;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+.sensei-message.badge-div a {
+    width: 315px;
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+    background-color: #42b549;
+    border-radius: 3px;
+    color: #FFF;
+    text-decoration: none !important;
+    padding: 25px 10px;
+    font-size: 24px;
+}

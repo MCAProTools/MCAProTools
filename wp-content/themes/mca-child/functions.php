@@ -258,7 +258,7 @@ function user_lesson_complete()
         jQuery(document).ready(function ($) {
             $('.empty-container').html('<div class="sensei-message tick">Congratulations! You have completed this lesson.</div>');
             $('.sensei-message').append('<?php echo $message; ?>');
-            <?php if ($next_course != 0) { echo '$(\'.sensei-message\').replaceWith(\'<div class="sensei-message badge-div"> <img src="/wp-content/uploads/2017/03/badge.png" /><br /> <h2 class="congrats-text">Congratulations</h2> <h3>'.$course_name_display.' Course</h3> <h2 class="congrats-text">Completed</h2> <a href="'.$next_url.'" style="display: block; text-align: center;">Go to the next course...</a> </div>\');'; } ?>
+            <?php if ($next_course != 0) { echo '$(\'.sensei-message\').replaceWith(\'<div class="sensei-message badge-div"> <img src="/wp-content/uploads/2017/03/badge.png" /><br /> <h2 class="congrats-text">Congratulations</h2> <h3>'.get_the_title( $lesson_course_id ).' Course</h3> <h2 class="congrats-text">Completed</h2> <a href="'.$next_url.'" style="display: block; text-align: center;">Go to the next course...</a></div><style type="text/css">.wistia_responsive_padding { display: none; }</style>\');'; } ?>
             var redirect_second = 3,
                 display = document.querySelector('#lesson-timer');
             startTimer(redirect_second, display);

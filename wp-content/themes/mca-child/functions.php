@@ -226,7 +226,7 @@ function user_lesson_complete()
         $lesson_course_id = get_post_meta($post->ID, '_lesson_course', true);
 
         $next_course = 0;
-
+        $traininghubnext = 0;
         $next_course_found = false;
 
         foreach ($posts_array as $post_item) {
@@ -249,6 +249,7 @@ function user_lesson_complete()
         } else {
             $next_url = get_site_url() . '/training-hub/';
             $message = 'You will get redirected to training hub in <span id="lesson-timer">0</span> second(s).';
+            $traininghubnext = 1;
         }
     }
 
@@ -259,6 +260,7 @@ function user_lesson_complete()
             $('.empty-container').html('<div class="sensei-message tick">Congratulations! You have completed this lesson.</div>');
             $('.sensei-message').append('<?php echo $message; ?>');
             <?php if ($next_course != 0) { echo '$(\'.sensei-message\').replaceWith(\'<div class="sensei-message badge-div"> <img src="/wp-content/uploads/2017/03/badge.png" /><br /> <h2 class="congrats-text">Congratulations</h2> <h3>'.get_the_title( $lesson_course_id ).' Course</h3> <h2 class="congrats-text">Completed</h2> <a href="'.$next_url.'" style="display: block; text-align: center;">Go to the next course...</a></div><style type="text/css">.wistia_responsive_padding { display: none; }</style>\');'; } ?>
+            <?php if ($traininghubnext != 0) { echo '$(\'.sensei-message\').replaceWith(\'<div class="sensei-message badge-div"> <img src="/wp-content/uploads/2017/03/badge.png" /><br /> <h2 class="congrats-text">Congratulations</h2> <h3>'.get_the_title( $lesson_course_id ).' Course</h3> <h2 class="congrats-text">Completed</h2> <a href="/marketing-hub/" style="display: block; text-align: center;">Go to Marketing Links...</a></div><style type="text/css">.wistia_responsive_padding { display: none; }</style>\');'; } ?>
             var redirect_second = 3,
                 display = document.querySelector('#lesson-timer');
             startTimer(redirect_second, display);
@@ -278,7 +280,7 @@ function user_lesson_complete()
 
                     // return false;
                     clearInterval(myTimer);
-                    <?php if ($next_course == 0) : ?>
+                    <?php if ($next_course == 0 && $traininghubnext == 0) : ?>
                        window.location.href = '<?php echo $next_url; ?>';
                     <?php endif; ?>
                 }

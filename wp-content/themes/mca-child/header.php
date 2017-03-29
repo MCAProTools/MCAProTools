@@ -65,6 +65,11 @@
 
             }
 
+            $( "#wpua-edit-1 h3" ).replaceWith( "<h3>Upload a Photo</h3>" );
+            $( "#wpua-add-button-existing" ).prepend( "<p>You can upload a JPG, GIF or PNG file (file size limit is 4 MB).</p>" );
+            $( ".page-id-47 form#wpua-edit-1 input#submit" ).val( "Upload Photo" );
+            $( "#wpua-add-button-existing" ).append( "<p style='margin-top: 20px;'>By clicking 'Upload Photo', you certify that you have the right to distribute this photo.</p>" );
+
 
         });
 
@@ -1772,7 +1777,7 @@ $body_classes[] = 'mobile-menu-design-' . $smof_data['mobile_menu_design'];
         }
 
         if (is_page_template('100-width.php') ||
-            is_page_template('blank.php') || is_page_template('whatismymca.php') ||
+            is_page_template('blank.php') || is_page_template('whatismymca.php') || is_page_template('invite.php') ||
             get_post_meta($slider_page_id, 'pyre_portfolio_width_100', true) == 'yes' ||
             (avada_is_portfolio_template() && get_post_meta($c_pageID, 'pyre_portfolio_width_100', true) == 'yes') ||
             $page_template == '100-width.php'

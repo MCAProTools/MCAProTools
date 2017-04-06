@@ -208,6 +208,14 @@ if ((get_option('show_on_front') && get_option('page_for_posts') && is_home()) |
             $('.modal-content').hide();
             $('.modal-content-active-membership').show();
         });
+        
+          $('.custom_pop_up').click(function() {
+            $('.modal-content-active-membership').show();
+        });
+        
+         $('.custom_close').click(function() {
+            $modalMembership.hide();
+        });
     })
     (jQuery);
 

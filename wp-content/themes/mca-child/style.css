@@ -75,7 +75,7 @@ Template: Avada
 
 
 -------------------------------------------------------------- */
-
+@import url('https://fonts.googleapis.com/css?family=Droid+Sans:400,700');
 .sidebar .widget li {
 
     margin: 0;
@@ -1507,4 +1507,114 @@ input.woocommerce-Button.button {
     text-shadow: 0 1px 0 #fff;
     filter: alpha(opacity=20);
     opacity: .2;
+}
+
+/* marketing page css 6 april 2017*/
+
+.bg-img {
+  height: 100vh;
+}
+.bg_images_back {
+  background: rgba(0, 0, 0, 0) url("img/miami_city-HD.jpg") repeat scroll 0 0;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.box {
+  background-color: #000000;
+  margin: 50px auto 0;
+  max-width: 560px;
+  opacity: 0.9;
+  padding: 25px;
+  text-align: center;
+}
+.box h2 {
+  color: #ffffff !important;
+  font-family: "Droid Sans",sans-serif !important;
+  font-size: 32px !important;
+  font-style: italic !important;
+  line-height: 40px !important;
+  margin-bottom: 0 !important;
+}
+.box h2 span {
+  color: #fd3400;
+}
+.box p.bonus {
+  color: #ffffff;
+  font-family: "Droid Sans",sans-serif !important;
+  font-size: 21px;
+  font-weight: 300;
+  padding: 10px 0;
+  line-height: 30px;
+}
+.box input[type="email"] {
+  border: 0 none;
+  border-radius: 5px;
+  color: #6d6d6d;
+  display: block;
+  height: 50px;
+  padding: 0 10px;
+  width: 100%;
+}
+.box .submit-btn {
+  background-color: #ff3300 !important;
+  border: 0 none;
+  border-radius: 5px;
+  color: #ffffff !important;
+  display: inline-block;
+  font-family: "Droid Sans",sans-serif!important;
+  font-size: 25px;
+  height: 60px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  padding: 0;
+  width: 100%;
+}
+.box p {
+  color: #ffffff;
+  font-family: "PT Sans",Arial,Helvetica,sans-serif!important;
+  font-size: 16px;
+  padding: 8px 0 0;
+}
+.box p .fa.fa-lock {
+  padding-right: 5px;
+}
+.email-icon {
+  cursor: pointer;
+  font-size: 30px;
+  height: 50px;
+  line-height: 50px;
+  padding-right: 10px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.input_email {
+  padding: 0;
+  position: relative;
+  width: 100%;
+}
+
+@media (max-width:767px){
+.box h2 {
+  font-size: 21px;
+}
+.box p.bonus {
+  font-size: 15px;
+}
+.email-icon {
+  padding-right: 20px;
+}
+.box input {
+  font-size: 10px;
+}
+.box .submit-btn{
+	font-size: 18px;
+}
+.box p {
+  font-size: 12px;
+  padding: 4px 0 0;
+}
 }

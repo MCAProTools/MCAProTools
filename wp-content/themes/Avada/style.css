@@ -7188,13 +7188,13 @@ body:not(:-moz-handler-blocked) .avada-myaccount-data .addresses .title .edit {
   padding: 0;
   width: 220px;
 }
-.woocommerce-side-nav li a {
+/*.woocommerce-side-nav li a {
   font-family: 'MuseoSlab500Regular', arial, helvetica, sans-serif;
   display: block;
   height: 36px;
   line-height: 36px;
   border-bottom: 1px solid;
-}
+}*/
 .woocommerce-side-nav li.active a:after {
   position: absolute;
   font-size: 14px;

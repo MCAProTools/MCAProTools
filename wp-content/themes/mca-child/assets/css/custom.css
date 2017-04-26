@@ -777,6 +777,43 @@ body.page-template-pushstart #footer{
     top: -2px;
 }
 
+body.page-template-2kperweek .videoWrapper{
+	padding-top: 0px;
+}
+.twokp-right-subtitle2{
+	text-align: center;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 30px;
+}
+.twokp-right-subtitle3{
+	text-align: center;
+    font-size: 18px;
+	font-weight: 600;
+    line-height: 26px;
+    max-width: 358px;
+	width:100%;
+    margin: 10px auto 0px;    
+}
+.twokp-email{
+	height: 47px;
+    line-height: 47px;
+    margin-top: 20px;
+}
+.twokp-submit{
+	width: 100%;
+    border: none;
+    background-color: #cd281c;
+    text-transform: uppercase;
+    font-size: 31px;
+    font-weight: 600;
+    padding: 20px 0px;
+    margin-top: 20px;
+	-webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
 /*Shortcode
 
 .marketing-url-input .save-user-info {

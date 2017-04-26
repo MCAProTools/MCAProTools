@@ -201,29 +201,21 @@ if ($double_sidebars == true) {
 
 
 if (class_exists('Woocommerce')) {
-
     if (is_cart() || is_checkout() || is_account_page() || (get_option('woocommerce_thanks_page_id') && is_page(get_option('woocommerce_thanks_page_id')))) {
-
         $content_css = 'width:100%';
-
         $sidebar_css = 'display:none';
-
         $sidebar_exists = false;
-
     }
-
 }
 ?>
     <div id="content" style="<?php echo $content_css; ?>">
         <?php if (have_posts()): the_post();?>
-            <div id="post-1101" class="post-1101 page type-page status-publish hentry">
-                <span class="entry-title" style="display: none;">You May Lose Sleep! (Video)</span><span class="vcard" style="display: none;"><span class="fn"><a href="https://mcaprotools.com/author/ptadmin/" title="Posts by MCAPT Admin" rel="author">MCAPT Admin</a></span></span><span class="updated" style="display:none;">2016-03-08T15:01:09+00:00</span>
+            <div id="post-1101" class="post-1101 page type-page status-publish hentry">                
                 <div class="post-content">
                     <div id="ls-landing"></div>
                     <div id="ls-landing-content">
                         <center>
-                            <h1 class="lp-h1" style="color: #fff; text-align: center;"><strong>WARNING:</strong> YOU MAY LOSE SLEEP WHEN YOU ENTER THIS WEBSITE….</h1>
-
+                            <div class="loosingsleep-title"><strong>WARNING:</strong> YOU MAY LOSE SLEEP WHEN YOU ENTER THIS WEBSITE.</div>
                             <div id="ls-buttoncontainer" class="notsleeping-box">
                                 <h3>Enter At Your Own Risk…</h3>
                                 <div id="ls-arrow"><img src="https://mcaprotools.s3-us-west-2.amazonaws.com/wp-content/uploads/2015/03/arrow.png" alt="arrow" width="83" height="100"></div>								
@@ -335,22 +327,12 @@ if (class_exists('Woocommerce')) {
     <?php endif; ?>
 
 <?php endif; ?>
-
     <!-- The Modal -->
-
     <div id="myModal" class="mca-modal email-optin">
-
-
-
         <!-- Modal content -->
-
-        <div class="modal-content">
-
+        <div class="modal-content losingsleep-modal">
             <span class="close">Close</span>
-
-
-
-            <h3 style="text-align: center; font-size: 20px !important;">WAIT! BEFORE YOU ENTER WE NEED A LITTLE INFO...</h3>
+            <div class="losingsleep-modal-title">WAIT! BEFORE YOU ENTER WE NEED A LITTLE INFO...</div>
 
 
 
@@ -366,7 +348,7 @@ if (class_exists('Woocommerce')) {
 
                 <input type="hidden" name="meta_required" value="email"/>
 
-                <input class="input-email" name="email" type="text" placeholder="Email Address*"/>
+                <input class="input-email losingsleep-modal-email" name="email" type="text" placeholder="Email Address*"/>
 
                 <input style="margin-top: 15px; width: 100%;" type="image" class="alignnone size-full wp-image-450"
 

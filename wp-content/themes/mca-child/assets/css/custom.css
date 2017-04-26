@@ -814,13 +814,16 @@ body.page-template-2kperweek .videoWrapper{
     border-radius: 5px;
 }
 
-body.page-template-not-sleeping #ls-arrow {
+body.page-template-not-sleeping #ls-arrow,body.page-template-losing-sleep #ls-arrow {
     top: 152px;
 }
-.notsleeping-box h3{
+#content #ls-landing-content .loosingsleep-box,#content #ls-landing-content .notsleeping-box{
+	margin-top:10px;
+}
+.notsleeping-box h3,.loosingsleep-box h3{
 	margin-top: 20px;
 }
-.notsleeping-btn a{
+.notsleeping-btn a, .loosingsleep-btn a{
 	display: block;
     background-color: #de2f0f;
     color: #fff;
@@ -833,8 +836,47 @@ body.page-template-not-sleeping #ls-arrow {
     -moz-border-radius: 5px;
     border-radius: 5px;
 }
-.notsleeping-btn a:hover{
+.notsleeping-btn a:hover,.loosingsleep-btn a:hover{
 	color:#fff;
+}
+.losingsleep-privacy{
+	margin-top: 80px;
+}
+body #wrapper #main #content .post-content .loosingsleep-title{
+	color: #fff;
+    text-align: center;
+    display: block;
+    font-size: 46px;
+    max-width: 797px;
+    font-weight: 500;
+    line-height: 51px;
+}
+#content .post-content .loosingsleep-title strong{
+	background-color:#ffff00;
+	color:#db1939;
+	padding: 0px 10px;
+}
+.modal-content.losingsleep-modal{
+	width: 100%;
+    max-width: 730px;
+	padding: 30px 48px 44px;
+}
+.modal-content.losingsleep-modal .losingsleep-modal-title{
+	text-align: center;
+    font-size: 47px;
+    max-width: 643px;
+    margin: 14px auto 0px;
+    line-height: 54px;
+    font-weight: 500;
+}
+.modal-content.losingsleep-modal .losingsleep-modal-email{
+	margin-top: 38px;
+    padding: 14px 0px 14px 10px;
+}
+#myModal .modal-content.losingsleep-modal .close{
+	text-shadow: none;
+    color: #fff;
+	font-size: 10px;
 }
 
 /*Shortcode

@@ -878,6 +878,12 @@ body #wrapper #main #content .post-content .loosingsleep-title{
     color: #fff;
 	font-size: 10px;
 }
+body #wrapper #main #content .loosingsleep-subtitle{
+	font-size: 28px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
 
 /*Shortcode
 
@@ -930,9 +936,23 @@ body #wrapper #main #content .post-content .loosingsleep-title{
 	#wrapper #main #content .discoverbox h4.discoversecure {
 		margin-top: 21px;
 	}
-	body.page-template-not-sleeping #ls-arrow {
-		top: 254px;
-		left: -37px;
+	body.page-template-not-sleeping #ls-arrow,body.page-template-losing-sleep #ls-arrow {
+		top: 81px;
+		left: -40px;
+	}
+	body #wrapper #main #content .post-content .loosingsleep-title {    
+		font-size: 19px;
+		line-height: 26px;
+	}
+	body #wrapper #main #content .loosingsleep-subtitle{
+		font-size:15px;
+	}
+	.notsleeping-btn a, .loosingsleep-btn a {    
+		font-size: 17px;
+		padding: 19px 0px;
+	}
+	.losingsleep-privacy {    
+		font-size: 10px;
 	}
 }
 

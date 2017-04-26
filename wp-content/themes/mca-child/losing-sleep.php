@@ -223,7 +223,7 @@ get_header(); ?>
                         <center>
                             <div class="loosingsleep-title"><strong>WARNING:</strong> YOU MAY LOSE SLEEP WHEN YOU ENTER THIS WEBSITE.</div>
                             <div id="ls-buttoncontainer" class="loosingsleep-box">
-                                <h3>Enter At Your Own Risk…</h3>
+                                <div class="loosingsleep-subtitle">Enter At Your Own Risk…</div>
                                 <div id="ls-arrow"><img src="https://mcaprotools.s3-us-west-2.amazonaws.com/wp-content/uploads/2015/03/arrow.png" alt="arrow" width="83" height="100"></div>
                                 <div class="su-button-center loosingsleep-btn"><a href="#" class="myBtn su-button su-button-style-default ls-btn" target="_self">CLICK HERE TO ENTER NOW!</a></div>
                                 <div class="losingsleep-privacy">We respect your privacy and have a ZERO TOLERANCE for spam.</div>

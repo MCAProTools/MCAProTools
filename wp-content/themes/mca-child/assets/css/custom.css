@@ -708,6 +708,10 @@ form.cart {
     font-size: 22px;
 }
 
+body.page-template-pushstart #wrapper #main{
+	padding-bottom: 400px;
+}
+
 /*Shortcode
 
 .marketing-url-input .save-user-info {

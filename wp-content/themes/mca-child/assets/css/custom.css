@@ -814,6 +814,29 @@ body.page-template-2kperweek .videoWrapper{
     border-radius: 5px;
 }
 
+body.page-template-not-sleeping #ls-arrow {
+    top: 152px;
+}
+.notsleeping-box h3{
+	margin-top: 20px;
+}
+.notsleeping-btn a{
+	display: block;
+    background-color: #de2f0f;
+    color: #fff;
+    font-size: 33px;
+    font-weight: 600;
+    padding: 30px 0px;
+    margin-top: 0px;
+    text-decoration: none;
+	-webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.notsleeping-btn a:hover{
+	color:#fff;
+}
+
 /*Shortcode
 
 .marketing-url-input .save-user-info {
@@ -864,6 +887,10 @@ body.page-template-2kperweek .videoWrapper{
 	}
 	#wrapper #main #content .discoverbox h4.discoversecure {
 		margin-top: 21px;
+	}
+	body.page-template-not-sleeping #ls-arrow {
+		top: 254px;
+		left: -37px;
 	}
 }
 

@@ -224,11 +224,11 @@ get_header(); ?>
 
 		?>
 
-                    <div id="landing-box-salesvideo" class="6fig-box">
+                    <div id="landing-box-salesvideo" style="width: 840px; padding: 50px; background-color: #fff; margin: 0 auto;" class="6fig-box">
 
 
-                            <h2>It's Unbeliebable How Easy It Is To Earn $2000+ (Or More) Per Week </h2>
-                            <h3>Watch This Video Below To Discover How</h3>
+                            <p class="6fig-title" style="margin: 0 auto; width: 80%; font-size: 29px;">It's Unbeliebable How Easy It Is To Earn $2000+ (Or More) Per Week </h2>
+                            <p class="6fig-subtitle" style="margin: 0 auto; width: 80% font-size: 22px;">Watch This Video Below To Discover How</h3>
                             
                             <div class="wistia_responsive_padding" style="padding:56.25% 0 0 0;position:relative;"><div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;"><iframe src="https://fast.wistia.net/embed/iframe/qjwkaimadj?seo=false&videoFoam=true" title="Wistia video player" allowtransparency="true" frameborder="0" scrolling="no" class="wistia_embed" name="wistia_embed" allowfullscreen mozallowfullscreen webkitallowfullscreen oallowfullscreen msallowfullscreen width="100%" height="100%"></iframe></div></div>
 <script src="https://fast.wistia.net/assets/external/E-v1.js" async></script>

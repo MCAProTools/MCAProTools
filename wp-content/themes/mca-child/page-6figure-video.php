@@ -224,7 +224,7 @@ get_header(); ?>
 
 		?>
 
-                    <div id="landing-box" class="discoverbox">
+                    <div id="landing-box-salesvideo" class="6fig-box">
 
 
                             <h2>It's Unbeliebable How Easy It Is To Earn $2000+ (Or More) Per Week </h2>
@@ -236,10 +236,8 @@ get_header(); ?>
 
                         
                         <div style="text-align: center" class="su-button-center">
-                                <a href="#" class="myBtn su-button su-button-style-default sales-btn"
-                                   style="color:#FFFFFF;background-color:#de2b20;border-color:#b2221a;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px"
-                                   target="_self"><span
-                                        style="color:#FFFFFF;padding:0px 58px;font-size:40px;line-height:80px;border-color:#e86b63;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;text-shadow:none;-moz-text-shadow:none;-webkit-text-shadow:none"> BUY MCA TOTAL SECURITY TODAY!</span></a>
+                                <a href="#" class="myBtn su-button su-button-style-default sales-btn" style="color:#FFFFFF;background-color:#de2b20;border-color:#b2221a;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px"
+                                   target="_self"><span style="color:#FFFFFF;padding:0px 58px;font-size:40px;line-height:80px;border-color:#e86b63;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;text-shadow:none;-moz-text-shadow:none;-webkit-text-shadow:none"> BUY MCA TOTAL SECURITY TODAY!</span></a>
                             </div>
                         
                         
@@ -264,7 +262,6 @@ get_header(); ?>
 						 
 						 <h4 class="discoversecure"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/img/discover-padlock.jpg"> 100% Secure. We Never Share Your Email.</h4>
 						 
-						 <h4>Copyright 2016. All Rights Reserved. <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></h4>
 					
 
                     </div>

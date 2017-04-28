@@ -239,14 +239,14 @@ get_header(); ?>
 			    
 			    <a href="<?php bloginfo('url') ?>/checkout/?add-to-cart=3287" target="_self">
 			    <div style="text-align: center; color:#FFFFFF; background-color:#de2b20; font-size: 29px; padding: 25px; margin: 20px; border-color:#b2221a; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px" class="su-button-center">
-         			BUY MCA TOTAL SECURITY TODAY!
+         			YES! I WANT ACCESS TO THE TRAINING NOW! 
 				
            			</div>
 				    </a>
                         
                         
                         
-				<a href="<?php bloginfo('url') ?>/checkout/?add-to-cart=3287" target="_self">
+				<a href="<?php bloginfo('url') ?>/checkout/?add-to-cart=171" target="_self">
 					<p class="no-thanks-link" style="text-align: center; font-size: 14px;">No Thanks, I Don't Want This Right Now...It Wasn't Helpful Too Me!</p>
 					
 			   	 </a>

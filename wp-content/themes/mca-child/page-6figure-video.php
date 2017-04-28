@@ -236,32 +236,22 @@ get_header(); ?>
 
                         
                         <div style="text-align: center" class="su-button-center">
-                                <a href="#" class="myBtn su-button su-button-style-default sales-btn" style="color:#FFFFFF;background-color:#de2b20;border-color:#b2221a;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px"
-                                   target="_self"><span style="color:#FFFFFF;padding:0px 58px;font-size:40px;line-height:80px;border-color:#e86b63;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;text-shadow:none;-moz-text-shadow:none;-webkit-text-shadow:none"> BUY MCA TOTAL SECURITY TODAY!</span></a>
+                                <a href="<?php bloginfo('url') ?>/checkout/?add-to-cart=3287" target="_self"><span class="myBtn su-button su-button-style-default sales-btn" style="color:#FFFFFF;background-color:#de2b20;border-color:#b2221a;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px"
+                                   target="_self"><span style="color:#FFFFFF;padding:0px 58px;font-size:40px;line-height:80px;border-color:#e86b63;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;text-shadow:none;-moz-text-shadow:none;-webkit-text-shadow:none"> BUY MCA TOTAL SECURITY TODAY!</span>
+				</a>
                             </div>
                         
                         
                         
-                            <p class="no-thanks-link">No Thanks, I Don't Want This Right Now...It Wasn't Helpful Too Me!</p>
-                            
+                            <a href="http://">
+				<p class="no-thanks-link">No Thanks, I Don't Want This Right Now...It Wasn't Helpful Too Me!</p>
+			    </a>
 
 
 
                    	<div>
                                     
-                                
-						
-            
-            
-            
-            
-            
-            
-            
-            
-						 
-						 <h4 class="discoversecure"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/img/discover-padlock.jpg"> 100% Secure. We Never Share Your Email.</h4>
-						 
+  
 					
 
                     </div>

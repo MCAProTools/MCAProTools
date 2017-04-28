@@ -235,11 +235,11 @@ get_header(); ?>
 
 
                         
-                        <div style="text-align: center" class="su-button-center">
-                                <a href="<?php bloginfo('url') ?>/checkout/?add-to-cart=3287" target="_self"><span class="red-button-full" style="color:#FFFFFF;background-color:#de2b20;border-color:#b2221a;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px"
-                                   target="_self"><span style="color:#FFFFFF;padding:0px 58px;font-size:40px;line-height:80px;border-color:#e86b63;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;text-shadow:none;-moz-text-shadow:none;-webkit-text-shadow:none"> BUY MCA TOTAL SECURITY TODAY!</span>
-				</a>
-                            </div>
+         <div style="text-align: center; color:#FFFFFF; background-color:#de2b20; border-color:#b2221a; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px" class="su-button-center">
+         	<a href="<?php bloginfo('url') ?>/checkout/?add-to-cart=3287" target="_self">
+			BUY MCA TOTAL SECURITY TODAY!
+		</a>
+           </div>
                         
                         
                         

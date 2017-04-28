@@ -243,9 +243,10 @@ get_header(); ?>
                         
                         
                         
-                            <a href="http://">
-				<p class="no-thanks-link">No Thanks, I Don't Want This Right Now...It Wasn't Helpful Too Me!</p>
-			    </a>
+				<a href="<?php bloginfo('url') ?>/checkout/?add-to-cart=3287" target="_self">
+					<p class="no-thanks-link" style="text-align: center;">No Thanks, I Don't Want This Right Now...It Wasn't Helpful Too Me!</p>
+					
+			   	 </a>
 
 
 

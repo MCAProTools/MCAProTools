@@ -1,4 +1,11 @@
-<?php get_header(); ?>
+<?php
+
+/* Template Name: Hangout Page */
+
+get_header(); ?>
+
+
+
 <div id="content" class="full-width">
     <?php while(have_posts()): the_post(); ?>
         <div id="post-115" class="post-115 page type-page status-publish hentry">

@@ -246,7 +246,7 @@ get_header(); ?>
                         
                         
                         
-				<a href="<?php bloginfo('url') ?>/invite/" target="_self">
+				<a href="<?php bloginfo('url') ?>/invite/" target="_blank">
 					<p class="no-thanks-link" style="text-align: center; font-size: 14px;">No Thanks, I Don't Want This Right Now...It Wasn't Helpful Too Me!</p>
 					
 			   	 </a>

@@ -110,10 +110,10 @@
 		if(have_posts()): the_post();
 		?>
             <div id="post-259" class="post-259 page type-page status-publish hentry">
-                <span class="entry-title" style="display: none;">New Push Button Marketing System</span><span class="vcard" style="display: none;"><span class="fn"><a href="http://mcaprotools.com/author/ptadmin/" title="Posts by MCAPT Admin" rel="author">MCAPT Admin</a></span></span><span class="updated" style="display:none;">2015-07-07T14:59:42+00:00</span>																		<div class="post-content">
+               		<div class="post-content">
                     <div id="landing-box">
                         <center><p></p>
-                            <h2><span style="color: red !important;">New “Push Button” System</span> Is Showing New Online Internet Marketers In <span style="color: red !important;"></span> How To Generate $80, $200, $400, $800 &amp; $2000 In Commissions – Every Week!</h2>
+                            <h2><span style="color: red !important; font-size: 39px;">New “Push Button” System</span> Is Showing New Online Internet Marketers In <span style="color: red !important;"></span> How To Generate $80, $200, $400, $800 &amp; $2000 In Commissions – Every Week!</h2>
                             <iframe width="720" height="340" src="https://s3-us-west-2.amazonaws.com/mcaprotools/MCA+Short+Presentation.mp4" frameborder="0" allowfullscreen=""></iframe>
                             <h3 style="color: red !important; font-size: 23px !important;">There Is Only A Limited Number Of Spaces Available In The  – Get Started Now!</h3>
                             <p><img src="http://mcaprotools.com/wp-content/uploads/2015/03/let-me-in.png" alt="let-me-in" width="640" height="158" class="popmake-993 alignnone size-full wp-image-260" srcset="http://mcaprotools.com/wp-content/uploads/2015/03/let-me-in.png 640w, http://mcaprotools.com/wp-content/uploads/2015/03/let-me-in-300x74.png 300w, http://mcaprotools.com/wp-content/uploads/2015/03/let-me-in-100x25.png 100w, http://mcaprotools.com/wp-content/uploads/2015/03/let-me-in-120x30.png 120w, http://mcaprotools.com/wp-content/uploads/2015/03/let-me-in-500x123.png 500w" sizes="(max-width: 640px) 100vw, 640px"><br>

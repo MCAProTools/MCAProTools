@@ -111,6 +111,14 @@ get_header(); ?>
 
 	}
 
+	.info-banner {
+		background-color: crimson;
+		color: #fff;
+		padding: 20px;
+		width: 100%;
+		text-align: center;
+	}
+
 
 
 	/* Portrait */
@@ -395,7 +403,7 @@ get_header(); ?>
 
 
 </style>
-
+<a href="#money_details"><div class="info-banner">GET ACCESS TO PRO TOOLS FOR 7 DAYS - FOR ONLY $1 (Click Here)</div></a>
 
 
 

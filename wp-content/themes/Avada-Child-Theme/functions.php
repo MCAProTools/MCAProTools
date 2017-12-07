@@ -542,20 +542,14 @@ function get_mca_user_information($atts, $content = null)
 
 function save_mca_user_information()
 {
-    //if (!wp_verify_nonce($_POST['nonce'], "mca_user_info_nonce")) {
-    //    exit("No naughty business please");
-    //}
-
+    
     global $current_user;
 
     $meta_key = $_POST['meta_key'];
     $meta_value = $_POST['meta_value'];
-
     update_user_meta($current_user->ID, $meta_key, $meta_value);
-
     $response['html'] = $meta_key;
     $response['save_message'] = $_POST['save_message'];
-
     echo json_encode($response);
     die();
 }

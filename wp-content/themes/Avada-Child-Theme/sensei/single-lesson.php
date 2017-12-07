@@ -16,10 +16,30 @@
 
 <style type="text/css">
 
+h1 {
+    font-size: 39px;
+    text-align: center;
+    margin-top: 0px;
+  }
+
 form {
     padding: 30px;
     background-color: rgba(3,42,170, 1);
     border: 5px solid #162469;
+}
+
+form.lesson_button_form {
+    background: none;
+    border: 0px;
+    padding: 0px
+}
+
+input.quiz-submit.complete {
+    width: 100%;
+    font-size: 24px;
+    background: #63a95f;
+    padding: 25px;
+    box-shadow: 0px 6px 0px #3f733c;
 }
 
 input.mca_user_field {

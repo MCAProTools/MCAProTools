@@ -31,6 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
     <section class="course-content">
 
         <section class="entry">
+
             <?php
             /**
              * Fires just before the course content in the content-course.php file.

@@ -9,44 +9,16 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-global $smof_data;
-
 $template = get_option('template');
 
-if($smof_data['default_sidebar_pos'] == 'Left') {
-	$content_css = 'float:right;';
-	$sidebar_css = 'float:left;';
-} elseif($smof_data['default_sidebar_pos'] == 'Right') {
-	$content_css = 'float:left;';
-	$sidebar_css = 'float:right;';
-}
+ob_start();
+Avada()->layout->add_class( 'content_class' );
+$content_class = ob_get_clean();
 
-switch( $template ) {
-
-	// IF Twenty Eleven
-	case 'twentyeleven' :
-		echo '<div id="primary"><div id="content" role="main">';
-		break;
-
-	// IF Twenty Twelve
-	case 'twentytwelve' :
-		echo '<div id="primary" class="site-content"><div id="content" role="main">';
-		break;
-
-	// IF Twenty Fourteen
-	case 'twentyfourteen' :
-		echo '<div id="main-content" class="main-content"><div id="primary" class="content-area"><div id="content" class="site-content" role="main">';
-		break;
-
-	// IF Canvas
-	case 'canvas' :
-		echo '<div id="content" class="col-full"><div id="main-sidebar-container"><div id="main">';
-		break;	
-
-	// Default
-	default :
-		echo '<div class="sensei-container"><div id="content" style="'.$content_css.'">';
-		break;
-}
+ob_start();
+Avada()->layout->add_style( 'content_style' );
+$content_css = ob_get_clean();
 
 ?>
+<div class="sensei-container">
+	<section id="content"<?php echo $content_class; ?> <?php echo $content_css; ?>>

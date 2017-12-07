@@ -451,11 +451,13 @@ class Sensei_Question {
          * hook document in class-woothemes-sensei-message.php the_title()
          */
         $title = apply_filters( 'sensei_single_title', $title, 'question');
+		
+		$question_grade = Sensei()->question->get_question_grade( $question_id );
 
         $title_html  = '<span class="question question-title">';
         $title_html .= $title;
-        $title_html .= '<span class="grade">' . Sensei()->question->get_question_grade( $question_id ) . '</span>';
-        $title_html .='</span>';
+		$title_html .= Sensei()->view_helper->format_question_points( $question_grade );
+		$title_html .='</span>';
 
         return $title_html;
     }
@@ -619,13 +621,11 @@ class Sensei_Question {
 		$quiz_graded        = isset( $user_lesson_status->comment_approved ) && ! in_array( $user_lesson_status->comment_approved, array( 'ungraded', 'in-progress' ) );
 
 	    $quiz_required_pass_grade = intval( get_post_meta($quiz_id, '_quiz_passmark', true) );
-	    $failed_and_reset_not_allowed =  $user_quiz_grade < $quiz_required_pass_grade && ! $reset_quiz_allowed && $quiz_graded;
+		$succeeded = $user_quiz_grade >= $quiz_required_pass_grade;
+		$failed_and_reset_not_allowed = ! $succeeded && ! $reset_quiz_allowed;
 
 		// Check if answers must be shown
-		$show_answers = false;
-	    if ( $quiz_graded || $failed_and_reset_not_allowed ) {
-	    	$show_answers = true;
-	    }
+		$show_answers = $quiz_graded && ( $succeeded || $failed_and_reset_not_allowed );
 
 	    /**
          * Allow dynamic overriding of whether to show question answers or not

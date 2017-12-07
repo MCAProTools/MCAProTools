@@ -1,8 +1,8 @@
-# Copyright (C) 2017 WooThemes / SkyVerge
+# Copyright (C) 2017 SkyVerge
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Order Status Control 1.7.1\n"
+"Project-Id-Version: WooCommerce Order Status Control 1.8.0\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/tickets/\n"
 "POT-Creation-Date: 2014-06-15 22:41:29+00:00\n"
 "MIME-Version: 1.0\n"
@@ -16,38 +16,38 @@ msgstr ""
 msgid "WooCommerce Order Status Control"
 msgstr ""
 
-#: woocommerce-order-status-control.php:155
+#: woocommerce-order-status-control.php:161
 msgid "Order auto-completion skipped: deleted or non-existent product found."
 msgstr ""
 
-#: woocommerce-order-status-control.php:246
+#: woocommerce-order-status-control.php:240
 msgid "Orders to Auto-Complete"
 msgstr ""
 
-#: woocommerce-order-status-control.php:247
+#: woocommerce-order-status-control.php:241
 msgid ""
 "Select which types of orders should be changed to completed when payment is "
 "received. Default WooCommerce behavior is \"Virtual & Downloadable\"."
 msgstr ""
 
-#: woocommerce-order-status-control.php:253
+#: woocommerce-order-status-control.php:247
 msgid "None"
 msgstr ""
 
-#: woocommerce-order-status-control.php:254
+#: woocommerce-order-status-control.php:248
 msgid "All Orders"
 msgstr ""
 
-#: woocommerce-order-status-control.php:255
+#: woocommerce-order-status-control.php:249
 msgid "Virtual Orders"
 msgstr ""
 
-#: woocommerce-order-status-control.php:256
+#: woocommerce-order-status-control.php:250
 msgid "Virtual & Downloadable Orders"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
-msgid "http://www.woothemes.com/products/woocommerce-order-status-control/"
+msgid "http://www.woocommerce.com/products/woocommerce-order-status-control/"
 msgstr ""
 
 #. Description of the plugin/theme
@@ -57,9 +57,9 @@ msgid ""
 msgstr ""
 
 #. Author of the plugin/theme
-msgid "WooThemes / SkyVerge"
+msgid "SkyVerge"
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "http://www.woothemes.com"
+msgid "http://www.woocommerce.com"
 msgstr ""

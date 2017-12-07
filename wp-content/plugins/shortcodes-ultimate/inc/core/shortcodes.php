@@ -316,6 +316,7 @@ class Su_Shortcodes {
 				'onclick'     => '',
 				'rel'         => '',
 				'title'       => '',
+				'id'          => '',
 				'class'       => ''
 			), $atts, 'button' );
 
@@ -437,8 +438,10 @@ class Su_Shortcodes {
 		$atts['rel'] = ( $atts['rel'] ) ? ' rel="' . $atts['rel'] . '"' : '';
 		// Prepare title attribute
 		$atts['title'] = ( $atts['title'] ) ? ' title="' . $atts['title'] . '"' : '';
+		// Add ID attribute
+		$atts['id'] = ! empty( $atts['id'] ) ? sprintf( ' id="%s"', esc_attr( $atts['id'] ) ) : '';
 		su_query_asset( 'css', 'su-content-shortcodes' );
-		return $before . '<a href="' . su_scattr( $atts['url'] ) . '" class="' . implode( $classes, ' ' ) . '" style="' . implode( $a_css, ';' ) . '" target="_' . $atts['target'] . '"' . $atts['onclick'] . $atts['rel'] . $atts['title'] . '><span style="' . implode( $span_css, ';' ) . '">' . do_shortcode( stripcslashes( $content ) ) . $desc . '</span></a>' . $after;
+		return $before . '<a href="' . su_scattr( $atts['url'] ) . '" class="' . implode( $classes, ' ' ) . '" style="' . implode( $a_css, ';' ) . '" target="_' . $atts['target'] . '"' . $atts['onclick'] . $atts['rel'] . $atts['title'] . $atts['id'] . '><span style="' . implode( $span_css, ';' ) . '">' . do_shortcode( stripcslashes( $content ) ) . $desc . '</span></a>' . $after;
 	}
 
 	public static function service( $atts = null, $content = null ) {
@@ -629,7 +632,7 @@ class Su_Shortcodes {
 		$autoplay = ( $atts['autoplay'] === 'yes' ) ? '?autoplay=1' : '';
 		// Create player
 		$return[] = '<div class="su-youtube su-responsive-media-' . $atts['responsive'] . su_ecssc( $atts ) . '">';
-		$return[] = '<iframe width="' . $atts['width'] . '" height="' . $atts['height'] . '" src="http://www.youtube.com/embed/' . $id . $autoplay . '" frameborder="0" allowfullscreen="true"></iframe>';
+		$return[] = '<iframe width="' . $atts['width'] . '" height="' . $atts['height'] . '" src="https://www.youtube.com/embed/' . $id . $autoplay . '" frameborder="0" allowfullscreen="true"></iframe>';
 		$return[] = '</div>';
 		su_query_asset( 'css', 'su-media-shortcodes' );
 		// Return result
@@ -971,7 +974,7 @@ class Su_Shortcodes {
 				'class'      => ''
 			), $atts, 'gmap' );
 		su_query_asset( 'css', 'su-media-shortcodes' );
-		return '<div class="su-gmap su-responsive-media-' . $atts['responsive'] . su_ecssc( $atts ) . '"><iframe width="' . $atts['width'] . '" height="' . $atts['height'] . '" src="http://maps.google.com/maps?q=' . urlencode( su_scattr( $atts['address'] ) ) . '&amp;output=embed"></iframe></div>';
+		return '<div class="su-gmap su-responsive-media-' . $atts['responsive'] . su_ecssc( $atts ) . '"><iframe width="' . $atts['width'] . '" height="' . $atts['height'] . '" src="//maps.google.com/maps?q=' . urlencode( su_scattr( $atts['address'] ) ) . '&amp;output=embed"></iframe></div>';
 	}
 
 	public static function slider( $atts = null, $content = null ) {
@@ -1021,7 +1024,7 @@ class Su_Shortcodes {
 				// Open slide
 				$return .= '<div class="su-slider-slide">';
 				// Slide content with link
-				if ( $slide['link'] ) $return .= '<a href="' . $slide['link'] . '"' . $target . 'title="' . esc_attr( $slide['title'] ) . '"><img src="' . $image['url'] . '" alt="' . esc_attr( $slide['title'] ) . '" />' . $title . '</a>';
+				if ( $slide['link'] ) $return .= '<a href="' . $slide['link'] . '" ' . $target . ' title="' . esc_attr( $slide['title'] ) . '"><img src="' . $image['url'] . '" alt="' . esc_attr( $slide['title'] ) . '" />' . $title . '</a>';
 				// Slide content without link
 				else $return .= '<a><img src="' . $image['url'] . '" alt="' . esc_attr( $slide['title'] ) . '" />' . $title . '</a>';
 				// Close slide
@@ -1103,7 +1106,7 @@ class Su_Shortcodes {
 				// Open slide
 				$return .= '<div class="su-carousel-slide">';
 				// Slide content with link
-				if ( $slide['link'] ) $return .= '<a href="' . $slide['link'] . '"' . $target . 'title="' . esc_attr( $slide['title'] ) . '"><img src="' . $image['url'] . '" alt="' . esc_attr( $slide['title'] ) . '" />' . $title . '</a>';
+				if ( $slide['link'] ) $return .= '<a href="' . $slide['link'] . '"' . $target . ' title="' . esc_attr( $slide['title'] ) . '"><img src="' . $image['url'] . '" alt="' . esc_attr( $slide['title'] ) . '" />' . $title . '</a>';
 				// Slide content without link
 				else $return .= '<a><img src="' . $image['url'] . '" alt="' . esc_attr( $slide['title'] ) . '" />' . $title . '</a>';
 				// Close slide
@@ -1168,7 +1171,7 @@ class Su_Shortcodes {
 				// Open slide
 				$return .= '<div class="su-custom-gallery-slide">';
 				// Slide content with link
-				if ( $slide['link'] ) $return .= '<a href="' . $slide['link'] . '"' . $atts['target'] . 'title="' . esc_attr( $slide['title'] ) . '"><img src="' . $image['url'] . '" alt="' . esc_attr( $slide['title'] ) . '" width="' . $atts['width'] . '" height="' . $atts['height'] . '" />' . $title . '</a>';
+				if ( $slide['link'] ) $return .= '<a href="' . $slide['link'] . '"' . $atts['target'] . ' title="' . esc_attr( $slide['title'] ) . '"><img src="' . $image['url'] . '" alt="' . esc_attr( $slide['title'] ) . '" width="' . $atts['width'] . '" height="' . $atts['height'] . '" />' . $title . '</a>';
 				// Slide content without link
 				else $return .= '<a><img src="' . $image['url'] . '" alt="' . esc_attr( $slide['title'] ) . '" width="' . $atts['width'] . '" height="' . $atts['height'] . '" />' . $title . '</a>';
 				// Close slide
@@ -1267,6 +1270,7 @@ class Su_Shortcodes {
 			// Term string to array
 			$tax_term = explode( ',', $tax_term );
 			// Validate operator
+			$tax_operator = str_replace( array( 0, 1, 2 ), array( 'IN', 'NOT IN', 'AND' ), $tax_operator );
 			if ( !in_array( $tax_operator, array( 'IN', 'NOT IN', 'AND' ) ) ) $tax_operator = 'IN';
 			$tax_args = array( 'tax_query' => array( array(
 						'taxonomy' => $taxonomy,
@@ -1403,7 +1407,13 @@ class Su_Shortcodes {
 		// Set default value if meta is empty
 		if ( !$meta ) $meta = $atts['default'];
 		// Apply cutom filter
-		if ( $atts['filter'] && function_exists( $atts['filter'] ) ) $meta = call_user_func( $atts['filter'], $meta );
+		if (
+			$atts['filter'] &&
+			Su_Tools::is_valid_filter( $atts['filter'] ) &&
+			function_exists( $atts['filter'] )
+		) {
+			$meta = call_user_func( $atts['filter'], $meta );
+		}
 		// Return result
 		return ( $meta ) ? $atts['before'] . $meta . $atts['after'] : '';
 	}
@@ -1422,13 +1432,19 @@ class Su_Shortcodes {
 		// Define current user ID
 		if ( !$atts['user_id'] ) $atts['user_id'] = get_current_user_id();
 		// Check user ID
-		if ( !is_numeric( $atts['user_id'] ) || $atts['user_id'] < 1 ) return sprintf( '<p class="su-error">User: %s</p>', __( 'user ID is incorrect', 'shortcodes-ultimate' ) );
+		if ( !is_numeric( $atts['user_id'] ) || $atts['user_id'] < 0 ) return sprintf( '<p class="su-error">User: %s</p>', __( 'user ID is incorrect', 'shortcodes-ultimate' ) );
 		// Get user data
 		$user = get_user_by( 'id', $atts['user_id'] );
 		// Get user data if user was found
-		$user = ( $user && isset( $user->data->$atts['field'] ) ) ? $user->data->$atts['field'] : $atts['default'];
+		$user = ( $user && isset( $user->data->{$atts['field']} ) ) ? $user->data->{$atts['field']} : $atts['default'];
 		// Apply cutom filter
-		if ( $atts['filter'] && function_exists( $atts['filter'] ) ) $user = call_user_func( $atts['filter'], $user );
+		if (
+			$atts['filter'] &&
+			Su_Tools::is_valid_filter( $atts['filter'] ) &&
+			function_exists( $atts['filter'] )
+		) {
+			$user = call_user_func( $atts['filter'], $user );
+		}
 		// Return result
 		return ( $user ) ? $atts['before'] . $user . $atts['after'] : '';
 	}
@@ -1449,9 +1465,15 @@ class Su_Shortcodes {
 		// Get the post
 		$post = get_post( $atts['post_id'] );
 		// Set default value if meta is empty
-		$post = ( empty( $post ) || empty( $post->$atts['field'] ) ) ? $atts['default'] : $post->$atts['field'];
+		$post = ( empty( $post ) || empty( $post->{$atts['field']} ) ) ? $atts['default'] : $post->{$atts['field']};
 		// Apply cutom filter
-		if ( $atts['filter'] && function_exists( $atts['filter'] ) ) $post = call_user_func( $atts['filter'], $post );
+		if (
+			$atts['filter'] &&
+			Su_Tools::is_valid_filter( $atts['filter'] ) &&
+			function_exists( $atts['filter'] )
+		) {
+			$post = call_user_func( $atts['filter'], $post );
+		}
 		// Return result
 		return ( $post ) ? $atts['before'] . $post . $atts['after'] : '';
 	}

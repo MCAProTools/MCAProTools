@@ -269,18 +269,41 @@ class Sensei_Core_Modules
      * @param object $taxonomy Taxonomy object
      * @return void
      */
-    public function add_module_fields($taxonomy)
-    {
+    public function add_module_fields( $taxonomy ) {
         ?>
         <div class="form-field">
-            <label for="module_courses"><?php _e('Course(s)', 'woothemes-sensei'); ?></label>
-            <input type="hidden" id="module_courses" name="module_courses" class="ajax_chosen_select_courses"
-                    placeholder="<?php esc_attr_e('Search for courses', 'woothemes-sensei'); ?>" />
-            <span
-                class="description"><?php _e('Search for and select the courses that this module will belong to.', 'woothemes-sensei'); ?></span>
+			<?php $this->render_module_course_multi_select(); ?>
         </div>
     <?php
     }
+
+	/**
+	 * Render the Course Multi-Select (used by select2)
+	 *
+	 * @param array $module_courses The Module courses.
+	 * @since 1.9.15
+	 * @return void
+	 */
+	private function render_module_course_multi_select( $module_courses = array() ) {
+		?>
+		<label for="module_courses"><?php echo esc_html__( 'Course(s)', 'woothemes-sensei'); ?></label>
+		<select name="module_courses[]"
+				id="module_courses"
+				class="ajax_chosen_select_courses"
+				multiple="multiple"
+				data-placeholder="<?php echo esc_attr__( 'Search for courses...', 'woothemes-sensei' ); ?>"
+		>
+			<?php foreach ( $module_courses as $module_course ) { ?>
+				<option value="<?php echo esc_attr( $module_course['id'] ); ?>" selected="selected">
+					<?php echo esc_html( $module_course['details'] ); ?>
+				</option>
+			<?php } ?>
+		</select>
+		<span
+			class="description"><?php echo esc_html__('Search for and select the courses that this module will belong to.', 'woothemes-sensei'); ?>
+		</span>
+		<?php
+	}
 
     /**
      * Display course field on module edit screen
@@ -322,15 +345,7 @@ class Sensei_Core_Modules
             <th scope="row" valign="top"><label
                     for="module_courses"><?php _e('Course(s)', 'woothemes-sensei'); ?></label></th>
             <td>
-                <input type="hidden"
-                       data-defaults="<?php echo esc_attr( json_encode($module_courses)); ?>"
-                       value="<?php echo esc_attr( json_encode($module_courses) ); ?>"
-                       id="module_courses" name="module_courses"
-                       class="ajax_chosen_select_courses"
-                       placeholder="<?php esc_attr_e('Search for courses...', 'woothemes-sensei'); ?>"
-                    />
-                <span
-                    class="description"><?php _e('Search for and select the courses that this module will belong to.', 'woothemes-sensei'); ?></span>
+				<?php $this->render_module_course_multi_select( $module_courses ); ?>
             </td>
         </tr>
     <?php
@@ -340,10 +355,10 @@ class Sensei_Core_Modules
      * Save module course on add/edit
      *
      * @since 1.8.0
-     * @param  integer $module_id ID of module
+     * @param  int $module_id ID of module.
      * @return void
      */
-    public function save_module_course($module_id)
+    public function save_module_course( $module_id )
     {
 
 	    if( isset( $_POST['action'] ) && 'inline-save-tax' == $_POST['action'] ) {
@@ -365,7 +380,7 @@ class Sensei_Core_Modules
         $courses = get_posts($args);
 
         // Remove module from existing courses
-        if (isset($courses) && is_array($courses)) {
+        if ( isset( $courses ) && is_array( $courses ) ) {
             foreach ($courses as $course) {
                 wp_remove_object_terms($course->ID, $module_id, $this->taxonomy);
             }
@@ -374,11 +389,11 @@ class Sensei_Core_Modules
         // Add module to selected courses
         if ( isset( $_POST['module_courses'] ) && ! empty( $_POST['module_courses'] ) ) {
 
-            $course_ids = explode( ",", $_POST['module_courses'] );
+            $course_ids = is_array( $_POST['module_courses'] ) ? $_POST['module_courses'] : explode( ",", $_POST['module_courses'] );
 
             foreach ( $course_ids as $course_id ) {
 
-                wp_set_object_terms($course_id, $module_id, $this->taxonomy, true);
+                wp_set_object_terms( absint( $course_id ), $module_id, $this->taxonomy, true);
 
             }
         }
@@ -535,7 +550,7 @@ class Sensei_Core_Modules
      */
     public function module_archive_filter($query)
     {
-        if (is_tax($this->taxonomy) && $query->is_main_query()) {
+        if ( $query->is_main_query() && is_tax($this->taxonomy) ) {
 
 
             // Limit to lessons only
@@ -1878,9 +1893,14 @@ class Sensei_Core_Modules
         remove_filter('get_terms', array( $this, 'filter_module_terms' ), 20, 3 );
 
         // in certain cases the array is passed in as reference to the parent term_id => parent_id
-        if( isset( $args['fields'] ) && 'id=>parent' == $args['fields'] ){
+        if( isset( $args['fields'] ) ) {
+            if ( in_array( $args['fields'], array( 'tt_ids', 'ids' ) ) ) {
+                return $terms;
+            }
             // change only scrub the terms ids form the array keys
-            $terms = array_keys( $terms );
+            if ( 'id=>parent' == $args['fields'] ) {
+                $terms = array_keys( $terms );
+            }
         }
 
         $teachers_terms =  $this->filter_terms_by_owner( $terms, get_current_user_id() );

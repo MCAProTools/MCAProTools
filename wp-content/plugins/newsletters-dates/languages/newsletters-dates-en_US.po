@@ -1,0 +1,167 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Newsletters - Special Dates\n"
+"POT-Creation-Date: 2016-04-29 15:37+0200\n"
+"PO-Revision-Date: 2016-04-29 15:37+0200\n"
+"Last-Translator: Tribulant Software <support@tribulant.com>\n"
+"Language-Team: Tribulant Software <support@tribulant.com>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.5\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: dates.php:84
+msgid ""
+"You must have the Newsletter plugin installed and activated in order to use "
+"this."
+msgstr ""
+
+#: dates.php:103
+#, php-format
+msgid "The %s extension requires the Newsletter plugin %s at least."
+msgstr ""
+
+#: dates.php:166
+msgid "Choose at least one date part to match"
+msgstr ""
+
+#: dates.php:172
+msgid "Select a field value to match"
+msgstr ""
+
+#: dates.php:320
+#, php-format
+msgid "%s special dates autoresponder emails sent"
+msgstr ""
+
+#: dates.php:329 dates.php:355
+msgid "Special Dates Autoresponder"
+msgstr ""
+
+#: dates.php:332
+#, php-format
+msgid ""
+"Send autoresponder emails to subscribers on special/specific dates based on "
+"custom field values for %s."
+msgstr ""
+
+#: dates.php:332
+msgid "Newsletter plugin"
+msgstr ""
+
+#: dates.php:349
+msgid "Settings"
+msgstr ""
+
+#: vendors/class.update.php:17
+msgid "Something went wrong!"
+msgstr ""
+
+#: vendors/class.update.php:18
+#, php-format
+msgid "Please try again or %scontact us%s."
+msgstr ""
+
+#: views/save.php:19
+msgid "Send on Specific Date?"
+msgstr ""
+
+#: views/save.php:21
+msgid "Yes, configure a specific date"
+msgstr ""
+
+#: views/save.php:32
+msgid "Date Condition"
+msgstr ""
+
+#: views/save.php:36
+msgid "X eg. 7"
+msgstr ""
+
+#: views/save.php:38 views/save.php:91
+msgid "Days"
+msgstr ""
+
+#: views/save.php:38 views/save.php:91
+msgid "Weeks"
+msgstr ""
+
+#: views/save.php:38 views/save.php:91
+msgid "Months"
+msgstr ""
+
+#: views/save.php:38 views/save.php:91
+msgid "Years"
+msgstr ""
+
+#: views/save.php:40 views/save.php:47 views/save.php:57 views/save.php:70
+#: views/save.php:95
+msgid "- Select -"
+msgstr ""
+
+#: views/save.php:48
+msgid "Before"
+msgstr ""
+
+#: views/save.php:49
+msgid "After"
+msgstr ""
+
+#: views/save.php:51
+msgid ""
+"Choose how long before or after the date match the email should be sent. Use "
+"zero (0) to send on the match exactly."
+msgstr ""
+
+#: views/save.php:58
+msgid "Day"
+msgstr ""
+
+#: views/save.php:59
+msgid "Month"
+msgstr ""
+
+#: views/save.php:60
+msgid "Year"
+msgstr ""
+
+#: views/save.php:63
+msgid ""
+"Pick the date parts that should match, eg. Day + Month, Day, Day + Month + "
+"Year"
+msgstr ""
+
+#: views/save.php:74
+msgid "Created Date"
+msgstr ""
+
+#: views/save.php:75
+msgid "Modified Date"
+msgstr ""
+
+#: views/save.php:77
+msgid ""
+"Choose a custom field value on subscribers to match to the current date."
+msgstr ""
+
+#: views/save.php:81
+msgid ""
+"Current date refers to the date each time the autoresponder cron runs to "
+"check if values of the custom field of subscribers match this criteria."
+msgstr ""
+
+#: views/save.php:88
+msgid "Recurring"
+msgstr ""
+
+#: views/settings.php:3
+msgid ""
+"To use Special Dates Autoresponders, add/edit an autoresponder under "
+"Newsletters > Autoresponders."
+msgstr ""

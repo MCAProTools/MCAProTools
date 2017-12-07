@@ -1,44 +1,61 @@
+<?php
+/**
+ * The template used for 404 pages.
+ *
+ * @package Avada
+ * @subpackage Templates
+ */
+
+// Do not allow directly accessing this file.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit( 'Direct script access denied.' );
+}
+?>
 <?php get_header(); ?>
-	<div id="content" class="full-width">
-		<div id="post-404page">
-			<div class="post-content">
-				<div class="fusion-title title">
-					<h2 class="title-heading-left"><?php echo __('Oops, This Page Could Not Be Found!', 'Avada'); ?></h2><div class="title-sep-container"><div class="title-sep sep-double"></div></div>
-				</div>
-				<div class="fusion-clearfix"></div>
-				<div class="error_page">
-					<div class="fusion-one-third one_third fusion-column spacing-yes">
+<section id="content" class="full-width">
+	<div id="post-404page">
+		<div class="post-content">
+			<?php
+			// Render the page titles.
+			$subtitle = esc_html__( 'Oops, This Page Could Not Be Found!', 'Avada' );
+			Avada()->template->title_template( $subtitle );
+			?>
+			<div class="fusion-clearfix"></div>
+			<div class="error-page">
+				<div class="fusion-columns fusion-columns-3">
+					<div class="fusion-column col-lg-4 col-md-4 col-sm-4">
 						<div class="error-message">404</div>
 					</div>
-					<div class="fusion-one-third one_third fusion-column spacing-yes useful_links">
-						<h3><?php echo __('Here are some useful links:', 'Avada'); ?></h3>
-
+					<div class="fusion-column col-lg-4 col-md-4 col-sm-4 useful-links">
+						<h3><?php esc_html_e( 'Helpful Links', 'Avada' ); ?></h3>
+						<?php $circle_class = ( Avada()->settings->get( 'checklist_circle' ) ) ? 'circle-yes' : 'circle-no'; ?>
 						<?php
-						if( $smof_data['checklist_circle'] ) {
-							$circle_class = 'circle-yes';
-						} else {
-							$circle_class = 'circle-no';
-						}
-						wp_nav_menu(array('theme_location' => '404_pages', 'depth' => 1, 'container' => false, 'menu_id' => 'checklist-1', 'menu_class' => 'error-menu list-icon list-icon-arrow ' . $circle_class )); ?>
+						wp_nav_menu(
+							array(
+								'theme_location' => '404_pages',
+								'depth'          => 1,
+								'container'      => false,
+								'menu_id'        => 'checklist-1',
+								'menu_class'     => 'error-menu list-icon list-icon-arrow ' . $circle_class,
+								'echo'           => 1,
+								'item_spacing'   => 'discard',
+							)
+						);
+						?>
 					</div>
-					<div class="fusion-one-third one_third fusion-column spacing-yes last">
-						<h3><?php echo __('Search Our Website', 'Avada'); ?></a></h3>
-						<p><?php echo __('Can\'t find what you need? Take a moment and do a search below!', 'Avada'); ?></p>
+					<div class="fusion-column col-lg-4 col-md-4 col-sm-4">
+						<h3><?php esc_html_e( 'Search Our Website', 'Avada' ); ?></h3>
+						<p><?php esc_html_e( 'Can\'t find what you need? Take a moment and do a search below!', 'Avada' ); ?></p>
 						<div class="search-page-search-form">
-							<form class="searchform seach-form" role="search" method="get" action="<?php echo home_url( '/' ); ?>">
-								<div class="search-table">
-									<div class="search-field">
-										<input type="text" value="" name="s" class="s" placeholder="<?php _e( 'Search ...', 'Avada' ); ?>"/>
-									</div>
-									<div class="search-button">
-										<input type="submit" class="searchsubmit" value="&#xf002;" />
-									</div>
-								</div>
-							</form>
+							<?php echo get_search_form( false ); ?>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-<?php get_footer(); ?>
+</section>
+<?php
+get_footer();
+
+/* Omit closing PHP tag to avoid "Headers already sent" issues. */

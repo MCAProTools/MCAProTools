@@ -163,7 +163,13 @@ class Sensei_Settings extends Sensei_Settings_API {
 		$posts_per_page_array = array( '0' => '0', '1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9', '10' => '10', '11' => '11', '12' => '12', '13' => '13', '14' => '14', '15' => '15', '16' => '16', '17' => '17', '18' => '18', '19' => '19', '20' => '20' );
 		$complete_settings = array( 'passed' => __( 'Once all the course lessons have been completed', 'woothemes-sensei' ), 'complete' => __( 'At any time (by clicking the \'Complete Course\' button)', 'woothemes-sensei' ) );
 		$course_display_settings = array( 'excerpt' => __( 'Course Excerpt', 'woothemes-sensei' ), 'full' => __( 'Full Course Content', 'woothemes-sensei' ) );
-
+		$quiz_points_formats = array(
+			'none'     => __( "Don't show quiz question points", 'woothemes-sensei' ),
+			'number'   => __( "Number (e.g. 1. Default)", 'woothemes-sensei' ),
+			'brackets' => __( "Brackets (e.g. [1])", 'woothemes-sensei' ),
+			'text'     => __( "Text (e.g. Points: 1)", 'woothemes-sensei' ),
+			'full'     => __( "Text and Brackets (e.g. [Points: 1])", 'woothemes-sensei' )
+		);
 	    $fields = array();
 
 		$fields['access_permission'] = array(
@@ -216,6 +222,14 @@ class Sensei_Settings extends Sensei_Settings_API {
 								'type' => 'checkbox',
 								'default' => false,
 								'section' => 'default-settings'
+								);
+		$fields['quiz_question_points_format'] = array(
+								'name' => __( 'Quiz question points format', 'woothemes-sensei' ),
+								'description' => __( 'Set the quiz question points format', 'woothemes-sensei' ),
+								'type' => 'select',
+								'default' => 'number',
+								'section' => 'default-settings',
+								'options' => $quiz_points_formats
 								);
 
 		$fields['js_disable'] = array(
@@ -594,9 +608,24 @@ class Sensei_Settings extends Sensei_Settings_API {
 									'section' => 'woocommerce-settings'
 									);
 
+			$fields['woocommerce_enable_sensei_debugging'] = array(
+				'name' => __( 'Enable Sensei WooCommerce Integration Debugging', 'woothemes-sensei' ),
+				'description' => __( 'Advanced: Log Sensei/WooCommerce integration events (Uses WC_Logger, logs events at `notice` level)', 'woothemes-sensei' ),
+				'type' => 'checkbox',
+				'default' => false,
+				'section' => 'woocommerce-settings'
+			);
+
 		} // End If Statement
 
 		if ( Sensei_WC_Memberships::is_wc_memberships_active() ) {
+			$fields['sensei_wc_memberships_restrict_course_video'] = array(
+				'name' => __( 'Restrict course video', 'woothemes-sensei' ),
+				'description' => __( 'Used when you don\'t want the course video to be viewable by non-members', 'woothemes-sensei' ),
+				'type' => 'checkbox',
+				'default' => false,
+				'section' => 'sensei-wc-memberships-settings'
+			);
 			$fields['sensei_wc_memberships_auto_start_courses'] = array(
 				'name' => __( 'Auto-start courses belonging to a membership', 'woothemes-sensei' ),
 				'description' => __( 'Automatically start courses belonging to a WC Membership when activated', 'woothemes-sensei' ),

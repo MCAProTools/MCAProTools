@@ -1,5 +1,9 @@
 *** WooCommerce Order Status Control Changelog ***
 
+2017.03.28 - version 1.8.0
+ * Misc - Added support for WooCommerce 3.0
+ * Misc - Removed support for WooCommerce 2.4
+
 2017.01.11 - version 1.7.1
  * Tweak - Skips auto-completing virtual orders if an order contains deleted or non-existent products
  * Fix - PHP errors when trying to auto-complete virtual orders with deleted products

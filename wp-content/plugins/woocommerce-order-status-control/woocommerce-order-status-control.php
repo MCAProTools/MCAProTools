@@ -1,15 +1,15 @@
 <?php
 /**
  * Plugin Name: WooCommerce Order Status Control
- * Plugin URI: http://www.woothemes.com/products/woocommerce-order-status-control/
+ * Plugin URI: http://www.woocommerce.com/products/woocommerce-order-status-control/
  * Description: Automatically change order status to complete for all orders or just virtual orders when payment is successful
- * Author: WooThemes / SkyVerge
- * Author URI: http://www.woothemes.com
- * Version: 1.7.1
+ * Author: SkyVerge
+ * Author URI: http://www.woocommerce.com
+ * Version: 1.8.0
  * Text Domain: woocommerce-order-status-control
  * Domain Path: /i18n/languages/
  *
- * Copyright: (c) 2013-2016 SkyVerge, Inc. (info@skyverge.com)
+ * Copyright: (c) 2013-2017, SkyVerge, Inc. (info@skyverge.com)
  *
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -17,7 +17,7 @@
  * @package   WC-Order-Status-Control
  * @author    SkyVerge
  * @category  Utility
- * @copyright Copyright (c) 2013-2016, SkyVerge, Inc.
+ * @copyright Copyright (c) 2013-2017, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -41,10 +41,10 @@ if ( ! class_exists( 'SV_WC_Framework_Bootstrap' ) ) {
 	require_once( plugin_dir_path( __FILE__ ) . 'lib/skyverge/woocommerce/class-sv-wc-framework-bootstrap.php' );
 }
 
-SV_WC_Framework_Bootstrap::instance()->register_plugin( '4.4.0', __( 'WooCommerce Order Status Control', 'woocommerce-order-status-control' ), __FILE__, 'init_woocommerce_order_status_control', array(
-	'minimum_wc_version'   => '2.4.13',
+SV_WC_Framework_Bootstrap::instance()->register_plugin( '4.6.0', __( 'WooCommerce Order Status Control', 'woocommerce-order-status-control' ), __FILE__, 'init_woocommerce_order_status_control', array(
+	'minimum_wc_version'   => '2.5.5',
 	'minimum_wp_version'   => '4.1',
-	'backwards_compatible' => '4.4.0',
+	'backwards_compatible' => '4.4',
 ) );
 
 function init_woocommerce_order_status_control() {
@@ -75,7 +75,7 @@ class WC_Order_Status_Control extends SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '1.7.1';
+	const VERSION = '1.8.0';
 
 	/** @var WC_Order_Status_Control single instance of this plugin */
 	protected static $instance;
@@ -88,13 +88,19 @@ class WC_Order_Status_Control extends SV_WC_Plugin {
 
 
 	/**
-	 * Initializes the plugin
+	 * Initializes the plugin.
 	 *
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public function __construct() {
 
-		parent::__construct( self::PLUGIN_ID, self::VERSION );
+		parent::__construct(
+			self::PLUGIN_ID,
+			self::VERSION,
+			array(
+				'text_domain' => 'woocommerce-order-status-control',
+			)
+		);
 
 		// Hook for order status when payment is complete
 		add_filter( 'woocommerce_payment_complete_order_status', array( $this, 'handle_payment_complete_order_status' ), -1, 2 );
@@ -109,9 +115,9 @@ class WC_Order_Status_Control extends SV_WC_Plugin {
 
 
 	/**
-	 * Handles completing orders when payment is completed
+	 * Handles completing orders when payment is completed.
 	 *
-	 * @since 1.0
+	 * @since 1.0.0
 	 * @param string $order_status the default order status to change the order to
 	 * @param int $order_id the ID of the order
 	 * @return string the (maybe) modified order status to change to
@@ -192,25 +198,13 @@ class WC_Order_Status_Control extends SV_WC_Plugin {
 	}
 
 
-	/**
-	 * Load plugin text domain.
-	 *
-	 * @since 1.2
-	 * @see SV_WC_Plugin::load_translation()
-	 */
-	public function load_translation() {
-
-		load_plugin_textdomain( 'woocommerce-order-status-control', false, dirname( plugin_basename( $this->get_file() ) ) . '/i18n/languages' );
-	}
-
-
 	/** Admin methods ******************************************************/
 
 
 	/**
-	 * Inject global settings into the Settings > General page, immediately after the 'Store Notice' setting
+	 * Inject global settings into the Settings > General page, immediately after the 'Store Notice' setting.
 	 *
-	 * @since 1.0
+	 * @since 1.0.0
 	 * @param array $settings associative array of WooCommerce settings
 	 * @return array associative array of WooCommerce settings
 	 */
@@ -232,9 +226,9 @@ class WC_Order_Status_Control extends SV_WC_Plugin {
 
 
 	/**
-	 * Returns the global settings array for the plugin
+	 * Returns the global settings array for the plugin.
 	 *
-	 * @since 1.0
+	 * @since 1.0.0
 	 * @return array the global settings
 	 */
 	public function get_global_settings() {
@@ -264,7 +258,7 @@ class WC_Order_Status_Control extends SV_WC_Plugin {
 
 
 	/**
-	 * Main Order Status Control Instance, ensures only one instance is/can be loaded
+	 * Main Order Status Control Instance, ensures only one instance is/can be loaded.
 	 *
 	 * @since 1.3.0
 	 * @see wc_order_status_control()
@@ -279,7 +273,7 @@ class WC_Order_Status_Control extends SV_WC_Plugin {
 
 
 	/**
-	 * Returns the plugin name, localized
+	 * Returns the plugin name, localized.
 	 *
 	 * @since 1.2
 	 * @see SV_WC_Plugin::get_plugin_name()
@@ -303,7 +297,7 @@ class WC_Order_Status_Control extends SV_WC_Plugin {
 
 
 	/**
-	 * Gets the URL to the settings page
+	 * Gets the URL to the settings page.
 	 *
 	 * @since 1.2
 	 * @see SV_WC_Plugin::is_plugin_settings()
@@ -317,26 +311,26 @@ class WC_Order_Status_Control extends SV_WC_Plugin {
 
 
 	/**
-	 * Gets the plugin documentation URL
+	 * Gets the plugin documentation URL.
 	 *
 	 * @since 1.4.0
 	 * @see SV_WC_Plugin::get_documentation_url()
 	 * @return string
 	 */
 	public function get_documentation_url() {
-		return 'http://docs.woothemes.com/document/woocommerce-order-status-control/';
+		return 'http://docs.woocommerce.com/document/woocommerce-order-status-control/';
 	}
 
 
 	/**
-	 * Gets the plugin support URL
+	 * Gets the plugin support URL.
 	 *
 	 * @since 1.4.0
 	 * @see SV_WC_Plugin::get_support_url()
 	 * @return string
 	 */
 	public function get_support_url() {
-		return 'http://support.woothemes.com/';
+		return 'https://woocommerce.com/my-account/tickets/';
 	}
 
 
@@ -344,9 +338,9 @@ class WC_Order_Status_Control extends SV_WC_Plugin {
 
 
 	/**
-	 * Install default settings
+	 * Install default settings.
 	 *
-	 * @since 1.0
+	 * @since 1.0.0
 	 * @see SV_WC_Plugin::install()
 	 */
 	protected function install() {
@@ -362,7 +356,7 @@ class WC_Order_Status_Control extends SV_WC_Plugin {
 
 
 	/**
-	 * Upgrade to the currently installed version
+	 * Upgrade to the currently installed version.
 	 *
 	 * @since 1.7.0
 	 * @param string $installed_version currently installed version
@@ -386,7 +380,7 @@ class WC_Order_Status_Control extends SV_WC_Plugin {
 
 
 /**
- * Returns the One True Instance of WC_Order_Status_Control
+ * Returns the One True Instance of WC_Order_Status_Control.
  *
  * @since 1.3.0
  * @return \WC_Order_Status_Control

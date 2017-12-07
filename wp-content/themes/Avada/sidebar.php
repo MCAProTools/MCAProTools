@@ -1,3 +1,12 @@
-<div id="sidebar" class="sidebar">
-	<?php generated_dynamic_sidebar(); ?>
-</div>
+<?php
+/**
+ * Blank Template.
+ *
+ * @package Avada
+ * @subpackage Templates
+ */
+
+// Do not allow directly accessing this file.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit( 'Direct script access denied.' );
+}

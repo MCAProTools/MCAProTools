@@ -61,6 +61,7 @@ li#menu-item-3907 {
     display: block;
     height: 40px;
     margin-bottom: 15px;
+    background-color: #000;
 }
 
 
@@ -77,5 +78,3 @@ section.course-lessons article:before {
     font-size: 30px;
     margin-top: -6px;
 }
-
-/**test**/

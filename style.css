@@ -1,0 +1,20 @@
+/*
+Theme Name: Avada Child
+Description: Child theme for Avada theme
+Author: ThemeFusion
+Author URI: https://theme-fusion.com
+Template: Avada
+Version: 1.0.0
+Text Domain:  Avada
+*/
+
+a.marketing-link-red-button {
+    background-color: crimson;
+    padding: 10px;
+    padding-left: 25px;
+    color: #fff;
+    float: left;
+    margin-top: 10px;
+    margin-left: 40px;
+    padding-right: 25px;
+}

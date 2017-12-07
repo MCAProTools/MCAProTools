@@ -10,6 +10,11 @@ jQuery(document).ready( function($) {
       save_message = $(this).data('message');
       nonce = $(this).data('nonce');
       message_container = $(this).parent().find('.mca_user_message');
+	   
+	   alert(meta_key);
+	   alert(meta_value);
+	   alert(save_message);
+	   alert(nonce);
 
       var mul_data = {
          action: "save_mca_user_information",

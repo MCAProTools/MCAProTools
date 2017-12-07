@@ -118,8 +118,10 @@ get_header(); ?>
 		background-color: crimson;
 		color: #fff;
 		padding: 20px;
+		font-size: 21px;
 		width: 100%;
 		text-align: center;
+		text-decoartion: blink;
 	}
 
 

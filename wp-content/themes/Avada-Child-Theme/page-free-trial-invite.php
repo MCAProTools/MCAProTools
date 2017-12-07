@@ -1,3 +1,6 @@
+<a href="#buy-details"><div class="info-banner">GET ACCESS TO PRO TOOLS FOR 7 DAYS - FOR ONLY $1 (Click Here)</div></a>
+
+
 <?php
 
 /* Template Name: 7 Day Free Trial - MCA Pro Tools Invite */
@@ -403,7 +406,6 @@ get_header(); ?>
 
 
 </style>
-<a href="#money_details"><div class="info-banner">GET ACCESS TO PRO TOOLS FOR 7 DAYS - FOR ONLY $1 (Click Here)</div></a>
 
 
 
@@ -550,7 +552,7 @@ get_header(); ?>
 
 <p class="the-question">The Question Is, Are <u>YOU</u> Next?</p></center>
 
-
+<a name="buy-details">
                 <div class="money_details">
 
 
@@ -576,7 +578,7 @@ get_header(); ?>
 
 
 								</a>
-
+</a>
 
 
 							</div>

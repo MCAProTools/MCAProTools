@@ -68,7 +68,7 @@ section.course-lessons {
     counter-reset: my-counter;
 }
 section.course-lessons article:before {
-    content: counter(my-counter);
+    content: counter(my-counter) ". ";
     counter-increment: my-counter;
     float: left;
     margin-right: 10px;

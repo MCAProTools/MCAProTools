@@ -38,7 +38,6 @@ h4.widget-title {
     padding-bottom: 10px !important
 }
 
-/**
 li#menu-item-494 {
     margin: 0;
     padding: 0;
@@ -63,8 +62,6 @@ li#menu-item-3907 {
     margin-bottom: 15px;
     background-color: #000;
 }
-**/
-
 
 
 /** ADDED BY TARUN **/
@@ -79,5 +76,3 @@ section.course-lessons article:before {
     font-size: 30px;
     margin-top: -6px;
 }
-
-/**test again**/

@@ -620,47 +620,4 @@ function filter_referrer_menu($items)
 
 
 
-// HIDE WP Bar From Non admin
-add_action('after_setup_theme', 'remove_admin_bar');
 
-function remove_admin_bar() {
-if (!current_user_can('administrator') && !is_admin()) {
-  show_admin_bar(false);
-}
-}
-
-add_action('admin_init', 'no_mo_dashboard');
-function no_mo_dashboard() {
-  if (!current_user_can('manage_options') && $_SERVER['DOING_AJAX'] != '/wp-admin/admin-ajax.php') {
-  wp_redirect(home_url()); exit;
-  }
-}
-
-// Add 'odd' and 'even' post classes
-function oddeven_post_class ( $classes ) {
-   global $current_class;
-   $classes[] = $current_class;
-   $current_class = ($current_class == 'odd') ? 'even' : 'odd';
-   return $classes;
-}
-add_filter ( 'post_class' , 'oddeven_post_class' );
-global $current_class;
-$current_class = 'odd';
-
-
-function _wpse206466_can_view()
-{
-    // or any other admin level capability
-    return current_user_can('manage_options');
-}
-
-
-add_action('load-index.php', 'wpse206466_load_index');
-function wpse206466_load_index()
-{
-    if (!_wpse206466_can_view()) {
-        $qs = empty($_GET) ? '' : '?'.http_build_query($_GET);
-        wp_safe_redirect(admin_url('profile.php').$qs);
-        exit;
-    }
-}

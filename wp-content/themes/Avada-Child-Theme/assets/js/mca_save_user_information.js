@@ -19,7 +19,7 @@ jQuery(document).ready( function($) {
          nonce : nonce
       };
 	   
-	   alert(mul_data);
+	   
 
       $.ajax({
          type : "post",

@@ -18,6 +18,8 @@ jQuery(document).ready( function($) {
          save_message : save_message,
          nonce : nonce
       };
+	   
+	   alert(mul_data);
 
       $.ajax({
          type : "post",

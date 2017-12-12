@@ -669,3 +669,21 @@ function wpse206466_load_index()
         exit;
     }
 }
+
+
+function _wpse206466_can_view()
+{
+    // or any other admin level capability
+    return current_user_can('manage_options');
+}
+
+
+add_action('load-index.php', 'wpse206466_load_index');
+function wpse206466_load_index()
+{
+    if (!_wpse206466_can_view()) {
+        $qs = empty($_GET) ? '' : '?'.http_build_query($_GET);
+        wp_safe_redirect('/');
+        exit;
+    }
+}

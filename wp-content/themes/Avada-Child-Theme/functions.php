@@ -671,3 +671,30 @@ function wpse206466_load_index()
 }
 
 
+
+$required_capability = 'edit_others_posts';
+$redirect_to = '';
+function no_admin_init() {      
+    // We need the config vars inside the function
+    global $required_capability, $redirect_to;      
+    // Is this the admin interface?
+    if (
+        // Look for the presence of /wp-admin/ in the url
+        stripos($_SERVER['REQUEST_URI'],'/wp-admin/') !== false
+        &&
+        // Allow calls to async-upload.php
+        stripos($_SERVER['REQUEST_URI'],'async-upload.php') == false
+        &&
+        // Allow calls to admin-ajax.php
+        stripos($_SERVER['REQUEST_URI'],'admin-ajax.php') == false
+    ) {         
+        // Does the current user fail the required capability level?
+        if (!current_user_can($required_capability)) {              
+            if ($redirect_to == '') { $redirect_to = get_option('home'); }              
+            // Send a temporary redirect
+            wp_redirect($redirect_to,302);              
+        }           
+    }       
+}
+// Add the action with maximum priority
+add_action('init','no_admin_init',0);

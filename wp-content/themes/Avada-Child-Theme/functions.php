@@ -650,6 +650,16 @@ function _wpse206466_can_view()
 }
 
 
+/*add_action('load-index.php', 'wpse206466_load_index');
+function wpse206466_load_index()
+{
+    if (!_wpse206466_can_view()) {
+        $qs = empty($_GET) ? '' : '?'.http_build_query($_GET);
+        wp_safe_redirect(admin_url('profile.php').$qs);
+        exit;
+    }
+}*/
+
 add_action('load-index.php', 'wpse206466_load_index');
 function wpse206466_load_index()
 {

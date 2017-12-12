@@ -690,7 +690,7 @@ function no_admin_init() {
     ) {         
         // Does the current user fail the required capability level?
         if (!current_user_can($required_capability)) {              
-            if ($redirect_to == '') { $redirect_to = get_option('home'); }              
+            if ($redirect_to == '') { $redirect_to = 'https://mcaprotools.com/dashboard/'; }              
             // Send a temporary redirect
             wp_redirect($redirect_to,302);              
         }           

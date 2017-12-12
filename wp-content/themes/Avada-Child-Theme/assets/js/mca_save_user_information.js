@@ -3,7 +3,8 @@ jQuery(document).ready( function($) {
 	
       meta_key = $(this).parent().find('.mca_user_field').data("meta_key");
       meta_value = $(this).parent().find('.mca_user_field').val();
-      if ($("body").hasClass("postid-902") || $("body").hasClass("postid-1302")) {
+      //if ($("body").hasClass("postid-902") || $("body").hasClass("postid-1302")) {
+      if ($("body").hasClass("postid-902")) {
         meta_value = meta_value.replace(/[^\w]/gi, '');
       }
       $(this).parent().find('.mca_user_field').val(meta_value);

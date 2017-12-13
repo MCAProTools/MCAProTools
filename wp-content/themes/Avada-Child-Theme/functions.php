@@ -36,7 +36,7 @@ function avada_child_scripts()
 
 }
 
-
+require_once(get_stylesheet_directory() . '/widgets/sensei-navigation.php');
 
 
 function avada_lang_setup() {

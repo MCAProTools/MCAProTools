@@ -125,6 +125,10 @@ $mcapushct4= get_user_meta( $user_id, videosaleslandingpage1, true );
 
   <style type="text/css">
 
+  html {
+      background: #000;
+  }
+
   .content-lp1-box {
     background-color: #fff;
     padding: 40px;

@@ -234,7 +234,7 @@ a.mhpreview {
 
 			<!-- Capture Page 2 Preview Box -->
 			<div class="preview-box">
-				<img src="https://mcaprotools.com/wp-content/themes/mca-child/img/mlss/cp1-ss.png" alt="" width="300" />
+				<img src="https://mcaprotools.com/wp-content/themes/mca-child/img/mlss/500-ss.jpg" alt="" width="300" />
 				<a class="preview-box-button" rel="lightbox" data-gall="gall-frame" data-lightbox-type="inline" href="#capture-page-2">Get Page Link</a>
 			</div>
 			<!-- Capture Page 2 Preview Box End -->
@@ -250,9 +250,9 @@ a.mhpreview {
 				<h3 style="font-size: 18px;">SHARE THIS URL WITH YOUR CUSTOMERS</h3>
 						<div class="marketing-section">
 							<div class="marketing-url-input">
-								<input class="marketing-url" type="text" value="https://mcaprotools.com/cp1/?ref={affiliate_username}" />
+								<input class="marketing-url" type="text" value="https://mcaprotools.com/500s/?ref={affiliate_username}" />
 
-								<a class="mhpreview" href="https://mcaprotools.com/cp1/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a>
+								<a class="mhpreview" href="https://mcaprotools.com/500s/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a>
 							</div>
 						</div>
 			</div>
@@ -262,9 +262,9 @@ a.mhpreview {
 			This is the landing page the user is redirected to after they enter thier email address:
 						<div class="marketing-sharing-section">
 								 <div class="marketing-section">
-										 <div class="second-marketing-url-input"><input class="marketing-url" type="text" value="https://mcaprotools.com/lp1/?ref={affiliate_username}" />
+										 <div class="second-marketing-url-input"><input class="marketing-url" type="text" value="https://mcaprotools.com/daystart/?ref={affiliate_username}" />
 
-											 <a class="mhpreview" href="https://mcaprotools.com/lp1/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a>
+											 <a class="mhpreview" href="https://mcaprotools.com/daystart/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a>
 										 </div>
 									</div>
 						 </div>
@@ -277,15 +277,15 @@ a.mhpreview {
 
 
 			<!-- Capture Page 3 Preview Box -->
-			<div class="preview-box">
-				<img src="https://mcaprotools.com/wp-content/themes/mca-child/img/mlss/cp1-ss.png" alt="" width="300" />
+			<div class="preview-box" style="display: none;">
+				<img src="" alt="" width="300" />
 				<a class="preview-box-button" rel="lightbox" data-gall="gall-frame" data-lightbox-type="inline" href="#capture-page-3">Get Page Link</a>
 			</div>
-			<!-- Capture Page 2 Preview Box End -->
+			<!-- Capture Page 3 Preview Box End -->
 
 
 
-			<!-- Capture Page 2 Popup -->
+			<!-- Capture Page 3 Popup -->
 			<div id="capture-page-2" style="display:none;">
 			<div class="first-link">
 				<h4 class="popup-title">Capture Page 2</h4>
@@ -295,9 +295,9 @@ a.mhpreview {
 				<h3 style="font-size: 18px;">SHARE THIS URL WITH YOUR CUSTOMERS</h3>
 						<div class="marketing-section">
 							<div class="marketing-url-input">
-								<input class="marketing-url" type="text" value="https://mcaprotools.com/cp1/?ref={affiliate_username}" />
+								<input class="marketing-url" type="text" value="https://mcaprotools.com/cp3/?ref={affiliate_username}" />
 
-								<a class="mhpreview" href="https://mcaprotools.com/cp1/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a>
+								<a class="mhpreview" href="https://mcaprotools.com/cp3/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a>
 							</div>
 						</div>
 			</div>
@@ -316,8 +316,7 @@ a.mhpreview {
 			</div>
 		</div>
 
-		<!-- Capture Page 2 Popup End -->
-
+		<!-- Capture Page 3 Popup End -->
 
 
 		<!-- Capture Page 3 Popup -->
@@ -365,7 +364,7 @@ a.mhpreview {
 
 	<!-- Landing Page 1 Preview Box -->
 	<div class="preview-box">
-		<img src="https://mcaprotools.com/wp-content/themes/mca-child/img/mlss/cp1-ss.png" alt="" width="300" />
+		<img src="https://mcaprotools.com/wp-content/themes/mca-child/img/mlss/landing-ss.png" alt="" width="300" />
 		<a class="preview-box-button" rel="lightbox" data-gall="gall-frame" data-lightbox-type="inline" href="#landing-page-1">Get Page Link</a>
 	</div>
 	<!-- Landing Page 1 Preview Box End -->
@@ -380,9 +379,9 @@ a.mhpreview {
 		<h3 style="font-size: 18px;">SHARE THIS URL WITH YOUR CUSTOMERS</h3>
 				<div class="marketing-section">
 					<div class="marketing-url-input">
-						<input class="marketing-url" type="text" value="https://mcaprotools.com/cp1/?ref={affiliate_username}" />
+						<input class="marketing-url" type="text" value="https://mcaprotools.com/lp1/?ref={affiliate_username}" />
 
-						<a class="mhpreview" href="https://mcaprotools.com/cp1/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a>
+						<a class="mhpreview" href="https://mcaprotools.com/lp1/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a>
 					</div>
 				</div>
 	</div>
@@ -396,7 +395,7 @@ a.mhpreview {
 
 	<!-- Landing Page 2 Preview Box -->
 	<div class="preview-box">
-	<img src="https://mcaprotools.com/wp-content/themes/mca-child/img/mlss/cp1-ss.png" alt="" width="300" />
+	<img src="https://mcaprotools.com/wp-content/themes/mca-child/img/mlss/lp2-ss.png" alt="" width="300" />
 	<a class="preview-box-button" rel="lightbox" data-gall="gall-frame" data-lightbox-type="inline" href="#landing-page-2">Get Page Link</a>
 	</div>
 	<!-- Landing Page 2 Preview Box End -->
@@ -412,9 +411,9 @@ a.mhpreview {
 	<h3 style="font-size: 18px;">SHARE THIS URL WITH YOUR CUSTOMERS</h3>
 			<div class="marketing-section">
 				<div class="marketing-url-input">
-					<input class="marketing-url" type="text" value="https://mcaprotools.com/cp1/?ref={affiliate_username}" />
+					<input class="marketing-url" type="text" value="https://mcaprotools.com/daystart/?ref={affiliate_username}" />
 
-					<a class="mhpreview" href="https://mcaprotools.com/cp1/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a>
+					<a class="mhpreview" href="https://mcaprotools.com/daystart/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a>
 				</div>
 			</div>
 	</div>
@@ -427,7 +426,7 @@ a.mhpreview {
 
 
 	<!-- landing Page 3 Preview Box -->
-	<div class="preview-box">
+	<div class="preview-box" style="display: none;">
 	<img src="https://mcaprotools.com/wp-content/themes/mca-child/img/mlss/cp1-ss.png" alt="" width="300" />
 	<a class="preview-box-button" rel="lightbox" data-gall="gall-frame" data-lightbox-type="inline" href="#landing-page-3">Get Page Link</a>
 	</div>
@@ -476,7 +475,7 @@ a.mhpreview {
 
 	<!-- Follow Up 1 Preview Box -->
 	<div class="preview-box">
-		<img src="https://mcaprotools.com/wp-content/themes/mca-child/img/mlss/cp1-ss.png" alt="" width="300" />
+		<img src="https://mcaprotools.com/wp-content/themes/mca-child/img/mlss/followup-ss.png" alt="" width="300" />
 		<a class="preview-box-button" rel="lightbox" data-gall="gall-frame" data-lightbox-type="inline" href="#followup-page-1">Get Page Link</a>
 	</div>
 	<!-- Follow Up 1 Preview Box End -->
@@ -491,9 +490,9 @@ a.mhpreview {
 		<h3 style="font-size: 18px;">SHARE THIS URL WITH YOUR CUSTOMERS</h3>
 				<div class="marketing-section">
 					<div class="marketing-url-input">
-						<input class="marketing-url" type="text" value="https://mcaprotools.com/cp1/?ref={affiliate_username}" />
+						<input class="marketing-url" type="text" value="https://mcaprotools.com/followup/?ref={affiliate_username}" />
 
-						<a class="mhpreview" href="https://mcaprotools.com/cp1/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a>
+						<a class="mhpreview" href="https://mcaprotools.com/followup/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a>
 					</div>
 				</div>
 	</div>
@@ -507,7 +506,7 @@ a.mhpreview {
 
 	<!-- Follow Up 2 Preview Box -->
 	<div class="preview-box">
-	<img src="https://mcaprotools.com/wp-content/themes/mca-child/img/mlss/cp1-ss.png" alt="" width="300" />
+	<img src="https://mcaprotools.com/wp-content/themes/mca-child/img/mlss/fp2-ss.png" alt="" width="300" />
 	<a class="preview-box-button" rel="lightbox" data-gall="gall-frame" data-lightbox-type="inline" href="#followup-page-2">Get Page Link</a>
 	</div>
 	<!-- Follow Up 2 Preview Box End -->
@@ -523,9 +522,9 @@ a.mhpreview {
 	<h3 style="font-size: 18px;">SHARE THIS URL WITH YOUR CUSTOMERS</h3>
 			<div class="marketing-section">
 				<div class="marketing-url-input">
-					<input class="marketing-url" type="text" value="https://mcaprotools.com/cp1/?ref={affiliate_username}" />
+					<input class="marketing-url" type="text" value="https://mcaprotools.com/fp2/?ref={affiliate_username}" />
 
-					<a class="mhpreview" href="https://mcaprotools.com/cp1/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a>
+					<a class="mhpreview" href="https://mcaprotools.com/fp2/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a>
 				</div>
 			</div>
 	</div>
@@ -539,7 +538,7 @@ a.mhpreview {
 
 	<!-- Follow Up 3 Preview Box -->
 	<div class="preview-box">
-	<img src="https://mcaprotools.com/wp-content/themes/mca-child/img/mlss/cp1-ss.png" alt="" width="300" />
+	<img src="https://mcaprotools.com/wp-content/themes/mca-child/img/mlss/fp3-ss.png" alt="" width="300" />
 	<a class="preview-box-button" rel="lightbox" data-gall="gall-frame" data-lightbox-type="inline" href="#followup-page-3">Get Page Link</a>
 	</div>
 	<!-- Follow Up 3 Preview Box End -->
@@ -556,9 +555,9 @@ a.mhpreview {
 	<h3 style="font-size: 18px;">SHARE THIS URL WITH YOUR CUSTOMERS</h3>
 			<div class="marketing-section">
 				<div class="marketing-url-input">
-					<input class="marketing-url" type="text" value="https://mcaprotools.com/cp1/?ref={affiliate_username}" />
+					<input class="marketing-url" type="text" value="https://mcaprotools.com/fp3/?ref={affiliate_username}" />
 
-					<a class="mhpreview" href="https://mcaprotools.com/cp1/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a>
+					<a class="mhpreview" href="https://mcaprotools.com/fp3/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a>
 				</div>
 			</div>
 	</div>
@@ -573,7 +572,7 @@ a.mhpreview {
 
 	<!-- Follow Up 4 Preview Box -->
 	<div class="preview-box">
-	<img src="https://mcaprotools.com/wp-content/themes/mca-child/img/mlss/cp1-ss.png" alt="" width="300" />
+	<img src="https://mcaprotools.com/wp-content/themes/mca-child/img/mlss/fp4-ss.png" alt="" width="300" />
 	<a class="preview-box-button" rel="lightbox" data-gall="gall-frame" data-lightbox-type="inline" href="#followup-page-4">Get Page Link</a>
 	</div>
 	<!-- Follow Up 4 Preview Box End -->
@@ -590,9 +589,9 @@ a.mhpreview {
 	<h3 style="font-size: 18px;">SHARE THIS URL WITH YOUR CUSTOMERS</h3>
 			<div class="marketing-section">
 				<div class="marketing-url-input">
-					<input class="marketing-url" type="text" value="https://mcaprotools.com/cp1/?ref={affiliate_username}" />
+					<input class="marketing-url" type="text" value="https://mcaprotools.com/fp4/?ref={affiliate_username}" />
 
-					<a class="mhpreview" href="https://mcaprotools.com/cp1/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a>
+					<a class="mhpreview" href="https://mcaprotools.com/fp4/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a>
 				</div>
 			</div>
 	</div>

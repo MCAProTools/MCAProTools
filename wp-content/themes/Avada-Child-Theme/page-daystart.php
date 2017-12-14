@@ -130,7 +130,7 @@ $mcapushct4= get_user_meta( $user_id, pushstartsystemwcountdown4min, true );
   html {
       background: #000;
   }
-  
+
   .content-daystart-box {
     background-color: #fff;
     padding: 40px;
@@ -242,10 +242,10 @@ $mcapushct4= get_user_meta( $user_id, pushstartsystemwcountdown4min, true );
             <p class="daystart-page-subtitle"><span style="background-color: yellow;">Watch This Video To See How You Can Too!</span></p>
 
             <div class="videoWrapper">
-              <?php if(empty($mcapushct4)){?>
+              <?php if(empty($daystartvideo)){?>
                   <iframe src="https://player.vimeo.com/video/228026830" width="720" height="405" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                 <?php }else{?>
-                <?php echo $mcapushct4;?>
+                <?php echo $daystartvideo;?>
                 <?php }?>
             </div>
 

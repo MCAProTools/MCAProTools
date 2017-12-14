@@ -116,10 +116,10 @@ get_header(); ?>
 <style type="text/css">
 
 .preview-box {
-    max-width: 300px;
+    max-width: 250px;
     float: left;
-    margin-left: 35px;
-    margin-right: 35px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 a.preview-box-button {
@@ -128,15 +128,47 @@ a.preview-box-button {
     text-align: center;
     background-color: crimson;
     padding: 15px;
-    min-width: 300px !important;
+    min-width: 190px !important;
     color: #fff;
-    padding-left: 75px;
+    padding-left: 25px;
     font-size: 18px;
     float: left;
     margin-top: 10px;
     margin-left: 1px;
-    padding-right: 75px;
+    padding-right: 25px;
 }
+
+h4.popup-title {
+    margin-bottom: 0px;
+    font-size: 29px;
+    margin-top: 0px;
+}
+
+input.marketing-url {
+    padding: 20px;
+    color: #000;
+    font-size: 16px;
+    width: 88%;
+    margin-bottom: 20px;
+}
+
+input.second-marketing-url {
+    padding: 20px;
+    color: #000;
+    font-size: 16px;
+    width: 88%;
+    margin-bottom: 20px;
+}
+
+a.mhpreview {
+    background-color: crimson;
+    color: #fff;
+    padding: 10px;
+    padding-left: 20px;
+    float: right;
+    padding-right: 20px;
+}
+
 
 </style>
 
@@ -190,7 +222,7 @@ a.preview-box-button {
 				This is the landing page the user is redirected to after they enter thier email address:
 					  	<div class="marketing-sharing-section">
 					         <div class="marketing-section">
-					             <div class="marketing-url-input"><input class="marketing-url" type="text" value="https://mcaprotools.com/lp1/?ref={affiliate_username}" />
+					             <div class="second-marketing-url-input"><input class="marketing-url" type="text" value="https://mcaprotools.com/lp1/?ref={affiliate_username}" />
 
 												 <a class="mhpreview" href="https://mcaprotools.com/lp1/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a>
 											 </div>
@@ -234,7 +266,7 @@ a.preview-box-button {
 			This is the landing page the user is redirected to after they enter thier email address:
 						<div class="marketing-sharing-section">
 								 <div class="marketing-section">
-										 <div class="marketing-url-input"><input class="marketing-url" type="text" value="https://mcaprotools.com/lp1/?ref={affiliate_username}" />
+										 <div class="second-marketing-url-input"><input class="marketing-url" type="text" value="https://mcaprotools.com/lp1/?ref={affiliate_username}" />
 
 											 <a class="mhpreview" href="https://mcaprotools.com/lp1/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a>
 										 </div>
@@ -279,7 +311,7 @@ a.preview-box-button {
 			This is the landing page the user is redirected to after they enter thier email address:
 						<div class="marketing-sharing-section">
 								 <div class="marketing-section">
-										 <div class="marketing-url-input"><input class="marketing-url" type="text" value="https://mcaprotools.com/lp1/?ref={affiliate_username}" />
+										 <div class="second-marketing-url-input"><input class="marketing-url" type="text" value="https://mcaprotools.com/lp1/?ref={affiliate_username}" />
 
 											 <a class="mhpreview" href="https://mcaprotools.com/lp1/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a>
 										 </div>
@@ -314,7 +346,7 @@ a.preview-box-button {
 		This is the landing page the user is redirected to after they enter thier email address:
 					<div class="marketing-sharing-section">
 							 <div class="marketing-section">
-									 <div class="marketing-url-input"><input class="marketing-url" type="text" value="https://mcaprotools.com/lp1/?ref={affiliate_username}" />
+									 <div class="second-marketing-url-input"><input class="marketing-url" type="text" value="https://mcaprotools.com/lp1/?ref={affiliate_username}" />
 
 										 <a class="mhpreview" href="https://mcaprotools.com/lp1/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a>
 									 </div>
@@ -377,8 +409,8 @@ a.preview-box-button {
 	<!-- Landing Page 2 Popup -->
 	<div id="landing-page-2" style="display:none;">
 	<div class="first-link">
-	<h4 class="popup-title">Capture Page 2</h4>
-	<p>This link is for the lead capture page shown below. This will redirect to the video sale landing page after someone enters their email address:</p>
+	<h4 class="popup-title">Landing Page 2</h4>
+	<p>This link is for the lead Landing Page shown below. This will redirect to the video sale landing page after someone enters their email address:</p>
 
 	<div class="marketing-sharing-section">
 	<h3 style="font-size: 18px;">SHARE THIS URL WITH YOUR CUSTOMERS</h3>
@@ -410,8 +442,8 @@ a.preview-box-button {
 	<!-- Landing Page 3 Popup -->
 	<div id="landing-page-3" style="display:none;">
 	<div class="first-link">
-	<h4 class="popup-title">Capture Page 2</h4>
-	<p>This link is for the lead capture page shown below. This will redirect to the video sale landing page after someone enters their email address:</p>
+	<h4 class="popup-title">Landing Page 2</h4>
+	<p>This link is for the lead Landing Page shown below. This will redirect to the video sale landing page after someone enters their email address:</p>
 
 	<div class="marketing-sharing-section">
 	<h3 style="font-size: 18px;">SHARE THIS URL WITH YOUR CUSTOMERS</h3>
@@ -457,7 +489,7 @@ a.preview-box-button {
 	<div id="followup-page-1" style="display:none;">
 	<div class="first-link">
 		<h4 class="popup-title">Follow Up 1</h4>
-		<p>This link is for the lead capture page shown below. This will redirect to the video sale Follow Up after someone enters their email address:</p>
+		<p>This link is for the lead Landing Page shown below. This will redirect to the video sale Follow Up after someone enters their email address:</p>
 
 	<div class="marketing-sharing-section">
 		<h3 style="font-size: 18px;">SHARE THIS URL WITH YOUR CUSTOMERS</h3>
@@ -488,8 +520,8 @@ a.preview-box-button {
 	<!-- Follow Up 2 Popup -->
 	<div id="followup-page-2" style="display:none;">
 	<div class="first-link">
-	<h4 class="popup-title">Capture Page 2</h4>
-	<p>This link is for the lead capture page shown below. This will redirect to the video sale Follow Up after someone enters their email address:</p>
+	<h4 class="popup-title">Follow Up 2</h4>
+	<p>This link is for the lead Follow Up shown below. This will redirect to the video sale Follow Up after someone enters their email address:</p>
 
 	<div class="marketing-sharing-section">
 	<h3 style="font-size: 18px;">SHARE THIS URL WITH YOUR CUSTOMERS</h3>
@@ -521,8 +553,8 @@ a.preview-box-button {
 	<!-- Follow Up 3 Popup -->
 	<div id="followup-page-3" style="display:none;">
 	<div class="first-link">
-	<h4 class="popup-title">Capture Page 2</h4>
-	<p>This link is for the lead capture page shown below. This will redirect to the video sale Follow Up after someone enters their email address:</p>
+	<h4 class="popup-title">Follow Up 2</h4>
+	<p>This link is for the lead Follow Up shown below. This will redirect to the video sale Follow Up after someone enters their email address:</p>
 
 	<div class="marketing-sharing-section">
 	<h3 style="font-size: 18px;">SHARE THIS URL WITH YOUR CUSTOMERS</h3>
@@ -555,8 +587,8 @@ a.preview-box-button {
 	<!-- Follow Up 4 Popup -->
 	<div id="followup-page-4" style="display:none;">
 	<div class="first-link">
-	<h4 class="popup-title">Capture Page 2</h4>
-	<p>This link is for the lead capture page shown below. This will redirect to the video sale Follow Up after someone enters their email address:</p>
+	<h4 class="popup-title">Follow Up 2</h4>
+	<p>This link is for the lead Follow Up shown below. This will redirect to the video sale Follow Up after someone enters their email address:</p>
 
 	<div class="marketing-sharing-section">
 	<h3 style="font-size: 18px;">SHARE THIS URL WITH YOUR CUSTOMERS</h3>

@@ -5,6 +5,12 @@ get_header();
 
 <style type="text/css">
 
+#main {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    height: 1080px !important;
+}
+
 .content-500secret-cap {
     width: 100%;
     float: none;

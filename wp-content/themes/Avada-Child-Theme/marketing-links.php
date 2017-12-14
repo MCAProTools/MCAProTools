@@ -112,43 +112,71 @@ get_header(); ?>
 		<?php
 		if(have_posts()): the_post();
 		?>
-            <section class="bg-img">
+
+
+		<section class="bg-img">
 				<div class="bg_images_back"></div>
+
 				<div class="container">
+				<img src="https://mcaprotools.com/wp-content/uploads/2015/02/stop_and_watch.png" alt="stop_and_watch" width="100%" height="62" />
+
+				<iframe src="https://player.vimeo.com/video/243497488" width="640" height="400" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+				<hr />
+
+
+				<h2 style="font-size: 29px; font-weight: bold;">MCA <span style="color: crimson; background-color: yellow;">"Highest Converting"</span> Sales Funnels</h2>
+
+
+				<!-- Capture Page 1 Preview Box -->
+				<div>
+					<img src="https://mcaprotools.com/wp-content/themes/mca-child/img/mlss/cp1-ss.png" alt="" width="300" />
+					<a class="marketing-link-red-button" rel="lightbox" data-gall="gall-frame" data-lightbox-type="inline" href="#capture-page-1">Get Page Link</a>
+				</div>
+				<!-- Capture Page 1 Preview Box End -->
+
+
+				<!-- Capture Page 1 Popup -->
+				<div id="capture-page-1" style="display:none;">
+				<div class="first-link">
+					<h4 class="popup-title">Capture Page 1</h4>
+					<p>This link is for the lead capture page shown below. This will redirect to the video sale landing page after someone enters their email address:</p>
+
+				<div class="marketing-sharing-section">
+					<h3 style="font-size: 18px;">SHARE THIS URL WITH YOUR CUSTOMERS</h3>
+					    <div class="marketing-section">
+					      <div class="marketing-url-input">
+									<input class="marketing-url" type="text" value="https://mcaprotools.com/cp1/?ref={affiliate_username}" />
+
+									<a class="mhpreview" href="https://mcaprotools.com/cp1/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a>
+								</div>
+					    </div>
+				</div>
+				</div>
+
+				<div class="second-link">
+				This is the landing page the user is redirected to after they enter thier email address:
+					  	<div class="marketing-sharing-section">
+					         <div class="marketing-section">
+					             <div class="marketing-url-input"><input class="marketing-url" type="text" value="https://mcaprotools.com/lp1/?ref={affiliate_username}" />
+
+												 <a class="mhpreview" href="https://mcaprotools.com/lp1/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a>
+											 </div>
+					          </div>
+					     </div>
+				</div>
+			</div>
+
+			<!-- Capture Page 1 Popup End -->
 
 
 
-					<center>
-					   <img class="alignnone size-full wp-image-384" src="https://mcaprotools.com/wp-content/uploads/2015/02/stop_and_watch.png" sizes="(max-width: 734px) 100vw, 734px" srcset="https://mcaprotools.com/wp-content/uploads/2015/02/stop_and_watch.png 734w, https://mcaprotools.com/wp-content/uploads/2015/02/stop_and_watch-300x25.png 300w, https://mcaprotools.com/wp-content/uploads/2015/02/stop_and_watch-100x8.png 100w, https://mcaprotools.com/wp-content/uploads/2015/02/stop_and_watch-120x10.png 120w, https://mcaprotools.com/wp-content/uploads/2015/02/stop_and_watch-500x42.png 500w" alt="stop_and_watch" width="734" height="62" />
-					</center>
-					<center><iframe src="https://player.vimeo.com/video/243497488" width="640" height="400" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></center>
-					&nbsp;
-					<hr />
-					<h2 style="font-size: 29px; font-weight: bold;">MCA <span style="color: crimson; background-color: yellow;">"Highest Converting"</span> Sales Funnels</h2>
-					[fusion_builder_container hundred_percent="yes" overflow="visible"][fusion_builder_row][fusion_builder_column type="1_1" background_position="left top" background_color="" border_size="" border_color="" border_style="solid" spacing="yes" background_image="" background_repeat="no-repeat" padding="" margin_top="0px" margin_bottom="0px" class="" id="" animation_type="" animation_speed="0.3" animation_direction="left" hide_on_mobile="no" center_content="no" min_height="none"][protool_spoiler open="yes" title="Capture Pages" style="fancy" class="mca-spoiler"]
-					   [protool_row]
-					      [protool_column size="1/3"] <img src="https://mcaprotools.com/wp-content/themes/mca-child/img/mlss/cp1-ss.png" alt="" width="300" />
-					         <a class="marketing-link-red-button" rel="lightbox" data-gall="gall-frame" data-lightbox-type="inline" href="#capture-page-1">Get Page Link</a>
-					         <div id="capture-page-1" style="display:none;">
-					            <div class="first-link">
-					               <h4 class="popup-title">Capture Page 1</h4>
-					               This link is for the lead capture page shown below. This will redirect to the video sale landing page after someone enters their email address:
-					               <div class="marketing-sharing-section">
-					                  <h3 style="font-size: 18px;">SHARE THIS URL WITH YOUR CUSTOMERS</h3>
-					                  <div class="marketing-section">
-					                     <div class="marketing-url-input"><input class="marketing-url" type="text" value="https://mcaprotools.com/cp1/?ref={affiliate_username}" /><a class="mhpreview" href="https://mcaprotools.com/cp1/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a></div>
-					                  </div>
-					               </div>
-					            </div>
-					            <div class="second-link">
-					               This is the landing page the user is redirected to after they enter thier email address:
-					               <div class="marketing-sharing-section">
-					                  <div class="marketing-section">
-					                     <div class="marketing-url-input"><input class="marketing-url" type="text" value="https://mcaprotools.com/lp1/?ref={affiliate_username}" /><a class="mhpreview" href="https://mcaprotools.com/lp1/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a></div>
-					                  </div>
-					               </div>
-					            </div>
-					         </div>
+
+
+
+
+<br><br><br><br><br><br><br><br>
+
 					      [/protool_column]
 					      [protool_column size="1/3"] <img src="https://mcaprotools.com/wp-content/themes/mca-child/img/mlss/500-ss.jpg" alt="" width="300" />
 					         <a class="marketing-link-red-button" rel="lightbox" data-gall="gall-frame" data-lightbox-type="inline" href="#capture-page-2">Get Page Link</a>
@@ -173,28 +201,7 @@ get_header(); ?>
 					            </div>
 					         </div>
 					      [/protool_column]
-					      [protool_column size="1/3"] <!--img src="https://mcaprotools.com/wp-content/themes/mca-child/img/mlss/cp3-ss.jpg" alt="" width="300" />
-					         <a class="marketing-link-red-button" rel="lightbox" data-gall="gall-frame" data-lightbox-type="inline" href="#capture-page-3">Get Page Link</a>
-					         <div id="capture-page-3" style="display:none;">
-					            <div class="first-link">
-					               <h4 class="popup-title">Capture Page 2</h4>
-					               This link is for the lead capture page shown below. This will redirect to the video sale landing page after someone enters their email address:
-					               <div class="marketing-sharing-section">
-					                  <h3 style="font-size: 18px;">SHARE THIS URL WITH YOUR CUSTOMERS</h3>
-					                  <div class="marketing-section">
-					                     <div class="marketing-url-input"><input class="marketing-url" type="text" value="https://mcaprotools.com/cp3/?ref={affiliate_username}" /><a class="mhpreview" href="https://mcaprotools.com/cp3/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a></div>
-					                  </div>
-					               </div>
-					            </div>
-					            <div class="second-link">
-					               This is the landing page the user is redirected to after they enter thier email address:
-					               <div class="marketing-sharing-section">
-					                  <div class="marketing-section">
-					                     <div class="marketing-url-input"><input class="marketing-url" type="text" value="https://mcaprotools.com/lp3/?ref={affiliate_username}" /><a class="mhpreview" href="https://mcaprotools.com/lp3/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a></div>
-					                  </div>
-					               </div>
-					            </div>
-					         </div-->
+					      [protool_column size="1/3"]
 					      [/protool_column]
 					      [protool_column size="1/3"][/protool_column]
 					   [/protool_row]
@@ -233,21 +240,7 @@ get_header(); ?>
 					            </div>
 					         </div>
 					      [/protool_column]
-					      [protool_column size="1/3"]<!--img src="https://mcaprotools.com/wp-content/themes/mca-child/img/mlss/500day-ss.jpg" alt="" width="300" />
-					         <a class="marketing-link-red-button" rel="lightbox" data-gall="gall-frame" data-lightbox-type="inline" href="#landing-page-3">Get Page Link</a>
-					         <div id="landing-page-3" style="display:none;">
-					            <h4 class="popup-title">Video Sales Letter Page 3</h4>
-					            You can embed your own video below:
-					            [protool_mca_user meta_key="pushstartmarketingsystem" referrer_data="no" referrer_key="" editable="yes" class="" display_type="no" placeholder="To Add Your Own Video To This Page, Enter Embed Code Here..."]
-					            <div class="first-link">
-					               <div class="marketing-sharing-section">
-					                  <h3 style="font-size: 18px;">SHARE THIS URL WITH YOUR CUSTOMERS</h3>
-					                  <div class="marketing-section">
-					                     <div class="marketing-url-input"><input class="marketing-url" type="text" value="https://mcaprotools.com/lp3/?ref={affiliate_username}" /><a class="mhpreview" href="https://mcaprotools.com/lp3/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a></div>
-					                  </div>
-					               </div>
-					            </div>
-					         </div-->
+					      [protool_column size="1/3"]
 					      [/protool_column]
 					      [protool_column size="1/3"][/protool_column]
 					   [/protool_row]

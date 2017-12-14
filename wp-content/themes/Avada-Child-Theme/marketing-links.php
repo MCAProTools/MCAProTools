@@ -600,6 +600,62 @@ a.mhpreview {
 
 
 
+	<hr style="clear: both; padding-bottom: 25px; border: 0px; padding-top: 25px;">
+
+
+
+
+
+
+
+
+	<h1>Live Stream Pages</h1>
+
+	<!-- Live Steam 1 Preview Box -->
+	<div class="preview-box">
+		<img src="https://mcaprotools.com/wp-content/uploads/2017/04/hangout-ss.jpg" alt="" width="300" />
+		<a class="preview-box-button" rel="lightbox" data-gall="gall-frame" data-lightbox-type="inline" href="#livestream-page-1">Get Page Link</a>
+	</div>
+	<!-- Live Steam 1 Preview Box End -->
+
+	<!-- Live Steam 1 Popup -->
+	<div id="livestream-page-1" style="display:none;">
+	<div class="first-link">
+		<h4 class="popup-title">Live Stream Page 1</h4>
+		<p>Use this LIVE Stream Page and do Google Hangouts with your teams / or potential customers and provide value to everyone in a public setting. To <strong>Setup "NEW" Google Hangout</strong> <a href="https://www.youtube.com/my_live_events" target="_blank" rel="noopener">Click Here</a> To Be Redirected to "Google Hangouts / Youtube Live":</a></p>
+
+		<div class="title-settings-section">
+			<h3 style="font-size: 18px;">Hangout Page Title</h3>
+					<div class="marketing-section">
+						<div class="marketing-url-input">
+							[protool_mca_user meta_key="hangout" referrer_data="no" referrer_key="" editable="yes" class="no-filter" display_type="no" placeholder="To Add Your Own Video To This Page, Enter Embed Code Here..."]
+						</div>
+
+						<div class="marketing-url-input">
+							[protool_mca_user meta_key="hangout_subtitle" referrer_key="ref" editable="yes" display_type="single_line" placeholder=""]
+						</div>
+					</div>
+		</div>
+
+
+
+	<div class="marketing-sharing-section">
+		<h3 style="font-size: 18px;">SHARE THIS URL WITH YOUR CUSTOMERS</h3>
+				<div class="marketing-section">
+					<div class="marketing-url-input">
+						<input class="marketing-url" type="text" value="https://mcaprotools.com/hangout/?ref={affiliate_username}" />
+
+						<a class="mhpreview" href="https://mcaprotools.com/hangout/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a>
+					</div>
+				</div>
+	</div>
+	</div>
+	</div>
+
+	<!-- Follow Up 1 Popup End -->
+
+
+
 
 
 

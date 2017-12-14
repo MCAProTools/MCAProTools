@@ -380,7 +380,7 @@ add_filter('su/data/shortcodes', 'register_my_custom_shortcode');
 function register_my_custom_shortcode($shortcodes)
 {
     $shortcodes['mca_user'] = array(
-        'name' => __('MCA User Information 1', 'mca'),
+        'name' => __('MCA User Information', 'mca'),
         'type' => 'single',
         'group' => 'data',
         'atts' => array(

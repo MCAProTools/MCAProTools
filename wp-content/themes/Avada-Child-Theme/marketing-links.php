@@ -172,7 +172,7 @@ a.mhpreview {
 				<div class="container">
 
 				<center>
-				<p><img src="https://mcaprotools.com/wp-content/uploads/2015/02/stop_and_watch.png" alt="stop_and_watch" width="100%" height="62" /></p>
+				<p><img src="https://mcaprotools.com/wp-content/uploads/2015/02/stop_and_watch.png" alt="stop_and_watch" width="75%" height="62" /></p>
 
 				<p><iframe src="https://player.vimeo.com/video/243497488" width="640" height="400" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></p>
 
@@ -374,6 +374,16 @@ a.mhpreview {
 
 	<div class="marketing-sharing-section">
 		<h3 style="font-size: 18px;">SHARE THIS URL WITH YOUR CUSTOMERS</h3>
+
+
+		<div class="marketing-section">
+			<div class="marketing-url-input">
+				[protool_mca_user meta_key="lp1-video" referrer_data="no" referrer_key="" editable="yes" class="" display_type="no" placeholder="To Add Your Own Video To This Page, Enter Embed Code Here..."]
+			</div>
+		</div>
+
+
+
 				<div class="marketing-section">
 					<div class="marketing-url-input">
 						<input class="marketing-url" type="text" value="https://mcaprotools.com/lp1/?ref={affiliate_username}" />
@@ -406,6 +416,16 @@ a.mhpreview {
 
 	<div class="marketing-sharing-section">
 	<h3 style="font-size: 18px;">SHARE THIS URL WITH YOUR CUSTOMERS</h3>
+
+
+	<div class="marketing-section">
+		<div class="marketing-url-input">
+			[protool_mca_user meta_key="lp2-video" referrer_data="no" referrer_key="" editable="yes" class="" display_type="no" placeholder="To Add Your Own Video To This Page, Enter Embed Code Here..."]
+		</div>
+	</div>
+
+
+
 			<div class="marketing-section">
 				<div class="marketing-url-input">
 					<input class="marketing-url" type="text" value="https://mcaprotools.com/daystart/?ref={affiliate_username}" />

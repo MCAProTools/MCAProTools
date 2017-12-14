@@ -170,22 +170,19 @@ a.mhpreview {
 
 
 				<div class="container">
-				<img src="https://mcaprotools.com/wp-content/uploads/2015/02/stop_and_watch.png" alt="stop_and_watch" width="100%" height="62" />
 
-				<iframe src="https://player.vimeo.com/video/243497488" width="640" height="400" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+				<center>
+				<p><img src="https://mcaprotools.com/wp-content/uploads/2015/02/stop_and_watch.png" alt="stop_and_watch" width="100%" height="62" /></p>
 
-				<hr />
-
-
-				<h2 style="font-size: 29px; font-weight: bold;">MCA <span style="color: crimson; background-color: yellow;">"Highest Converting"</span> Sales Funnels</h2>
+				<p><iframe src="https://player.vimeo.com/video/243497488" width="640" height="400" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></p>
 
 
+				<h2 style="font-size: 39px; font-weight: bold; margin-top: 25px;">MCA <span style="color: crimson; background-color: yellow;">"Highest Converting"</span> Sales Funnels</h2>
+
+				</center>
 
 
-				<hr style="clear: both; padding-bottom: 25px; border: 0px; padding-top: 25px;">
-
-
-
+				<hr style="clear: both; padding-bottom: 5px; border: 0px; padding-top: 5px;">
 
 				<h1>Capture Pages</h1>
 

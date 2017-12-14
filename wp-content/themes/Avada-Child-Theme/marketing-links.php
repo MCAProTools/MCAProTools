@@ -197,7 +197,12 @@ a.preview-box-button {
 
 
 
-
+			<!-- Capture Page 2 Preview Box -->
+			<div class="preview-box">
+				<img src="https://mcaprotools.com/wp-content/themes/mca-child/img/mlss/cp1-ss.png" alt="" width="300" />
+				<a class="preview-box-button" rel="lightbox" data-gall="gall-frame" data-lightbox-type="inline" href="#capture-page-2">Get Page Link</a>
+			</div>
+			<!-- Capture Page 2 Preview Box End -->
 
 
 			<!-- Capture Page 2 Popup -->
@@ -232,6 +237,17 @@ a.preview-box-button {
 			</div>
 
 			<!-- Capture Page 2 Popup End -->
+
+
+
+
+			<!-- Capture Page 3 Preview Box -->
+			<div class="preview-box">
+				<img src="https://mcaprotools.com/wp-content/themes/mca-child/img/mlss/cp1-ss.png" alt="" width="300" />
+				<a class="preview-box-button" rel="lightbox" data-gall="gall-frame" data-lightbox-type="inline" href="#capture-page-3">Get Page Link</a>
+			</div>
+			<!-- Capture Page 2 Preview Box End -->
+
 
 
 			<!-- Capture Page 2 Popup -->

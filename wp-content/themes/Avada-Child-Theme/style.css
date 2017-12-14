@@ -89,7 +89,7 @@ list-style-type: decimal;
     content: counter(my-counter) ". ";
     counter-increment: my-counter;
         float: left;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 .sidebar .widget ul.sensei-navigation {    
     counter-reset: my-counter;

@@ -647,16 +647,20 @@ a.mhpreview {
 		<p>Use this LIVE Stream Page and do Google Hangouts with your teams / or potential customers and provide value to everyone in a public setting. To <strong>Setup "NEW" Google Hangout</strong> <a href="https://www.youtube.com/my_live_events" target="_blank" rel="noopener">Click Here</a> To Be Redirected to "Google Hangouts / Youtube Live":</a></p>
 
 		<div class="title-settings-section">
-			<h3 style="font-size: 18px;">Hangout Page Title</h3>
+
 					<div class="marketing-section">
+						<h3 style="font-size: 18px;">Hangout Page Title</h3>
 						<div class="marketing-url-input">
 							[protool_mca_user meta_key="hangout" referrer_data="no" referrer_key="" editable="yes" class="no-filter" display_type="no" placeholder="To Add Your Own Video To This Page, Enter Embed Code Here..."]
 						</div>
 
-						<div class="marketing-url-input">
-							[protool_mca_user meta_key="hangout_subtitle" referrer_key="ref" editable="yes" display_type="single_line" placeholder=""]
+
+						<div class="marketing-section">
+							<h3 style="font-size: 18px;">Hangout Subtitle Title</h3>
+							<div class="marketing-url-input">
+								[protool_mca_user meta_key="hangout_subtitle" referrer_key="ref" editable="yes" display_type="single_line" placeholder=""]
+							</div>
 						</div>
-					</div>
 		</div>
 
 

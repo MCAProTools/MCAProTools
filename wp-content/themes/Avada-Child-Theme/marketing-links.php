@@ -378,7 +378,7 @@ a.mhpreview {
 
 		<div class="marketing-section">
 			<div class="marketing-url-input">
-				<?php echo do_shortcode('[protool_mca_user meta_key="lp1-video" referrer_data="no" referrer_key="" editable="yes" class="" display_type="no" placeholder="To Add Your Own Video To This Page, Enter Embed Code Here..."]'); ?>
+				<?php echo do_shortcode("[protool_mca_user meta_key='lp1-video' referrer_data='no' referrer_key='' editable='yes' class='' display_type='no' placeholder='To Add Your Own Video To This Page, Enter Embed Code Here...']"); ?>
 			</div>
 		</div>
 

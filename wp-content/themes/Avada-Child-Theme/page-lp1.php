@@ -220,10 +220,10 @@ height: 100%;
             <p class="landing-page-title">LEARN HOW YOU CAN EARN <span style="color: red !important;">($500 OR MORE)</span></br> PER DAY WITH YOUR SMARTPHONE!</p>
 
             <div class="video-container">
-                <?php if(empty($mcapushct4)){?>
+                <?php if(empty($lp1video)){?>
                   <iframe src="https://player.vimeo.com/video/238174842" width="720" height="405" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                 <?php }else{?>
-               <?php echo $mcapushct4;?>
+               <?php echo $lp1video;?>
              <?php }?>
             </div>
 

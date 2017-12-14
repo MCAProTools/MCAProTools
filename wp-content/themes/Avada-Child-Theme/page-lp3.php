@@ -125,6 +125,10 @@ $mcapushct4= get_user_meta( $user_id, pushstartsystemwcountdown4min, true );
 
   <style type="text/css">
 
+  html {
+      background: #000;
+  }
+
   .content-lp3-box {
     background-color: #fff;
     padding: 40px;

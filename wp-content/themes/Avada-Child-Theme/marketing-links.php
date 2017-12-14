@@ -649,10 +649,16 @@ a.mhpreview {
 		<div class="title-settings-section">
 
 					<div class="marketing-section">
-						<h3 style="font-size: 18px;">Hangout Page Title</h3>
+						<h3 style="font-size: 18px;">Hangout Page Video Embed</h3>
 						<div class="marketing-url-input">
 							<?php echo do_shortcode('[protool_mca_user meta_key="hangout" referrer_data="no" referrer_key="" editable="yes" class="no-filter" display_type="no" placeholder="To Add Your Own Video To This Page, Enter Embed Code Here..."]'); ?>
 						</div>
+
+						<div class="marketing-section">
+							<h3 style="font-size: 18px;">Hangout Page Title</h3>
+							<div class="marketing-url-input">
+								<?php echo do_shortcode('[protool_mca_user meta_key="hangout_title" referrer_key="ref" editable="yes" display_type="single_line" placeholder=""]'); ?>
+							</div>
 
 
 						<div class="marketing-section">

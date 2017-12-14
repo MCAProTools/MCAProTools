@@ -420,7 +420,7 @@ a.mhpreview {
 
 	<div class="marketing-section">
 		<div class="marketing-url-input">
-			[protool_mca_user meta_key="lp2-video" referrer_data="no" referrer_key="" editable="yes" class="" display_type="no" placeholder="To Add Your Own Video To This Page, Enter Embed Code Here..."]
+			<?php echo do_shortcode('[protool_mca_user meta_key="lp2-video" referrer_data="no" referrer_key="" editable="yes" class="" display_type="no" placeholder="To Add Your Own Video To This Page, Enter Embed Code Here..."]'); ?>
 		</div>
 	</div>
 
@@ -651,14 +651,14 @@ a.mhpreview {
 					<div class="marketing-section">
 						<h3 style="font-size: 18px;">Hangout Page Title</h3>
 						<div class="marketing-url-input">
-							[protool_mca_user meta_key="hangout" referrer_data="no" referrer_key="" editable="yes" class="no-filter" display_type="no" placeholder="To Add Your Own Video To This Page, Enter Embed Code Here..."]
+							<?php echo do_shortcode('[protool_mca_user meta_key="hangout" referrer_data="no" referrer_key="" editable="yes" class="no-filter" display_type="no" placeholder="To Add Your Own Video To This Page, Enter Embed Code Here..."]'); ?>
 						</div>
 
 
 						<div class="marketing-section">
 							<h3 style="font-size: 18px;">Hangout Subtitle Title</h3>
 							<div class="marketing-url-input">
-								[protool_mca_user meta_key="hangout_subtitle" referrer_key="ref" editable="yes" display_type="single_line" placeholder=""]
+								<?php echo do_shortcode('[protool_mca_user meta_key="hangout_subtitle" referrer_key="ref" editable="yes" display_type="single_line" placeholder=""]'); ?>
 							</div>
 						</div>
 		</div>

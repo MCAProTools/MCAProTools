@@ -113,7 +113,60 @@ get_header(); ?>
 
 		<?php if(have_posts()): the_post(); ?>
 
+<style type="text/css">
 
+.preview-box {
+    max-width: 250px;
+    float: left;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+a.preview-box-button {
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+    background-color: crimson;
+    padding: 15px;
+    min-width: 190px !important;
+    color: #fff;
+    padding-left: 25px;
+    font-size: 18px;
+    float: left;
+    margin-top: 10px;
+    margin-left: 1px;
+    padding-right: 25px;
+}
+
+h4.popup-title {
+    margin-bottom: 0px;
+    font-size: 29px;
+    margin-top: 0px;
+}
+
+input.marketing-url {
+    padding: 20px;
+    color: #000;
+    font-size: 16px;
+    width: 88%;
+    margin-bottom: 20px;
+}
+
+.second-marketing-url-input {
+    margin-top: 10px;
+}
+
+a.mhpreview {
+    background-color: crimson;
+    color: #fff;
+    padding: 10px;
+    padding-left: 20px;
+    float: right;
+    padding-right: 20px;
+}
+
+
+</style>
 
 
 <div class="post-content">

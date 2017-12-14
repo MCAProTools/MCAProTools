@@ -444,6 +444,138 @@ a.preview-box-button {
 
 
 
+	<h1>Follow Up Pages</h1>
+
+	<!-- Follow Up 1 Preview Box -->
+	<div class="preview-box">
+		<img src="https://mcaprotools.com/wp-content/themes/mca-child/img/mlss/cp1-ss.png" alt="" width="300" />
+		<a class="preview-box-button" rel="lightbox" data-gall="gall-frame" data-lightbox-type="inline" href="#followup-page-1">Get Page Link</a>
+	</div>
+	<!-- Follow Up 1 Preview Box End -->
+
+	<!-- Follow Up 1 Popup -->
+	<div id="followup-page-1" style="display:none;">
+	<div class="first-link">
+		<h4 class="popup-title">Follow Up 1</h4>
+		<p>This link is for the lead capture page shown below. This will redirect to the video sale Follow Up after someone enters their email address:</p>
+
+	<div class="marketing-sharing-section">
+		<h3 style="font-size: 18px;">SHARE THIS URL WITH YOUR CUSTOMERS</h3>
+				<div class="marketing-section">
+					<div class="marketing-url-input">
+						<input class="marketing-url" type="text" value="https://mcaprotools.com/cp1/?ref={affiliate_username}" />
+
+						<a class="mhpreview" href="https://mcaprotools.com/cp1/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a>
+					</div>
+				</div>
+	</div>
+	</div>
+	</div>
+
+	<!-- Follow Up 1 Popup End -->
+
+
+
+
+	<!-- Follow Up 2 Preview Box -->
+	<div class="preview-box">
+	<img src="https://mcaprotools.com/wp-content/themes/mca-child/img/mlss/cp1-ss.png" alt="" width="300" />
+	<a class="preview-box-button" rel="lightbox" data-gall="gall-frame" data-lightbox-type="inline" href="#followup-page-2">Get Page Link</a>
+	</div>
+	<!-- Follow Up 2 Preview Box End -->
+
+
+	<!-- Follow Up 2 Popup -->
+	<div id="followup-page-2" style="display:none;">
+	<div class="first-link">
+	<h4 class="popup-title">Capture Page 2</h4>
+	<p>This link is for the lead capture page shown below. This will redirect to the video sale Follow Up after someone enters their email address:</p>
+
+	<div class="marketing-sharing-section">
+	<h3 style="font-size: 18px;">SHARE THIS URL WITH YOUR CUSTOMERS</h3>
+			<div class="marketing-section">
+				<div class="marketing-url-input">
+					<input class="marketing-url" type="text" value="https://mcaprotools.com/cp1/?ref={affiliate_username}" />
+
+					<a class="mhpreview" href="https://mcaprotools.com/cp1/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a>
+				</div>
+			</div>
+	</div>
+	</div>
+	</div>
+
+	<!-- Follow Up 2 Popup End -->
+
+
+
+
+	<!-- Follow Up 3 Preview Box -->
+	<div class="preview-box">
+	<img src="https://mcaprotools.com/wp-content/themes/mca-child/img/mlss/cp1-ss.png" alt="" width="300" />
+	<a class="preview-box-button" rel="lightbox" data-gall="gall-frame" data-lightbox-type="inline" href="#followup-page-3">Get Page Link</a>
+	</div>
+	<!-- Follow Up 3 Preview Box End -->
+
+
+
+	<!-- Follow Up 3 Popup -->
+	<div id="followup-page-3" style="display:none;">
+	<div class="first-link">
+	<h4 class="popup-title">Capture Page 2</h4>
+	<p>This link is for the lead capture page shown below. This will redirect to the video sale Follow Up after someone enters their email address:</p>
+
+	<div class="marketing-sharing-section">
+	<h3 style="font-size: 18px;">SHARE THIS URL WITH YOUR CUSTOMERS</h3>
+			<div class="marketing-section">
+				<div class="marketing-url-input">
+					<input class="marketing-url" type="text" value="https://mcaprotools.com/cp1/?ref={affiliate_username}" />
+
+					<a class="mhpreview" href="https://mcaprotools.com/cp1/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a>
+				</div>
+			</div>
+	</div>
+	</div>
+	</div>
+
+	<!-- Follow Up 3 Popup End -->
+
+
+
+
+
+	<!-- Follow Up 4 Preview Box -->
+	<div class="preview-box">
+	<img src="https://mcaprotools.com/wp-content/themes/mca-child/img/mlss/cp1-ss.png" alt="" width="300" />
+	<a class="preview-box-button" rel="lightbox" data-gall="gall-frame" data-lightbox-type="inline" href="#followup-page-4">Get Page Link</a>
+	</div>
+	<!-- Follow Up 4 Preview Box End -->
+
+
+
+	<!-- Follow Up 4 Popup -->
+	<div id="followup-page-4" style="display:none;">
+	<div class="first-link">
+	<h4 class="popup-title">Capture Page 2</h4>
+	<p>This link is for the lead capture page shown below. This will redirect to the video sale Follow Up after someone enters their email address:</p>
+
+	<div class="marketing-sharing-section">
+	<h3 style="font-size: 18px;">SHARE THIS URL WITH YOUR CUSTOMERS</h3>
+			<div class="marketing-section">
+				<div class="marketing-url-input">
+					<input class="marketing-url" type="text" value="https://mcaprotools.com/cp1/?ref={affiliate_username}" />
+
+					<a class="mhpreview" href="https://mcaprotools.com/cp1/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a>
+				</div>
+			</div>
+	</div>
+	</div>
+	</div>
+
+	<!-- Follow Up 4 Popup End -->
+
+
+
+
 
 
 

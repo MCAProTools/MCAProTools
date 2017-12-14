@@ -116,7 +116,10 @@ get_header(); ?>
 <style type="text/css">
 
 .preview-box {
-	max-width: 300px;
+    max-width: 300px;
+    float: left;
+    margin-left: 35px;
+    margin-right: 35px;
 }
 
 a.preview-box-button {
@@ -153,6 +156,15 @@ a.preview-box-button {
 
 				<h2 style="font-size: 29px; font-weight: bold;">MCA <span style="color: crimson; background-color: yellow;">"Highest Converting"</span> Sales Funnels</h2>
 
+
+
+
+				<hr style="clear: both; padding-bottom: 25px; border: 0px; padding-top: 25px;">
+
+
+
+
+				<h1>Capture Pages</h1>
 
 				<!-- Capture Page 1 Preview Box -->
 				<div class="preview-box">
@@ -323,6 +335,112 @@ a.preview-box-button {
 
 
 
+	<hr style="clear: both; padding-bottom: 25px; border: 0px; padding-top: 25px;">
+
+
+	<h1>Landing Pages</h1>
+
+	<!-- Landing Page 1 Preview Box -->
+	<div class="preview-box">
+		<img src="https://mcaprotools.com/wp-content/themes/mca-child/img/mlss/cp1-ss.png" alt="" width="300" />
+		<a class="preview-box-button" rel="lightbox" data-gall="gall-frame" data-lightbox-type="inline" href="#landing-page-1">Get Page Link</a>
+	</div>
+	<!-- Landing Page 1 Preview Box End -->
+
+	<!-- Landing Page 1 Popup -->
+	<div id="landing-page-1" style="display:none;">
+	<div class="first-link">
+		<h4 class="popup-title">Landing Page 1</h4>
+		<p>This link is for the lead capture page shown below. This will redirect to the video sale landing page after someone enters their email address:</p>
+
+	<div class="marketing-sharing-section">
+		<h3 style="font-size: 18px;">SHARE THIS URL WITH YOUR CUSTOMERS</h3>
+				<div class="marketing-section">
+					<div class="marketing-url-input">
+						<input class="marketing-url" type="text" value="https://mcaprotools.com/cp1/?ref={affiliate_username}" />
+
+						<a class="mhpreview" href="https://mcaprotools.com/cp1/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a>
+					</div>
+				</div>
+	</div>
+	</div>
+	</div>
+
+	<!-- Landing Page 1 Popup End -->
+
+
+
+
+	<!-- Landing Page 2 Preview Box -->
+	<div class="preview-box">
+	<img src="https://mcaprotools.com/wp-content/themes/mca-child/img/mlss/cp1-ss.png" alt="" width="300" />
+	<a class="preview-box-button" rel="lightbox" data-gall="gall-frame" data-lightbox-type="inline" href="#landing-page-2">Get Page Link</a>
+	</div>
+	<!-- Landing Page 2 Preview Box End -->
+
+
+	<!-- Landing Page 2 Popup -->
+	<div id="landing-page-2" style="display:none;">
+	<div class="first-link">
+	<h4 class="popup-title">Capture Page 2</h4>
+	<p>This link is for the lead capture page shown below. This will redirect to the video sale landing page after someone enters their email address:</p>
+
+	<div class="marketing-sharing-section">
+	<h3 style="font-size: 18px;">SHARE THIS URL WITH YOUR CUSTOMERS</h3>
+			<div class="marketing-section">
+				<div class="marketing-url-input">
+					<input class="marketing-url" type="text" value="https://mcaprotools.com/cp1/?ref={affiliate_username}" />
+
+					<a class="mhpreview" href="https://mcaprotools.com/cp1/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a>
+				</div>
+			</div>
+	</div>
+	</div>
+	</div>
+
+	<!-- Landing Page 2 Popup End -->
+
+
+
+
+	<!-- landing Page 3 Preview Box -->
+	<div class="preview-box">
+	<img src="https://mcaprotools.com/wp-content/themes/mca-child/img/mlss/cp1-ss.png" alt="" width="300" />
+	<a class="preview-box-button" rel="lightbox" data-gall="gall-frame" data-lightbox-type="inline" href="#landing-page-3">Get Page Link</a>
+	</div>
+	<!-- Landing Page 3 Preview Box End -->
+
+
+
+	<!-- Landing Page 3 Popup -->
+	<div id="landing-page-3" style="display:none;">
+	<div class="first-link">
+	<h4 class="popup-title">Capture Page 2</h4>
+	<p>This link is for the lead capture page shown below. This will redirect to the video sale landing page after someone enters their email address:</p>
+
+	<div class="marketing-sharing-section">
+	<h3 style="font-size: 18px;">SHARE THIS URL WITH YOUR CUSTOMERS</h3>
+			<div class="marketing-section">
+				<div class="marketing-url-input">
+					<input class="marketing-url" type="text" value="https://mcaprotools.com/cp1/?ref={affiliate_username}" />
+
+					<a class="mhpreview" href="https://mcaprotools.com/cp1/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a>
+				</div>
+			</div>
+	</div>
+	</div>
+	</div>
+
+	<!-- Landing Page 3 Popup End -->
+
+
+
+
+
+
+
+
+	<hr style="clear: both; padding-bottom: 25px; border: 0px; padding-top: 25px;">
 
 
 
@@ -333,7 +451,114 @@ a.preview-box-button {
 
 
 
-	<hr style="padding:50px;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<!-- Capture Page 3 Popup -->
+	<div id="capture-page-3" style="display:none;">
+	<div class="first-link">
+	<h4 class="popup-title">Capture Page 3</h4>
+	<p>This link is for the lead capture page shown below. This will redirect to the video sale landing page after someone enters their email address:</p>
+
+	<div class="marketing-sharing-section">
+	<h3 style="font-size: 18px;">SHARE THIS URL WITH YOUR CUSTOMERS</h3>
+		<div class="marketing-section">
+			<div class="marketing-url-input">
+				<input class="marketing-url" type="text" value="https://mcaprotools.com/cp1/?ref={affiliate_username}" />
+
+				<a class="mhpreview" href="https://mcaprotools.com/cp1/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a>
+			</div>
+		</div>
+	</div>
+	</div>
+
+	<div class="second-link">
+	This is the landing page the user is redirected to after they enter thier email address:
+		<div class="marketing-sharing-section">
+				 <div class="marketing-section">
+						 <div class="marketing-url-input"><input class="marketing-url" type="text" value="https://mcaprotools.com/lp1/?ref={affiliate_username}" />
+
+							 <a class="mhpreview" href="https://mcaprotools.com/lp1/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a>
+						 </div>
+					</div>
+		 </div>
+	</div>
+	</div>
+
+	<!-- Capture Page 3 Popup End -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

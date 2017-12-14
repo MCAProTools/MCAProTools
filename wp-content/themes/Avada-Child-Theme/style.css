@@ -89,3 +89,6 @@ list-style-type: decimal;
     content: counter(my-counter) ". ";
     counter-increment: my-counter;
 }
+.sidebar .widget ul.sensei-navigation {    
+    counter-reset: my-counter;
+}

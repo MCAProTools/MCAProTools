@@ -152,12 +152,8 @@ input.marketing-url {
     margin-bottom: 20px;
 }
 
-input.second-marketing-url {
-    padding: 20px;
-    color: #000;
-    font-size: 16px;
-    width: 88%;
-    margin-bottom: 20px;
+.second-marketing-url-input {
+    margin-top: 10px;
 }
 
 a.mhpreview {

@@ -373,7 +373,7 @@ a.mhpreview {
 		<p>This link is for the lead capture page shown below. This will redirect to the video sale landing page after someone enters their email address:</p>
 
 	<div class="marketing-sharing-section">
-		<h3 style="font-size: 18px;">SHARE THIS URL WITH YOUR CUSTOMERS</h3>
+
 
 
 		<div class="marketing-section">
@@ -385,6 +385,7 @@ a.mhpreview {
 
 
 				<div class="marketing-section">
+					<h3 style="font-size: 18px;">SHARE THIS URL WITH YOUR CUSTOMERS</h3>
 					<div class="marketing-url-input">
 						<input class="marketing-url" type="text" value="https://mcaprotools.com/lp1/?ref={affiliate_username}" />
 
@@ -415,7 +416,6 @@ a.mhpreview {
 	<p>This link is for the lead Landing Page shown below. This will redirect to the video sale landing page after someone enters their email address:</p>
 
 	<div class="marketing-sharing-section">
-	<h3 style="font-size: 18px;">SHARE THIS URL WITH YOUR CUSTOMERS</h3>
 
 
 	<div class="marketing-section">
@@ -427,6 +427,8 @@ a.mhpreview {
 
 
 			<div class="marketing-section">
+				<h3 style="font-size: 18px;">SHARE THIS URL WITH YOUR CUSTOMERS</h3>
+
 				<div class="marketing-url-input">
 					<input class="marketing-url" type="text" value="https://mcaprotools.com/daystart/?ref={affiliate_username}" />
 

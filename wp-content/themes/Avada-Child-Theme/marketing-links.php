@@ -108,10 +108,25 @@ get_header(); ?>
 		}
 	}
 	?>
+
 	<div id="content" style="<?php echo $content_css; ?>">
-		<?php
-		if(have_posts()): the_post();
-		?>
+
+		<?php if(have_posts()): the_post(); ?>
+
+<style type="text/css">
+
+.preview-box {
+	max-width: 300px;
+}
+
+.preview-box-button {
+	background-color: crimson;
+	text-align: center;
+}
+
+</style>
+
+
 
 
 		<section class="bg-img">
@@ -129,9 +144,9 @@ get_header(); ?>
 
 
 				<!-- Capture Page 1 Preview Box -->
-				<div>
+				<div class="preview-box">
 					<img src="https://mcaprotools.com/wp-content/themes/mca-child/img/mlss/cp1-ss.png" alt="" width="300" />
-					<a class="marketing-link-red-button" rel="lightbox" data-gall="gall-frame" data-lightbox-type="inline" href="#capture-page-1">Get Page Link</a>
+					<a class="preview-box-button" rel="lightbox" data-gall="gall-frame" data-lightbox-type="inline" href="#capture-page-1">Get Page Link</a>
 				</div>
 				<!-- Capture Page 1 Preview Box End -->
 

@@ -84,4 +84,6 @@ padding-bottom: 20px;
 padding-top: 10px;
 display: block;
 list-style-type: decimal;
+    content: counter(my-counter) ". ";
+    counter-increment: my-counter;
 }

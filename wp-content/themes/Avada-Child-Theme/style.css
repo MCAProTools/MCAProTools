@@ -88,4 +88,9 @@ list-style-type: decimal;
 .sidebar .widget ul.sensei-navigation li:before {
     content: counter(my-counter) ". ";
     counter-increment: my-counter;
+        float: left;
+    margin-right: 5px;
+}
+.sidebar .widget ul.sensei-navigation {    
+    counter-reset: my-counter;
 }

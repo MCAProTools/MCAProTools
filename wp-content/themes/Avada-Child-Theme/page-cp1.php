@@ -5,6 +5,13 @@ get_header();
 
 <style type="text/css">
 
+.layout-wide-mode #wrapper {
+    width: 100%;
+    max-width: none;
+    height: 1080px !important;
+}
+
+
 #main {
     padding-top: 0px;
     padding-bottom: 0px;

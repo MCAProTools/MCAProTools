@@ -11,11 +11,11 @@ get_header();
     height: 1080px !important;
 }
 
-
 #main {
     padding-top: 0px;
     padding-bottom: 0px;
-		background-color: #000;
+    height: 1080px !important;
+    background-color: #000;
 }
 
 .content-cp1-box {

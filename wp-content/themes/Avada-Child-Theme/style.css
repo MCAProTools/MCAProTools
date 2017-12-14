@@ -76,7 +76,7 @@ section.course-lessons article:before {
     font-size: 30px;
     margin-top: -6px;
 }
-.sidebar .widget li {
+.sidebar .widget ul.sensei-navigation li {
 margin: 0;
 padding: 0;
 border-bottom: 1px solid;
@@ -84,4 +84,8 @@ padding-bottom: 20px;
 padding-top: 10px;
 display: block;
 list-style-type: decimal;
+}
+.sidebar .widget ul.sensei-navigation li:before {
+    content: counter(my-counter) ". ";
+    counter-increment: my-counter;
 }

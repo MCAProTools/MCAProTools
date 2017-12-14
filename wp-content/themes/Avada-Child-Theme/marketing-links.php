@@ -201,9 +201,9 @@ a.preview-box-button {
 
 
 			<!-- Capture Page 2 Popup -->
-			<div id="capture-page-1" style="display:none;">
+			<div id="capture-page-2" style="display:none;">
 			<div class="first-link">
-				<h4 class="popup-title">Capture Page 1</h4>
+				<h4 class="popup-title">Capture Page 2</h4>
 				<p>This link is for the lead capture page shown below. This will redirect to the video sale landing page after someone enters their email address:</p>
 
 			<div class="marketing-sharing-section">
@@ -235,9 +235,9 @@ a.preview-box-button {
 
 
 			<!-- Capture Page 2 Popup -->
-			<div id="capture-page-1" style="display:none;">
+			<div id="capture-page-2" style="display:none;">
 			<div class="first-link">
-				<h4 class="popup-title">Capture Page 1</h4>
+				<h4 class="popup-title">Capture Page 2</h4>
 				<p>This link is for the lead capture page shown below. This will redirect to the video sale landing page after someone enters their email address:</p>
 
 			<div class="marketing-sharing-section">
@@ -270,9 +270,9 @@ a.preview-box-button {
 
 
 		<!-- Capture Page 3 Popup -->
-		<div id="capture-page-1" style="display:none;">
+		<div id="capture-page-3" style="display:none;">
 		<div class="first-link">
-			<h4 class="popup-title">Capture Page 1</h4>
+			<h4 class="popup-title">Capture Page 3</h4>
 			<p>This link is for the lead capture page shown below. This will redirect to the video sale landing page after someone enters their email address:</p>
 
 		<div class="marketing-sharing-section">
@@ -304,10 +304,30 @@ a.preview-box-button {
 
 
 
-	<!-- Capture Page 3 Popup -->
-	<div id="capture-page-1" style="display:none;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<hr style="padding:50px;">
+
+
+
+
+
+
+	<!-- Capture Page 4 Popup -->
+	<div id="capture-page-4" style="display:none;">
 	<div class="first-link">
-		<h4 class="popup-title">Capture Page 1</h4>
+		<h4 class="popup-title">Capture Page 4</h4>
 		<p>This link is for the lead capture page shown below. This will redirect to the video sale landing page after someone enters their email address:</p>
 
 	<div class="marketing-sharing-section">
@@ -339,7 +359,6 @@ a.preview-box-button {
 
 
 
-<hr style="padding:50px;">
 
 
 

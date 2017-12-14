@@ -62,6 +62,12 @@ li#menu-item-3907 {
     margin-bottom: 15px;
 }
 
+.layout-wide-mode #wrapper {
+    width: 100%;
+    max-width: none;
+    height: 1080px;
+}
+
 
 /** ADDED BY TARUN **/
 section.course-lessons {

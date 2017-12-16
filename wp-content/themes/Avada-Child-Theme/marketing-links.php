@@ -120,6 +120,7 @@ get_header(); ?>
     float: left;
     margin-left: 10px;
     margin-right: 10px;
+    margin-top: 20px;
 }
 
 a.preview-box-button {

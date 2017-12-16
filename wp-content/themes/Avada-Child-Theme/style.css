@@ -94,3 +94,8 @@ list-style-type: decimal;
 .sidebar .widget ul.sensei-navigation {    
     counter-reset: my-counter;
 }
+@media (min-width: 320px) {
+.container {
+    width: 100%;
+}
+}

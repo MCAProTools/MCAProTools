@@ -153,7 +153,7 @@ if (!class_exists('wpmlOrder')) {
 			$paginate = new wpMailPaginate($wpdb -> prefix . $this -> table_name, '*', $sub, $sub);
 			$paginate -> where = (empty($conditions)) ? false : $conditions;
 			$paginate -> searchterm = (empty($searchterm)) ? false : $searchterm;
-			$paginate -> per_page = $perpage;
+			$paginate -> perpage = $perpage;
 			$paginate -> order = $order;
 			$orders = $paginate -> start_paging($_GET['wpmlpage']);
 			

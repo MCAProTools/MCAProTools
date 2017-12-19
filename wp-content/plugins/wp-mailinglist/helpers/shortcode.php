@@ -393,7 +393,10 @@ if (!class_exists('wpmlShortcodeHelper')) {
 				
 				// Visual Composer stuff
 				if (class_exists('WPBMap')) {
-					WPBMap::addAllMappedShortcodes();
+					if (method_exists(WPBMap, 'addAllMappedShortcodes')) {
+						WPBMap::addAllMappedShortcodes();
+					}
+					
 					// Run it through the_content filter	
 					remove_filter('the_content', 'MeprRulesCtrl::rule_content', 999999);
 					$shortcode_post -> post_content = apply_filters('the_content', $shortcode_post -> post_content);

@@ -2,13 +2,13 @@
 
 /*
 Plugin Name: Newsletters
-Plugin URI: http://tribulant.com/plugins/view/1/wordpress-newsletter-plugin
-Version: 4.6.6.2
+Plugin URI: https://tribulant.com/plugins/view/1/wordpress-newsletter-plugin
+Version: 4.6.7
 Description: This newsletter software allows users to subscribe to mutliple mailing lists on your WordPress website. Send newsletters manually or from posts, manage newsletter templates, view a complete history with tracking, import/export subscribers, accept paid subscriptions and much more.
 Author: Tribulant Software
-Author URI: http://tribulant.com
+Author URI: https://tribulant.com
 License: GNU General Public License v2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: wp-mailinglist
 Domain Path: /languages
 */
@@ -19,11 +19,12 @@ if (!defined('DS')) { define("DS", DIRECTORY_SEPARATOR); }
 if (!defined('WP_MEMORY_LIMIT')) { define('WP_MEMORY_LIMIT', "1024M"); }
 if (!defined('W3TC_DYNAMIC_SECURITY')) { define('W3TC_DYNAMIC_SECURITY', md5(rand(0, 999))); }
 if (!defined('NEWSLETTERS_NAME')) { define('NEWSLETTERS_NAME', basename(dirname(__FILE__))); }
+if (!defined('NEWSLETTERS_DIR')) { define('NEWSLETTERS_DIR', dirname(__FILE__)); }
 
 //include the wpMailPlugin class file
-require_once(dirname(__FILE__) . DS . 'includes' . DS . 'checkinit.php');
-require_once(dirname(__FILE__) . DS . 'includes' . DS . 'constants.php');
-require_once(dirname(__FILE__) . DS . 'wp-mailinglist-plugin.php');
+require_once(NEWSLETTERS_DIR . DS . 'includes' . DS . 'checkinit.php');
+require_once(NEWSLETTERS_DIR . DS . 'includes' . DS . 'constants.php');
+require_once(NEWSLETTERS_DIR . DS . 'wp-mailinglist-plugin.php');
 
 if (!class_exists('wpMail')) {
 	class wpMail extends wpMailPlugin {
@@ -34,18 +35,17 @@ if (!class_exists('wpMail')) {
 			if (!current_user_can('edit_posts') && !current_user_can('edit_pages')) return;
 
 			// Add TinyMCE buttons when using rich editor
-			if (get_user_option('rich_editing') == 'true' &&
-				$this -> get_option('tinymcebtn') == "Y") {
+			if (get_user_option('rich_editing') == 'true' && $this -> get_option('tinymcebtn') == "Y") {
 				add_filter('mce_buttons', array($this, 'mcebutton'));
 				add_filter('mce_buttons_3', array($this, 'mcebutton3'));
 				add_filter('mce_external_plugins', array($this, 'mceplugin'));
 				add_filter('mce_external_languages', array($this, 'mcelanguage'));
-				add_filter('tiny_mce_before_init', array($this, 'tiny_mce_before_init'));
+				add_filter('tiny_mce_before_init', array($this, 'tiny_mce_before_init'), 1);
 			}
 		}
 
 		function mcebutton($buttons) {
-			array_push($buttons, "Newsletters");
+			array_push($buttons, 'Newsletters');
 			
 			if (!empty($_GET['page']) && in_array($_GET['page'], (array) $this -> sections)) {
 				// Fusion page builder breaking editor
@@ -218,8 +218,8 @@ if (!class_exists('wpMail')) {
 			$init_array['newsletters_anchor_link_menu'] = __("Anchor Link", 'wp-mailinglist');
 			$init_array['newsletters_anchor_link_title'] = __('Insert Email Anchor', 'wp-mailinglist');
 			$init_array['newsletters_anchor_link_label'] = __('Anchor Name', 'wp-mailinglist');
-			$init_array['newsletters_anchor_link_tooltip'] = esc_js(__('Inserts an anchor link with this value as the "name" attribute eg. mynameattribute. You can then link to the anchor with hash eg. #mynameattribute', 'wp-mailinglist'));
-			$init_array['newsletters_anchor_link_error'] = esc_js(__('Fill in a "name" attribute to use', 'wp-mailinglist'));
+			$init_array['newsletters_anchor_link_tooltip'] = esc_js(__('Inserts an anchor link with this value as the name attribute eg. mynameattribute. You can then link to the anchor with hash eg. #mynameattribute', 'wp-mailinglist'));
+			$init_array['newsletters_anchor_link_error'] = esc_js(__('Fill in a name attribute to use', 'wp-mailinglist'));
 
 			$init_array['newsletters_snippet_title'] = __('Insert Email Snippet', 'wp-mailinglist');
 			$init_array['newsletters_snippet_tooltip'] = __('Choose the snippet to insert', 'wp-mailinglist');
@@ -287,6 +287,7 @@ if (!class_exists('wpMail')) {
 					$phpmailer -> ContentType = "text/plain";
 					$phpmailer -> IsHTML(false);
 					$phpmailer -> Body = strip_tags($phpmailer -> Body);
+					$phpmailer -> AltBody = false;
 				} else {
 					$phpmailer -> ContentType = "text/html";
 					$phpmailer -> IsHTML(true);
@@ -465,7 +466,6 @@ if (!class_exists('wpMail')) {
 			}
 
 			$this -> scheduling();
-			unlink(NEWSLETTERS_LOG_FILE);
 
 			return true;
 		}
@@ -517,8 +517,8 @@ if (!class_exists('wpMail')) {
 
 					if (!empty($showmessage_ratereview) && empty($hidemessage_ratereview)) {
 						$rate_url = "https://wordpress.org/support/view/plugin-reviews/newsletters-lite?rate=5#postform";
-						$works_url = "http://wordpress.org/plugins/newsletters-lite/?compatibility[version]=" . get_bloginfo("version") . "&compatibility[topic_version]=" . $this -> version . "&compatibility[compatible]=1";
-						$message = sprintf(__('You have been using %s for %s days or more. Please consider %s it and say it %s on %s', 'wp-mailinglist'), '<a href="https://wordpress.org/plugins/newsletters-lite/" target="_blank">' . __('Tribulant Newsletters', 'wp-mailinglist') . '</a>', $showmessage_ratereview, '<a href="' . $rate_url . '" target="_blank" class="button"><i class="fa fa-star"></i> ' . __('Rating', 'wp-mailinglist') . '</a>', '<a href="' . $works_url . '" target="_blank" class="button"><i class="fa fa-thumbs-o-up"></i> ' . __('Works', 'wp-mailinglist') . '</a>', '<a href="http://wordpress.org/plugins/newsletters-lite/" target="_blank">WordPress.org</a>');
+						$works_url = "https://wordpress.org/plugins/newsletters-lite/?compatibility[version]=" . get_bloginfo("version") . "&compatibility[topic_version]=" . $this -> version . "&compatibility[compatible]=1";
+						$message = sprintf(__('You have been using %s for %s days or more. Please consider %s it and say it %s on %s', 'wp-mailinglist'), '<a href="https://wordpress.org/plugins/newsletters-lite/" target="_blank">' . __('Tribulant Newsletters', 'wp-mailinglist') . '</a>', $showmessage_ratereview, '<a href="' . $rate_url . '" target="_blank" class="button"><i class="fa fa-star"></i> ' . __('Rating', 'wp-mailinglist') . '</a>', '<a href="' . $works_url . '" target="_blank" class="button"><i class="fa fa-thumbs-o-up"></i> ' . __('Works', 'wp-mailinglist') . '</a>', '<a href="https://wordpress.org/plugins/newsletters-lite/" target="_blank">WordPress.org</a>');
 						$message .= ' <a style="text-decoration:none;" href="' . admin_url('admin.php?page=' . $this -> sections -> welcome . '&newsletters_method=hidemessage&message=ratereview') . '" class=""><i class="fa fa-times"></i></a>';
 						$this -> render_message($message);
 					}
@@ -548,7 +548,7 @@ if (!class_exists('wpMail')) {
 				}
 				
 				// Is DISABLE_WP_CRON defined?
-				if (defined('DISABLE_WP_CRON')) {
+				if (defined('DISABLE_WP_CRON') && DISABLE_WP_CRON == true) {
 					$hidemessage_disablewpcron = $this -> get_option('hidemessage_disablewpcron');
 					if (empty($hidemessage_disablewpcron)) {
 						$message = '<div id="error" class="updated notice is-dismissible error">';
@@ -558,10 +558,14 @@ if (!class_exists('wpMail')) {
 						$message .= '<br/>';
 						$message .= __('Some features may not work as expected if the WordPress cron is not working.', 'wp-mailinglist');
 						$message .= '</p>';
-						$message .= '<p>';
-						$message .= '<a href="' . $Html -> retainquery(array('newsletters_method' => "hidemessage", 'message' => "disablewpcron")) . '" class="button button-default"><i class="fa fa-check"></i> ' . __('Yes I know, hide this message', 'wp-mailinglist') . '</a> ';
-						$message .= '<a href="https://tribulant.com/docs/wordpress-mailing-list-plugin/11164" target="_blank" class="button button-primary"><i class="fa fa-question-circle"></i> ' . __('No, how can I fix it?', 'wp-mailinglist') . '</a>';
-						$message .= '</p>';
+						
+						if (apply_filters('newsletters_whitelabel', true)) {
+							$message .= '<p>';
+							$message .= '<a href="' . $Html -> retainquery(array('newsletters_method' => "hidemessage", 'message' => "disablewpcron")) . '" class="button button-default"><i class="fa fa-check"></i> ' . __('Yes I know, hide this message', 'wp-mailinglist') . '</a> ';
+							$message .= '<a href="https://tribulant.com/docs/wordpress-mailing-list-plugin/11164" target="_blank" class="button button-primary"><i class="fa fa-question-circle"></i> ' . __('No, how can I fix it?', 'wp-mailinglist') . '</a>';
+							$message .= '</p>';
+						}
+						
 						$message .= '</div>';
 						echo $message;	
 					}
@@ -625,12 +629,14 @@ if (!class_exists('wpMail')) {
 				}
 
 				if (!empty($_GET['page']) && in_array($_GET['page'], (array) $this -> sections)) {
-					if (current_user_can('edit_plugins') && $this -> has_update() && (empty($_GET['page']) || (!empty($_GET['page']) && $_GET['page'] != $this -> sections -> settings_updates))) {
-						$hideupdate = $this -> get_option('hideupdate');
-						if (empty($hideupdate) || (!empty($hideupdate) && version_compare($this -> version, $hideupdate, '>'))) {
-							$update = $this -> vendor('update');
-							$update_info = $update -> get_version_info(true);
-							$this -> render('update', array('update_info' => $update_info), true, 'admin');
+					if (apply_filters('newsletters_updates', true)) {
+						if (current_user_can('edit_plugins') && $this -> has_update() && (empty($_GET['page']) || (!empty($_GET['page']) && $_GET['page'] != $this -> sections -> settings_updates))) {
+							$hideupdate = $this -> get_option('hideupdate');
+							if (empty($hideupdate) || (!empty($hideupdate) && version_compare($this -> version, $hideupdate, '>'))) {
+								$update = $this -> vendor('update');
+								$update_info = $update -> get_version_info();
+								$this -> render('update', array('update_info' => $update_info), true, 'admin');
+							}
 						}
 					}
 				}
@@ -662,8 +668,8 @@ if (!class_exists('wpMail')) {
 			$public = ((!empty($custompostarchive)) ? true : false);
 
 			$newsletter_args = array(
-				'label'					=>	__('Newsletters', 'wp-mailinglist'),
-				'labels'				=>	array('name' => __('Newsletters', 'wp-mailinglist'), 'singular_name' => __('Newsletter', 'wp-mailinglist')),
+				'label'					=>	__($this -> name, 'wp-mailinglist'),
+				'labels'				=>	array('name' => __($this -> name, 'wp-mailinglist'), 'singular_name' => __('Newsletter', 'wp-mailinglist')),
 				'description'			=>	__('Emails/newsletters', 'wp-mailinglist'),
 				'public'				=>	$public,
 				'show_ui'				=>	false,
@@ -740,22 +746,21 @@ if (!class_exists('wpMail')) {
 								$clicktrack = $this -> get_option('clicktrack');
 								if (!empty($clicktrack) && $clicktrack == "Y") {
 									$click_data = array(
-										//'link_id'			=>	$link -> id,
 										'referer'			=>	"online",
 										'history_id'		=>	$email -> id,
-										'user_id'			=>	$_GET['user_id'],
-										'subscriber_id'		=>	$_GET['subscriber_id'],
+										'user_id'			=>	esc_html($_GET['user_id']),
+										'subscriber_id'		=>	esc_html($_GET['subscriber_id']),
 										'device'			=>	$this -> get_device()
 									);
 
 									$this -> Click() -> save($click_data, true);
 								}
 
-								if (true || !empty($subscriber) || !empty($_GET['fromfeed']) || !empty($_GET['history'])) {
-									$subscriber -> mailinglist_id = $_GET['mailinglist_id'];
-									$authkey = $_GET['authkey'];
+								if (!empty($subscriber) || !empty($_GET['fromfeed']) || !empty($_GET['history'])) {
+									$subscriber -> mailinglist_id = esc_html($_GET['mailinglist_id']);
+									$authkey = esc_html($_GET['authkey']);
 
-									if (true || $authkey == $subscriber -> authkey || !empty($_GET['fromfeed']) || !empty($_GET['history'])) {
+									if ($authkey == $subscriber -> authkey || !empty($_GET['fromfeed']) || !empty($_GET['history'])) {
 										$message = $email -> message;
 										$content = $this -> render_email('send', array('print' => $_GET['print'], 'message' => $message, 'subject' => $email -> subject, 'subscriber' => $subscriber, 'history_id' => $id), false, true, true, $email -> theme_id);
 										$output = "";
@@ -763,7 +768,7 @@ if (!class_exists('wpMail')) {
 										$thecontent = do_shortcode(stripslashes($content));
 										echo apply_filters('wpml_online_newsletter', $thecontent, $subscriber);
 										$output = ob_get_clean();
-										echo $this -> process_set_variables($subscriber, $user, $output, $email -> id);
+										echo $this -> inlinestyles($this -> process_set_variables($subscriber, $user, $output, $email -> id));
 										exit();
 									} else {
 										$message = __('Authentication failed, please try again.', 'wp-mailinglist');
@@ -782,7 +787,7 @@ if (!class_exists('wpMail')) {
 							?>
 
 							<script type="text/javascript">
-							alert('<?php echo $message; ?>');
+							alert('<?php echo addslashes($message); ?>');
 							</script>
 
 							<?php
@@ -1130,6 +1135,8 @@ if (!class_exists('wpMail')) {
 						break;
 					case 'hidemessage'					:
 						if (!empty($_GET['message'])) {
+							$message = esc_html($_GET['message']);
+							
 							switch ($_GET['message']) {
 								case 'submitserial'				:
 									$this -> update_option('hidemessage_submitserial', true);
@@ -1149,6 +1156,8 @@ if (!class_exists('wpMail')) {
 									break;
 							}
 						}
+						
+						do_action('newsletters_hidemessage', $message);
 
 						$this -> redirect($this -> referer);
 						break;
@@ -1668,7 +1677,7 @@ if (!class_exists('wpMail')) {
 						exit();
 						die();
 						break;
-					case 'activate'			:
+					case 'activate'			:					
 						global $wpdb, $Auth, $Mailinglist, $Html, $Db, $HistoriesAttachment, $Email, $Subscriber;
 						if (!empty($_GET[$this -> pre . 'subscriber_id'])) {
 							$subscriber_id = $_GET[$this -> pre . 'subscriber_id'];
@@ -1957,7 +1966,7 @@ if (!class_exists('wpMail')) {
 							?>
 
 							<script type="text/javascript">
-							alert('<?php echo $message; ?>');
+							alert('<?php echo addslashes($message); ?>');
 							window.location = '<?php echo $this -> get_managementpost(true); ?>';
 							</script>
 
@@ -2141,11 +2150,11 @@ if (!class_exists('wpMail')) {
 									$this -> Click() -> save($click_data, true);
 								}
 
-								if (true || !empty($subscriber) || !empty($_GET['fromfeed']) || !empty($_GET['history'])) {
+								if (!empty($subscriber) || !empty($_GET['fromfeed']) || !empty($_GET['history'])) {
 									$subscriber -> mailinglist_id = $_GET['mailinglist_id'];
 									$authkey = $_GET['authkey'];
 
-									if (true || $authkey == $subscriber -> authkey || !empty($_GET['fromfeed']) || !empty($_GET['history'])) {
+									if ($authkey == $subscriber -> authkey || !empty($_GET['fromfeed']) || !empty($_GET['history'])) {
 										$message = $email -> message;
 										$content = $this -> render_email('send', array('print' => $_GET['print'], 'message' => $message, 'subject' => $email -> subject, 'subscriber' => $subscriber, 'history_id' => $id), false, true, true, $email -> theme_id);
 										$output = "";
@@ -2172,7 +2181,7 @@ if (!class_exists('wpMail')) {
 							?>
 
 							<script type="text/javascript">
-							alert('<?php echo $message; ?>');
+							alert('<?php echo addslashes($message); ?>');
 							</script>
 
 							<?php
@@ -2259,7 +2268,7 @@ if (!class_exists('wpMail')) {
 
 		function dashboard_setup() {
 			if (current_user_can('newsletters_welcome')) {
-				wp_add_dashboard_widget($this -> plugin_name, '<i class="fa fa-envelope fa-fw"></i> ' . __('Newsletters', 'wp-mailinglist'), array($this, 'dashboard_widget'));
+				wp_add_dashboard_widget($this -> plugin_name, '<i class="fa fa-envelope fa-fw"></i> ' . __($this -> name, 'wp-mailinglist'), array($this, 'dashboard_widget'));
 				global $wp_meta_boxes;
 				$normal_dashboard = $wp_meta_boxes['dashboard']['normal']['core'];
 				$example_widget_backup = array($this -> plugin_name => $normal_dashboard[$this -> plugin_name]);
@@ -2281,7 +2290,7 @@ if (!class_exists('wpMail')) {
 			if (!empty($type)) {
 				if ($type == "post" || $type == "page" || (!empty($post_types) && array_key_exists($type, $post_types))) {
 					if (current_user_can('newsletters_send') && $this -> get_option('sendasnewsletterbox') == "Y") {
-						add_meta_box('newsletters', '<i class="fa fa-envelope fa-fw"></i> ' . __('Send as Newsletter', 'wp-mailinglist') . $Html -> help(__('Use this box to send a post, page or custom post type as a newsletter to your subscribers. You can choose the list(s) to send to, the template to use, etc. All emails sent this way are queued and you can find them under Newsletters > Email Queue after the post, page or custom post type has been saved.', 'wp-mailinglist')), array($Metabox, 'write_advanced'), $type, 'normal', 'high');
+						add_meta_box('newsletters', '<i class="fa fa-envelope fa-fw"></i> ' . __('Send as Newsletter', 'wp-mailinglist') . $Html -> help(sprintf(__('Use this box to send a post, page or custom post type as a newsletter to your subscribers. You can choose the list(s) to send to, the template to use, etc. All emails sent this way are queued and you can find them under %s > Email Queue after the post, page or custom post type has been saved.', 'wp-mailinglist'), $this -> name)), array($Metabox, 'write_advanced'), $type, 'normal', 'high');
 					}
 				}
 			}
@@ -2348,6 +2357,9 @@ if (!class_exists('wpMail')) {
 		function latestposts_hook($id = null, $preview = false) {
 			global $wpdb, $post, $Db, $Html, $Mailinglist, $Subscriber, $SubscribersList;
 			$sentmailscount = 0;
+			
+			$this -> queue_process -> reset_data();
+			$this -> log_error('latest posts ' . $id . ' is firing now');
 
 			if (!empty($id) && $latestpostssubscription = $this -> Latestpostssubscription() -> find(array('id' => $id))) {
 				if (!empty($preview) || empty($latestpostssubscription -> status) || (!empty($latestpostssubscription -> status) && $latestpostssubscription -> status == "active")) {
@@ -2484,6 +2496,9 @@ if (!class_exists('wpMail')) {
 										. $mailinglistscondition . ") AND " . $wpdb -> prefix . $SubscribersList -> table . ".active = 'Y'";
 
 										$subscribers = $wpdb -> get_results($query);
+										
+										$this -> log_error($query);
+										$this -> log_error($subscribers);
 
 										if (!empty($subscribers)) {
 											$queue_process_counter = 0;
@@ -2514,13 +2529,14 @@ if (!class_exists('wpMail')) {
 												
 												continue;
 											}
-											
-											$this -> queue_process -> save();
-											$this -> queue_process -> dispatch();
 										}
 									}
 								}
 							}
+							
+							$this -> queue_process -> save();
+							$this -> queue_process -> dispatch();
+							
 						} else {
 							echo sprintf(__('Minimum number of %s posts required to send this latest posts subscription newsletter.', 'wp-mailinglist'), $minnumber);
 						}
@@ -2531,12 +2547,15 @@ if (!class_exists('wpMail')) {
 					echo __('Latest posts subscription is currently paused.', 'wp-mailinglist');
 				}
 			} else {
+				// Cannot be found, delete the schedule
+				if (!empty($id)) {
+					wp_clear_scheduled_hook('newsletters_latestposts', array((int) $id));
+				}
+				
 				echo __('No latest posts subscription was specified', 'wp-mailinglist');
 			}
 
 			echo $sentmailscount . ' ' . __('emails were sent/queued.', 'wp-mailinglist');
-
-			return false;
 		}
 
 		function importusers_hook() {
@@ -2607,6 +2626,11 @@ if (!class_exists('wpMail')) {
 														$subscriber[$field -> slug] = $usermeta;
 													}
 												}
+											}
+											
+											// Don't send autoresponders again if the subscriber is updated
+											if ($Subscriber -> email_exists($user -> user_email)) {
+												$subscriber['preventautoresponders'] = true;
 											}
 
 											if ($Subscriber -> save($subscriber, true)) {
@@ -2751,6 +2775,11 @@ if (!class_exists('wpMail')) {
 						$eunique = $Html -> eunique($subscriber, $email['history_id']);
 						$message = $this -> render_email('send', array('message' => $message, 'subject' => $email['subject'], 'subscriber' => $subscriber, 'history_id' => $email['history_id'], 'post_id' => $email['post_id'], 'eunique' => $eunique), false, $this -> htmltf($subscriber -> format), true, $email['theme_id']);
 
+						// Check if mailing lists are required
+						if (empty($subscriber -> mailinglists)) {
+							$subscriber -> mailinglists = $Subscriber -> mailinglists($subscriber -> id, false, false, false);
+						}
+
 						if ($this -> execute_mail($subscriber, false, $email['subject'], $message, $email['attachments'], $email['history_id'], $eunique, true, "newsletter")) {
 							return true;
 						} else {
@@ -2866,24 +2895,36 @@ if (!class_exists('wpMail')) {
 		}
 
 		function screen_settings($current, $screen) {
-			if (!empty($_GET['page']) && $_GET['page'] == $this -> sections -> subscribers) {
-
-				if (!empty($_POST['screenoptions'])) {
-					if (!empty($_POST['fields']) && is_array($_POST['fields'])) {
-						$this -> update_option('screenoptions_subscribers_fields', $_POST['fields']);
-					} else { delete_option($this -> pre . 'screenoptions_subscribers_fields'); }
-
-					if (!empty($_POST['custom']) && is_array($_POST['custom'])) {
-						$this -> update_option('screenoptions_subscribers_custom', $_POST['custom']);
-					} else { delete_option($this -> pre . 'screenoptions_subscribers_custom'); }
+			// Screen Options for various sections
+			
+			$page = esc_html($_GET['page']);
+			
+			if (!empty($page)) {
+				// Newsletters > Subscribers
+				if ($page == $this -> sections -> subscribers) {
+	
+					if (!empty($_POST['screenoptions'])) {
+						if (!empty($_POST['fields']) && is_array($_POST['fields'])) {
+							$this -> update_option('screenoptions_subscribers_fields', $_POST['fields']);
+						} else { delete_option($this -> pre . 'screenoptions_subscribers_fields'); }
+	
+						if (!empty($_POST['custom']) && is_array($_POST['custom'])) {
+							$this -> update_option('screenoptions_subscribers_custom', $_POST['custom']);
+						} else { delete_option($this -> pre . 'screenoptions_subscribers_custom'); }
+					}
+	
+					global $Db, $Field;
+					$Db -> model = $Field -> model;
+					$conditions['1'] = "1 AND `slug` != 'email' AND `slug` != 'list'";
+					$fields = $Db -> find_all($conditions, false, array('order', "ASC"));
+	
+					$current .= $this -> render('subscribers' . DS . 'screen-options', array('fields' => $fields), false, 'admin');
 				}
-
-				global $Db, $Field;
-				$Db -> model = $Field -> model;
-				$conditions['1'] = "1 AND `slug` != 'email' AND `slug` != 'list'";
-				$fields = $Db -> find_all($conditions, false, array('order', "ASC"));
-
-				$current .= $this -> render('subscribers' . DS . 'screen-options', array('fields' => $fields), false, 'admin');
+				
+				// Newsletters > Sent & Draft Emails
+				if ($page == $this -> sections -> history) {
+					
+				}
 			}
 
 			return $current;
@@ -2946,7 +2987,8 @@ if (!class_exists('wpMail')) {
 
 			if (!empty($post_id) && !empty($post)) {
 				
-				$newsletters_subject = (empty($_POST['newsletters_subject'])) ? $post -> post_title : $_POST['newsletters_subject'];
+				//$newsletters_subject = (empty($_POST['newsletters_subject'])) ? $post -> post_title : $_POST['newsletters_subject'];
+				$newsletters_subject = $_POST['newsletters_subject'];
 				
 				switch ($post_status) {
 					// Saving a draft
@@ -3146,59 +3188,63 @@ if (!class_exists('wpMail')) {
 			$queue_status = $this -> get_option('queue_status');
 			$queue_count_icon = ' <span class="update-plugins count-1"><span class="update-count" id="newsletters-menu-queue-count">' . $queue_count . '</span></span>';
 			$update_icon = ($this -> has_update()) ? ' <span class="update-plugins count-1"><span class="update-count">1</span></span>' : '';
+			$menunames = $this -> get_menu_names();
 
-			add_menu_page(__('Newsletters', 'wp-mailinglist'), __('Newsletters', 'wp-mailinglist') . $update_icon, 'newsletters_welcome', $this -> sections -> welcome, array($this, 'admin'), false, "26.11");
+			add_menu_page(__($this -> name, 'wp-mailinglist'), __($this -> name, 'wp-mailinglist') . $update_icon, 'newsletters_welcome', $this -> sections -> welcome, array($this, 'admin'), false, "26.11");
 
 			if (false && !$this -> ci_serial_valid()) {
 				$this -> menus['newsletters-submitserial'] = add_submenu_page($this -> sections -> welcome, __('Submit Serial', 'wp-mailinglist'), __('Submit Serial', 'wp-mailinglist'), 'newsletters_welcome', $this -> sections -> submitserial, array($this, 'admin_submitserial'));
 			} else {
-				$this -> menus['newsletters'] = add_submenu_page($this -> sections -> welcome, __('Overview', 'wp-mailinglist'), __('Overview', 'wp-mailinglist'), 'newsletters_welcome', $this -> sections -> welcome, array($this, 'admin'));
+				$this -> menus['newsletters'] = add_submenu_page($this -> sections -> welcome, __($menunames['newsletters']), __($menunames['newsletters']), 'newsletters_welcome', $this -> sections -> welcome, array($this, 'admin'));
 
-				$this -> menus['newsletters-settings'] = add_submenu_page($this -> sections -> welcome, __('General Configuration', 'wp-mailinglist'), __('Configuration', 'wp-mailinglist'), 'newsletters_settings', $this -> sections -> settings, array($this, 'admin_config'));
+				$this -> menus['newsletters-settings'] = add_submenu_page($this -> sections -> welcome, __($menunames['newsletters-settings']), __($menunames['newsletters-settings']), 'newsletters_settings', $this -> sections -> settings, array($this, 'admin_config'));
 				$this -> menus['newsletters-settings-subscribers'] = add_submenu_page("newsletters_page_" . $this -> sections -> settings, __('Subscribers Configuration', 'wp-mailinglist'), __('Subscribers', 'wp-mailinglist'), 'newsletters_settings_subscribers', $this -> sections -> settings_subscribers, array($this, 'admin_settings_subscribers'));
 				$this -> menus['newsletters-settings-templates'] = add_submenu_page("newsletters_page_" . $this -> sections -> settings, __('System Emails Configuration', 'wp-mailinglist'), __('System Emails', 'wp-mailinglist'), 'newsletters_settings_templates', $this -> sections -> settings_templates, array($this, 'admin_settings_templates'));
 				$this -> menus['newsletters-settings-system'] = add_submenu_page("newsletters_page_" . $this -> sections -> settings, __('System Configuration', 'wp-mailinglist'), __('System', 'wp-mailinglist'), 'newsletters_settings_system', $this -> sections -> settings_system, array($this, 'admin_settings_system'));
 				$this -> menus['newsletters-settings-tasks'] = add_submenu_page("newsletters_page_" . $this -> sections -> settings, __('Scheduled Tasks', 'wp-mailinglist'), __('Scheduled Tasks', 'wp-mailinglist'), 'newsletters_settings_tasks', $this -> sections -> settings_tasks, array($this, 'admin_settings_tasks'));
 				$this -> menus['newsletters-settings-api'] = add_submenu_page("newsletters_page_" . $this -> sections -> settings, __('API', 'wp-mailinglist'), __('API', 'wp-mailinglist'), 'newsletters_settings_api', $this -> sections -> settings_api, array($this, 'admin_settings_api'));
 				$this -> menus['newsletters-settings-updates'] = add_submenu_page($this -> menus['newsletters-settings'], __('Updates', 'wp-mailinglist'), __('Updates', 'wp-mailinglist') . $update_icon, 'newsletters_settings_updates', $this -> sections -> settings_updates, array($this, 'admin_settings_updates'));
-				$this -> menus['newsletters-forms'] = add_submenu_page($this -> sections -> welcome, __('Subscribe Forms', 'wp-mailinglist'), __('Subscribe Forms', 'wp-mailinglist'), 'newsletters_forms', $this -> sections -> forms, array($this, 'admin_forms'));
-				$this -> menus['newsletters-send'] = add_submenu_page($this -> sections -> welcome, __('Create Newsletter', 'wp-mailinglist'), __('Create Newsletter', 'wp-mailinglist'), 'newsletters_send', $this -> sections -> send, array($this, 'admin_send'));
-				$this -> menus['newsletters-history'] = add_submenu_page($this -> sections -> welcome, __('Sent &amp; Draft Emails', 'wp-mailinglist'), __('Sent &amp; Draft Emails', 'wp-mailinglist'), 'newsletters_history', $this -> sections -> history, array($this, 'admin_history'));
+				$this -> menus['newsletters-forms'] = add_submenu_page($this -> sections -> welcome, __($menunames['newsletters-forms']), __($menunames['newsletters-forms']), 'newsletters_forms', $this -> sections -> forms, array($this, 'admin_forms'));
+				$this -> menus['newsletters-send'] = add_submenu_page($this -> sections -> welcome, __($menunames['newsletters-send']), __($menunames['newsletters-send']), 'newsletters_send', $this -> sections -> send, array($this, 'admin_send'));
+				
+				$this -> menus['newsletters-history'] = add_submenu_page($this -> sections -> welcome, __($menunames['newsletters-history']), __($menunames['newsletters-history']), 'newsletters_history', $this -> sections -> history, array($this, 'admin_history'));
+				add_action("load-" . $this -> menus['newsletters-history'], array($this, 'screen_options_history'));
+				
 				$this -> menus['newsletters-emails'] = add_submenu_page($this -> menus['newsletters-history'], __('All Emails', 'wp-mailinglist'), __('All Emails', 'wp-mailinglist'), 'newsletters_emails', $this -> sections -> emails, array($this, 'admin_emails'));
 
 				if ($this -> get_option('clicktrack') == "Y") {
-					$this -> menus['newsletters-links'] = add_submenu_page($this -> sections -> welcome, __('Links &amp; Clicks', 'wp-mailinglist'), __('Links &amp; Clicks', 'wp-mailinglist'), 'newsletters_links', $this -> sections -> links, array($this, 'admin_links'));
+					$this -> menus['newsletters-links'] = add_submenu_page($this -> sections -> welcome, __($menunames['newsletters-links']), __($menunames['newsletters-links']), 'newsletters_links', $this -> sections -> links, array($this, 'admin_links'));
 					$this -> menus['newsletters-links-clicks'] = add_submenu_page($this -> menus['newsletters-links'], __('Clicks', 'wp-mailinglist'), __('Clicks', 'wp-mailinglist'), 'newsletters_clicks', $this -> sections -> clicks, array($this, 'admin_clicks'));
 				}
 
-				$this -> menus['newsletters-autoresponders'] = add_submenu_page($this -> sections -> welcome, __('Autoresponders', 'wp-mailinglist'), __('Autoresponders', 'wp-mailinglist'), 'newsletters_autoresponders', $this -> sections -> autoresponders, array($this, 'admin_autoresponders'));
+				$this -> menus['newsletters-autoresponders'] = add_submenu_page($this -> sections -> welcome, __($menunames['newsletters-autoresponders']), __($menunames['newsletters-autoresponders']), 'newsletters_autoresponders', $this -> sections -> autoresponders, array($this, 'admin_autoresponders'));
 				$this -> menus['newsletters-autoresponderemails'] = add_submenu_page("newsletters_page_" . $this -> sections -> autoresponders, __('Autoresponder Emails', 'wp-mailinglist'), __('Autoresponder Emails', 'wp-mailinglist'), 'newsletters_autoresponderemails', $this -> sections -> autoresponderemails, array($this, 'admin_autoresponderemails'));
-				$this -> menus['newsletters-lists'] = add_submenu_page($this -> sections -> welcome, __('Mailing Lists', 'wp-mailinglist'), __('Mailing Lists', 'wp-mailinglist'), 'newsletters_lists', $this -> sections -> lists, array($this, 'admin_mailinglists'));
-				$this -> menus['newsletters-groups'] = add_submenu_page($this -> sections -> welcome, __('Groups', 'wp-mailinglist'), __('Groups', 'wp-mailinglist'), 'newsletters_groups', $this -> sections -> groups, array($this, 'admin_groups'));
+				$this -> menus['newsletters-lists'] = add_submenu_page($this -> sections -> welcome, __($menunames['newsletters-lists']), __($menunames['newsletters-lists']), 'newsletters_lists', $this -> sections -> lists, array($this, 'admin_mailinglists'));
+				$this -> menus['newsletters-groups'] = add_submenu_page($this -> sections -> welcome, __($menunames['newsletters-groups']), __($menunames['newsletters-groups']), 'newsletters_groups', $this -> sections -> groups, array($this, 'admin_groups'));
 
-				$this -> menus['newsletters-subscribers'] = add_submenu_page($this -> sections -> welcome, __('Subscribers', 'wp-mailinglist'), __('Subscribers', 'wp-mailinglist'), 'newsletters_subscribers', $this -> sections -> subscribers, array($this, 'admin_subscribers'));
-				$this -> menus['newsletters-import'] = add_submenu_page($this -> menus['newsletters-subscribers'], __('Import/Export Subscribers', 'wp-mailinglist'), __('Import/Export', 'wp-mailinglist'), 'newsletters_importexport', $this -> sections -> importexport, array($this, 'admin_importexport'));
+				$this -> menus['newsletters-subscribers'] = add_submenu_page($this -> sections -> welcome, __($menunames['newsletters-subscribers']), __($menunames['newsletters-subscribers']), 'newsletters_subscribers', $this -> sections -> subscribers, array($this, 'admin_subscribers'));
+				$this -> menus['newsletters-import'] = add_submenu_page($this -> menus['newsletters-subscribers'], __($menunames['newsletters-import']), __($menunames['newsletters-import']), 'newsletters_importexport', $this -> sections -> importexport, array($this, 'admin_importexport'));
 
-				$this -> menus['newsletters-fields'] = add_submenu_page($this -> sections -> welcome, __('Custom Fields', 'wp-mailinglist'), __('Custom Fields', 'wp-mailinglist'), 'newsletters_fields', $this -> sections -> fields, array($this, 'admin_fields'));
-				$this -> menus['newsletters-themes'] = add_submenu_page($this -> sections -> welcome, __('Themes/Templates', 'wp-mailinglist'), __('Themes/Templates', 'wp-mailinglist'), 'newsletters_themes', $this -> sections -> themes, array($this, 'admin_themes'));
-				$this -> menus['newsletters-templates'] = add_submenu_page($this -> sections -> welcome, __('Email Snippets', 'wp-mailinglist'), __('Email Snippets', 'wp-mailinglist'), 'newsletters_templates', $this -> sections -> templates, array($this, 'admin_templates'));
+				$this -> menus['newsletters-fields'] = add_submenu_page($this -> sections -> welcome, __($menunames['newsletters-fields']), __($menunames['newsletters-fields']), 'newsletters_fields', $this -> sections -> fields, array($this, 'admin_fields'));
+				$this -> menus['newsletters-themes'] = add_submenu_page($this -> sections -> welcome, __($menunames['newsletters-themes']), __($menunames['newsletters-themes']), 'newsletters_themes', $this -> sections -> themes, array($this, 'admin_themes'));
+				$this -> menus['newsletters-templates'] = add_submenu_page($this -> sections -> welcome, __($menunames['newsletters-templates']), __($menunames['newsletters-templates']), 'newsletters_templates', $this -> sections -> templates, array($this, 'admin_templates'));
 				$this -> menus['newsletters-templates-save'] = add_submenu_page($this -> menus['newsletters-templates'], __('Save an Email Snippet', 'wp-mailinglist'), __('Save an Email Snippet', 'wp-mailinglist'), 'newsletters_templates_save', $this -> sections -> templates_save, array($this, 'admin_templates'));
-				$this -> menus['newsletters-queue'] = add_submenu_page($this -> sections -> welcome, __('Email Queue', 'wp-mailinglist'), __('Email Queue', 'wp-mailinglist') . ((!empty($queue_count)) ? $queue_count_icon : ''), 'newsletters_queue', $this -> sections -> queue, array($this, 'admin_mailqueue'));
-				$this -> menus['newsletters-orders'] = add_submenu_page($this -> sections -> welcome, __('Subscription Orders', 'wp-mailinglist'), __('Subscription Orders', 'wp-mailinglist'), 'newsletters_orders', $this -> sections -> orders, array($this, 'admin_orders'));
-				$this -> menus['newsletters-extensions'] = add_submenu_page($this -> sections -> welcome, __('Extensions', 'wp-mailinglist'), __('Extensions', 'wp-mailinglist'), 'newsletters_extensions', $this -> sections -> extensions, array($this, 'admin_extensions'));
+				$this -> menus['newsletters-queue'] = add_submenu_page($this -> sections -> welcome, __($menunames['newsletters-queue']), __($menunames['newsletters-queue']) . ((!empty($queue_count)) ? $queue_count_icon : ''), 'newsletters_queue', $this -> sections -> queue, array($this, 'admin_mailqueue'));
+				$this -> menus['newsletters-orders'] = add_submenu_page($this -> sections -> welcome, __($menunames['newsletters-orders']), __($menunames['newsletters-orders']), 'newsletters_orders', $this -> sections -> orders, array($this, 'admin_orders'));
+				$this -> menus['newsletters-extensions'] = add_submenu_page($this -> sections -> welcome, __($menunames['newsletters-extensions']), __($menunames['newsletters-extensions']), 'newsletters_extensions', $this -> sections -> extensions, array($this, 'admin_extensions'));
 				$this -> menus['newsletters-extensions-settings'] = add_submenu_page($this -> menus['newsletters-extensions'], __('Extensions Settings', 'wp-mailinglist'), __('Extensions Settings', 'wp-mailinglist'), 'newsletters_extensions_settings', $this -> sections -> extensions_settings, array($this, 'admin_extensions_settings'));
 				
 				if ($this -> has_update()) {
-					$this -> menus['newsletters-updates'] = add_submenu_page($this -> sections -> welcome, __('Updates', 'wp-mailinglist'), __('Updates', 'wp-mailinglist') . $update_icon, 'newsletters_settings_updates', $this -> sections -> settings_updates, array($this, 'admin_settings_updates'));
+					$this -> menus['newsletters-updates'] = add_submenu_page($this -> sections -> welcome, __($menunames['newsletters-updates']), __($menunames['newsletters-updates']) . $update_icon, 'newsletters_settings_updates', $this -> sections -> settings_updates, array($this, 'admin_settings_updates'));
 				}
 
 				if (WPML_SHOW_SUPPORT) {
-					$this -> menus['newsletters-support'] = add_submenu_page($this -> menus['newsletters-settings'], __('Support &amp; Help', 'wp-mailinglist'), __('Support &amp; Help', 'wp-mailinglist'), 'newsletters_support', $this -> sections -> support, array($this, 'admin_help'));
+					$this -> menus['newsletters-support'] = add_submenu_page($this -> menus['newsletters-settings'], __($menunames['newsletters-support']), __($menunames['newsletters-support']), 'newsletters_support', $this -> sections -> support, array($this, 'admin_help'));
 				}
 			}
 
 			if (!$this -> ci_serial_valid()) {
-				$this -> menus['newsletters-submitserial'] = add_submenu_page($this -> sections -> welcome, __('Submit Serial', 'wp-mailinglist'), __('Submit Serial', 'wp-mailinglist'), 'newsletters_welcome', $this -> sections -> submitserial, array($this, 'admin_submitserial'));
+				$this -> menus['newsletters-submitserial'] = add_submenu_page($this -> sections -> welcome, __($menunames['newsletters-submitserial']), __($menunames['newsletters-submitserial']), 'newsletters_welcome', $this -> sections -> submitserial, array($this, 'admin_submitserial'));
 			}
 
 			do_action('newsletters_admin_menu', $this -> menus);
@@ -3214,9 +3260,52 @@ if (!class_exists('wpMail')) {
 			add_action('admin_head-' . $this -> menus['newsletters-settings-subscribers'], array($this, 'admin_head_settings_subscribers'));
 			add_action('admin_head-' . $this -> menus['newsletters-extensions-settings'], array($this, 'admin_head_settings_extensions_settings'));
 		}
+		
+		function set_screen_option($status = null, $option = null, $value = null) {
+			return $value;
+		}
+		
+		function screen_options_history() { 
+			$screen = get_current_screen();
+		 
+			// get out of here if we are not on our settings page
+			if (!is_object($screen) || $screen -> id != $this -> menus['newsletters-history']) {
+				return;
+			}
+		 
+			$args = array(
+				'label' 	=> 	__('Newsletters per page', 'wp-mailinglist'),
+				'default' 	=> 	15,
+				'option' 	=> 	'newsletters_history_perpage'
+			);
+			
+			add_screen_option('per_page', $args);
+			
+			require_once $this -> plugin_base() . DS . 'vendors' . DS . 'wp_list_table' . DS . 'newsletter.php';
+			$Newsletter_List_Table = new Newsletter_List_Table;
+		}
+		
+		function default_hidden_columns($hidden = null, $screen = null) {
+			if ($current_screen = get_current_screen()) {
+				if ($current_screen -> id == $screen -> id) {
+					switch ($screen -> id) {
+						case 'newsletters_page_' . $this -> sections -> history  				:
+							$hidden = array(
+								'recurring',
+						        'post_id',
+						        'user_id',
+						        'attachments',
+							);
+							break;
+					}
+				}	
+			}			
+			
+			return $hidden;
+		}
 
 		function add_dashboard() {
-			add_dashboard_page(sprintf('Newsletters %s', $this -> version), sprintf('Newsletters %s', $this -> version), 'read', 'newsletters-about', array($this, 'newsletters_about'));
+			add_dashboard_page(sprintf('%s %s', $this -> name, $this -> version), sprintf('%s %s', $this -> name, $this -> version), 'read', 'newsletters-about', array($this, 'newsletters_about'));
 			remove_submenu_page('index.php', 'newsletters-about');
 		}
 
@@ -3308,7 +3397,7 @@ if (!class_exists('wpMail')) {
 			global $Metabox, $Html;
 
 			add_meta_box('submitdiv', __('Save Form', 'wp-mailinglist'), array($Metabox, 'forms_submit'), "newsletters_page_" . $this -> sections -> forms, 'side', 'core');
-			add_meta_box('fieldsdiv', __('Available Fields', 'wp-mailinglist') . $Html -> help(__('Custom fields from Newsletters > Custom Fields. You can drag/drop fields into the form or click on the field to add it.', 'wp-mailinglist')), array($Metabox, 'forms_fields'), "newsletters_page_" . $this -> sections -> forms, 'side', 'core');
+			add_meta_box('fieldsdiv', __('Available Fields', 'wp-mailinglist') . $Html -> help(sprintf(__('Custom fields from %s > Custom Fields. You can drag/drop fields into the form or click on the field to add it.', 'wp-mailinglist'), $this -> name)), array($Metabox, 'forms_fields'), "newsletters_page_" . $this -> sections -> forms, 'side', 'core');
 
 			do_action('do_meta_boxes', "newsletters_page" . $this -> sections -> forms, 'side');
 			do_action('do_meta_boxes', "newsletters_page" . $this -> sections -> forms, 'normal');
@@ -3349,7 +3438,7 @@ if (!class_exists('wpMail')) {
 				add_meta_box('previewdiv', '<i class="fa fa-eye fa-fw"></i> ' . __('Live Preview', 'wp-mailinglist') . $Html -> help(__('The preview section below shows a preview of what the newsletter will look like with the template, content and other elements. It updates automatically every few seconds or you can click the "Update Preview" button to manually update it. Please note that this is a browser preview and some email/webmail clients render emails differently than browsers.', 'wp-mailinglist')), array($Metabox, 'send_preview'), "newsletters_page_" . $this -> sections -> send, 'normal', 'core');
 			}
 
-			if (apply_filters('newsletters_admin_createnewsletter_variables_show', true)) { add_meta_box('setvariablesdiv', '<i class="fa fa-terminal fa-fw"></i> ' . __('Variables &amp; Custom Fields', 'wp-mailinglist') . $Html -> help(__('These are shortcodes which can be used inside of the newsletter template or content where needed and as many of them as needed. The shortcodes will be replaced with their respective values for each subscriber individually. You can use this to personalize your newsletters to your subscribers easily.', 'wp-mailinglist')), array($Metabox, 'send_setvariables'), "newsletters_page_" . $this -> sections -> send, 'normal', 'core'); }
+			if (apply_filters('newsletters_admin_createnewsletter_variables_show', true)) { add_meta_box('setvariablesdiv', '<i class="fa fa-terminal fa-fw"></i> ' . __('Variables & Custom Fields', 'wp-mailinglist') . $Html -> help(__('These are shortcodes which can be used inside of the newsletter template or content where needed and as many of them as needed. The shortcodes will be replaced with their respective values for each subscriber individually. You can use this to personalize your newsletters to your subscribers easily.', 'wp-mailinglist')), array($Metabox, 'send_setvariables'), "newsletters_page_" . $this -> sections -> send, 'normal', 'core'); }
 			if (apply_filters('newsletters_admin_createnewsletter_emailattachments_show', true)) { add_meta_box('attachmentdiv', '<i class="fa fa-paperclip fa-fw"></i> ' . __('Email Attachment', 'wp-mailinglist') . $Html -> help(__('Attach files to your newsletter. It is possible to attach multiple files of any filetype and size to newsletters which will be sent to the subscribers. Try to keep attachments small to prevent emails from becoming too large.', 'wp-mailinglist')), array($Metabox, 'send_attachment'), "newsletters_page_" . $this -> sections -> send, 'normal', 'core'); }
 			if (apply_filters('newsletters_admin_createnewsletter_publishpost_show', true)) { add_meta_box('publishdiv', '<i class="fa fa-file fa-fw"></i> ' . __('Publish as Post', 'wp-mailinglist') . $Html -> help(__('When you queue/send this newsletter you can publish it as a post on your website. Configure these settings to publish this newsletter as a post according to your needs.', 'wp-mailinglist')), array($Metabox, 'send_publish'), "newsletters_page_" . $this -> sections -> send, 'normal', 'core'); }
 
@@ -3394,9 +3483,9 @@ if (!class_exists('wpMail')) {
 			add_meta_box('publishingdiv', __('Posts Configuration', 'wp-mailinglist') . $Html -> help(__('These are settings related to posts in general. For publishing newsletters as posts and also inserting posts into newsletters.', 'wp-mailinglist')), array($Metabox, 'settings_publishing'), "newsletters_page_" . $this -> sections -> settings, 'normal', 'core');
 			add_meta_box('schedulingdiv', __('Email Scheduling', 'wp-mailinglist') . $Html -> help(__('The purpose of email scheduling is to allow you to send thousands of emails in a load distributed way. Please take note that you cannot expect your server/hosting to send hundreds/thousands of emails all simultaneously so this is where email scheduling helps you.', 'wp-mailinglist')), array($Metabox, 'settings_scheduling'), "newsletters_page_" . $this -> sections -> settings, 'normal', 'core');
 			add_meta_box('bouncediv', __('Bounce Configuration', 'wp-mailinglist'), array($Metabox, 'settings_bounce'), "newsletters_page_" . $this -> sections -> settings, 'normal', 'core');
-			add_meta_box('emailsdiv', __('History &amp; Emails Configuration', 'wp-mailinglist'), array($Metabox, 'settings_emails'), "newsletters_page_" . $this -> sections -> settings, 'normal', 'core');
+			add_meta_box('emailsdiv', __('History & Emails Configuration', 'wp-mailinglist'), array($Metabox, 'settings_emails'), "newsletters_page_" . $this -> sections -> settings, 'normal', 'core');
 			add_meta_box('latestposts', __('Latest Posts Subscriptions', 'wp-mailinglist'), array($Metabox, 'settings_latestposts'), "newsletters_page_" . $this -> sections -> settings, 'normal', 'core');
-			add_meta_box('customcss', __('Theme, Scripts &amp; Custom CSS', 'wp-mailinglist'), array($Metabox, 'settings_customcss'), "newsletters_page_" . $this -> sections -> settings, 'normal', 'core');
+			add_meta_box('customcss', __('Theme, Scripts & Custom CSS', 'wp-mailinglist'), array($Metabox, 'settings_customcss'), "newsletters_page_" . $this -> sections -> settings, 'normal', 'core');
 
 			do_action('do_meta_boxes', "newsletters_page_" . $this -> sections -> settings, 'side');
 			do_action('do_meta_boxes', "newsletters_page_" . $this -> sections -> settings, 'normal');
@@ -3446,6 +3535,7 @@ if (!class_exists('wpMail')) {
 
 			add_meta_box('submitdiv', __('Extensions Settings', 'wp-mailinglist'), array($Metabox, 'extensions_settings_submit'), "newsletters_page_" . $this -> sections -> extensions_settings, 'side', 'core');
 			do_action($this -> pre . '_metaboxes_extensions_settings', "newsletters_page_" . $this -> sections -> extensions_settings);
+			do_action('newsletters_metaboxes_extensions_settings', "newsletters_page_" . $this -> sections -> extensions_settings);
 
 			do_action('do_meta_boxes', "newsletters_page_" . $this -> sections -> extensions_settings, 'side');
 			do_action('do_meta_boxes', "newsletters_page_" . $this -> sections -> extensions_settings, 'normal');
@@ -3527,6 +3617,8 @@ if (!class_exists('wpMail')) {
 			$success = false;
 
 			if (!empty($_POST)) {
+				check_admin_referer($this -> sections -> submitserial);
+				
 				if (empty($_REQUEST['serial'])) { $errors[] = __('Please fill in a serial key.', 'wp-mailinglist'); }
 				else {
 					$this -> update_option('serialkey', $_REQUEST['serial']);	//update the DB option
@@ -3556,6 +3648,7 @@ if (!class_exists('wpMail')) {
 			switch ($method) {
 				case 'save'								:
 					if (!empty($_POST)) {
+						check_admin_referer($this -> sections -> forms . '_save');
 						if ($this -> Subscribeform() -> save($_POST)) {								
 							$message = __('Form has been saved', 'wp-mailinglist');
 							if (!empty($_POST['continueediting'])) {
@@ -3593,8 +3686,8 @@ if (!class_exists('wpMail')) {
 					$this -> redirect(admin_url('admin.php?page=' . $this -> sections -> forms), $msg_type, $message);
 					break;
 				case 'settings'							:
-
 					if (!empty($_POST)) {
+						check_admin_referer($this -> sections -> forms . '_settings');
 						if ($this -> Subscribeform() -> save($_POST)) {
 							$message = __('Form has been saved', 'wp-mailinglist');
 							$this -> render_message($message);
@@ -3627,7 +3720,7 @@ if (!class_exists('wpMail')) {
 					break;
 				case 'subscriptions'					:
 					$perpage = (!empty($_COOKIE[$this -> pre . 'subscribersperpage'])) ? $_COOKIE[$this -> pre . 'subscribersperpage'] : 15;
-					$sub = $this -> sections -> forms . '&amp;method=subscriptions&amp;id=' . $form_id;
+					$sub = $this -> sections -> forms . '&method=subscriptions&id=' . $form_id;
 					$subscriberslists_table = $wpdb -> prefix . $SubscribersList -> table;
 					$conditions = array($subscriberslists_table . '.form_id' => $form_id);
 					$searchterm = false;
@@ -3640,6 +3733,7 @@ if (!class_exists('wpMail')) {
 					$this -> render('forms' . DS . 'subscriptions', array('form' => $form, 'subscribers' => $subscribers, 'paginate' => $data['Paginate']), true, 'admin');
 					break;
 				case 'mass'								:
+					check_admin_referer($this -> sections -> forms . '_mass');
 					if (!empty($_POST['forms'])) {
 						if (!empty($_POST['action'])) {
 							$forms = $_POST['forms'];
@@ -3671,6 +3765,7 @@ if (!class_exists('wpMail')) {
 					$searchterm = (!empty($_POST['searchterm'])) ? $_POST['searchterm'] : $searchterm;
 
 					if (!empty($_POST['searchterm'])) {
+						check_admin_referer($this -> sections -> forms . '_search');
 						$this -> redirect($this -> url . '&' . $this -> pre . 'searchterm=' . urlencode($searchterm));
 					}
 
@@ -3763,6 +3858,7 @@ if (!class_exists('wpMail')) {
 					if ($history = $this -> History() -> get($id)) {
 						$_POST = array(
 							'ishistory'			=>	$history -> id,
+							'builderon'			=>	$history -> builderon,
 							'p_id'				=>	$history -> p_id,
 							'user_id'			=>	$history -> user_id,
 							'from'				=>	$history -> from,
@@ -3915,6 +4011,7 @@ if (!class_exists('wpMail')) {
 										$history_data = array(
 											'from'				=>	$_POST['from'],
 											'fromname'			=>	$_POST['fromname'],
+											'builderon'			=>	$_POST['builderon'],
 											'subject'			=>	stripslashes($_POST['subject']),
 											'message'			=>	$_POST['content'],
 											'text'				=>	((!empty($_POST['customtexton']) && !empty($_POST['customtext'])) ? strip_tags($_POST['customtext']) : false),
@@ -3935,6 +4032,7 @@ if (!class_exists('wpMail')) {
 											'scheduled'			=>	$_POST['scheduled'],
 											'format'			=>	$_POST['format'],
 											'status'			=>	$_POST['status'],
+											'state'				=>	"sent",
 										);
 
 										//is this a recurring newsletter?
@@ -4166,12 +4264,13 @@ if (!class_exists('wpMail')) {
 													$this -> render('send-post', array('subscribers' => $datasets, 'subject' => $_POST['subject'], 'content' => $_POST['content'], 'attachments' => $newattachments, 'post_id' => $post_id, 'history_id' => $history_id, 'theme_id' => $_POST['theme_id']), true, 'admin');
 													$dontrendersend = true;
 												} else {
-													do_action($this -> pre . '_admin_emailsqueued', (count($subscribers) + count($users)));
 													$this -> queue_process -> save();
 													$this -> queue_process -> dispatch();
 													delete_transient('newsletters_queue_count');
-													$message = (count($subscribers) + count($users)) . ' ' . __('emails have been queued.', 'wp-mailinglist');
-													$this -> redirect('?page=' . $this -> sections -> queue, 'message', $message);
+													do_action($this -> pre . '_admin_emailsqueued', (count($subscribers) + count($users)));
+													
+													$message = (count($subscribers) + count($users)) . ' ' . __('emails have been queued.', 'wp-mailinglist');													
+													$this -> redirect(admin_url('admin.php?page=' . $this -> sections -> queue), 'message', $message);
 												}
 											} else {
 												$message = __('No mailing lists or roles have been selected', 'wp-mailinglist');
@@ -4193,6 +4292,7 @@ if (!class_exists('wpMail')) {
 									'from'				=>	$_POST['from'],
 									'fromname'			=>	$_POST['fromname'],
 									'subject'			=>	stripslashes($_POST['subject']),
+									'builderon'			=>	$_POST['builderon'],
 									'message'			=>	$_POST['content'],
 									'text'				=>	((!empty($_POST['customtexton']) && !empty($_POST['customtext'])) ? strip_tags($_POST['customtext']) : false),
 									'theme_id'			=>	$_POST['theme_id'],
@@ -4213,6 +4313,7 @@ if (!class_exists('wpMail')) {
 									'scheduled'			=>	$_POST['scheduled'],
 									'format'			=>	$_POST['format'],
 									'status'			=>	$_POST['status'],
+									'state'				=>	"draft",
 								);
 
 								if (!empty($_POST['ishistory'])) {
@@ -4264,6 +4365,7 @@ if (!class_exists('wpMail')) {
 									'from'				=>	$_POST['from'],
 									'fromname'			=>	$_POST['fromname'],
 									'subject'			=>	stripslashes($_POST['subject']),
+									'builderon'			=>	$_POST['builderon'],
 									'message'			=>	$_POST['content'],
 									'text'				=>	((!empty($_POST['customtexton']) && !empty($_POST['customtext'])) ? strip_tags($_POST['customtext']) : false),
 									'theme_id'			=>	$_POST['theme_id'],
@@ -4284,6 +4386,7 @@ if (!class_exists('wpMail')) {
 									'scheduled'			=>	$_POST['scheduled'],
 									'format'			=>	$_POST['format'],
 									'status'			=>	$_POST['status'],
+									'state'				=>	"draft",
 								);
 
 								if (!empty($_POST['ishistory'])) {
@@ -4365,6 +4468,7 @@ if (!class_exists('wpMail')) {
 
 								$newpost = wp_parse_args(array(
 									'ishistory'			=>	$history -> id,
+									'builderon'			=>	$history -> builderon,
 									'p_id'				=>	$history -> p_id,
 									'user_id'			=>	$history -> user_id,
 									'from'				=>	$history -> from,
@@ -4424,6 +4528,7 @@ if (!class_exists('wpMail')) {
 			switch ($method) {
 				case 'save'					:
 					if (!empty($_POST)) {
+						check_admin_referer($this -> sections -> autoresponders . '_save'); 
 						if ($Db -> save($_POST)) {
 							$message = __('Autoresponder has been saved.', 'wp-mailinglist');
 
@@ -4464,6 +4569,8 @@ if (!class_exists('wpMail')) {
 					$this -> redirect($this -> referer, $msg_type, $message);
 					break;
 				case 'mass'					:
+					check_admin_referer($this -> sections -> autoresponders . '_mass');
+				
 					if (!empty($_POST['autoresponderslist'])) {
 						if (!empty($_POST['action'])) {
 							$autoresponders = $_POST['autoresponderslist'];
@@ -4510,6 +4617,8 @@ if (!class_exists('wpMail')) {
 					$this -> redirect("?page=" . $this -> sections -> autoresponders, $msg_type, $message);
 					break;
 				case 'autoresponderscheduling'			:
+					check_admin_referer($this -> sections -> autoresponders . '_scheduling');
+				
 					if (!empty($_POST['autoresponderscheduling'])) {
 						$this -> update_option('autoresponderscheduling', $_POST['autoresponderscheduling']);
 						wp_clear_scheduled_hook($this -> pre . '_autoresponders');
@@ -4535,6 +4644,7 @@ if (!class_exists('wpMail')) {
 					$searchterm = (!empty($_POST['searchterm'])) ? $_POST['searchterm'] : $searchterm;
 
 					if (!empty($_POST['searchterm'])) {
+						check_admin_referer($this -> sections -> autoresponders . '_search');
 						$this -> redirect($this -> url . '&' . $this -> pre . 'searchterm=' . urlencode($searchterm));
 					}
 
@@ -4546,6 +4656,7 @@ if (!class_exists('wpMail')) {
 					$sections = $this -> sections -> autoresponders;
 
 					if (!empty($_GET['filter'])) {
+						check_admin_referer($this -> sections -> autoresponders . '_filter');
 						$sections .= '&filter=1';
 
 						if (!empty($_GET['list'])) {
@@ -4697,6 +4808,9 @@ if (!class_exists('wpMail')) {
 					$this -> redirect($this -> referer, $msg_type, $message);
 					break;
 				case 'mass'					:
+				
+					check_admin_referer($this -> sections -> autoresponderemails . '_mass');
+				
 					if (!empty($_POST['autoresponderemailslist'])) {
 						if (!empty($_POST['action'])) {
 							$autoresponderemails = $_POST['autoresponderemailslist'];
@@ -4837,6 +4951,7 @@ if (!class_exists('wpMail')) {
 			switch ($method) {
 				case 'save'			:
 					if (!empty($_POST)) {
+						check_admin_referer($this -> sections -> lists . '_save');
 						if ($Mailinglist -> save($_POST)) {
 							$message = __('Mailing list has been saved', 'wp-mailinglist');
 
@@ -4888,7 +5003,7 @@ if (!class_exists('wpMail')) {
 					if (!empty($id)) {
 						if ($mailinglist = $Mailinglist -> get($id)) {
 							$perpage = (!empty($_COOKIE[$this -> pre . 'subscribersperpage'])) ? $_COOKIE[$this -> pre . 'subscribersperpage'] : 15;
-							$sub = $this -> sections -> lists . '&amp;method=view&amp;id=' . $id;
+							$sub = $this -> sections -> lists . '&method=view&id=' . $id;
 							$subscriberslists_table = $wpdb -> prefix . $SubscribersList -> table;
 							$conditions = array($subscriberslists_table . '.list_id' => $id);
 							$searchterm = false;
@@ -4924,6 +5039,8 @@ if (!class_exists('wpMail')) {
 					$this -> redirect($this -> url, $msg_type, $message);
 					break 1;
 				case 'mass'			:
+					check_admin_referer($this -> sections -> lists . '_mass');
+				
 					if (!empty($_POST['mailinglistslist'])) {
 						if (!empty($_POST['action'])) {
 							$lists = $_POST['mailinglistslist'];
@@ -5120,6 +5237,7 @@ if (!class_exists('wpMail')) {
 					$searchterm = (!empty($_POST['searchterm'])) ? $_POST['searchterm'] : $searchterm;
 
 					if (!empty($_POST['searchterm'])) {
+						check_admin_referer($this -> sections -> lists . '_search');
 						$this -> redirect($this -> url . '&' . $this -> pre . 'searchterm=' . urlencode($searchterm));
 					}
 
@@ -5157,6 +5275,7 @@ if (!class_exists('wpMail')) {
 					$Db -> model = $this -> Group() -> model;
 
 					if (!empty($_POST)) {
+						check_admin_referer($this -> sections -> groups . '_save');
 						if ($this -> Group() -> save($_POST)) {
 							$message = __('Group has been saved.', 'wp-mailinglist');
 
@@ -5184,7 +5303,7 @@ if (!class_exists('wpMail')) {
 					if (!empty($id)) {
 						if ($group = $Db -> find(array('id' => $id))) {
 							$perpage = (!empty($_COOKIE[$this -> pre . 'listsperpage'])) ? $_COOKIE[$this -> pre . 'listsperpage'] : 15;
-							$data = $Mailinglist -> get_all_paginated(array('group_id' => $id), false, $this -> sections -> groups . '&amp;method=view&amp;id=' . $id, $perpage);
+							$data = $Mailinglist -> get_all_paginated(array('group_id' => $id), false, $this -> sections -> groups . '&method=view&id=' . $id, $perpage);
 							$this -> render('groups' . DS . 'view', array('group' => $group, 'mailinglists' => $data['Mailinglist'], 'paginate' => $data['Pagination']), true, 'admin');
 						} else {
 							$this -> render_error(__('Group could not be read', 'wp-mailinglist'));
@@ -5214,6 +5333,7 @@ if (!class_exists('wpMail')) {
 					$this -> redirect($this -> url, $msg_type, $message);
 					break;
 				case 'mass'						:
+					check_admin_referer($this -> sections -> groups . '_mass');
 					if (!empty($_POST['groupslist'])) {
 						if (!empty($_POST['action'])) {
 							$groups = $_POST['groupslist'];
@@ -5246,6 +5366,7 @@ if (!class_exists('wpMail')) {
 					$searchterm = (!empty($_POST['searchterm'])) ? $_POST['searchterm'] : $searchterm;
 
 					if (!empty($_POST['searchterm'])) {
+						check_admin_referer($this -> sections -> groups . '_search');
 						$this -> redirect($this -> url . '&' . $this -> pre . 'searchterm=' . urlencode($searchterm));
 					}
 
@@ -5797,6 +5918,7 @@ if (!class_exists('wpMail')) {
 					$searchterm = (!empty($_POST['searchterm'])) ? $_POST['searchterm'] : $searchterm;
 
 					if (!empty($_POST['searchterm'])) {
+						check_admin_referer($this -> sections -> subscribers . '_search');
 						$searchurl = $Html -> retainquery($this -> pre . 'page=1&' . $this -> pre . 'searchterm=' . urlencode($searchterm));
 						$this -> redirect($searchurl);
 					} elseif (isset($_POST['searchterm'])) {
@@ -5926,6 +6048,8 @@ if (!class_exists('wpMail')) {
 
 				switch ($method) {
 					case 'import'			:
+						check_admin_referer($this -> sections -> importexport . '_import');
+						
 						if (empty($_POST['uploadedfile'])) { $error['file'] = __('No file selected for uploading', 'wp-mailinglist'); }
 						if (empty($_POST['filetype'])) { $error['filetype'] = __('No file type has been selected', 'wp-mailinglist'); }
 
@@ -6788,7 +6912,9 @@ if (!class_exists('wpMail')) {
 					if (!empty($batch)) {
 						$query = "DELETE FROM `" . $wpdb -> options . "` WHERE `option_name` = '" . $batch . "'";
 						$wpdb -> query($query);
-						$this -> render_message(__('Batch has been deleted', 'wp-mailinglist'));
+						$message = __('Batch has been deleted', 'wp-mailinglist');
+						$this -> log_error($message);
+						$this -> render_message($message);
 					} else {
 						$this -> render_error(__('No batch was specified', 'wp-mailinglist'));
 					}
@@ -6820,7 +6946,9 @@ if (!class_exists('wpMail')) {
 								$this -> queue_process -> delete($batchkey);
 							}
 							
-							$this -> render_message(sprintf(__('%s emails have been sent', 'wp-mailinglist'), $successful));
+							$message = sprintf(__('%s emails have been sent', 'wp-mailinglist'), $successful);
+							$this -> log_error($message);
+							$this -> render_message($message);
 						} else {
 							$this -> queue_process -> delete($batchkey);
 							$this -> render_error(__('Batch has no data/emails', 'wp-mailinglist'));
@@ -6833,8 +6961,8 @@ if (!class_exists('wpMail')) {
 					break;
 				case 'clear'				:	
 					$this -> queue_process -> cancel_all_processes();
-					
 					$message = __('The queue has been cleared', 'wp-mailinglist');
+					$this -> log_error($message);
 					$this -> redirect($this -> url, 'message', $message);
 					break;
 				case 'errors'				:
@@ -6894,6 +7022,7 @@ if (!class_exists('wpMail')) {
 							$dojoin = false;
 
 							if (!empty($_GET['filter'])) {
+								check_admin_referer($this -> sections -> history);
 								$sections .= '&filter=1';
 
 								// status
@@ -6976,6 +7105,23 @@ if (!class_exists('wpMail')) {
 						$this -> redirect($this -> url, 'error', $message);
 					}
 					break;
+				case 'archive'			:
+					$id = esc_html($_GET['id']);
+					if (!empty($id)) {
+						if ($this -> History() -> save_field('state', "archived", array('id' => $id))) {
+							$msgtype = 'message';
+							$message = __('Newsletter archived', 'wp-mailinglist');
+						} else {
+							$msgtype = 'error';
+							$message = __('Newsletter could not be archived', 'wp-mailinglist');
+						}
+					} else {
+						$msgtype = 'error';
+						$message = __('No newsletter was specified', 'wp-mailinglist');
+					}
+					
+					$this -> redirect(false, $msgtype, $message);
+					break;
 				case 'delete'			:
 					$id = esc_html($_GET['id']);
 					if (!empty($id)) {
@@ -6988,7 +7134,7 @@ if (!class_exists('wpMail')) {
 						$message = __('No history email was specified', 'wp-mailinglist');
 					}
 
-					$this -> redirect($this -> url, 'message', $message);
+					$this -> redirect(false, 'message', $message);
 					break;
 				case 'duplicate'		:
 					$id = esc_html($_GET['id']);
@@ -7029,9 +7175,11 @@ if (!class_exists('wpMail')) {
 						$message = __('No history email was specified', 'wp-mailinglist');
 					}
 
-					$this -> redirect($this -> url, $msgtype, $message);
+					$this -> redirect(false, $msgtype, $message);
 					break;
 				case 'emails-mass'		:
+					check_admin_referer($this -> sections -> history . '_emails-mass');
+				
 					if (!empty($_REQUEST['action'])) {
 						if (!empty($_REQUEST['emails'])) {
 							switch ($_REQUEST['action']) {
@@ -7142,15 +7290,6 @@ if (!class_exists('wpMail')) {
 									}
 
 									if ($emails = $wpdb -> get_results($emailsquery)) {
-										/* CSV Headings */
-										/*$data = "";
-										$data .= '"' . __('Email Address', 'wp-mailinglist') . '",';
-										$data .= '"' . __('Mailing List', 'wp-mailinglist') . '",';
-										$data .= '"' . __('Sent/Unsent', 'wp-mailinglist') . '",';
-										$data .= '"' . __('Read/Opened', 'wp-mailinglist') . '",';
-										$data .= '"' . __('Sent Date', 'wp-mailinglist') . '",';
-										$data .= "\r\n";*/
-
 										$exportfile = 'history' . $history_id . '-emails-' . date_i18n("Ymd") . '.csv';
 										$exportpath = $Html -> uploads_path() . DS . $this -> plugin_name . DS . 'export' . DS;
 										$exportfull = $exportpath . $exportfile;
@@ -7177,9 +7316,6 @@ if (!class_exists('wpMail')) {
 													$Db -> model = $Subscriber -> model;
 						                        	$subscriber = $Db -> find(array('id' => $email -> subscriber_id));
 													$emailaddress = $subscriber -> email;
-													/*$Db -> model = $Mailinglist -> model;
-						                        	$mailinglist = $Db -> find(array('id' => $email -> mailinglist_id));
-													$mailinglists = __($mailinglist -> title);*/
 
 													$mailinglists = array();
 													if (!empty($email -> mailinglists)) {
@@ -7280,6 +7416,7 @@ if (!class_exists('wpMail')) {
 					$this -> redirect($this -> referer, $msg_type, $message);
 					break;
 				case 'mass'				:
+					check_admin_referer($this -> sections -> history);
 					if (!empty($_POST['action'])) {
 						if (!empty($_POST['historylist'])) {
 							$histories = $_POST['historylist'];
@@ -7409,7 +7546,7 @@ if (!class_exists('wpMail')) {
 						$message = 17;
 					}
 
-					$this -> redirect($this -> referer, $msg_type, $message);
+					$this -> redirect(false, $msg_type, $message);
 					break;
 				case 'clear'			:
 					if ($this -> History() -> truncate()) {
@@ -7465,7 +7602,7 @@ if (!class_exists('wpMail')) {
 						$message = __('No attachment was specified.', 'wp-mailinglist');
 					}
 
-					$this -> redirect($this -> referer, $msg_type, $message);
+					$this -> redirect(false, $msg_type, $message);
 					break;
 				case 'exportsent'		:
 					global $wpdb, $Html, $Db, $Subscriber, $Mailinglist, $Email;
@@ -7544,15 +7681,30 @@ if (!class_exists('wpMail')) {
 					$this -> redirect("?page=" . $this -> sections -> history . "&method=view&id=" . $_GET['history_id'], $msg_type, $message);
 					break;
 				default					:
+				
+					/*$screen = get_current_screen($this -> menus['newsletters-history']);
+					$screen_perpage = $screen -> get_option('per_page', 'option');
+					$user_id = get_current_user_id();
+					
+					$user_perpage = get_user_meta($user_id, $screen_perpage, true);
+					if (!empty($user_perpage)) {
+						$perpage = $user_perpage;
+					} else {
+						$perpage = $screen -> get_option('per_page', 'default');
+					}
+					
+					$perpage = 15;
+				
 					$sections = $this -> sections -> history;
 					$history_table = $wpdb -> prefix . $this -> History() -> table;
 					$historieslist_table = $wpdb -> prefix . $HistoriesList -> table;
 					$conditions_and = array();
-					$perpage = (isset($_COOKIE[$this -> pre . 'historiesperpage'])) ? $_COOKIE[$this -> pre . 'historiesperpage'] : 15;
+					//$perpage = (isset($_COOKIE[$this -> pre . 'historiesperpage'])) ? $_COOKIE[$this -> pre . 'historiesperpage'] : $screen_perpage;
 					$searchterm = (!empty($_GET[$this -> pre . 'searchterm'])) ? esc_html($_GET[$this -> pre . 'searchterm']) : false;
 					$searchterm = (!empty($_POST['searchterm'])) ? $_POST['searchterm'] : $searchterm;
 
 					if (!empty($_POST['searchterm'])) {
+						check_admin_referer($this -> sections -> history);
 						$this -> redirect($this -> url . '&' . $this -> pre . 'searchterm=' . urlencode($searchterm));
 					}
 
@@ -7569,6 +7721,7 @@ if (!class_exists('wpMail')) {
 					$dojoin = false;
 
 					if (!empty($_GET['filter'])) {
+						//check_admin_referer($this -> sections -> history);
 						$sections .= '&filter=1';
 
 						if (!empty($_GET['list'])) {
@@ -7623,9 +7776,9 @@ if (!class_exists('wpMail')) {
 							$data = $this -> paginate($this -> History() -> model, null, $sections, $conditions, $searchterm, $perpage, $order, $conditions_and);
 							$histories = $data[$this -> History() -> model];
 						}
-					}
+					}*/
 
-					$this -> render('history' . DS . 'index', array('histories' => $histories, 'paginate' => $data['Paginate']), true, 'admin');
+					$this -> render('history' . DS . 'index', array('histories' => $histories, 'paginate' => $data['Paginate'], 'perpage' => $perpage), true, 'admin');
 					break;
 			}
 		}
@@ -7651,6 +7804,7 @@ if (!class_exists('wpMail')) {
 					$this -> redirect($this -> referer, $msg_type, $message);
 					break;
 				case 'mass'						:
+					check_admin_referer($this -> sections -> links . '_mass');
 					if (!empty($_POST['action'])) {
 						if (!empty($_POST['links'])) {
 							$links = $_POST['links'];
@@ -7690,6 +7844,7 @@ if (!class_exists('wpMail')) {
 					$searchterm = (!empty($_POST['searchterm'])) ? $_POST['searchterm'] : $searchterm;
 
 					if (!empty($_POST['searchterm'])) {
+						check_admin_referer($this -> sections -> links . '_search');
 						$this -> redirect($this -> url . '&' . $this -> pre . 'searchterm=' . urlencode($searchterm));
 					}
 
@@ -7734,17 +7889,22 @@ if (!class_exists('wpMail')) {
 					$this -> redirect('?page=' . $this -> sections -> clicks, $msg_type, $message);
 					break;
 				case 'mass'						:
+					check_admin_referer($this -> sections -> clicks . '_mass');
 					if (!empty($_POST['action'])) {
-						$action = $_POST['action'];
+						$action = esc_html($_POST['action']);
 						$clicks = $_POST['clicks'];
 
 						if (!empty($clicks)) {
-							foreach ($clicks as $click_id) {
-								$this -> Click() -> delete($click_id);
+							switch ($action) {
+								case 'delete'				:
+									foreach ($clicks as $click_id) {
+										$this -> Click() -> delete($click_id);
+									}
+		
+									$msg_type = 'message';
+									$message = 18;	
+									break;
 							}
-
-							$msg_type = 'message';
-							$message = 18;
 						} else {
 							$msg_type = 'error';
 							$message = 16;
@@ -7762,6 +7922,8 @@ if (!class_exists('wpMail')) {
 					$searchterm = (!empty($_POST['searchterm'])) ? $_POST['searchterm'] : $searchterm;
 
 					if (!empty($_POST['searchterm'])) {
+						check_admin_referer($this -> sections -> clicks . '_search');
+						$searchterm = esc_html($searchterm);
 						$this -> redirect($this -> url . '&' . $this -> pre . 'searchterm=' . urlencode($searchterm));
 					}
 
@@ -7820,6 +7982,7 @@ if (!class_exists('wpMail')) {
 					break;
 				case 'save'			:
 					if (!empty($_POST)) {
+						check_admin_referer($this -> sections -> orders . '_save');
 						$_POST['completed'] = "Y";
 
 						if ($this -> Order() -> save($_POST, true)) {
@@ -7867,6 +8030,7 @@ if (!class_exists('wpMail')) {
 					$this -> redirect($this -> url, $msg_type, $message);
 					break;
 				case 'mass'			:
+					check_admin_referer($this -> sections -> orders . '_mass');
 					if (!empty($_POST)) {
 						if (!empty($_POST['orderslist'])) {
 							if (!empty($_POST['action'])) {
@@ -7903,6 +8067,7 @@ if (!class_exists('wpMail')) {
 					$searchterm = (!empty($_POST['searchterm'])) ? $_POST['searchterm'] : $searchterm;
 
 					if (!empty($_POST['searchterm'])) {
+						check_admin_referer($this -> sections -> orders . '_search'); 
 						$this -> redirect($this -> url . '&' . $this -> pre . 'searchterm=' . urlencode($searchterm));
 					}
 
@@ -7932,6 +8097,7 @@ if (!class_exists('wpMail')) {
 			switch ($method) {
 				case 'save'				:
 					if (!empty($_POST)) {
+						check_admin_referer($this -> sections -> fields . '_save');
 						if ($Field -> save($_POST)) {
 							$message = __('Custom field has been saved', 'wp-mailinglist');
 
@@ -7983,6 +8149,8 @@ if (!class_exists('wpMail')) {
 					$this -> redirect($this -> url, $message_type, $message);
 					break;
 				case 'mass'				:
+					check_admin_referer($this -> sections -> fields . '_mass');
+				
 					if (!empty($_POST['fieldslist'])) {
 						if (!empty($_POST['action'])) {
 							$fields = $_POST['fieldslist'];
@@ -8083,11 +8251,14 @@ if (!class_exists('wpMail')) {
 						$searchterm = (empty($_POST['searchterm'])) ? $searchterm : $_POST['searchterm'];
 
 						if (!empty($_POST['searchterm'])) {
+							check_admin_referer($this -> sections -> fields . '_search');
 							$this -> redirect($this -> url . '&' . $this -> pre . 'searchterm=' . urlencode($searchterm));
 						}
 
 						if (!empty($searchterm)) {
-							$conditions[] = "`title` LIKE '%" . $searchterm . "%' OR `slug` LIKE '%" . $searchterm . "%'";
+							//$conditions['`title`'] = "LIKE '%" . $searchterm . "%' OR `slug` LIKE '%" . $searchterm . "%'";
+							$conditions['title'] = "LIKE '%" . $searchterm . "%'";
+							$conditions['slug'] = "LIKE '%" . $searchterm . "%'";
 						}
 
 						$data = $this -> paginate($Field -> model, null, $this -> sections -> fields, $conditions, $searchterm, $perpage, $order);
@@ -8108,7 +8279,7 @@ if (!class_exists('wpMail')) {
 
 			do_action('newsletters_admin_settings');
 
-			if (!empty($_GET['reset']) && $_GET['reset'] == 1) {
+			if (!empty($_GET['reset']) && $_GET['reset'] == 1) {				
 				$this -> update_options();
 				$this -> redirect($this -> url);
 			}
@@ -8118,11 +8289,22 @@ if (!class_exists('wpMail')) {
 
 			switch ($method) {
 				case 'managementpost'	:
+				
+					check_admin_referer($this -> sections -> settings . '_managementpost');
+				
 					$this -> get_managementpost(false, true);
 					$msg_type = 'message';
 					$message = __('Manage subscriptions post/page has been created', 'wp-mailinglist');
 					$this -> redirect($this -> referer, $msg_type, $message);
 					break;
+				case 'clearlog'			:
+				
+					check_admin_referer($this -> sections -> settings . '_clearlog');
+				
+					@unlink(NEWSLETTERS_LOG_FILE);
+					$msgtype = 'message';
+					$message = __('Log file has been cleared', 'wp-mailinglist');
+					$this -> redirect($this -> referer, $msgtype, $message);
 				case 'checkdb'			:
 					$this -> check_roles();
 					$this -> check_tables();
@@ -8137,8 +8319,6 @@ if (!class_exists('wpMail')) {
 					$this -> delete_option('hidedbupdate');
 
 					flush_rewrite_rules();
-					
-					unlink(NEWSLETTERS_LOG_FILE);
 
 					$msg_type = 'message';
 					$message = __('All database tables have been checked and optimized.', 'wp-mailinglist');
@@ -8163,6 +8343,9 @@ if (!class_exists('wpMail')) {
 					$this -> redirect($this -> referer, $msg_type, $message);
 					break;
 				case 'reset'			:
+				
+					check_admin_referer($this -> sections -> settings . '_reset');
+				
 					$query = "TRUNCATE TABLE `" . $wpdb -> prefix . "" . $this -> Country() -> table . "`";
 					$wpdb -> query($query);
 
@@ -8178,25 +8361,28 @@ if (!class_exists('wpMail')) {
 
 					$this -> redirect($Html -> retainquery('reset=1', $this -> url), $msg_type, $message);
 					break;
-				default					:
+				default					:				
 					//make sure that data has been posted
 					if (!empty($_POST)) {
+						
+						check_admin_referer($this -> sections -> settings);
+						
 						//unset values that are not required
 						unset($_POST['save']);
 						delete_option('tridebugging');
-						$this -> update_option('inlinestyles', false);
-						$this -> update_option('themeintextversion', false);
-						$this -> update_option('emailarchive', false);
-						$this -> update_option('showpostattachments', false);
-						$this -> update_option('excerpt_settings', false);
-						$this -> update_option('defaulttemplate', false);
-						$this -> update_option('videoembed', false);
-						$this -> update_option('loadstyles', false);
-						$this -> update_option('loadscripts', false);
-						$this -> update_option('remove_width_height_attr', false);
-						$this -> update_option('replytodifferent', false);
-						$this -> update_option('paymentmethod', false);
-						$this -> update_option('notifyqueuecomplete', false);
+						$this -> update_option('inlinestyles', 0);
+						$this -> update_option('themeintextversion', 0);
+						$this -> update_option('emailarchive', 0);
+						$this -> update_option('showpostattachments', 0);
+						$this -> update_option('excerpt_settings', 0);
+						$this -> update_option('defaulttemplate', 0);
+						$this -> update_option('videoembed', 0);
+						$this -> update_option('loadstyles', 0);
+						$this -> update_option('loadscripts', 0);
+						$this -> update_option('remove_width_height_attr', 0);
+						$this -> update_option('replytodifferent', 0);
+						$this -> update_option('paymentmethod', 0);
+						$this -> update_option('notifyqueuecomplete', 0);
 
 						if (!empty($_FILES)) {
 							foreach ($_FILES as $fkey => $fval) {
@@ -8307,11 +8493,14 @@ if (!class_exists('wpMail')) {
 
 		function admin_settings_subscribers() {
 			if (!empty($_POST)) {
+				check_admin_referer($this -> sections -> settings_subscribers);
+				
 				$this -> update_option('unsubscribe_usernotification', 0);
 				$this -> update_option('currentusersubscribed', 0);
 				$this -> update_option('managementshowprivate', 0);
 				delete_option('tridebugging');
 				$this -> update_option('resubscribe', 0);
+				$this -> update_option('management_password', 0);
 
 				foreach ($_POST as $key => $val) {
 					switch ($key) {
@@ -8327,7 +8516,7 @@ if (!class_exists('wpMail')) {
 						case 'unsubscribetext'				:
 						case 'unsubscribealltext'			:
 						case 'resubscribetext'				:
-							if ($this -> language_do()) {
+							if ($this -> language_do()) {								
 								$this -> update_option($key, $this -> language_join($val));
 							} else {
 								$this -> update_option($key, $val);
@@ -8358,6 +8547,7 @@ if (!class_exists('wpMail')) {
 		function admin_settings_templates() {
 
 			if (!empty($_POST)) {
+				check_admin_referer($this -> sections -> settings_templates);
 				delete_option('tridebugging');
 
 				foreach ($_POST as $key => $val) {
@@ -8381,6 +8571,8 @@ if (!class_exists('wpMail')) {
 
 		function admin_settings_system() {
 			if (!empty($_POST)) {
+				check_admin_referer($this -> sections -> settings_system);
+				
 				delete_option('tridebugging');
 				$this -> update_option('wpmailconf', 0);
 				$this -> update_option('custompostarchive', 0);
@@ -8625,6 +8817,8 @@ if (!class_exists('wpMail')) {
 			switch ($method) {
 				default						:
 					if (!empty($_POST)) {
+						check_admin_referer($this -> sections -> extensions_settings);
+						
 						foreach ($_POST as $pkey => $pval) {
 							$this -> update_option($pkey, $pval);
 						}
@@ -8676,8 +8870,6 @@ if (!class_exists('wpMail')) {
 			    exit(); die();
 			}
 			
-			
-			
 			$this -> ci_initialization();
 			$this -> add_option('activation_redirect', true);
 		}
@@ -8704,7 +8896,7 @@ if (!class_exists('wpMail')) {
 			}
 
 			$this -> plugin_file = plugin_basename(__FILE__);
-			$base = basename(dirname(__FILE__));
+			$base = basename(NEWSLETTERS_DIR);
 			$this -> register_plugin($base, __FILE__);
 			$url = explode("&", $_SERVER['REQUEST_URI']);
 			$this -> url = $url[0];
@@ -8718,46 +8910,46 @@ if (!class_exists('wpMail')) {
 }
 
 /* Include the necessary class files */
-require_once(dirname(__FILE__) . DS . 'models' . DS . 'mailinglist.php');
-require_once(dirname(__FILE__) . DS . 'models' . DS . 'subscriber.php');
-require_once(dirname(__FILE__) . DS . 'models' . DS . 'bounce.php');
-require_once(dirname(__FILE__) . DS . 'models' . DS . 'unsubscribe.php');
-//require_once(dirname(__FILE__) . DS . 'models' . DS . 'latestpost.php');
-//require_once(dirname(__FILE__) . DS . 'models' . DS . 'history.php');
-require_once(dirname(__FILE__) . DS . 'models' . DS . 'histories_list.php');
-require_once(dirname(__FILE__) . DS . 'models' . DS . 'histories_attachment.php');
-require_once(dirname(__FILE__) . DS . 'models' . DS . 'email.php');
-//require_once(dirname(__FILE__) . DS . 'models' . DS . 'queue.php');
-require_once(dirname(__FILE__) . DS . 'models' . DS . 'theme.php');
-//require_once(dirname(__FILE__) . DS . 'models' . DS . 'template.php');
-//require_once(dirname(__FILE__) . DS . 'models' . DS . 'post.php');
-//require_once(dirname(__FILE__) . DS . 'models' . DS . 'order.php');
-require_once(dirname(__FILE__) . DS . 'models' . DS . 'field.php');
-require_once(dirname(__FILE__) . DS . 'models' . DS . 'fields_list.php');
-//require_once(dirname(__FILE__) . DS . 'models' . DS . 'subscribers_list.php');
-//require_once(dirname(__FILE__) . DS . 'models' . DS . 'country.php');
-//require_once(dirname(__FILE__) . DS . 'models' . DS . 'autoresponder.php');
-//require_once(dirname(__FILE__) . DS . 'models' . DS . 'autoresponders_list.php');
-//require_once(dirname(__FILE__) . DS . 'models' . DS . 'autoresponderemail.php');
-//require_once(dirname(__FILE__) . DS . 'models' . DS . 'group.php');
-require_once(dirname(__FILE__) . DS . 'vendors' . DS . 'class.pagination.php');
-require_once(dirname(__FILE__) . DS . 'helpers' . DS . 'db.php');
-require_once(dirname(__FILE__) . DS . 'helpers' . DS . 'html.php');
-require_once(dirname(__FILE__) . DS . 'helpers' . DS . 'form.php');
-require_once(dirname(__FILE__) . DS . 'helpers' . DS . 'metabox.php');
-require_once(dirname(__FILE__) . DS . 'helpers' . DS . 'shortcode.php');
-require_once(dirname(__FILE__) . DS . 'helpers' . DS . 'auth.php');
+require_once(NEWSLETTERS_DIR . DS . 'models' . DS . 'mailinglist.php');
+require_once(NEWSLETTERS_DIR . DS . 'models' . DS . 'subscriber.php');
+require_once(NEWSLETTERS_DIR . DS . 'models' . DS . 'bounce.php');
+require_once(NEWSLETTERS_DIR . DS . 'models' . DS . 'unsubscribe.php');
+//require_once(NEWSLETTERS_DIR . DS . 'models' . DS . 'latestpost.php');
+//require_once(NEWSLETTERS_DIR . DS . 'models' . DS . 'history.php');
+require_once(NEWSLETTERS_DIR . DS . 'models' . DS . 'histories_list.php');
+require_once(NEWSLETTERS_DIR . DS . 'models' . DS . 'histories_attachment.php');
+require_once(NEWSLETTERS_DIR . DS . 'models' . DS . 'email.php');
+//require_once(NEWSLETTERS_DIR . DS . 'models' . DS . 'queue.php');
+require_once(NEWSLETTERS_DIR . DS . 'models' . DS . 'theme.php');
+//require_once(NEWSLETTERS_DIR . DS . 'models' . DS . 'template.php');
+//require_once(NEWSLETTERS_DIR . DS . 'models' . DS . 'post.php');
+//require_once(NEWSLETTERS_DIR . DS . 'models' . DS . 'order.php');
+require_once(NEWSLETTERS_DIR . DS . 'models' . DS . 'field.php');
+require_once(NEWSLETTERS_DIR . DS . 'models' . DS . 'fields_list.php');
+//require_once(NEWSLETTERS_DIR . DS . 'models' . DS . 'subscribers_list.php');
+//require_once(NEWSLETTERS_DIR . DS . 'models' . DS . 'country.php');
+//require_once(NEWSLETTERS_DIR . DS . 'models' . DS . 'autoresponder.php');
+//require_once(NEWSLETTERS_DIR . DS . 'models' . DS . 'autoresponders_list.php');
+//require_once(NEWSLETTERS_DIR . DS . 'models' . DS . 'autoresponderemail.php');
+//require_once(NEWSLETTERS_DIR . DS . 'models' . DS . 'group.php');
+require_once(NEWSLETTERS_DIR . DS . 'vendors' . DS . 'class.pagination.php');
+require_once(NEWSLETTERS_DIR . DS . 'helpers' . DS . 'db.php');
+require_once(NEWSLETTERS_DIR . DS . 'helpers' . DS . 'html.php');
+require_once(NEWSLETTERS_DIR . DS . 'helpers' . DS . 'form.php');
+require_once(NEWSLETTERS_DIR . DS . 'helpers' . DS . 'metabox.php');
+require_once(NEWSLETTERS_DIR . DS . 'helpers' . DS . 'shortcode.php');
+require_once(NEWSLETTERS_DIR . DS . 'helpers' . DS . 'auth.php');
 
 // Async and Background Processes
-require_once(dirname(__FILE__) . DS . 'vendors' . DS . 'processing' . DS . 'wp-async-request.php');
-require_once(dirname(__FILE__) . DS . 'vendors' . DS . 'processing' . DS . 'wp-background-process.php');
+require_once(NEWSLETTERS_DIR . DS . 'vendors' . DS . 'processing' . DS . 'wp-async-request.php');
+require_once(NEWSLETTERS_DIR . DS . 'vendors' . DS . 'processing' . DS . 'wp-background-process.php');
 
 //initialize the wpMail class
 global $wpMail;
 $wpMail = new wpMail();
-require_once(dirname(__FILE__) . DS . 'wp-mailinglist-api.php');
-require_once(dirname(__FILE__) . DS . 'wp-mailinglist-functions.php');
-require_once(dirname(__FILE__) . DS . 'wp-mailinglist-widget.php');
+require_once(NEWSLETTERS_DIR . DS . 'wp-mailinglist-api.php');
+require_once(NEWSLETTERS_DIR . DS . 'wp-mailinglist-functions.php');
+require_once(NEWSLETTERS_DIR . DS . 'wp-mailinglist-widget.php');
 
 register_activation_hook(plugin_basename(__FILE__), array($wpMail, 'activation_hook'));
 add_filter('update_plugin_complete_actions', array($wpMail, 'update_plugin_complete_actions'), 10, 2);

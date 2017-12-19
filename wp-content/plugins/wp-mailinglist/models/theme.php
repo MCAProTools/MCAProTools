@@ -14,7 +14,7 @@ if (!class_exists('wpmlTheme')) {
 			'title'			=>	"VARCHAR(150) NOT NULL DEFAULT ''",
 			'name'			=>	"VARCHAR(50) NOT NULL DEFAULT ''",
 			'premade'		=>	"ENUM('Y','N') NOT NULL DEFAULT 'N'",
-			'type'			=>	"ENUM('upload','paste') NOT NULL DEFAULT 'paste'",
+			'type'			=>	"ENUM('upload','paste','builder') NOT NULL DEFAULT 'paste'",
 			'content'		=>	"LONGTEXT NOT NULL",
 			'def'			=>	"ENUM('Y','N') NOT NULL DEFAULT 'N'",
 			'defsystem'		=>	"ENUM('Y','N') NOT NULL DEFAULT 'N'",
@@ -29,7 +29,7 @@ if (!class_exists('wpmlTheme')) {
 			'title'			=>	array("VARCHAR(150)", "NOT NULL DEFAULT ''"),
 			'name'			=>	array("VARCHAR(50)", "NOT NULL DEFAULT ''"),
 			'premade'		=>	array("ENUM('Y','N')", "NOT NULL DEFAULT 'N'"),
-			'type'			=>	array("ENUM('upload','paste')", "NOT NULL DEFAULT 'paste'"),
+			'type'			=>	array("ENUM('upload','paste','builder')", "NOT NULL DEFAULT 'paste'"),
 			'content'		=>	array("LONGTEXT", "NOT NULL"),
 			'def'			=>	array("ENUM('Y','N')", "NOT NULL DEFAULT 'N'"),
 			'defsystem'		=>	array("ENUM('Y','N')", "NOT NULL DEFAULT 'N'"),
@@ -113,6 +113,9 @@ if (!class_exists('wpmlTheme')) {
 									}
 								}
 							}
+							break;
+						case 'builder'		:
+							$this -> data -> content = stripslashes($this -> data -> builder);
 							break;
 						default				:
 							if (empty($paste)) { $this -> errors['paste'] = __('Please paste HTML code for your template', 'wp-mailinglist'); }

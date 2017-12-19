@@ -83,7 +83,7 @@ $timezone_set = $this -> get_option('timezone_set');
 <table class="form-table">
 	<tbody>
 		<tr>
-			<th><label for="rssfeedN"><?php _e('Newsletters RSS Feed', 'wp-mailinglist'); ?></label> <?php echo $Html -> help(__('A simple RSS feed of your newsletters which your users can subscribe to.', 'wp-mailinglist')); ?></th>
+			<th><label for="rssfeedN"><?php echo sprintf(__('%s RSS Feed', 'wp-mailinglist'), $this -> name); ?></label> <?php echo $Html -> help(__('A simple RSS feed of your newsletters which your users can subscribe to.', 'wp-mailinglist')); ?></th>
 			<td>
 				<label><input <?php echo ($this -> get_option('rssfeed') == "Y") ? 'checked="checked"' : ''; ?> type="radio" name="rssfeed" value="Y" id="rssfeedY" /> <?php _e('On', 'wp-mailinglist'); ?></label>
 				<label><input <?php echo ($this -> get_option('rssfeed') == "N") ? 'checked="checked"' : ''; ?> type="radio" name="rssfeed" value="N" id="rssfeedN" /> <?php _e('Off', 'wp-mailinglist'); ?></label>

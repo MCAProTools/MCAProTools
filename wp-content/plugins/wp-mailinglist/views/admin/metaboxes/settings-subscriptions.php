@@ -11,7 +11,7 @@ $paymentmethod = $this -> get_option('paymentmethod');
 	<tbody>
 		<tr>
 			<th><label for="subscriptionsY"><?php _e('Paid Subscriptions', 'wp-mailinglist'); ?></label>
-			<?php echo $Html -> help(__('Turn this setting On to allow paid subscriptions. You can then create paid lists under Newsletters > Mailing Lists with an interval and a price for the subscription.', 'wp-mailinglist')); ?></th>
+			<?php echo $Html -> help(sprintf(__('Turn this setting On to allow paid subscriptions. You can then create paid lists under %s > Mailing Lists with an interval and a price for the subscription.', 'wp-mailinglist'), $this -> name)); ?></th>
 			<td>
 				<label><input onclick="jQuery('#subscriptionsoptionsdiv').show();" <?php echo ($this -> get_option('subscriptions') == "Y") ? 'checked="checked"' : ''; ?> type="radio" name="subscriptions" value="Y" id="subscriptionsY" /> <?php _e('On', 'wp-mailinglist'); ?></label>
 				<label><input onclick="jQuery('#subscriptionsoptionsdiv').hide();" <?php echo ($this -> get_option('subscriptions') == "N") ? 'checked="checked"' : ''; ?> type="radio" name="subscriptions" value="N" id="subscriptionsN" /> <?php _e('Off', 'wp-mailinglist'); ?></label>

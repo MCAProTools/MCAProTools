@@ -1,5 +1,5 @@
 
-	<form action="?page=<?php echo $this -> sections -> autoresponderemails; ?>&amp;method=mass" onsubmit="if (!confirm('<?php _e('Are you sure you want to execute this action on the selected autoresponder emails?', 'wp-mailinglist'); ?>')) { return false; }" method="post">
+	<form action="<?php echo wp_nonce_url(admin_url('admin.php?page=' . $this -> sections -> autoresponderemails . '&method=mass'), $this -> sections -> autoresponderemails . '_mass'); ?>" onsubmit="if (!confirm('<?php _e('Are you sure you want to execute this action on the selected autoresponder emails?', 'wp-mailinglist'); ?>')) { return false; }" method="post">
     	<div class="tablenav">
         	<div class="alignleft actions">
 				<select name="action">
@@ -144,16 +144,16 @@
 	                        <td>
 	                        	<?php $difference = $Html -> time_difference($aemail -> senddate, $Html -> gen_date("Y-m-d H:i:s"), $aemail -> autoresponder -> delayinterval); ?>
 	                            <?php if ($difference >= 0) { $daysstring = __('This autoresponder email is due in ' . $difference . ' ' . $aemail -> autoresponder -> delayinterval . ' only.', 'wp-mailinglist'); } else { $daysstring = ""; }; ?>
-	                        	<strong><?php echo $Html -> link($aemail -> subscriber -> email, '?page=' . $this -> sections -> subscribers . '&amp;method=view&amp;id=' . $aemail -> subscriber_id, array('class' => "row-title")); ?></strong>
+	                        	<strong><?php echo $Html -> link($aemail -> subscriber -> email, '?page=' . $this -> sections -> subscribers . '&method=view&id=' . $aemail -> subscriber_id, array('class' => "row-title")); ?></strong>
 	                        	<?php if (!empty($aemail -> active)) : ?><span class="newsletters_<?php echo ($aemail -> active == "Y") ? 'success' : 'error'; ?>"><?php echo ($aemail -> active == "Y") ? '<i class="fa fa-check"></i>' : '<i class="fa fa-times"></i>'; ?></span><?php endif; ?>
 	                            <div class="row-actions">
 	                            	<?php $sendtext = ($aemail -> status == "unsent") ? __('Send Now', 'wp-mailinglist') : __('Send Again', 'wp-mailinglist'); ?>
-	                            	<span class="edit"><?php echo $Html -> link($sendtext, '?page=' . $this -> sections -> autoresponderemails . '&amp;method=send&amp;id=' . $aemail -> id, array('onclick' => "if (!confirm('" . __('Are you sure you want to send this autoresponder email now?', 'wp-mailinglist') . " " . $daysstring . "')) { return false; }")); ?> |</span>
-	                                <span class="delete"><?php echo $Html -> link(__('Delete', 'wp-mailinglist'), '?page=' . $this -> sections -> autoresponderemails . '&amp;method=delete&amp;id=' . $aemail -> id, array('onclick' => "if (!confirm('" . __('Are you sure you want to delete this autoresponder email?', 'wp-mailinglist') . "')) { return false; }")); ?></span>
+	                            	<span class="edit"><?php echo $Html -> link($sendtext, '?page=' . $this -> sections -> autoresponderemails . '&method=send&id=' . $aemail -> id, array('onclick' => "if (!confirm('" . __('Are you sure you want to send this autoresponder email now?', 'wp-mailinglist') . " " . $daysstring . "')) { return false; }")); ?> |</span>
+	                                <span class="delete"><?php echo $Html -> link(__('Delete', 'wp-mailinglist'), '?page=' . $this -> sections -> autoresponderemails . '&method=delete&id=' . $aemail -> id, array('onclick' => "if (!confirm('" . __('Are you sure you want to delete this autoresponder email?', 'wp-mailinglist') . "')) { return false; }")); ?></span>
 	                            </div>
 	                        </td>
 	                        <td>
-	                        	<?php echo $Html -> link($aemail -> autoresponder -> title, admin_url('admin.php?page=' . $this -> sections -> autoresponders . '&amp;method=save&amp;id=' . $aemail -> autoresponder_id)); ?>
+	                        	<?php echo $Html -> link($aemail -> autoresponder -> title, admin_url('admin.php?page=' . $this -> sections -> autoresponders . '&method=save&id=' . $aemail -> autoresponder_id)); ?>
 	                        	
 	                        	<?php if ($history = $this -> History() -> find(array('id' => $aemail -> autoresponder -> history_id))) : ?>
 	                        		<br/><small><a href="<?php echo admin_url('admin.php?page=' . $this -> sections -> history . '&method=view&id=' . $history -> id); ?>"><?php echo __($history -> subject); ?></a></small>

@@ -209,16 +209,18 @@ if (!class_exists('wpmlSubscribeform')) {
 		function save($data = array(), $validate = true) {
 			
 			if ($this -> language_do()) {
-				$languagefields = array('title', 'buttontext', 'confirmation_message', 'confirmation_redirect', 'styling_beforeform', 'styling_afterform');
+				$languagefields = array('title', 'buttontext', 'confirmation_message', 'confirmation_redirect', 'styling_beforeform', 'styling_afterform', 
+				'etsubject_confirm', 'etmessage_confirm');
 				
-				foreach ($data as $key => $value) {
+				foreach ($data as $key => $value) {					
+					// Language fields
 					if (!empty($key) && in_array($key, $languagefields)) {
 						switch ($key) {
 							default 					:
 								if (array_filter($value)) {
-									$data[$key] = $this -> language_join($value);
+									$value = $data[$key] = $this -> language_join($value);
 								} else {
-									$data[$key] = false;
+									$value = $data[$key] = false;
 								}
 								break;
 						}

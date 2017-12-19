@@ -51,6 +51,7 @@ if (!class_exists('wpMailCheckinit')) {
 			$this -> add_action('admin_menu', 'add_dashboard', 10, 1);
 			$this -> add_action('admin_head');
 			$this -> add_action('admin_head-index.php', 'dashboard_columns');
+			$this -> add_filter('set-screen-option', 'set_screen_option', 10, 3);
 			$this -> add_action('widgets_init', 'widget_register', 10, 1);
 			$this -> add_action('wp_head', 'wp_head', 15, 1);
 			$this -> add_action('wp_footer');
@@ -69,6 +70,7 @@ if (!class_exists('wpMailCheckinit')) {
 
 			$this -> add_filter('manage_users_columns');
 			$this -> add_action('manage_users_custom_column', 'manage_users_custom_column', 10, 3);
+			$this -> add_filter('default_hidden_columns', 'default_hidden_columns', 10, 2);
 
 			/* Schedules */
 			$this -> add_action('newsletters_ratereviewhook', 'ratereview_hook', 10, 1);
@@ -101,7 +103,7 @@ if (!class_exists('wpMailCheckinit')) {
 				$this -> add_filter('admin_footer_text');
 			}
 
-			$this -> add_filter('cron_schedules', 'cron_schedules', 1, 1);
+			$this -> add_filter('cron_schedules', 'cron_schedules', 999, 1);
 			$this -> add_filter('screen_settings', 'screen_settings', 15, 2);
 			$this -> add_filter('plugin_action_links', 'plugin_action_links', 10, 4);
 			$this -> add_filter('the_editor', 'the_editor', 1, 1);
@@ -167,6 +169,8 @@ if (!class_exists('wpMailCheckinit')) {
 			add_shortcode('newsletters_if', array($Shortcode, 'newsletters_if'));
 
 			add_action('wp_ajax_newsletters_importfile', array($this, 'ajax_importfile'));
+			add_action('wp_ajax_newsletters_importmedia', array($this, 'ajax_importmedia'));
+			add_action('wp_ajax_newsletters_perpage', array($this, 'ajax_perpage'));
 
 			/* Ajax */
 			if (is_admin()) {
@@ -186,6 +190,7 @@ if (!class_exists('wpMailCheckinit')) {
 					add_action('wp_ajax_newsletters_latestposts_changestatus', array($this, 'ajax_latestposts_changestatus'));
 					add_action('wp_ajax_newsletters_latestposts_settings', array($this, 'ajax_latestposts_settings'));
 					add_action('wp_ajax_newsletters_latestposts_delete', array($this, 'ajax_latestposts_delete'));
+					add_action('wp_ajax_newsletters_latestposts_clearhistory', array($this, 'ajax_latestposts_clearhistory'));
 
 					add_action('wp_ajax_newsletters_mailinglist_save', array($this, 'ajax_mailinglist_save'));
 
@@ -205,6 +210,7 @@ if (!class_exists('wpMailCheckinit')) {
 					add_action('wp_ajax_wpmldkimwizard', array($this, 'ajax_dkimwizard'));
 					add_action('wp_ajax_wpmltestbouncesettings', array($this, 'ajax_testbouncesettings'));
 					add_action('wp_ajax_wpmlhistory_iframe', array($this, 'ajax_historyiframe'));
+					add_action('wp_ajax_newsletters_history_download', array($this, 'ajax_history_download'));
 					
 					add_action('wp_ajax_newsletters_autosave', array($this, 'ajax_newsletter_autosave'));
 
@@ -242,9 +248,10 @@ if (!class_exists('wpMailCheckinit')) {
 			add_action('wp_ajax_newsletters_exportmultiple', array($this, 'ajax_exportmultiple'));
 			add_action('wp_ajax_wpmlgetlistfields', array($this, 'ajax_getlistfields'));
 			add_action('wp_ajax_nopriv_wpmlgetlistfields', array($this, 'ajax_getlistfields'));
-
+			add_action('wp_ajax_newsletters_builderon', array($this, 'ajax_builderon'));
 			add_action('wp_ajax_newsletters_posts_by_category', array($this, 'ajax_posts_by_category'));
 			add_action('wp_ajax_newsletters_template_iframe', array($this, 'ajax_template_iframe'));
+			add_action('wp_ajax_newsletters_get_template', array($this, 'ajax_get_template'));
 			add_action('wp_ajax_newsletters_form_preview', array($this, 'ajax_form_preview'));
 
 			if (is_admin() && !defined('DOING_AJAX')) {
@@ -265,6 +272,11 @@ if (!class_exists('wpMailCheckinit')) {
 		function ci_serial_valid() {
 			$host = $_SERVER['HTTP_HOST'];
 			$result = false;
+			
+			// The cron is running, let's not validate here
+			if (defined('DOING_CRON')) {
+				$result = true;
+			}
 			
 			if (empty($host)) {
 				// In some cases the hostname is empty on some hosting providers

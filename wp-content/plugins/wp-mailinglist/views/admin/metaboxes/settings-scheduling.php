@@ -9,9 +9,11 @@ $notifyqueuecomplete = $this -> get_option('notifyqueuecomplete');
 	
 ?>
 
-<p class="howto">
-	<?php echo sprintf(__('Sending emails from the queue uses the WordPress cron job. If your queue is not moving, check if the WordPress cron is working and if %s is not set in your %s file. Also consider %s.', 'wp-mailinglist'), '<code>DISABLE_WP_CRON</code>', '<code>wp-config.php</code>', '<a href="http://tribulant.com/blog/wordpress/replace-wordpress-cron-with-real-cron-for-site-speed/" target="_blank">' . __('replacing the WordPress cron job with a real, server cron job', 'wp-mailinglist') . '</a>'); ?>
-</p>
+<?php if (apply_filters('newsletters_whitelabel', true)) : ?>
+	<p class="howto">
+		<?php echo sprintf(__('Sending emails from the queue uses the WordPress cron job. If your queue is not moving, check if the WordPress cron is working and if %s is not set in your %s file. Also consider %s.', 'wp-mailinglist'), '<code>DISABLE_WP_CRON</code>', '<code>wp-config.php</code>', '<a href="https://tribulant.com/blog/wordpress/replace-wordpress-cron-with-real-cron-for-site-speed/" target="_blank">' . __('replacing the WordPress cron job with a real, server cron job', 'wp-mailinglist') . '</a>'); ?>
+	</p>
+<?php endif; ?>
 
 <input type="hidden" name="croninterval" value="5minutes" />
 

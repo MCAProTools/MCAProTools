@@ -14,7 +14,7 @@ wp_nonce_field('meta-box-order', 'meta-box-order-nonce', false);
     
     <?php $this -> render('extensions' . DS . 'navigation', false, true, 'admin'); ?>
     
-	<form action="?page=<?php echo $this -> sections -> extensions_settings; ?>" method="post" id="settings-form">
+	<form action="?page=<?php echo $this -> sections -> extensions_settings; ?>" method="post" id="settings-form" enctype="multipart/form-data">
 		<?php wp_nonce_field($this -> sections -> extensions_settings); ?>
 	
 		<div id="poststuff">

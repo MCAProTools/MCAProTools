@@ -6,8 +6,12 @@
 	<?php endif; ?>
 </div>
 
-<p style="text-align:center;"><a class="button button-secondary" id="spamscorerunnerbutton" href="" onclick="newsletter_autosave(); return false;"><?php _e('Check Now', 'wp-mailinglist'); ?></a>
-<span id="spamscorerunnerloading" style="display:none;"><i class="fa fa-refresh fa-spin fa-fw"></i></span></p>
+<p style="text-align:center;">
+	<button class="button button-secondary" id="spamscorerunnerbutton" name="spamscorerunnerbutton" value="1" onclick="newsletter_autosave(); return false;">
+		<?php _e('Check Now', 'wp-mailinglist'); ?>
+		<span id="spamscorerunnerloading" style="display:none;"><i class="fa fa-refresh fa-spin fa-fw"></i></span>
+	</button>
+</p>
 
 <script type="text/javascript">
 var spamscorerequest = false;

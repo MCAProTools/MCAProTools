@@ -1,5 +1,6 @@
 
 	<form onsubmit="if (!confirm('<?php _e('Are you sure you wish to execute this action on the selected groups?', 'wp-mailinglist'); ?>')) { return false; }" action="?page=<?php echo $this -> sections -> groups; ?>&amp;method=mass" method="post">
+		<?php wp_nonce_field($this -> sections -> groups . '_mass'); ?>
 		<div class="tablenav">
 			<div class="alignleft actions">
 				<select name="action" class="widefat" style="width:auto;">

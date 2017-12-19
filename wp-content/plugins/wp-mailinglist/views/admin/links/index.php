@@ -2,6 +2,7 @@
 <div class="wrap newsletters <?php echo $this -> pre; ?>">
 	<h1><?php _e('Manage Links &amp; Clicks', 'wp-mailinglist'); ?></h1>
 	<form id="posts-filter" action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
+		<?php wp_nonce_field($this -> sections -> links . '_search'); ?>
     	<?php if (!empty($links)) : ?>
             <ul class="subsubsub">
                 <li><?php echo (empty($_GET['showall'])) ? $paginate -> allcount : count($links); ?> <?php _e('links', 'wp-mailinglist'); ?> |</li>

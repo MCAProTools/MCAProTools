@@ -24,6 +24,8 @@ if (!class_exists('wpmlMailinglist')) {
 			'adminemail'		=>	"VARCHAR(100) NOT NULL DEFAULT ''",
 			'subredirect'		=>	"TEXT NOT NULL",
 			'redirect'			=>	"TEXT NOT NULL",
+			'owner_id'			=>	"INT(11) NOT NULL DEFAULT '0'",
+			'owner_role'		=>	"VARCHAR(100) NOT NULL DEFAULT ''",
 			'created'			=>	"DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00'",
 			'modified'			=>	"DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00'",
 			'key'				=>	"PRIMARY KEY (`id`), INDEX(`paid`), INDEX(`group_id`)",
@@ -44,6 +46,8 @@ if (!class_exists('wpmlMailinglist')) {
 			'adminemail'		=>	array("VARCHAR(100)", "NOT NULL DEFAULT ''"),
 			'subredirect'		=>	array("TEXT", "NOT NULL"),
 			'redirect'			=>	array("TEXT", "NOT NULL"),
+			'owner_id'			=>	array("INT(11)", "NOT NULL DEFAULT '0'"),
+			'owner_role'		=>	array("VARCHAR(100)", "NOT NULL DEFAULT ''"),
 			'created'			=>	array("DATETIME", "NOT NULL DEFAULT '0000-00-00 00:00:00'"),
 			'modified'			=>	array("DATETIME", "NOT NULL DEFAULT '0000-00-00 00:00:00'"),
 			'key'				=>	"PRIMARY KEY (`id`), INDEX(`paid`), INDEX(`group_id`)",					   
@@ -364,7 +368,7 @@ if (!class_exists('wpmlMailinglist')) {
 			global $wpdb;
 			
 			$paginate = new wpMailPaginate($wpdb -> prefix . "" . $this -> table_name, "*", $sub);
-			$paginate -> per_page = $perpage;
+			$paginate -> perpage = $perpage;
 			$paginate -> searchterm = (empty($searchterm)) ? false : $searchterm;
 			$paginate -> where = (empty($conditions)) ? false : $conditions;
 			$paginate -> order = $order;
@@ -385,9 +389,19 @@ if (!class_exists('wpmlMailinglist')) {
 		function save($data = array(), $validate = true) {
 			global $wpdb, $FieldsList;
 			
+			$owner_id = 0;
+			$owner_role = '';
+			include_once(ABSPATH . 'wp-includes/pluggable.php');
+			if ($current_user = wp_get_current_user()) {
+				$owner_id = $current_user -> ID;
+				$owner_role = $current_user -> roles[0];
+			}
+			
 			$defaults = array(
 				'group_id'		=>	0,
-				'paid' 			=>	 "N"
+				'paid' 			=>	 "N",
+				'owner_id'		=>	$owner_id,
+				'owner_role'	=>	$owner_role,
 			);
 			
 			$data = (empty($data[$this -> model])) ? $data : $data[$this -> model];
@@ -420,6 +434,7 @@ if (!class_exists('wpmlMailinglist')) {
 					}
 				}
 				
+				$this -> errors = apply_filters('newsletters_mailinglist_validation', $this -> errors, $this -> data);
 				$this -> errors = apply_filters($this -> pre . '_mailinglist_validation', $this -> errors, $this -> data);
 				
 				if (empty($this -> errors)) {
@@ -430,8 +445,8 @@ if (!class_exists('wpmlMailinglist')) {
 					}
 				
 					$query = (!empty($id)) ?
-					"UPDATE `" . $wpdb -> prefix . "" . $this -> table_name . "` SET `title` = '" . $title . "', `group_id` = '" . $group_id . "', `doubleopt` = '" . $doubleopt . "', `subredirect` = '" . $subredirect . "', `redirect` = '" . $redirect . "', `adminemail` = '" . $adminemail . "', `privatelist` = '" . $privatelist . "', `paid` = '" . $paid . "', `tcoproduct` = '" . $tcoproduct . "', `price` = '" . $price . "', `interval` = '" . $interval . "', `maxperinterval` = '" . $maxperinterval . "', `modified` = '" . $modified . "' WHERE `id` = '" . $id . "' LIMIT 1" :
-					"INSERT INTO `" . $wpdb -> prefix . "" . $this -> table_name . "` (`title`, `group_id`, `doubleopt`, `subredirect`, `redirect`, `adminemail`, `privatelist`, `paid`, `tcoproduct`, `price`, `interval`, `maxperinterval`, `created`, `modified`) VALUES ('" . $title . "', '" . $group_id . "', '" . $doubleopt . "', '" . $subredirect . "', '" . $redirect . "', '" . $adminemail . "', '" . $privatelist . "', '" . $paid . "', '" . $tcoproduct . "', '" . $price . "', '" . $interval . "', '" . $maxperinterval . "', '" . $created . "', '" . $modified . "');";
+					"UPDATE `" . $wpdb -> prefix . "" . $this -> table_name . "` SET `title` = '" . $title . "', `group_id` = '" . $group_id . "', `doubleopt` = '" . $doubleopt . "', `subredirect` = '" . $subredirect . "', `redirect` = '" . $redirect . "', `owner_id` = '" . esc_sql($owner_id) . "', `owner_role` = '" . $owner_role . "', `adminemail` = '" . $adminemail . "', `privatelist` = '" . $privatelist . "', `paid` = '" . $paid . "', `tcoproduct` = '" . $tcoproduct . "', `price` = '" . $price . "', `interval` = '" . $interval . "', `maxperinterval` = '" . $maxperinterval . "', `modified` = '" . $modified . "' WHERE `id` = '" . $id . "' LIMIT 1" :
+					"INSERT INTO `" . $wpdb -> prefix . "" . $this -> table_name . "` (`title`, `group_id`, `doubleopt`, `subredirect`, `redirect`, `owner_id`, `owner_role`, `adminemail`, `privatelist`, `paid`, `tcoproduct`, `price`, `interval`, `maxperinterval`, `created`, `modified`) VALUES ('" . $title . "', '" . $group_id . "', '" . $doubleopt . "', '" . $subredirect . "', '" . $redirect . "', '" . $owner_id . "', '" . $owner_role . "', '" . $adminemail . "', '" . $privatelist . "', '" . $paid . "', '" . $tcoproduct . "', '" . $price . "', '" . $interval . "', '" . $maxperinterval . "', '" . $created . "', '" . $modified . "');";
 					
 					if ($wpdb -> query($query)) {
 						$this -> insertid = (empty($id)) ? $wpdb -> insert_id : $id;
@@ -657,6 +672,6 @@ if (!class_exists('wpmlMailinglist')) {
 	}
 }
 
-include_once(dirname(__FILE__) . DS . 'newsletter.php');
+include_once(NEWSLETTERS_DIR . DS . 'models' . DS . 'newsletter.php');
 
 ?>

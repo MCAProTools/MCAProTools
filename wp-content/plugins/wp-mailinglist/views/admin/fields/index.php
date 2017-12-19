@@ -3,6 +3,8 @@
 <div class="wrap newsletters">
 	<h1><?php _e('Manage Custom Fields', 'wp-mailinglist'); ?> <a class="add-new-h2" href="?page=<?php echo $this -> sections -> fields; ?>&amp;method=save" title="<?php _e('Create a new custom field', 'wp-mailinglist'); ?>"><?php _e('Add New', 'wp-mailinglist'); ?></a></h1>	
 	<form id="posts-filter" action="?page=<?php echo $this -> sections -> fields; ?>" method="post">
+		<?php wp_nonce_field($this -> sections -> fields . '_search'); ?>
+		
 		<ul class="subsubsub">
 			<li><?php echo (empty($_GET['showall'])) ? $paginate -> allcount : count($fields); ?> <?php _e('custom fields', 'wp-mailinglist'); ?> |</li>
 			<?php if (empty($_GET['showall'])) : ?>

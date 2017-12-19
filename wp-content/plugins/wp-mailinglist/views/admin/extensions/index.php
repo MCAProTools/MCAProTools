@@ -52,29 +52,35 @@
 								
 								switch ($status) {
 									case 0	:
-										?>
-                                        
-                                        <span class="edit"><a href="<?php echo $extension['link']; ?>" target="_blank"><?php _e('Get this extension now', 'wp-mailinglist'); ?></a></span>
-                                        
-                                        <?php
+										if (apply_filters('newsletters_whitelabel', true)) {
+											?>
+	                                        
+	                                        <span class="edit"><a href="<?php echo $extension['link']; ?>" target="_blank"><?php _e('Get this extension now', 'wp-mailinglist'); ?></a></span>
+	                                        
+	                                        <?php
+		                                }
 										break;
 									case 1	:
-										?>
-                                        
-                                        <span class="edit"><?php echo $Html -> link(__('Activate', 'wp-mailinglist'), wp_nonce_url('?page=' . $this -> sections -> extensions . '&method=activate&plugin=' . plugin_basename($path), 'newsletters_extension_activate_' . plugin_basename($path))); ?></span>
-                                        
-                                        <?php
+										if (current_user_can('activate_plugins')) {
+											?>
+	                                        
+	                                        <span class="edit"><?php echo $Html -> link(__('Activate', 'wp-mailinglist'), wp_nonce_url('?page=' . $this -> sections -> extensions . '&method=activate&plugin=' . plugin_basename($path), 'newsletters_extension_activate_' . plugin_basename($path))); ?></span>
+	                                        
+	                                        <?php
+	                                    }
 										break;
 									case 2	:
-										?>
-                                        
-                                        <span class="delete"><?php echo $Html -> link(__('Deactivate', 'wp-mailinglist'), wp_nonce_url('?page=' . $this -> sections -> extensions . '&method=deactivate&plugin=' . plugin_basename($path), 'newsletters_extension_deactivate_' . plugin_basename($path)), array('class' => "submitdelete")); ?></span>
-                                        
-                                        <?php
+										if (current_user_can('activate_plugins')) {
+											?>
+	                                        
+	                                        <span class="delete"><?php echo $Html -> link(__('Deactivate', 'wp-mailinglist'), wp_nonce_url('?page=' . $this -> sections -> extensions . '&method=deactivate&plugin=' . plugin_basename($path), 'newsletters_extension_deactivate_' . plugin_basename($path)), array('class' => "submitdelete")); ?></span>
+	                                        
+	                                        <?php
+		                                }
 										break;	
 								}
 								
-								if (!empty($extension['settings'])) {
+								if (!empty($extension['settings']) && current_user_can('newsletters_extensions_settings')) {
 									?>| <span class="edit"><?php echo $Html -> link(__('Settings', 'wp-mailinglist'), $extension['settings']); ?></span><?php
 								}
 								

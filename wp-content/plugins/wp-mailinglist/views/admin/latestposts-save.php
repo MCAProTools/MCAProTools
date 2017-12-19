@@ -10,6 +10,7 @@
 	<?php $this -> render('error', array('errors' => $errors), true, 'admin'); ?>
 	
 	<form action="<?php echo admin_url('admin-ajax.php?action=newsletters_latestposts_save'); ?>" onsubmit="latestposts_save(); return false;" method="post" id="latestposts_form">
+		<?php wp_nonce_field('newsletters_latestposts_save'); ?>
 		<input type="hidden" name="id" value="<?php echo esc_attr(stripslashes($latestpostssubscription -> id)); ?>" />
 		
 		<table class="form-table">
@@ -277,8 +278,8 @@
 	                        <?php else : ?>
 	                            <p class="newsletters_error"><?php _e('No schedules are available', 'wp-mailinglist'); ?></p>
 	                        <?php endif; ?>
-	                        <span class="howto"><?php _e('set how often the latest posts subscription should be sent out.', 'wp-mailinglist'); ?></span>
-	                        <span class="howto"><?php _e('the first execution will be the time of the interval from the current date/time.', 'wp-mailinglist'); ?></span>
+	                        <span class="howto"><?php _e('Set how often the latest posts subscription should be sent out.', 'wp-mailinglist'); ?></span>
+	                        <span class="howto"><?php _e('The first execution will be right now, unless you specify a future start date/time above.', 'wp-mailinglist'); ?></span>
 	                    </td>
 	                </tr>
 	            </tbody>
@@ -305,13 +306,22 @@
 	                	<span class="howto"><?php _e('Template to use for the latest posts subscription email.', 'wp-mailinglist'); ?></span>
 	                </td>
 	            </tr>
+	            <tr>
+		            <th><label for="status_active"><?php _e('Status', 'wp-mailinglist'); ?></label></th>
+		            <td>
+			            <label class="newsletters_success"><input <?php echo (empty($latestpostssubscription -> status) || $latestpostssubscription -> status == "active") ? 'checked="checked"' : ''; ?> type="radio" name="status" value="active" id="status_active" /> <i class="fa fa-play fa-fw"></i> <?php _e('Active', 'wp-mailinglist'); ?></label>
+			            <label class="newsletters_error"><input <?php echo (!empty($latestpostssubscription -> status) && $latestpostssubscription -> status == "inactive") ? 'checked="checked"' : ''; ?> type="radio" name="status" value="inactive" id="status_inactive" /> <i class="fa fa-pause fa-fw"></i> <?php _e('Paused', 'wp-mailinglist'); ?></label>
+		            </td>
+	            </tr>
 	        </tbody>
 	    </table>
 		    
 		<p class="submit">
-			<input type="button" onclick="jQuery.colorbox.close();" class="button button-secondary" name="cancel" value="<?php _e('Cancel', 'wp-mailinglist'); ?>" />
+			<button type="button" onclick="jQuery.colorbox.close();" class="button button-secondary" name="cancel" value="1">
+				<i class="fa fa-times fa-fw"></i> <?php _e('Cancel', 'wp-mailinglist'); ?>
+			</button>
 			<button value="1" type="submit" id="latestposts_save_button" class="button button-primary" name="save">
-				<?php _e('Save Settings', 'wp-mailinglist'); ?>
+				<i class="fa fa-check fa-fw"></i> <?php _e('Save Settings', 'wp-mailinglist'); ?>
 				<span style="display:none;" id="latestposts_loading"><i class="fa fa-refresh fa-spin fa-fw"></i></span>
 			</button>
 		</p>
@@ -337,6 +347,7 @@ jQuery(document).ready(function() {
 function latestposts_save() {
 	jQuery('#latestposts_save_button').prop('disabled', true);
 	jQuery('#latestposts_loading').show();
+	jQuery('#latestposts_table').addClass('loading');
 	var formdata = jQuery('#latestposts_form').serialize();
 	jQuery.post(newsletters_ajaxurl + 'action=newsletters_latestposts_save', formdata, function(response) {
 		jQuery('#latestposts_save_wrapper').html(response);

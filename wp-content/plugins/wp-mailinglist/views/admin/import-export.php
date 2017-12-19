@@ -23,6 +23,7 @@ if ($this -> import_process -> queued_items()) {
 			<h3><?php _e('Import', 'wp-mailinglist'); ?></h3>
     
 			<form action="?page=<?php echo $this -> sections -> importexport; ?>&amp;method=import&action=import" id="import-form" method="post" enctype="multipart/form-data">
+				<?php wp_nonce_field($this -> sections -> importexport . '_import'); ?>
 				<table class="form-table">
 					<tbody>
 						<tr>
@@ -100,7 +101,7 @@ if ($this -> import_process -> queued_items()) {
 											uploadProgress: function(event, position, total, percentComplete) {
 												jQuery('#importfile_progress').progressbar("value", percentComplete);
 											},
-											success: function(response) {
+											success: function(response) {												
 												if (response.success == true) {
 													jQuery('#importfile_progress').progressbar("value", 100);
 													jQuery('#importfile_result').html(response.preview);
@@ -363,9 +364,9 @@ if ($this -> import_process -> queued_items()) {
 				<table class="form-table">
 					<tbody>
 						<tr>
-							<th><label for="import_overwrite"><?php _e('Update/Overwrite Subscribers', 'wp-mailinglist'); ?></label></th>
+							<th><label for="import_overwrite"><?php _e('Update Subscribers', 'wp-mailinglist'); ?></label></th>
 							<td>
-								<label><input <?php echo (!empty($_POST['import_overwrite'])) ? 'checked="checked"' : ''; ?> type="checkbox" name="import_overwrite" value="1" id="import_overwrite" /> <?php _e('Yes, update/overwrite existing subscribers with import data', 'wp-mailinglist'); ?></label>
+								<label><input checked="checked" type="checkbox" name="import_overwrite" value="1" id="import_overwrite" /> <?php _e('Yes, update/overwrite existing subscribers with import data', 'wp-mailinglist'); ?></label>
 								<span class="howto"><?php _e('Turning this on will take longer and could overwrite custom field values of subscribers.', 'wp-mailinglist'); ?></span>
 							</td>
 						</tr>
@@ -389,7 +390,9 @@ if ($this -> import_process -> queued_items()) {
 				</table>
 				
 				<p class="submit">
-					<?php echo $Form -> submit(__('Import Subscribers', 'wp-mailinglist')); ?>
+					<button type="submit" name="importsubscribers" value="1" class="button button-primary">
+						<i class="fa fa-check fa-fw"></i> <?php echo __('Import Subscribers', 'wp-mailinglist'); ?>
+					</button>
 				</p>
 			</form>
 		</div>
@@ -458,7 +461,9 @@ if ($this -> import_process -> queued_items()) {
 				</table>
 		
 				<p class="submit">
-					<?php echo $Form -> submit(__('Export Subscribers', 'wp-mailinglist')); ?>
+					<button type="submit" name="exportsubscribers" value="1" class="button button-primary">
+						<i class="fa fa-check fa-fw"></i> <?php echo __('Export Subscribers', 'wp-mailinglist'); ?>
+					</button>
 				</p>
 			</form>
 		</div>

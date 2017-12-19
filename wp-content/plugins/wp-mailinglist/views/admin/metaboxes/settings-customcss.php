@@ -24,7 +24,11 @@
 		        	<?php if ($this -> has_child_theme_folder()) : ?>
 	        			<p><?php echo sprintf(__('Yes, there is a %s folder inside your theme folder %s', 'wp-mailinglist'), '<code>newsletters</code>', '<code>' . basename(get_stylesheet_directory()) . '</code>'); ?></p>
 	        		<?php else : ?>
-	        			<p><?php echo sprintf(__('No child theme folder. See the %s to use this.', 'wp-mailinglist'), '<a href="http://tribulant.com/docs/wordpress-mailing-list-plugin/7890" target="_blank">' . __('documentation', 'wp-mailinglist') . '</a>'); ?></p>
+	        			<?php if (apply_filters('newsletters_whitelabel', true)) : ?>
+	        				<p><?php echo sprintf(__('No child theme folder. See the %s to use this.', 'wp-mailinglist'), '<a href="https://tribulant.com/docs/wordpress-mailing-list-plugin/7890" target="_blank">' . __('documentation', 'wp-mailinglist') . '</a>'); ?></p>
+	        			<?php else : ?>
+	        				<p><?php echo __('No child theme folder.', 'wp-mailinglist'); ?></p>
+	        			<?php endif; ?>
 	        		<?php endif; ?>
 	        	</td>
 	        </tr>

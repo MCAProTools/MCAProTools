@@ -11,6 +11,7 @@ if ($this -> language_do()) {
 <div class="wrap newsletters <?php echo $this -> pre; ?>">
 	<h2><?php _e('Save a Group', 'wp-mailinglist'); ?></h2>
 	<form action="?page=<?php echo $this -> sections -> groups; ?>&amp;method=save" method="post" id="groupform">
+		<?php wp_nonce_field($this -> sections -> groups . '_save'); ?>
 		<?php echo $Form -> hidden('Group[id]'); ?>
 	
 		<table class="form-table">

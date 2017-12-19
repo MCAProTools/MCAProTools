@@ -74,9 +74,20 @@ $tech_features = array(
 		</div>
 		<?php echo sprintf('Version %s', $this -> version); ?>
 	</div>
+	
+	<div class="feature-section one-col">
+		<div class="col">
+			<h2>An Update that will Blow Your Mind!</h2>
+			<p class="lead-description">The best newsletter plugin just got better, all for you!</p>
+			<p>With the purpose of increasing speed and performance we overhauled many of the classes in the plugin as well as procedures used to create, queue and send emails. Feel it fly!</p>
+		</div>
+	</div>
+
+	<hr />
+
+	<h2>New Major Features</h2>
 
 	<div class="feature-section two-col">
-		<h2>New Major Features</h2>
 		<?php foreach ( $major_features as $feature ) : ?>
 			<div class="col">
 				<div class="media-container">
@@ -106,9 +117,9 @@ $tech_features = array(
 	</div>
 	
 	<hr/>
-
+	
+	<h2>New Minor Features</h2>
 	<div class="feature-section three-col">
-		<h2>New Minor Features</h2>
 		<?php foreach ( $minor_features as $feature ) : ?>
 			<div class="col">
 				<div class="minor-img-container">

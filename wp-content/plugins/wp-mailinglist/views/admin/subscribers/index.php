@@ -1,6 +1,7 @@
 <div class="wrap <?php echo $this -> pre; ?> newsletters">
 	<h1><?php _e('Manage Subscribers', 'wp-mailinglist'); ?> <a class="add-new-h2" href="?page=<?php echo $this -> sections -> subscribers; ?>&amp;method=save" title="<?php _e('Create a new subscriber', 'wp-mailinglist'); ?>"><?php _e('Add New', 'wp-mailinglist'); ?></a></h1>
 	<form id="posts-filter" action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
+		<?php wp_nonce_field($this -> sections -> subscribers . '_search'); ?>
     	<?php if (!empty($subscribers)) : ?>
             <ul class="subsubsub">
                 <li><?php echo (empty($_GET['showall'])) ? $paginate -> allcount : count($subscribers); ?> <?php _e('subscribers', 'wp-mailinglist'); ?> |</li>

@@ -5,9 +5,10 @@ if (!defined('ABSPATH')) exit; // Exit if accessed directly
 if (!class_exists('wpMailPlugin')) {
 	class wpMailPlugin extends wpMailCheckinit {
 
+		var $name = 'Newsletters';
 		var $plugin_base;
 		var $pre = 'wpml';
-		var $version = '4.6.6.2';
+		var $version = '4.6.7';
 		var $dbversion = '1.2.3';
 		var $debugging = false;			//set to "true" to turn on debugging
 		var $debug_level = 2; 			//set to 1 for only database errors and var dump; 2 for PHP errors as well
@@ -181,7 +182,7 @@ if (!class_exists('wpMailPlugin')) {
 		 */
 		function register_plugin($name = null, $base = null) {			
 			$this -> api_key = $this -> get_option('api_key');
-			$this -> plugin_name = basename(dirname(__FILE__));
+			$this -> plugin_name = basename(NEWSLETTERS_DIR);
 			$this -> plugin_base = rtrim(dirname($base), DS);
 			$this -> plugin_file = plugin_basename($base);
 			if (!defined('NEWSLETTERS_LOG_FILE')) { define("NEWSLETTERS_LOG_FILE", $this -> plugin_base() . DS . "newsletters.log"); }
@@ -367,34 +368,37 @@ if (!class_exists('wpMailPlugin')) {
 		}
 
 		function after_plugin_row($plugin_name = null) {
-	        $key = $this -> get_option('serialkey');
-	        $update = $this -> vendor('update');
-	        $version_info = $update -> get_version_info();
-
-	        if (!empty($version_info) && $version_info['is_valid_key'] == "0") {		        
-		        ?>
-		        
-		        <tr class="plugin-update-tr active" id="<?php echo $this -> plugin_name; ?>-update" data-slug="<?php echo $this -> plugin_name; ?>" data-plugin="<?php echo $this -> plugin_file; ?>">
-			        <td colspan="3" class="plugin-update colspanchange">
-				        <div class="update-message notice inline notice-warning notice-alt">
-					        <p>
-		        
-					        <?php
 			
-							if (!$this -> ci_serial_valid()) {
-								echo sprintf(__('You are running Newsletters LITE. To remove limits, you can submit a serial key or %s.', 'wp-mailinglist'), '<a href="' . admin_url('admin.php?page=' . $this -> sections -> lite_upgrade) . '">' . __('Upgrade to PRO', 'wp-mailinglist') . '</a>');
-							} else {
-								echo sprintf('Your download for the Newsletter plugin has expired, please <a href="%s" target="_blank">renew it</a> for updates!', $version_info['url']);
-							}
-			
-					        ?>
-		        
-		        			</p>
-		        		</div>
-		        	</td>
-		        </tr>
-
-		        <?php
+			if (apply_filters('newsletters_updates', true)) {
+		        $key = $this -> get_option('serialkey');
+		        $update = $this -> vendor('update');
+		        $version_info = $update -> get_version_info();
+	
+		        if (!empty($version_info) && $version_info['is_valid_key'] == "0") {		        
+			        ?>
+			        
+			        <tr class="plugin-update-tr active" id="<?php echo $this -> plugin_name; ?>-update" data-slug="<?php echo $this -> plugin_name; ?>" data-plugin="<?php echo $this -> plugin_file; ?>">
+				        <td colspan="3" class="plugin-update colspanchange">
+					        <div class="update-message notice inline notice-warning notice-alt">
+						        <p>
+			        
+						        <?php
+				
+								if (!$this -> ci_serial_valid()) {
+									echo sprintf(__('You are running %s LITE. To remove limits, you can submit a serial key or %s.', 'wp-mailinglist'), $this -> name, '<a href="' . admin_url('admin.php?page=' . $this -> sections -> lite_upgrade) . '">' . __('Upgrade to PRO', 'wp-mailinglist') . '</a>');
+								} else {
+									echo sprintf('Your download for the Newsletter plugin has expired, please <a href="%s" target="_blank">renew it</a> for updates!', $version_info['url']);
+								}
+				
+						        ?>
+			        
+			        			</p>
+			        		</div>
+			        	</td>
+			        </tr>
+	
+			        <?php
+		        }
 	        }
 	    }
 
@@ -403,45 +407,105 @@ if (!class_exists('wpMailPlugin')) {
 		 */
 	    function display_changelog() {
 	    	if (!empty($_GET['plugin']) && $_GET['plugin'] == $this -> plugin_name) {
-		    	$update = $this -> vendor('update');
-		    	if ($changelog = $update -> get_changelog()) {
-					$this -> render('changelog', array('changelog' => $changelog), true, 'admin');
-		    	}
-
-		    	exit();
+		    	if (apply_filters('newsletters_updates', true)) {
+			    	$update = $this -> vendor('update');
+			    	if ($changelog = $update -> get_changelog()) {
+						$this -> render('changelog', array('changelog' => $changelog), true, 'admin');
+			    	}
+	
+			    	exit();
+			    }
 	    	}
 	    }
 
 		function has_update($cache = true) {
-			$update = $this -> vendor('update');
-	        $version_info = $update -> get_version_info($cache);
-	        return version_compare($this -> version, $version_info["version"], '<');
+			if (apply_filters('newsletters_updates', true)) {
+				$update = $this -> vendor('update');
+		        $version_info = $update -> get_version_info($cache);
+		        return version_compare($this -> version, $version_info["version"], '<');
+		    }
+		    
+		    return false;
 	    }
 
-		function check_update($option, $cache = true) {
-			if ($update = $this -> vendor('update')) {
-		        $version_info = $update -> get_version_info($cache);
-
-		        if (!$version_info) { return $option; }
-		        $plugin_path = $this -> plugin_file;
-
-		        if(empty($option -> response[$plugin_path])) {
-					$option -> response[$plugin_path] = new stdClass();
+		function check_update($option, $cache = true) {			
+			global $newsletters_update_checked;
+			
+			if (apply_filters('newsletters_updates', true)) {
+				if (empty($newsletters_update_checked)) {			
+					if ($update = $this -> vendor('update')) {
+				        $version_info = $update -> get_version_info($cache);
+		
+				        if (!$version_info) { return $option; }
+				        $plugin_path = $this -> plugin_file;
+		
+				        if(empty($option -> response[$plugin_path])) {
+							$option -> response[$plugin_path] = new stdClass();
+				        }
+		
+				        //Empty response means that the key is invalid. Do not queue for upgrade
+				        if(empty($version_info['is_valid_key']) || version_compare($this -> version, $version_info["version"], '>=')){
+				            unset($option -> response[$plugin_path]);
+				        } else {
+				            $option -> response[$plugin_path] -> url = "https://tribulant.com";
+				            $option -> response[$plugin_path] -> slug = $this -> plugin_name;
+				            $option -> response[$plugin_path] -> package = $version_info['url'];
+				            $option -> response[$plugin_path] -> new_version = $version_info["version"];
+				            $option -> response[$plugin_path] -> id = "0";
+				        }
+			        }
+			        
+		        	$newsletters_update_checked = true;
 		        }
-
-		        //Empty response means that the key is invalid. Do not queue for upgrade
-		        if(empty($version_info['is_valid_key']) || version_compare($this -> version, $version_info["version"], '>=')){
-		            unset($option -> response[$plugin_path]);
-		        } else {
-		            $option -> response[$plugin_path] -> url = "http://tribulant.com";
-		            $option -> response[$plugin_path] -> slug = $this -> plugin_name;
-		            $option -> response[$plugin_path] -> package = $version_info['url'];
-		            $option -> response[$plugin_path] -> new_version = $version_info["version"];
-		            $option -> response[$plugin_path] -> id = "0";
-		        }
-	        }
+		    }
 
 	        return $option;
+	    }
+	    
+	    function ajax_importmedia() {
+		    define('DOING_AJAX', true);
+		    define('SHORTINIT', true);
+		    
+		    header('Content-Type: application/json');
+		    
+		    if (!function_exists('wp_handle_upload')) {
+			    require_once(ABSPATH . 'wp-admin/includes/file.php');
+			}
+
+			$upload_overrides = array( 
+				'test_form' 	=> 	false,
+				'test_type'		=>	false,
+			);
+			
+			$assets = array();
+			
+			if (!empty($_FILES['files']['name'])) {
+				foreach ($_FILES['files']['name'] as $index => $name) {
+					if (empty($_FILES['files']['error'][$index])) {
+						$uploadedfile = array(
+							'name'			=>	$name,
+							'type'			=>	$_FILES['files']['type'][$index],
+							'tmp_name'		=>	$_FILES['files']['tmp_name'][$index],
+							'error'			=>	$_FILES['files']['error'][$index],
+							'size'			=>	$_FILES['files']['size'][$index],
+						);
+						
+						$movefile = wp_handle_upload($uploadedfile, $upload_overrides);
+						
+						if (empty($movefile['error'])) {
+							$assets[] = array(
+								'src'			=>	$movefile['url'],
+								'type'			=>	'image',
+							);
+						}
+					}
+				}
+			}
+			
+			echo json_encode(array('data' => $assets));
+			
+			exit();
+			die();
 	    }
 
 	    function ajax_importfile() {
@@ -452,8 +516,8 @@ if (!class_exists('wpMailPlugin')) {
 
 		    ob_start();
 
-		    if ( ! function_exists( 'wp_handle_upload' ) ) {
-			    require_once( ABSPATH . 'wp-admin/includes/file.php' );
+		    if (!function_exists('wp_handle_upload')) {
+			    require_once(ABSPATH . 'wp-admin/includes/file.php');
 			}
 
 			$uploadedfile = $_FILES['file'];
@@ -465,9 +529,9 @@ if (!class_exists('wpMailPlugin')) {
 				'type'			=>	'text/csv',
 			);
 
-			$movefile = wp_handle_upload( $uploadedfile, $upload_overrides );
+			$movefile = wp_handle_upload($uploadedfile, $upload_overrides);
 
-			if ($movefile && ! isset($movefile['error'])) {
+			if ($movefile && !isset($movefile['error'])) {
 			    $csvtypes = array('text/comma-separated-values', 'data/csv', 'text/csv', 'application/csv', 'application/excel', 'application/vnd.ms-excel', 'application/octet-stream', 'application/vnd.msexcel', 'text/anytext', 'text/plain');
 			    $vcardtypes = array('text/x-vcard', 'application/vcard', 'text/anytext', 'text/directory', 'application/x-versit', 'text/x-versit', 'text/x-vcalendar');
 			    $filetype = wp_check_filetype($movefile['file']);
@@ -533,10 +597,11 @@ if (!class_exists('wpMailPlugin')) {
 				    }
 
 				    $preview .= '</tbody></table>';
-				    
-				    if (function_exists('mb_detect_encoding')) {
+					
+					// Check the encoding of the $preview part and make it UTF8
+					if (function_exists('mb_detect_encoding')) {
 						$encoding = mb_detect_encoding($preview);
-						if (empty($encoding) || $encoding != "UTF-8") {
+						if (true || empty($encoding) || $encoding != "UTF-8") {
 							$preview = utf8_encode($preview);
 						}
 					}
@@ -638,7 +703,7 @@ if (!class_exists('wpMailPlugin')) {
 					
 					if (function_exists('mb_detect_encoding')) {
 						$encoding = mb_detect_encoding($preview);
-						if (empty($encoding) || $encoding != "UTF-8") {
+						if (true || empty($encoding) || $encoding != "UTF-8") {
 							$preview = utf8_encode($preview);
 						}
 					}
@@ -682,6 +747,7 @@ if (!class_exists('wpMailPlugin')) {
 					$subscriber = stripslashes_deep($subscriber);
 					$subscriber['justsubscribe'] = true;
 					$email = $subscriber['email'];
+					$mailinglists = $subscriber['mailinglists'];
 					$confirmation_subject = stripslashes($_REQUEST['confirmation_subject']);
 					$confirmation_email = stripslashes($_REQUEST['confirmation_email']);
 					$import_preventbu = $_REQUEST['import_preventbu'];
@@ -728,17 +794,20 @@ if (!class_exists('wpMailPlugin')) {
 										}
 
 										if ($subscriber['active'] == "N") {
-											if (!empty($subscriber['mailinglists'])) {
-												$allmailinglists = $subscriber['mailinglists'];
+											if (!empty($mailinglists)) {
+												$allmailinglists = $mailinglists;
 												$Db -> model = $Subscriber -> model;
-												$subscriber = $Db -> find(array('id' => $subscriber_id));
+												$sub = $Db -> find(array('id' => $subscriber_id));
 
 												foreach ($allmailinglists as $mailinglist_id) {
 													$subject = $confirmation_subject;
 													$message = $confirmation_email;
 													
+													$message = wpautop($message);
+													$message = $this -> process_set_variables($sub, false, $message, false, false, true);
+													
 													$queue_process_data = array(
-														'subscriber_id'				=>	$subscriber -> id,
+														'subscriber_id'				=>	$sub -> id,
 														'subject'					=>	$subject,
 														'message'					=>	$message,
 														'attachments'				=>	false,
@@ -790,6 +859,17 @@ if (!class_exists('wpMailPlugin')) {
 			exit();
 			die();
 		}
+		
+		function ajax_builderon() {
+			define('DOING_AJAX', true);
+			define('SHORTINIT', true);
+			
+			$builderon = (empty($_POST['status']) || $_POST['status'] == "false") ? false : true;
+			update_user_option(get_current_user_id(), 'newsletters_builderon', $builderon);
+			
+			exit();
+			die();
+		}
 
 	    function ajax_admin_mode() {
 		    define('DOING_AJAX', true);
@@ -816,6 +896,8 @@ if (!class_exists('wpMailPlugin')) {
 		    $fieldname = $_GET['fieldname'];
 
 		    if (!empty($_POST)) {
+			    check_ajax_referer($this -> sections -> lists . '_save');
+			    
 			    $_POST['Mailinglist']['privatelist'] = "N";
 
 			    if ($Mailinglist -> save($_POST)) {
@@ -1562,7 +1644,9 @@ if (!class_exists('wpMailPlugin')) {
 		    $success = false;
 		    $errors = false;
 
-		    if (!empty($_POST)) {			    
+		    if (!empty($_POST)) {	
+			    check_ajax_referer($this -> sections -> forms . '_createform');
+			    		    
 			    if ($this -> Subscribeform() -> save($_POST[$this -> Subscribeform() -> model])) {
 				    $success = true;
 				    $insertid = $this -> Subscribeform() -> insertid;
@@ -2003,6 +2087,51 @@ if (!class_exists('wpMailPlugin')) {
 			exit();
 			die();
 		}
+		
+		function getbodyandcss($html = null) {
+			ob_start();
+			$content = '';
+			
+			$d = new DOMDocument;
+			$mock = new DOMDocument;
+			$d -> loadHTML(stripslashes($html));
+			
+			foreach ($d -> getElementsByTagName('style') as $style) {
+				$mock -> appendChild($mock -> importNode($style, true));
+			}
+			
+			$body = $d -> getElementsByTagName('body') -> item(0);
+			foreach ($body -> childNodes as $child) {
+			    $mock -> appendChild($mock -> importNode($child, true));
+			}
+			
+			echo $mock -> saveHTML();
+		
+			$output = ob_get_clean();
+			return stripslashes($output);
+		}
+		
+		function ajax_get_template() {
+			define('DOING_AJAX', true);
+			define('SHORTINIT', true);
+			
+			global $wpdb, $Db, $Theme;
+			
+			$template_id = esc_html($_POST['template_id']);
+			if (!empty($template_id)) {
+				$Db -> model = $Theme -> model;
+				if ($template = $Db -> find(array('id' => $template_id))) {
+					echo $this -> getbodyandcss($template -> content);
+				} else {
+					echo __('Template could not be loaded, try again.', 'wp-mailinglist');
+				}
+			} else {
+				echo __('No template was specified.', 'wp-mailinglist');
+			}
+			
+			exit();
+			die();
+		}
 
 		function ajax_form_preview() {
 			define('DOING_AJAX', true);
@@ -2399,7 +2528,7 @@ if (!class_exists('wpMailPlugin')) {
 			$ssl = (empty($bouncepop_prot)) ? false : (($bouncepop_prot == "ssl") ? true : false);
 			
 			try {
-				$mailbox = new PhpImap\Mailbox('{' . $host . ':' . $port . '/' . $type . ((!empty($ssl)) ? '/ssl' : '') . '/novalidate-cert}INBOX', $user, $pass, __DIR__);
+				$mailbox = new PhpImap\Mailbox('{' . $host . ':' . $port . '/' . $type . ((!empty($ssl)) ? '/ssl' : '') . '/novalidate-cert}INBOX', $user, $pass, false);
 				
 				try {
 					
@@ -2493,7 +2622,7 @@ if (!class_exists('wpMailPlugin')) {
 			$ssl = (empty($_POST['prot'])) ? false : (($_POST['prot'] == "ssl") ? true : false);
 			
 			try {
-				$mailbox = new PhpImap\Mailbox('{' . $host . ':' . $port . '/' . $type . ((!empty($ssl)) ? '/ssl' : '') . '/novalidate-cert}INBOX', $user, $pass, __DIR__);
+				$mailbox = new PhpImap\Mailbox('{' . $host . ':' . $port . '/' . $type . ((!empty($ssl)) ? '/ssl' : '') . '/novalidate-cert}INBOX', $user, $pass, false);
 				
 				try {
 					
@@ -2995,7 +3124,7 @@ if (!class_exists('wpMailPlugin')) {
 			    'Content-Length: ' . strlen($data_string),
 			);
 
-			$url = 'http://spamcheck.postmarkapp.com/filter';
+			$url = 'https://spamcheck.postmarkapp.com/filter';
 
 			$args = array(
 				'method'			=>	"POST",
@@ -3036,21 +3165,27 @@ if (!class_exists('wpMailPlugin')) {
 		    ?>
 
 		    <html>
+			    <head>
+				    <meta charset="utf-8" />
+			    </head>
 		    	<body style="margin:0; padding:0;">
+			    	<script type="text/javascript" src="<?php echo $this -> render_url('js/raphael.js', 'admin', false); ?>"></script>
 				    <script type="text/javascript" src="<?php echo $this -> render_url('js/justgage.js', 'admin', false); ?>"></script>
-				    <script type="text/javascript" src="<?php echo $this -> render_url('js/raphael.js', 'admin', false); ?>"></script>
+				    
 				    <div id="gauge"></div>
 
 				    <script>
-					  var g = new JustGage({
-					    id: "gauge",
-					    value: <?php echo $value; ?>,
-					    min: 0,
-					    max: 10,
-					    title: "<?php echo ($value >= 5) ? __('This is spam!', 'wp-mailinglist') : __('This is safe!', 'wp-mailinglist'); ?>",
-					    label: "<?php _e('Spam Score', 'wp-mailinglist'); ?>",
-					    levelColorsGradient: false
-					  });
+					document.addEventListener("DOMContentLoaded", function(event) {
+						var g = new JustGage({
+							id: "gauge",
+							value: <?php echo $value; ?>,
+							min: 0,
+							max: 10,
+							title: "<?php echo ($value >= 5) ? __('This is spam!', 'wp-mailinglist') : __('This is safe!', 'wp-mailinglist'); ?>",
+							label: "<?php _e('Spam Score', 'wp-mailinglist'); ?>",
+							levelColorsGradient: false
+						});
+					});
 					</script>
 		    	</body>
 		    </html>
@@ -3059,6 +3194,67 @@ if (!class_exists('wpMailPlugin')) {
 
 		    exit();
 		    die();
+	    }
+	    
+	    function ajax_history_download() {
+		    define('DOING_AJAX', true);
+			define('SHORTINIT', true);
+		    global $Db, $Subscriber;
+				
+			$id = esc_html($_GET['id']);
+			if (!empty($id)) {			
+				$email = $this -> History() -> find(array('id' => $id));
+	
+				$subscriber_id = $Subscriber -> admin_subscriber_id();
+				$subscriber = $Subscriber -> get($subscriber_id);
+	
+				if (!empty($email -> post_id)) {
+					if ($thepost = get_post($email -> post_id)) {
+						global $post, $shortcode_post;
+						$post = $thepost;
+						$shortcode_post = $thepost;
+					}
+				}
+	
+				$message = $email -> message;
+				$content = $this -> render_email('send', array('message' => $message, 'subject' => $email -> subject, 'subscriber' => $subscriber, 'history_id' => $id), false, true, true, $email -> theme_id, true);
+				
+				$output = $content;
+	
+				$output = "";
+				ob_start();
+				echo do_shortcode(stripslashes($content));
+				$output = ob_get_clean();
+	
+				ob_start();
+				echo $this -> process_set_variables($subscriber, $user, $output, $email -> id);
+				$output = ob_get_clean();
+	
+				if (!empty($email -> format) && $email -> format == "text") {
+					$output = wpautop($output);
+				}
+				
+				$output = $this -> inlinestyles($output);
+	
+				if (ini_get('zlib.output_compression')) {
+					ini_set('zlib.output_compression', 'Off');
+				}
+
+				header("Pragma: public");
+				header("Expires: 0");
+				header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+				header("Cache-Control: public", false);
+				header("Content-Description: Download Newsletter");
+				header("Content-Type: text/html");
+				header("Accept-Ranges: bytes");
+				header("Content-Disposition: attachment; filename=\"" . esc_html(__($email -> subject)) . ".html\";");
+				header("Content-Transfer-Encoding: binary");
+				header("Content-Length: " . strlen($output));
+				
+				print($output);
+				exit();
+				die();
+			}
 	    }
 
 		function ajax_historyiframe($returnoutput = false) {
@@ -4310,8 +4506,41 @@ if (!class_exists('wpMailPlugin')) {
 
 			return false;
 		}
+		
+		function get_menu_names($dofilter = true) {
+			$menunames = array(
+				'newsletters'					=>	__('Overview', 'wp-mailinglist'),
+				'newsletters-settings'			=>	__('Configuration', 'wp-mailinglist'),
+				'newsletters-forms'				=>	__('Subscribe Forms', 'wp-mailinglist'),
+				'newsletters-send'				=>	__('Create Newsletter', 'wp-mailinglist'),
+				'newsletters-history'			=>	__('Sent & Draft Emails', 'wp-mailinglist'),
+				'newsletters-links'				=>	__('Links & Clicks', 'wp-mailinglist'),
+				'newsletters-autoresponders'	=>	__('Autoresponders', 'wp-mailinglist'),
+				'newsletters-lists'				=>	__('Mailing Lists', 'wp-mailinglist'),
+				'newsletters-groups'			=>	__('Groups', 'wp-mailinglist'),
+				'newsletters-subscribers'		=>	__('Subscribers', 'wp-mailinglist'),
+				'newsletters-import'			=>	__('Import/Export Subscribers', 'wp-mailinglist'),
+				'newsletters-fields'			=>	__('Custom Fields', 'wp-mailinglist'),
+				'newsletters-themes'			=>	__('Themes/Templates', 'wp-mailinglist'),
+				'newsletters-templates'			=>	__('Email Snippets', 'wp-mailinglist'),
+				'newsletters-queue'				=>	__('Email Queue', 'wp-mailinglist'),
+				'newsletters-orders'			=>	__('Subscription Orders', 'wp-mailinglist'),
+				'newsletters-extensions'		=>	__('Extensions', 'wp-mailinglist'),
+				'newsletters-updates'			=>	__('Updates', 'wp-mailinglist'),
+				'newsletters-support'			=>	__('Support & Help', 'wp-mailinglist'),
+				'newsletters-submitserial'		=>	__('Submit Serial', 'wp-mailinglist'),
+			);
+			
+			if (!empty($dofilter)) {
+				$menunames = apply_filters('newsletters_menu_names', $menunames);
+			}
+			
+			return $menunames;
+		}
 
 		function plugins_loaded() {
+			$this -> name = apply_filters('newsletters_plugin_name', $this -> name);
+			
 			$this -> initialize_classes();
 			$this -> ci_initialize();
 			$this -> theme_folder_functions();
@@ -4320,7 +4549,7 @@ if (!class_exists('wpMailPlugin')) {
 		}
 
 		function manage_users_columns($columns = array()) {
-		    $columns['newsletters'] = __('Newsletters', 'wp-mailinglist');
+		    $columns['newsletters'] = __($this -> name, 'wp-mailinglist');
 		    return $columns;
 		}
 
@@ -4461,6 +4690,9 @@ if (!class_exists('wpMailPlugin')) {
 					case 'qtranslate-x'				:
 						$url = qtranxf_convertURL($url, $language);
 						break;
+					case 'polylang'					:
+						$url = add_query_arg(array('lang' => $language), $url);
+						break;
 					case 'wpml'						:
 						if (function_exists('icl_get_languages')) {
 							$languages = icl_get_languages();
@@ -4491,6 +4723,11 @@ if (!class_exists('wpMailPlugin')) {
 					global $q_config;
 					$default = $q_config['default_language'];
 					break;
+				case 'polylang'					:
+					if (function_exists('pll_default_language')) {
+						$default = pll_default_language();
+					}
+					break;
 				case 'wpml'						:
 					global $sitepress;
 					if (method_exists($sitepress, 'get_default_language')) {
@@ -4518,6 +4755,12 @@ if (!class_exists('wpMailPlugin')) {
 					case 'qtranslate-x'				:
 						global $q_config;
 						$name = $q_config['language_name'][$language];
+						break;
+					case 'polylang'					:
+						global $polylang;
+						if ($pll_language = $polylang -> model -> get_language($language)) {
+							$name = $pll_language -> name;
+						}
 						break;
 					case 'wpml'						:
 						if (function_exists('icl_get_languages')) {
@@ -4554,6 +4797,9 @@ if (!class_exists('wpMailPlugin')) {
 					}
 
 					$result = true;
+				} elseif ($this -> is_plugin_active('polylang')) {
+					$newsletters_languageplugin = "polylang";
+					$result = true;
 				}
 			} else {
 				$result = true;
@@ -4572,9 +4818,16 @@ if (!class_exists('wpMailPlugin')) {
 				$newsletters_languagecurrent = $language;
 
 				switch ($newsletters_languageplugin) {
+					case 'qtranslate'					:
 					case 'qtranslate-x'					:
 						if (function_exists('qtranxf_set_language_cookie')) {
 							qtranxf_set_language_cookie($language);
+						}
+						break;
+					case 'polylang'						:
+						global $polylang;
+						if ($pll_language = $polylang -> model -> get_language($language)) {
+							$polylang -> curlang = $pll_language;
 						}
 						break;
 					case 'wpml'							:
@@ -4614,6 +4867,15 @@ if (!class_exists('wpMailPlugin')) {
 						$current = qtranxf_getLanguage();
 					}
 					break;
+				case 'polylang'				:
+					if (function_exists('pll_current_language') && function_exists('pll_default_language')) {
+						$current = pll_current_language();
+						
+						if (empty($current)) {
+							$current = pll_default_language();
+						}
+					}
+					break;
 				case 'wpml'					:
 					//$current = ICL_LANGUAGE_CODE;
 					global $sitepress;
@@ -4643,6 +4905,11 @@ if (!class_exists('wpMailPlugin')) {
 					global $q_config;
 					$flag = '<img src="' . content_url() . '/' . $q_config['flag_location'] . '/' . $q_config['flag'][$language] . '" alt="' . $language . '" />';
 					break;
+				case 'polylang'				:
+					global $polylang;
+					$pll_language = $polylang -> model -> get_language($language);
+					$flag = $pll_language -> flag;
+					break;
 				case 'wpml'					:
 					if (function_exists('icl_get_languages')) {
 						$languages = icl_get_languages();
@@ -4671,6 +4938,14 @@ if (!class_exists('wpMailPlugin')) {
 						break;
 					case 'qtranslate-x'				:
 						$enabled = qtranxf_isEnabled($language);
+						break;
+					case 'polylang'					:					
+						global $polylang;
+						if ($pll_language = $polylang -> model -> get_language($language)) {
+							if (empty($pll_language -> active) || $pll_language -> active == true) {
+								$enabled = true;
+							}
+						}
 						break;
 					case 'wpml'						:
 						if (function_exists('icl_get_languages')) {
@@ -4812,6 +5087,14 @@ if (!class_exists('wpMailPlugin')) {
 						$languages = qtranxf_getSortedLanguages();
 					}
 					break;
+				case 'polylang'						:	
+					global $polylang;			
+					if ($pll_languages = $polylang -> model -> get_languages_list()) {
+						foreach ($pll_languages as $lang) {
+							$languages[] = $lang -> slug;
+						}
+					}
+					break;
 				case 'wpml'							:
 					if (function_exists('icl_get_languages')) {
 						$icl_languages = icl_get_languages();
@@ -4822,12 +5105,14 @@ if (!class_exists('wpMailPlugin')) {
 					}
 					break;
 			}
+			
+			$languages = apply_filters('newsletters_language_getlanguages', $languages);
 
 			$newsletters_languagelanguages = $languages;
 			return $languages;
 		}
 
-		function paginate($model = null, $fields = '*', $sub = null, $conditions = false, $searchterm = null, $per_page = 10, $order = array('modified', "DESC"), $conditions_and = null) {
+		function paginate($model = null, $fields = '*', $sub = null, $conditions = false, $searchterm = null, $perpage = 10, $order = array('modified', "DESC"), $conditions_and = null) {
 			global $wpdb, $Db, $Subscriber, $SubscribersList, $Mailinglist,
 			${$model}, $Mailinglist, $Unsubscribe, $Bounce;
 
@@ -4846,7 +5131,7 @@ if (!class_exists('wpMailPlugin')) {
 				$paginate -> where = (empty($conditions)) ? false : $conditions;
 				$paginate -> where_and = (empty($conditions_and)) ? false : $conditions_and;
 				$paginate -> searchterm = (empty($searchterm)) ? false : $searchterm;
-				$paginate -> per_page = $per_page;
+				$paginate -> perpage = $perpage;
 				$paginate -> order = $order;
 
 				$page = (empty($_GET[$this -> pre . 'page'])) ? 1 : $_GET[$this -> pre . 'page'];
@@ -4988,9 +5273,9 @@ if (!class_exists('wpMailPlugin')) {
 						wp_enqueue_script('select2', $this -> render_url('js/select2.js', 'admin', false), array('jquery'), '4.0.0', false);
 					}
 
-					if ($_GET['page'] != $this -> sections -> send) {
+					/*if ($_GET['page'] != $this -> sections -> send) {
 						wp_enqueue_media();
-					}
+					}*/
 
 					// CKEditor
 					wp_enqueue_script('ckeditor', '//cdn.ckeditor.com/4.4.7/full-all/ckeditor.js', array('jquery'), '4.4.7', false);
@@ -5004,6 +5289,8 @@ if (!class_exists('wpMailPlugin')) {
 				}
 
 				if (!empty($_GET['page']) && in_array($_GET['page'], (array) $this -> sections)) {
+					wp_enqueue_media();
+					
 					wp_enqueue_script('jquery-autoheight', plugins_url() . '/' . $this -> plugin_name . '/js/jquery.autoheight.js', array('jquery'), false, true);
 					wp_enqueue_script('jquery-form', false, array('jquery'), false, true);
 					
@@ -5022,6 +5309,25 @@ if (!class_exists('wpMailPlugin')) {
 					$method = esc_html($_GET['method']);
 					if ($_GET['page'] == $this -> sections -> fields && $method == "order") {
 						wp_enqueue_script('jquery-ui-sortable', false, false, false, true);
+					}
+					
+					// Zero Clipboard
+					wp_enqueue_script('zeroclipboard', plugins_url() . '/' . $this -> plugin_name . '/vendors/zeroclipboard/ZeroClipboard.js', array('jquery'), false, false);
+					
+					// GrapesJS
+					if ($_GET['page'] == $this -> sections -> themes || 
+						$_GET['page'] == $this -> sections -> send) {
+						$grapesjs = plugins_url() . '/' . $this -> plugin_name . '/vendors/grapesjs/grapes.min.js';
+						wp_enqueue_script('grapesjs', $grapesjs, array('jquery'), false, false);
+						
+						$grapesjs_preset_newsletter = plugins_url() . '/' . $this -> plugin_name . '/vendors/grapesjs/grapesjs-preset-newsletter.min.js';
+						wp_enqueue_script('grapesjs-preset-newsletter', $grapesjs_preset_newsletter, array('jquery', 'grapesjs'), false, false);
+						
+						$grapesjs_plugin_wordpress = plugins_url() . '/' . $this -> plugin_name . '/vendors/grapesjs/grapesjs-plugin-wordpress.js';
+						wp_enqueue_script('grapesjs-plugin-wordpress', $grapesjs_plugin_wordpress, array('jquery', 'grapesjs'), false, false);
+						
+						//$grapesjs_plugin_filestack = plugins_url() . '/' . $this -> plugin_name . '/vendors/grapesjs/grapesjs-plugin-filestack.min.js';
+						//wp_enqueue_script('grapesjs-plugin-filestack', $grapesjs_plugin_filestack, array('jquery', 'grapesjs'), false, false);
 					}
 
 					/* Progress Bar */
@@ -5203,6 +5509,25 @@ if (!class_exists('wpMailPlugin')) {
 					wp_enqueue_style('bootstrap', $this -> render_url('css/bootstrap.css', 'admin', false), false, false, "all");
 					wp_deregister_style('select2');
 					wp_enqueue_style('select2', $this -> render_url('css/select2.css', 'admin', false), false, false, "all");
+				}
+				
+				// GrapesJS
+				if (!empty($_GET['page']) && $_GET['page'] == $this -> sections -> themes ||
+					$_GET['page'] == $this -> sections -> send) {
+					$grapesjs = plugins_url() . '/' . $this -> plugin_name . '/vendors/grapesjs/css/grapes.min.css';
+					wp_enqueue_style('grapesjs', $grapesjs, false, false, 'all');
+					
+					$grapesjs_preset_newsletter = plugins_url() . '/' . $this -> plugin_name . '/vendors/grapesjs/css/grapesjs-preset-newsletter.css';
+					wp_enqueue_style('grapesjs-preset-newsletter', $grapesjs_preset_newsletter, false, false, 'all');
+					
+					$grapesjs_tooltips = plugins_url() . '/' . $this -> plugin_name . '/vendors/grapesjs/css/grapesjs-tooltips.css';
+					wp_enqueue_style('grapesjs-tooltips', $grapesjs_tooltips, false, false, "all");
+					
+					//$grapesjs_plugin_filestack = plugins_url() . '/' . $this -> plugin_name . '/vendors/grapesjs/css/grapesjs-plugin-filestack.css';
+					//wp_enqueue_style('grapesjs-plugin-filestack', $grapesjs_plugin_filestack, false, false, 'all');
+					
+					//$grapesjs_plugin_filestack = plugins_url() . '/' . $this -> plugin_name . '/vendors/grapesjs/css/grapesjs-plugin-filestack.css';
+					//wp_enqueue_style('grapesjs-plugin-filestack', $grapesjs_plugin_filestack, false, false, 'all');
 				}
 
 				// Count Down
@@ -5417,19 +5742,18 @@ if (!class_exists('wpMailPlugin')) {
 			return true;
 		}
 
-		function latestposts_scheduling($interval = null, $startdate = null, $args = null) {
+		function latestposts_scheduling($interval = null, $startdate = null, $args = null) {			
 			if (!empty($interval) && !empty($args[0])) {
 				wp_clear_scheduled_hook('newsletters_latestposts', $args);
 				$schedules = wp_get_schedules();
 
-				if (empty($startdate) || strtotime($startdate) < time()) {
-					$new_timestamp = time() + $schedules[$interval]['interval'];
-				} else {
-					$new_timestamp = strtotime($startdate);
+				if (empty($startdate) || strtotime($startdate) < current_time('timestamp')) {										
+					$new_timestamp = time();
+				} else {			
+					$new_timestamp = strtotime(get_gmt_from_date($startdate));
 				}
-
-				$next_scheduled = wp_next_scheduled('newsletters_latestposts', $args);
-				if (empty($next_scheduled)) {
+				
+				if (!wp_next_scheduled('newsletters_latestposts', $args)) {					
 					wp_schedule_event($new_timestamp, $interval, 'newsletters_latestposts', $args);
 				}
 			}
@@ -5458,6 +5782,7 @@ if (!class_exists('wpMailPlugin')) {
 				$schedules = wp_get_schedules();
 				$interval = $this -> get_option('importusersscheduling');
 				$interval = (empty($interval)) ? "hourly" : $interval;
+				
 				$new_timestamp = time() + $schedules[$interval]['interval'];
 
 				if (!wp_next_scheduled($this -> pre . '_importusers')) {
@@ -5840,7 +6165,7 @@ if (!class_exists('wpMailPlugin')) {
 		function vendor($name = null, $pre = 'class', $classit = true) {
 			if (!empty($name)) {
 				$filename = $pre . '.' . strtolower($name) . '.php';
-				$filepath = rtrim(dirname(__FILE__), DS) . DS . 'vendors' . DS;
+				$filepath = rtrim(NEWSLETTERS_DIR, DS) . DS . 'vendors' . DS;
 				$filefull = $filepath . $filename;
 
 				if (file_exists($filefull)) {
@@ -6623,7 +6948,7 @@ if (!class_exists('wpMailPlugin')) {
 					}
 
 					if (!empty($print)) {
-						$url = 'http://www.printfriendly.com/print?url=' . urlencode($url);
+						$url = 'https://www.printfriendly.com/print?url=' . urlencode($url);
 					}
 
 					if (!empty($onlyurl) && $onlyurl == true) {
@@ -6649,7 +6974,7 @@ if (!class_exists('wpMailPlugin')) {
 
 			if (!empty($eunique)) {
 				if ($this -> get_option('tracking') == "Y") {
-					$tracking = '<img class="newsletters-tracking" src="' . add_query_arg(array($this -> pre . 'method' => "track", 'id' => $eunique), home_url()) . '" />';
+					$tracking = '<img alt="track" class="newsletters-tracking" src="' . add_query_arg(array($this -> pre . 'method' => "track", 'id' => $eunique), home_url()) . '" />';
 				}
 			}
 
@@ -7005,8 +7330,10 @@ if (!class_exists('wpMailPlugin')) {
 
 			//** Bit.ly and Click tracking
 			$pattern = '/<a[^>]*?href=[\'"](.*?)[\'"][^>]*?>(.*?)<\/a>/si';
-			if (preg_match_all($pattern, $return, $regs)) {
+			if (preg_match_all($pattern, $return, $regs)) {												
 				$return = apply_filters('newsletters_emailbody_links', $return, $history_id, $regs);
+				preg_match_all($pattern, $return, $regs);
+				
 				$shortlinks = $this -> get_option('shortlinks');
 
 				/* Bit.ly if shortlinks are enabled */
@@ -7221,8 +7548,21 @@ if (!class_exists('wpMailPlugin')) {
 							if ($isactive == "N") {
 								if (empty($mailinglist -> doubleopt) || $mailinglist -> doubleopt == "Y") {
 									if ($this -> get_option('requireactivate') == "Y" || $mailinglist -> paid == "Y") {
+										
 										$subject = stripslashes($this -> et_subject('confirm'));
 										$fullbody = $this -> et_message('confirm', $subscriber);
+										
+										$form_id = esc_html($_POST['form_id']);
+										if (!empty($form_id)) {
+											if ($etsubject = $this -> et_subject('confirm_form_' . $form_id, $subscriber)) {
+												$subject = $etsubject;
+											}
+											
+											if ($etmessage = $this -> et_message('confirm_form_' . $form_id, $subscriber)) {
+												$fullbody = $etmessage;
+											}
+										}
+										
 										$message = $this -> render_email(false, array('subscriber' => $subscriber, 'mailinglist' => $mailinglist), false, $this -> htmltf($subscriber -> format), true, $this -> et_template('confirm'), false, $fullbody);
 										$this -> execute_mail($subscriber, false, $subject, $message, false, false, false, false, "confirmation");
 									}
@@ -7245,6 +7585,18 @@ if (!class_exists('wpMailPlugin')) {
 						if (!empty($subscriber -> mailinglists)) {
 							$subject = stripslashes($this -> et_subject('confirm'));						
 							$fullbody = $this -> et_message('confirm', $subscriber);
+							
+							$form_id = esc_html($_POST['form_id']);
+							if (!empty($form_id)) {
+								if ($etsubject = $this -> et_subject('confirm_form_' . $form_id, $subscriber)) {
+									$subject = $etsubject;
+								}
+								
+								if ($etmessage = $this -> et_message('confirm_form_' . $form_id, $subscriber)) {
+									$fullbody = $etmessage;
+								}
+							}
+							
 							$message = $this -> render_email(false, array('subscriber' => $subscriber), false, $this -> htmltf($subscriber -> format), true, $this -> et_template('confirm'), false, $fullbody);
 							$this -> execute_mail($subscriber, false, $subject, $message, false, false, false, false, "confirmation");
 						}
@@ -7493,7 +7845,7 @@ if (!class_exists('wpMailPlugin')) {
 
 						?>
 
-						<h3><a href="<?php echo get_option('home'); ?>?<?php echo $this -> pre; ?>method=newsletter&amp;id=<?php echo $email -> id; ?>" title="<?php echo $email -> subject; ?>"><?php echo $email -> subject; ?></a></h3>
+						<h3><a href="<?php echo get_option('home'); ?>?<?php echo $this -> pre; ?>method=newsletter&id=<?php echo $email -> id; ?>" title="<?php echo $email -> subject; ?>"><?php echo $email -> subject; ?></a></h3>
 						<div><small><?php _e('Sent on', 'wp-mailinglist'); ?> : <?php echo $email -> modified; ?></small></div>
 						<?php echo $this -> strip_set_variables($email -> message); ?>
 
@@ -7587,7 +7939,7 @@ if (!class_exists('wpMailPlugin')) {
 				
 				return apply_filters('newsletters_inlinestyles_html', $html);
 				
-				/*$url = "http://premailer.dialect.ca/api/0.1/documents";
+				/*$url = "https://premailer.dialect.ca/api/0.1/documents";
 
 				$doc = new DOMDocument();
 				$doc -> loadHTML($html);
@@ -7667,7 +8019,7 @@ if (!class_exists('wpMailPlugin')) {
 
 			global $wpdb;
 			if (!empty($history_id)) {
-				$query = "SELECT `from`, `fromname`, `text`, `mailinglists` FROM `" . $wpdb -> prefix . $this -> History() -> table . "` WHERE `id` = '" . $history_id . "'";
+				$query = "SELECT `id`, `from`, `fromname`, `text`, `mailinglists`, `user_id` FROM `" . $wpdb -> prefix . $this -> History() -> table . "` WHERE `id` = '" . $history_id . "'";
 				$his = $wpdb -> get_row($query);
 				$history = stripslashes_deep($his);
 			}
@@ -7681,6 +8033,8 @@ if (!class_exists('wpMailPlugin')) {
 			if (!empty($attachments) && $attachments != false) {
 				$attachments = maybe_unserialize($attachments);
 			}
+			
+			$attachments = apply_filters('newsletters_execute_mail_attachments', $attachments, $subscriber, $user, $history_id);
 
 			if (empty($error)) {
 				$Db -> model = $Email -> model;
@@ -7744,604 +8098,632 @@ if (!class_exists('wpMailPlugin')) {
 				$mailtype = $this -> get_option('mailtype');
 				$mailpriority = $this -> get_option('mailpriority');
 
-				global $newsletters_presend, $newsletters_emailraw, $mailerrors;
+				global $newsletters_presend, $newsletters_emailraw, $mailerrors, $messageid;
+				
+				$mailapi = $this -> get_option('mailapi');
 
-				if ($mailtype == "smtp" || $mailtype == "gmail" || (!empty($newsletters_presend) && $newsletters_presend == true)) {
-					if (!is_object($phpmailer)) {
-						//require_once(dirname(__FILE__) . DS . 'vendors' . DS . 'class.phpmailer.php');
-						require_once(ABSPATH . WPINC . DS . 'class-phpmailer.php');
-						$phpmailer = new PHPMailer(true);
-					}
+				$data = array(
+					'mailtype'		=>	$mailtype,
+					'mailapi'		=>	$mailapi,
+					'to'			=>	$to,
+					'smtpfrom'		=>	$smtpfrom,
+					'smtpfromname'	=>	$smtpfromname,
+					'smtpreply'		=>	$smtpreply,
+					'subject'		=>	$subject,
+					'message'		=>	$message,
+					'altbody'		=>	$altbody,
+					'attachments'	=>	$attachments,
+					'mailpriority'	=>	$mailpriority,
+				);
 
-					try {
-						//clear all recipients
-						$phpmailer -> ClearAddresses();
-						$phpmailer -> ClearAllRecipients();
-						$phpmailer -> ClearCCs();
-						$phpmailer -> ClearBCCs();
-						$phpmailer -> ClearAttachments();
-						$phpmailer -> ClearReplyTos();
-						$phpmailer -> ClearCustomHeaders();
+				$sent = apply_filters('newsletters_execute_mail', false, $data);
 
-						//set the language
-						$phpmailer_language = $this -> plugin_base() . DS . 'vendors' . DS . 'phpmailer-language';
-						$phpmailer -> SetLanguage('en', $phpmailer_language);
-
-						$phpmailer -> IsSMTP();
-						$phpmailer -> Host = $this -> get_option('smtphost');
-						$phpmailer -> Port = $this -> get_option('smtpport');
-						$phpmailer -> SMTPKeepAlive = true;
-
-						$smtpsecure = $this -> get_option('smtpsecure');
-						if (!empty($smtpsecure) && $smtpsecure != "N") {
-							$phpmailer -> SMTPSecure = $smtpsecure;
+				if (!apply_filters('newsletters_execute_mail_override', false)) {
+					if ($mailtype == "smtp" || $mailtype == "gmail" || (!empty($newsletters_presend) && $newsletters_presend == true)) {
+						if (!is_object($phpmailer)) {
+							require_once(ABSPATH . WPINC . DS . 'class-phpmailer.php');
+							$phpmailer = new PHPMailer(true);
 						}
-
-						$phpmailer -> SMTPAutoTLS = false;
-
-						if ($this -> debugging) {
-							$phpmailer -> SMTPDebug = 1;
-							$phpmailer -> Debugoutput = 'html';
-						}
-
-						if ($this -> get_option('smtpauth') == "Y") {
-							$phpmailer -> SMTPAuth = true;
-							$phpmailer -> Username = $this -> get_option('smtpuser');
-							$phpmailer -> Password = $this -> get_option('smtppass');
-						}
-
-						//DKIM-Signature (DomainKeys Identified Mail)
-						if ($this -> get_option('dkim') == "Y") {
-							$phpmailer -> DKIM_identity = $smtpfrom;
-							$phpmailer -> DKIM_private = $this -> get_option('dkim_private');
-							$phpmailer -> DKIM_domain = $this -> get_option('dkim_domain');
-							$phpmailer -> DKIM_selector = $this -> get_option('dkim_selector');
-						}
-
-						if (!empty($attachments) && $attachments != false) {
-							if (is_array($attachments)) {
-								foreach ($attachments as $attachment) {
-									$phpmailer -> AddAttachment($attachment['filename'], $attachment['title']);
-								}
-							} else {
-								$phpmailer -> AddAttachment($attachments['filename'], $attachments['title']);
+	
+						try {
+							//clear all recipients
+							$phpmailer -> ClearAddresses();
+							$phpmailer -> ClearAllRecipients();
+							$phpmailer -> ClearCCs();
+							$phpmailer -> ClearBCCs();
+							$phpmailer -> ClearAttachments();
+							$phpmailer -> ClearReplyTos();
+							$phpmailer -> ClearCustomHeaders();
+	
+							//set the language
+							$phpmailer_language = $this -> plugin_base() . DS . 'vendors' . DS . 'phpmailer-language';
+							$phpmailer -> SetLanguage('en', $phpmailer_language);
+	
+							$phpmailer -> IsSMTP();
+							$phpmailer -> Host = $this -> get_option('smtphost');
+							$phpmailer -> Port = $this -> get_option('smtpport');
+							$phpmailer -> SMTPKeepAlive = true;
+	
+							$smtpsecure = $this -> get_option('smtpsecure');
+							if (!empty($smtpsecure) && $smtpsecure != "N") {
+								$phpmailer -> SMTPSecure = $smtpsecure;
 							}
-						}
-
-						//set the Charset to that of Wordpress
-						$phpmailer -> CharSet = get_option('blog_charset');
-						$phpmailer -> SetFrom($smtpfrom, $smtpfromname);
-
-						$phpmailer -> Sender = $this -> get_option('bounceemail');
-
-						if (!empty($subscriber)) {
-							$to = $subscriber -> email;
-						} elseif (!empty($user)) {
-							$to = $user -> user_email;
-						}
-
-						$phpmailer -> AddCustomHeader('Precedence', "bulk");
-						$phpmailer -> AddCustomHeader('List-Unsubscribe', $this -> gen_unsubscribe_link($subscriber, $user, $theme_id, $history_id, false, true));
-
-						$phpmailer -> AddAddress($to);
-						$phpmailer -> AddReplyTo($smtpfrom, $smtpfromname);
-
-						// Should the Reply-To header be different?
-						$replytodifferent = $this -> get_option('replytodifferent');
-						if (!empty($replytodifferent)) {
-							$smtpreply = $this -> get_option('smtpreply');
-							$phpmailer -> AddReplyTo($smtpreply, $smtpfromname);
-						}
-
-						if (!empty($newsletters_plaintext)) {
-							$phpmailer -> ContentType = "text/plain";
-							$phpmailer -> IsHTML(false);
-							$message = strip_tags($message);
-						} else {
-							$phpmailer -> ContentType = "text/html";
-							$phpmailer -> IsHTML(true);
-						}
-
-						$phpmailer -> Subject = stripslashes($subject);
-						$phpmailer -> Body = $this -> inlinestyles(apply_filters($this -> pre . '_send_body', stripslashes($message), $phpmailer, $history_id));
-
-						if (!empty($altbody) && $multimime == "Y") {
-							$phpmailer -> AltBody = $altbody;
-						}
-
-						if (!empty($mailpriority) && $mailpriority != 3) {
-							$phpmailer -> Priority = $mailpriority; //set the email priority
-						}
-						$phpmailer -> WordWrap = 0;
-						$phpmailer -> Encoding = $this -> get_option('emailencoding');
-						$phpmailer -> MessageID = $this -> phpmailer_messageid();
-
-						global $newsletters_presend, $newsletters_emailraw;
-						if (!empty($newsletters_presend) && $newsletters_presend == true) {
-							$phpmailer -> addCustomHeader('Received', 'by testing');
-							$phpmailer -> PreSend();
-							$emailraw = $phpmailer -> getSentMIMEMessage();
-							$newsletters_emailraw = $emailraw;
-							return $emailraw;
-						}
-
-						if ($phpmailer -> Send()) {
-							$sent = true;
-							$messageid = $phpmailer -> MessageID;
-						} else {
-							global $mailerrors;
-							$mailerrors = $phpmailer -> ErrorInfo;
-							return false;
-						}
-					} catch (phpmailerException $e) {
-					    $mailerrors = $e -> errorMessage(); //Pretty error messages from PHPMailer
-					} catch (Exception $e) {
-					    $mailerrors = $e -> getMessage(); //Boring error messages from anything else!
-					}
-				} elseif ($mailtype == "api") {
-					$mailapi = $this -> get_option('mailapi');
-
-					$data = array(
-						'api'			=>	$mailapi,
-						'to'			=>	$to,
-						'from'			=>	$smtpfrom,
-						'fromname'		=>	$smtpfromname,
-						'replyto'		=>	$smtpreply,
-						'subject'		=>	$subject,
-						'html'			=>	$message,
-						'text'			=>	$altbody,
-						'attachments'	=>	$attachments,
-						'mailpriority'	=>	$mailpriority,
-					);
-
-					do_action('newsletters_sendmail_api', $data);
-
-					switch ($mailapi) {
-						case 'sparkpost'					:
-							require($this -> plugin_base() . DS . 'vendor' . DS . 'autoload.php');
-							
-							$sparkpost_apikey = $this -> get_option('mailapi_sparkpost_apikey');
-							
-							$client = new GuzzleHttp\Client();
-							$httpClient = new Http\Adapter\Guzzle6\Client($client);
-							$sparky = new SparkPost\SparkPost($httpClient, array('key' => $sparkpost_apikey));
-														
-							try {
-								$replytodifferent = $this -> get_option('replytodifferent');
-								if (!empty($replytodifferent)) {
-									$smtpreply = $this -> get_option('smtpreply');
-								} else {
-									$smtpreply = $smtpfrom;
-								}
-								
-								$headers = array();
-								$headers['Precedence'] = "bulk";
-								$headers['List-Unsubscribe'] = $this -> gen_unsubscribe_link($subscriber, $user, $theme_id, $history_id, false, true);
-								
-								$sparkpost_data = array(
-									'content'				=>	array(
-										'from'					=>	array(
-											'name'					=>	$smtpfromname,
-											'email'					=>	$smtpfrom,
-										),
-										'reply_to'				=> 	$smtpreply,
-										'headers'				=>	$headers,
-										'subject'				=>	stripslashes($subject),
-										'html'					=>	((empty($newsletters_plaintext)) ? $this -> inlinestyles(apply_filters($this -> pre . '_send_body', stripslashes($message), $phpmailer, $history_id, 'amazonses', $sesmessage)) : null),
-										//'text'					=>	$altbody,
-									),
-									'recipients'			=>	array(
-										array(
-											'address'			=>	array(
-												'email'				=>	$to,
-											),
-										)
-									),
-								);
-								
-								if (!empty($altbody)) {
-									$sparkpost_data['content']['text'] = $altbody;
-								}
-								
-								if (!empty($attachments)) {
-									$sparkpost_data['content']['attachments'] = array();
+	
+							$phpmailer -> SMTPAutoTLS = false;
+	
+							if ($this -> debugging) {
+								$phpmailer -> SMTPDebug = 1;
+								$phpmailer -> Debugoutput = 'html';
+							}
+	
+							if ($this -> get_option('smtpauth') == "Y") {
+								$phpmailer -> SMTPAuth = true;
+								$phpmailer -> Username = $this -> get_option('smtpuser');
+								$phpmailer -> Password = $this -> get_option('smtppass');
+							}
+	
+							//DKIM-Signature (DomainKeys Identified Mail)
+							if ($this -> get_option('dkim') == "Y") {
+								$phpmailer -> DKIM_identity = $smtpfrom;
+								$phpmailer -> DKIM_private = $this -> get_option('dkim_private');
+								$phpmailer -> DKIM_domain = $this -> get_option('dkim_domain');
+								$phpmailer -> DKIM_selector = $this -> get_option('dkim_selector');
+							}
+	
+							if (!empty($attachments) && $attachments != false) {
+								if (is_array($attachments)) {
 									foreach ($attachments as $attachment) {
-										$filetype = wp_check_filetype($attachment['filename']);
-										
-										$sparkpost_data['content']['attachments'][] = array(
-											'type'			=>	$filetype['type'],
-											'name'			=>	$attachment['title'],
-											'data'			=>	base64_encode(file_get_contents($attachment['filename'])),
-										);
-									}
-								}
-								
-								$messageid = $this -> phpmailer_messageid();
-								
-								$sparkpost_data['metadata'] = array(
-									'messageid'				=>	$messageid,
-								);
-								
-								$sparkpost_data = apply_filters('newsletters_mailapi_sparkpost_data', $sparkpost_data);
-								
-								$promise = $sparky -> transmissions -> post($sparkpost_data);
-								
-								$response = $promise -> wait();
-								$statuscode = $response -> getStatusCode();
-								
-								if (!empty($statuscode) && $statuscode < 400) {
-									$responsebody = $response -> getBody();								
-									$sent = true;	
-								} else {
-									global $mailerrors;
-									$mailerrors = sprintf(__('%s status code received', 'wp-mailinglist'), $statuscode);
-									return false;
-								}
-							} catch (Exception $e) {
-								global $mailerrors;
-								$errors = $e -> getMessage();	
-								$errors = json_decode($errors);
-								$error = $errors -> errors[0];
-								$mailerrors = $error -> code . ': ' . $error -> message . ' (' . $error -> description . ')';			
-								$this -> log_error($mailerrors);
-								return false;
-							}					
-							break;
-						case 'mailgun'						:
-							require($this -> plugin_base() . DS . 'vendor' . DS . 'autoload.php');
-
-							$mailgun_apikey = $this -> get_option('mailapi_mailgun_apikey');
-							$mailgun_domain = $this -> get_option('mailapi_mailgun_domain');
-
-							$mg = new Mailgun\Mailgun($mailgun_apikey);
-
-							try {
-
-								$data = array(
-									'from'				=>	$smtpfromname . '<' . $smtpfrom . '>',
-									'to'				=>	$to,
-									'subject'			=>	stripslashes($subject),
-									'text'				=>	$altbody,
-									'html'				=>	((empty($newsletters_plaintext)) ? $this -> inlinestyles(apply_filters($this -> pre . '_send_body', stripslashes($message), $phpmailer, $history_id, 'mailgun', $mg)) : null),
-									'attachment'		=>	array(),
-								);
-
-								$data['h:Precedence'] = "bulk";
-								$data['h:List-Unsubscribe'] = $this -> gen_unsubscribe_link($subscriber, $user, $theme_id, $history_id, false, true);
-
-								$files = array();
-
-								if (!empty($attachments) && $attachments != false) {
-									if (is_array($attachments)) {
-										foreach ($attachments as $attachment) {
-											$files['attachment'][] = $attachment['filename'];
+										if (empty($attachment['data'])) {
+											$phpmailer -> AddAttachment($attachment['filename'], $attachment['title']);
+										} else {
+											$phpmailer -> addStringAttachment($attachment['data'], $attachment['filename']);
 										}
+									}
+								} else {
+									if (empty($attachments['data'])) {
+										$phpmailer -> AddAttachment($attachments['filename'], $attachments['title']);
 									} else {
-										$files['attachment'][] = $attachment['filename'];
+										$phpmailer -> addStringAttachment($attachments['data'], $attachments['filename']);
 									}
 								}
-								
-								$messageid = $this -> phpmailer_messageid();
-								$data['v:my-custom-data'] = json_encode(array('MessageID' => $messageid));
-
-								$data = apply_filters('newsletters_mailapi_mailgun_data', $data);
-								$files = apply_filters('newsletters_mailapi_mailgun_files', $files);
-
-								$result = $mg -> sendMessage($mailgun_domain, $data, $files);
-
-								$sent = true;
-							} catch (Exception $e) {
-								global $mailerrors;
-								$mailerrors = $e -> getMessage();								
-								return false;
 							}
-							break;
-						case 'mailjet'						:
-
-							break;
-						case 'amazonses'					:
-
-							$mailapi_amazonses_key = $this -> get_option('mailapi_amazonses_key');
-							$mailapi_amazonses_secret = $this -> get_option('mailapi_amazonses_secret');
-							$mailapi_amazonses_region = $this -> get_option('mailapi_amazonses_region');
-
-							require_once($this -> plugin_base() . DS . 'vendors' . DS . 'amazonses' . DS . 'SimpleEmailService.php');
-
-							global $sesmessage, $ses;
-							$sesmessage = new SimpleEmailServiceMessage();
-							$sesmessage -> addTo($to);
-							$sesmessage -> setFrom($smtpfromname . '<' . $smtpfrom . '>');
-							$sesmessage -> setSubject(stripslashes($subject));
-							$htmlbody = ((empty($newsletters_plaintext)) ? $this -> inlinestyles(apply_filters($this -> pre . '_send_body', stripslashes($message), $phpmailer, $history_id, 'amazonses', $sesmessage)) : null);
-							$sesmessage -> setMessageFromString($altbody, $htmlbody);
-
-							if (!empty($attachments) && $attachments != false) {
-								if (is_array($attachments)) {
-									foreach ($attachments as $attachment) {
-										$sesmessage -> addAttachmentFromFile($attachment['title'], $attachment['filename']);
-									}
-								} else {
-									$sesmessage -> addAttachmentFromFile($attachment['title'], $attachment['filename']);
-								}
+	
+							//set the Charset to that of Wordpress
+							$phpmailer -> CharSet = get_option('blog_charset');
+							$phpmailer -> SetFrom($smtpfrom, $smtpfromname);
+	
+							$phpmailer -> Sender = $this -> get_option('bounceemail');
+	
+							if (!empty($subscriber)) {
+								$to = $subscriber -> email;
+							} elseif (!empty($user)) {
+								$to = $user -> user_email;
 							}
-
-							$sesmessage -> addCustomHeader("Precedence: bulk");
-							$sesmessage -> addCustomHeader("List-Unsubscribe: " . $this -> gen_unsubscribe_link($subscriber, $user, $theme_id, $history_id, false, true));
-
-							do_action('newsletters_mailapi_amazonses_beforesend', $sesmessage);
-
-							if (empty($ses)) {								
-								$ses = new SimpleEmailService($mailapi_amazonses_key, $mailapi_amazonses_secret, 'email.' . $mailapi_amazonses_region . '.amazonaws.com', false);
-								$ses -> setBulkMode(true);
-							}
-								
-							$result = $ses -> sendEmail($sesmessage, false, false);
-
-							if (!empty($result) && empty($result -> error)) {
-								$messageid = $result['MessageId'];
-								$sent = true;
-							} else {
-								global $mailerrors;
-							    $error = $result -> error['Error']['Message'];
-							    $this -> log_error($error);
-							    $mailerrors = $error;							    
-							    return false;
-							}
-
-							break;
-						case 'sendgrid'						:
-							require_once $this -> plugin_base() . DS . 'vendors' . DS . 'mailapis' . DS . 'sendgrid' . DS . 'sendgrid-php.php';
-							$sendgrid_apikey = $this -> get_option('mailapi_sendgrid_apikey');
-
-							$sendgrid = new SendGrid($sendgrid_apikey);
-
-							global $sendgridemail;
-							$sendgridemail    = new SendGrid\Email();
-
-							$sendgridemail -> addTo($to);
-							$sendgridemail -> setFrom($smtpfrom);
-							$sendgridemail -> setFromName($smtpfromname);
-							$sendgridemail -> setSubject(stripslashes($subject));
-
-							if (empty($newsletters_plaintext)) {								
-								$html = $this -> inlinestyles(apply_filters($this -> pre . '_send_body', stripslashes($message), $phpmailer, $history_id, 'sendgrid', $sendgridemail));
-								$sendgridemail -> setHtml($html);
-								$sendgridemail -> setText($altbody);
-							} else {
-								$sendgridemail -> setHtml(false);
-								$sendgridemail -> setText($altbody);
-							}
-
-							if (!empty($attachments) && $attachments != false) {
-								if (is_array($attachments)) {
-									foreach ($attachments as $attachment) {
-										$sendgridemail -> addAttachment($attachment['filename'], $attachment['title']);
-									}
-								} else {
-									$sendgridemail -> addAttachment($attachment['filename'], $attachment['title']);
-								}
-							}
-
-							do_action('newsletters_mailapi_sendgrid_beforesend', $sendgridemail);
-
+	
+							$phpmailer -> AddCustomHeader('Precedence', "bulk");
+							$phpmailer -> AddCustomHeader('List-Unsubscribe', $this -> gen_unsubscribe_link($subscriber, $user, $theme_id, $history_id, false, true));
+	
+							$phpmailer -> AddAddress($to);
+							$phpmailer -> AddReplyTo($smtpfrom, $smtpfromname);
+	
+							// Should the Reply-To header be different?
 							$replytodifferent = $this -> get_option('replytodifferent');
 							if (!empty($replytodifferent)) {
 								$smtpreply = $this -> get_option('smtpreply');
-								$sendgridemail -> setReplyTo($smtpreply);
+								$phpmailer -> AddReplyTo($smtpreply, $smtpfromname);
 							}
 							
-							$messageid = $this -> phpmailer_messageid();
-
-							$sendgridemail -> addHeader('Precedence', "bulk");
-							$sendgridemail -> addHeader('List-Unsubscribe', $this -> gen_unsubscribe_link($subscriber, $user, $theme_id, $history_id, false, true));
-							$sendgridemail -> addUniqueArg('MessageID', $messageid);
-
-							try {
-								$result = $sendgrid -> send($sendgridemail);								
-								$sent = true;
-							} catch(\SendGrid\Exception $e) {
-							    global $mailerrors;
-							    
-							    $this -> log_error($e -> getErrors());
-							    
-							    $errors = $e -> getErrors();
-							    $mailerrors = $errors[0];
-							    return false;
+							if (!empty($altbody) && $multimime == "Y") {
+								$phpmailer -> AltBody = $altbody;
 							}
-							break;
-						case 'mandrill'						:
-
-							$headers['Precedence'] = "bulk";
-							$headers['List-Unsubscribe'] = $this -> gen_unsubscribe_link($subscriber, $user, $theme_id, $history_id, false, true);
-
-							$mailpriority = $this -> get_option('mailpriority');
-
-							try {
-								require_once($this -> plugin_base() . DS . 'vendors' . DS . 'mailapis' . DS . 'mandrill' . DS . 'Mandrill.php');
-								$mailapi_mandrill_key = $this -> get_option('mailapi_mandrill_key');
-							    $mandrill = new Mandrill($mailapi_mandrill_key);
-
-							    global $mandrillmessage;
-
-							    $mandrillmessage = array(
-							        'html' => ((empty($newsletters_plaintext)) ? $this -> inlinestyles(apply_filters($this -> pre . '_send_body', stripslashes($message), $phpmailer, $history_id, 'mandrill', $mandrill)) : null),
-							        'text' => $altbody,
-							        'subject' => stripslashes($subject),
-							        'from_email' => $smtpfrom,
-							        'from_name' => $smtpfromname,
-							        'to' => array(
-							            array(
-							                'email' => $to,
-							                //'name' => 'Recipient Name',
-							                'type' => 'to'
-							            )
-							        ),
-							        'headers' => $headers,
-							        'important' => ((!empty($mailpriority) && $mailpriority == 1) ? true : false),
-							        'track_opens' => null,
-							        'track_clicks' => null,
-							        'auto_text' => null,
-							        'auto_html' => null,
-							        'inline_css' => null,
-							        'url_strip_qs' => null,
-							        'preserve_recipients' => null,
-							        'view_content_link' => null,
-							        //'bcc_address' => 'message.bcc_address@example.com',
-							        'tracking_domain' => null,
-							        'signing_domain' => null,
-							        'return_path_domain' => null,
-							        //'merge' => true,
-							        //'merge_language' => 'mailchimp',
-							        /*'global_merge_vars' => array(
-							            array(
-							                'name' => 'merge1',
-							                'content' => 'merge1 content'
-							            )
-							        ),
-							        'merge_vars' => array(
-							            array(
-							                'rcpt' => 'recipient.email@example.com',
-							                'vars' => array(
-							                    array(
-							                        'name' => 'merge2',
-							                        'content' => 'merge2 content'
-							                    )
-							                )
-							            )
-							        ),
-							        'tags' => array('password-resets'),*/
-							        //'subaccount' => ,
-							        /*'google_analytics_domains' => array('example.com'),
-							        'google_analytics_campaign' => 'message.from_email@example.com',
-							        'metadata' => array('website' => 'www.example.com'),
-							        'recipient_metadata' => array(
-							            array(
-							                'rcpt' => 'recipient.email@example.com',
-							                'values' => array('user_id' => 123456)
-							            )
-							        ),
-							        'attachments' => array(
-							            array(
-							                'type' => 'text/plain',
-							                'name' => 'myfile.txt',
-							                'content' => 'ZXhhbXBsZSBmaWxl'
-							            )
-							        ),
-							        'images' => array(
-							            array(
-							                'type' => 'image/png',
-							                'name' => 'IMAGECID',
-							                'content' => 'ZXhhbXBsZSBmaWxl'
-							            )
-							        )*/
-							    );
-
-							    $mandrillmessage = apply_filters('newsletters_mailapi_mandrill_messagearray', $mandrillmessage);
-
-							    $subaccount = $this -> get_option('mailapi_mandrill_subaccount');
-							    if (!empty($subaccount)) {
-								    $mandrillmessage['subaccount'] = $subaccount;
-							    }
-
-							    if (!empty($attachments) && $attachments != false) {
-								    $mandrillmessage['attachments'] = array();
-
-									if (is_array($attachments)) {
+	
+							if (!empty($newsletters_plaintext)) {
+								$phpmailer -> ContentType = "text/plain";
+								$phpmailer -> IsHTML(false);
+								$message = strip_tags($message);
+								$phpmailer -> AltBody = false;
+							} else {
+								$phpmailer -> ContentType = "text/html";
+								$phpmailer -> IsHTML(true);
+							}
+	
+							$phpmailer -> Subject = stripslashes($subject);
+							$phpmailer -> Body = $this -> inlinestyles(apply_filters($this -> pre . '_send_body', stripslashes($message), $phpmailer, $history_id));
+	
+							if (!empty($mailpriority) && $mailpriority != 3) {
+								$phpmailer -> Priority = $mailpriority; //set the email priority
+							}
+							$phpmailer -> WordWrap = 0;
+							$phpmailer -> Encoding = $this -> get_option('emailencoding');
+							$phpmailer -> MessageID = $this -> phpmailer_messageid();
+	
+							global $newsletters_presend, $newsletters_emailraw;
+							if (!empty($newsletters_presend) && $newsletters_presend == true) {
+								$phpmailer -> addCustomHeader('Received', 'by testing');
+								$phpmailer -> PreSend();
+								$emailraw = $phpmailer -> getSentMIMEMessage();
+								$newsletters_emailraw = $emailraw;
+								return $emailraw;
+							}
+	
+							if ($phpmailer -> Send()) {
+								$sent = true;
+								$messageid = $phpmailer -> MessageID;
+							} else {
+								global $mailerrors;
+								$mailerrors = $phpmailer -> ErrorInfo;
+								return false;
+							}
+						} catch (phpmailerException $e) {
+						    $mailerrors = $e -> errorMessage(); //Pretty error messages from PHPMailer
+						} catch (Exception $e) {
+						    $mailerrors = $e -> getMessage(); //Boring error messages from anything else!
+						}
+					} elseif ($mailtype == "api") {
+						$mailapi = $this -> get_option('mailapi');
+	
+						$data = array(
+							'api'			=>	$mailapi,
+							'to'			=>	$to,
+							'from'			=>	$smtpfrom,
+							'fromname'		=>	$smtpfromname,
+							'replyto'		=>	$smtpreply,
+							'subject'		=>	$subject,
+							'html'			=>	$message,
+							'text'			=>	$altbody,
+							'attachments'	=>	$attachments,
+							'mailpriority'	=>	$mailpriority,
+						);
+	
+						do_action('newsletters_sendmail_api', $data);
+	
+						switch ($mailapi) {
+							case 'sparkpost'					:
+								require($this -> plugin_base() . DS . 'vendor' . DS . 'autoload.php');
+								
+								$sparkpost_apikey = $this -> get_option('mailapi_sparkpost_apikey');
+								
+								$client = new GuzzleHttp\Client();
+								$httpClient = new Http\Adapter\Guzzle6\Client($client);
+								$sparky = new SparkPost\SparkPost($httpClient, array('key' => $sparkpost_apikey));
+															
+								try {
+									$replytodifferent = $this -> get_option('replytodifferent');
+									if (!empty($replytodifferent)) {
+										$smtpreply = $this -> get_option('smtpreply');
+									} else {
+										$smtpreply = $smtpfrom;
+									}
+									
+									$headers = array();
+									$headers['Precedence'] = "bulk";
+									$headers['List-Unsubscribe'] = $this -> gen_unsubscribe_link($subscriber, $user, $theme_id, $history_id, false, true);
+									
+									$sparkpost_data = array(
+										'content'				=>	array(
+											'from'					=>	array(
+												'name'					=>	$smtpfromname,
+												'email'					=>	$smtpfrom,
+											),
+											'reply_to'				=> 	$smtpreply,
+											'headers'				=>	$headers,
+											'subject'				=>	stripslashes($subject),
+											'html'					=>	((empty($newsletters_plaintext)) ? $this -> inlinestyles(apply_filters($this -> pre . '_send_body', stripslashes($message), $phpmailer, $history_id, 'amazonses', $sesmessage)) : null),
+											//'text'					=>	$altbody,
+										),
+										'recipients'			=>	array(
+											array(
+												'address'			=>	array(
+													'email'				=>	$to,
+												),
+											)
+										),
+									);
+									
+									if (!empty($altbody)) {
+										$sparkpost_data['content']['text'] = $altbody;
+									}
+									
+									if (!empty($attachments)) {
+										$sparkpost_data['content']['attachments'] = array();
 										foreach ($attachments as $attachment) {
 											$filetype = wp_check_filetype($attachment['filename']);
-
+											
+											$sparkpost_data['content']['attachments'][] = array(
+												'type'			=>	$filetype['type'],
+												'name'			=>	$attachment['title'],
+												'data'			=>	base64_encode(file_get_contents($attachment['filename'])),
+											);
+										}
+									}
+									
+									$messageid = $this -> phpmailer_messageid();
+									
+									$sparkpost_data['metadata'] = array(
+										'messageid'				=>	$messageid,
+									);
+									
+									$sparkpost_data = apply_filters('newsletters_mailapi_sparkpost_data', $sparkpost_data);
+									
+									$promise = $sparky -> transmissions -> post($sparkpost_data);
+									
+									$response = $promise -> wait();
+									$statuscode = $response -> getStatusCode();
+									
+									if (!empty($statuscode) && $statuscode < 400) {
+										$responsebody = $response -> getBody();								
+										$sent = true;	
+									} else {
+										global $mailerrors;
+										$mailerrors = sprintf(__('%s status code received', 'wp-mailinglist'), $statuscode);
+										return false;
+									}
+								} catch (Exception $e) {
+									global $mailerrors;
+									$errors = $e -> getMessage();	
+									$errors = json_decode($errors);
+									$error = $errors -> errors[0];
+									$mailerrors = $error -> code . ': ' . $error -> message . ' (' . $error -> description . ')';			
+									$this -> log_error($mailerrors);
+									return false;
+								}					
+								break;
+							case 'mailgun'						:
+								require($this -> plugin_base() . DS . 'vendor' . DS . 'autoload.php');
+	
+								$mailgun_apikey = $this -> get_option('mailapi_mailgun_apikey');
+								$mailgun_domain = $this -> get_option('mailapi_mailgun_domain');
+	
+								$mg = new Mailgun\Mailgun($mailgun_apikey);
+	
+								try {
+	
+									$data = array(
+										'from'				=>	$smtpfromname . '<' . $smtpfrom . '>',
+										'to'				=>	$to,
+										'subject'			=>	stripslashes($subject),
+										'text'				=>	$altbody,
+										'html'				=>	((empty($newsletters_plaintext)) ? $this -> inlinestyles(apply_filters($this -> pre . '_send_body', stripslashes($message), $phpmailer, $history_id, 'mailgun', $mg)) : null),
+										'attachment'		=>	array(),
+									);
+	
+									$data['h:Precedence'] = "bulk";
+									$data['h:List-Unsubscribe'] = $this -> gen_unsubscribe_link($subscriber, $user, $theme_id, $history_id, false, true);
+	
+									$files = array();
+	
+									if (!empty($attachments) && $attachments != false) {
+										if (is_array($attachments)) {
+											foreach ($attachments as $attachment) {
+												$files['attachment'][] = $attachment['filename'];
+											}
+										} else {
+											$files['attachment'][] = $attachment['filename'];
+										}
+									}
+									
+									$messageid = $this -> phpmailer_messageid();
+									$data['v:my-custom-data'] = json_encode(array('MessageID' => $messageid));
+	
+									$data = apply_filters('newsletters_mailapi_mailgun_data', $data);
+									$files = apply_filters('newsletters_mailapi_mailgun_files', $files);
+	
+									$result = $mg -> sendMessage($mailgun_domain, $data, $files);
+	
+									$sent = true;
+								} catch (Exception $e) {
+									global $mailerrors;
+									$mailerrors = $e -> getMessage();								
+									return false;
+								}
+								break;
+							case 'mailjet'						:
+	
+								break;
+							case 'amazonses'					:
+	
+								$mailapi_amazonses_key = $this -> get_option('mailapi_amazonses_key');
+								$mailapi_amazonses_secret = $this -> get_option('mailapi_amazonses_secret');
+								$mailapi_amazonses_region = $this -> get_option('mailapi_amazonses_region');
+	
+								require_once($this -> plugin_base() . DS . 'vendors' . DS . 'amazonses' . DS . 'SimpleEmailService.php');
+	
+								global $sesmessage, $ses;
+								$sesmessage = new SimpleEmailServiceMessage();
+								$sesmessage -> addTo($to);
+								$sesmessage -> setFrom($smtpfromname . '<' . $smtpfrom . '>');
+								$sesmessage -> setSubject(stripslashes($subject));
+								$htmlbody = ((empty($newsletters_plaintext)) ? $this -> inlinestyles(apply_filters($this -> pre . '_send_body', stripslashes($message), $phpmailer, $history_id, 'amazonses', $sesmessage)) : null);
+								$sesmessage -> setMessageFromString($altbody, $htmlbody);
+	
+								if (!empty($attachments) && $attachments != false) {
+									if (is_array($attachments)) {
+										foreach ($attachments as $attachment) {
+											$sesmessage -> addAttachmentFromFile($attachment['title'], $attachment['filename']);
+										}
+									} else {
+										$sesmessage -> addAttachmentFromFile($attachment['title'], $attachment['filename']);
+									}
+								}
+	
+								$sesmessage -> addCustomHeader("Precedence: bulk");
+								$sesmessage -> addCustomHeader("List-Unsubscribe: " . $this -> gen_unsubscribe_link($subscriber, $user, $theme_id, $history_id, false, true));
+	
+								do_action('newsletters_mailapi_amazonses_beforesend', $sesmessage);
+	
+								if (empty($ses)) {								
+									$ses = new SimpleEmailService($mailapi_amazonses_key, $mailapi_amazonses_secret, 'email.' . $mailapi_amazonses_region . '.amazonaws.com', false);
+									$ses -> setBulkMode(true);
+								}
+									
+								$result = $ses -> sendEmail($sesmessage, false, false);
+	
+								if (!empty($result) && empty($result -> error)) {
+									$messageid = $result['MessageId'];
+									$sent = true;
+								} else {
+									global $mailerrors;
+								    $error = $result -> error['Error']['Message'];
+								    $this -> log_error($error);
+								    $mailerrors = $error;							    
+								    return false;
+								}
+	
+								break;
+							case 'sendgrid'						:
+								require_once $this -> plugin_base() . DS . 'vendors' . DS . 'mailapis' . DS . 'sendgrid' . DS . 'sendgrid-php.php';
+								$sendgrid_apikey = $this -> get_option('mailapi_sendgrid_apikey');
+	
+								$sendgrid = new SendGrid($sendgrid_apikey);
+	
+								global $sendgridemail;
+								$sendgridemail    = new SendGrid\Email();
+	
+								$sendgridemail -> addTo($to);
+								$sendgridemail -> setFrom($smtpfrom);
+								$sendgridemail -> setFromName($smtpfromname);
+								$sendgridemail -> setSubject(stripslashes($subject));
+	
+								if (empty($newsletters_plaintext)) {								
+									$html = $this -> inlinestyles(apply_filters($this -> pre . '_send_body', stripslashes($message), $phpmailer, $history_id, 'sendgrid', $sendgridemail));
+									$sendgridemail -> setHtml($html);
+									$sendgridemail -> setText($altbody);
+								} else {
+									$sendgridemail -> setHtml(false);
+									$sendgridemail -> setText($altbody);
+								}
+	
+								if (!empty($attachments) && $attachments != false) {
+									if (is_array($attachments)) {
+										foreach ($attachments as $attachment) {
+											$sendgridemail -> addAttachment($attachment['filename'], $attachment['title']);
+										}
+									} else {
+										$sendgridemail -> addAttachment($attachment['filename'], $attachment['title']);
+									}
+								}
+	
+								do_action('newsletters_mailapi_sendgrid_beforesend', $sendgridemail);
+	
+								$replytodifferent = $this -> get_option('replytodifferent');
+								if (!empty($replytodifferent)) {
+									$smtpreply = $this -> get_option('smtpreply');
+									$sendgridemail -> setReplyTo($smtpreply);
+								}
+								
+								$messageid = $this -> phpmailer_messageid();
+	
+								$sendgridemail -> addHeader('Precedence', "bulk");
+								$sendgridemail -> addHeader('List-Unsubscribe', $this -> gen_unsubscribe_link($subscriber, $user, $theme_id, $history_id, false, true));
+								$sendgridemail -> addUniqueArg('MessageID', $messageid);
+	
+								try {
+									$result = $sendgrid -> send($sendgridemail);								
+									$sent = true;
+								} catch(\SendGrid\Exception $e) {
+								    global $mailerrors;
+								    
+								    $this -> log_error($e -> getErrors());
+								    
+								    $errors = $e -> getErrors();
+								    $mailerrors = $errors[0];
+								    return false;
+								}
+								break;
+							case 'mandrill'						:
+	
+								$headers['Precedence'] = "bulk";
+								$headers['List-Unsubscribe'] = $this -> gen_unsubscribe_link($subscriber, $user, $theme_id, $history_id, false, true);
+	
+								$mailpriority = $this -> get_option('mailpriority');
+	
+								try {
+									require_once($this -> plugin_base() . DS . 'vendors' . DS . 'mailapis' . DS . 'mandrill' . DS . 'Mandrill.php');
+									$mailapi_mandrill_key = $this -> get_option('mailapi_mandrill_key');
+								    $mandrill = new Mandrill($mailapi_mandrill_key);
+	
+								    global $mandrillmessage;
+	
+								    $mandrillmessage = array(
+								        'html' => ((empty($newsletters_plaintext)) ? $this -> inlinestyles(apply_filters($this -> pre . '_send_body', stripslashes($message), $phpmailer, $history_id, 'mandrill', $mandrill)) : null),
+								        'text' => $altbody,
+								        'subject' => stripslashes($subject),
+								        'from_email' => $smtpfrom,
+								        'from_name' => $smtpfromname,
+								        'to' => array(
+								            array(
+								                'email' => $to,
+								                //'name' => 'Recipient Name',
+								                'type' => 'to'
+								            )
+								        ),
+								        'headers' => $headers,
+								        'important' => ((!empty($mailpriority) && $mailpriority == 1) ? true : false),
+								        'track_opens' => null,
+								        'track_clicks' => null,
+								        'auto_text' => null,
+								        'auto_html' => null,
+								        'inline_css' => null,
+								        'url_strip_qs' => null,
+								        'preserve_recipients' => null,
+								        'view_content_link' => null,
+								        //'bcc_address' => 'message.bcc_address@example.com',
+								        'tracking_domain' => null,
+								        'signing_domain' => null,
+								        'return_path_domain' => null,
+								        //'merge' => true,
+								        //'merge_language' => 'mailchimp',
+								        /*'global_merge_vars' => array(
+								            array(
+								                'name' => 'merge1',
+								                'content' => 'merge1 content'
+								            )
+								        ),
+								        'merge_vars' => array(
+								            array(
+								                'rcpt' => 'recipient.email@example.com',
+								                'vars' => array(
+								                    array(
+								                        'name' => 'merge2',
+								                        'content' => 'merge2 content'
+								                    )
+								                )
+								            )
+								        ),
+								        'tags' => array('password-resets'),*/
+								        //'subaccount' => ,
+								        /*'google_analytics_domains' => array('example.com'),
+								        'google_analytics_campaign' => 'message.from_email@example.com',
+								        'metadata' => array('website' => 'www.example.com'),
+								        'recipient_metadata' => array(
+								            array(
+								                'rcpt' => 'recipient.email@example.com',
+								                'values' => array('user_id' => 123456)
+								            )
+								        ),
+								        'attachments' => array(
+								            array(
+								                'type' => 'text/plain',
+								                'name' => 'myfile.txt',
+								                'content' => 'ZXhhbXBsZSBmaWxl'
+								            )
+								        ),
+								        'images' => array(
+								            array(
+								                'type' => 'image/png',
+								                'name' => 'IMAGECID',
+								                'content' => 'ZXhhbXBsZSBmaWxl'
+								            )
+								        )*/
+								    );
+	
+								    $mandrillmessage = apply_filters('newsletters_mailapi_mandrill_messagearray', $mandrillmessage);
+	
+								    $subaccount = $this -> get_option('mailapi_mandrill_subaccount');
+								    if (!empty($subaccount)) {
+									    $mandrillmessage['subaccount'] = $subaccount;
+								    }
+	
+								    if (!empty($attachments) && $attachments != false) {
+									    $mandrillmessage['attachments'] = array();
+	
+										if (is_array($attachments)) {
+											foreach ($attachments as $attachment) {
+												$filetype = wp_check_filetype($attachment['filename']);
+	
+												$mandrillmessage['attachments'][] = array(
+													'type'				=>	$filetype['type'],
+													'name'				=>	$attachment['title'],
+													'content'			=>	base64_encode(file_get_contents($attachment['filename'])),
+												);
+											}
+										} else {
+											$filetype = wp_check_filetype($attachment['filename']);
+	
 											$mandrillmessage['attachments'][] = array(
 												'type'				=>	$filetype['type'],
 												'name'				=>	$attachment['title'],
 												'content'			=>	base64_encode(file_get_contents($attachment['filename'])),
 											);
 										}
-									} else {
-										$filetype = wp_check_filetype($attachment['filename']);
-
-										$mandrillmessage['attachments'][] = array(
-											'type'				=>	$filetype['type'],
-											'name'				=>	$attachment['title'],
-											'content'			=>	base64_encode(file_get_contents($attachment['filename'])),
-										);
 									}
+	
+									/*$mandrillmessage['headers'] = array(
+										'Content-Type'				=>	"text/plain",
+									);*/
+	
+								    $async = true;
+								    //$ip_pool = 'Main Pool';
+								    $ip_pool = $this -> get_option('mailapi_mandrill_ippool');
+								    //$send_at = 'example send_at';
+								    $send_at = null;
+								    $result = $mandrill -> messages -> send($mandrillmessage, $async, $ip_pool, $send_at);
+	
+	
+								    if (!empty($result[0]['status']) && ($result[0]['status'] == "sent" || $result[0]['status'] == "queued")) {
+								    	$sent = true;
+								    }
+	
+								    /*
+								    Array
+								    (
+								        [0] => Array
+								            (
+								                [email] => recipient.email@example.com
+								                [status] => sent
+								                [reject_reason] => hard-bounce
+								                [_id] => abc123abc123abc123abc123abc123
+								            )
+	
+								    )
+								    */
+								} catch(Mandrill_Error $e) {
+								    // Mandrill errors are thrown as exceptions
+								    //echo 'A mandrill error occurred: ' . get_class($e) . ' - ' . $e->getMessage();
+								    // A mandrill error occurred: Mandrill_Unknown_Subaccount - No subaccount exists with the id 'customer-123'
+								    //throw $e;
+	
+								    global $mailerrors;
+								    $mailerrors = $e -> getMessage();
+								    return false;
 								}
-
-								/*$mandrillmessage['headers'] = array(
-									'Content-Type'				=>	"text/plain",
-								);*/
-
-							    $async = true;
-							    //$ip_pool = 'Main Pool';
-							    $ip_pool = $this -> get_option('mailapi_mandrill_ippool');
-							    //$send_at = 'example send_at';
-							    $send_at = null;
-							    $result = $mandrill -> messages -> send($mandrillmessage, $async, $ip_pool, $send_at);
-
-
-							    if (!empty($result[0]['status']) && ($result[0]['status'] == "sent" || $result[0]['status'] == "queued")) {
-							    	$sent = true;
-							    }
-
-							    /*
-							    Array
-							    (
-							        [0] => Array
-							            (
-							                [email] => recipient.email@example.com
-							                [status] => sent
-							                [reject_reason] => hard-bounce
-							                [_id] => abc123abc123abc123abc123abc123
-							            )
-
-							    )
-							    */
-							} catch(Mandrill_Error $e) {
-							    // Mandrill errors are thrown as exceptions
-							    //echo 'A mandrill error occurred: ' . get_class($e) . ' - ' . $e->getMessage();
-							    // A mandrill error occurred: Mandrill_Unknown_Subaccount - No subaccount exists with the id 'customer-123'
-							    //throw $e;
-
-							    global $mailerrors;
-							    $mailerrors = $e -> getMessage();
-							    return false;
-							}
-							break;
-					}
-				} else {
-					if (!empty($subscriber)) {
-						$to = $subscriber -> email;
-					} elseif (!empty($user)) {
-						$to = $user -> user_email;
-					}
-
-					$content_type = (!empty($newsletters_plaintext)) ? 'text/plain' : 'text/html';
-
-					$subject = stripslashes($subject);
-					$message = stripslashes($message);
-					$headers = '';
-					$headers .= 'Content-Type: ' . $content_type . '; charset="UTF-8"' . "\r\n";
-					$headers .= 'From: ' . $smtpfromname . ' <' . $smtpfrom . '>' . "\r\n";
-
-					$atts = array();
-					if (!empty($attachments) && is_array($attachments)) {
-						foreach ($attachments as $attachment) {
-							$atts[] = $attachment['filename'];
+								break;
 						}
-					}
-
-					global $wpml_message, $wpmlhistory_id;
-					$wpml_message = $message;
-					$wpmlhistory_id = $history_id;
-
-					if ($result = wp_mail($to, $subject, $message, $headers, $atts)) {
-						$sent = true;
-						$messageid = $phpmailer -> MessageID;
 					} else {
-						global $mailerrors, $phpmailer;
-						$mailerrors = $phpmailer -> ErrorInfo;
-
-						return false;
+						if (!empty($subscriber)) {
+							$to = $subscriber -> email;
+						} elseif (!empty($user)) {
+							$to = $user -> user_email;
+						}
+	
+						$content_type = (!empty($newsletters_plaintext)) ? 'text/plain' : 'text/html';
+	
+						$subject = stripslashes($subject);
+						$message = stripslashes($message);
+						$headers = '';
+						$headers .= 'Content-Type: ' . $content_type . '; charset="UTF-8"' . "\r\n";
+						$headers .= 'From: ' . $smtpfromname . ' <' . $smtpfrom . '>' . "\r\n";
+	
+						$atts = array();
+						if (!empty($attachments) && is_array($attachments)) {
+							foreach ($attachments as $attachment) {
+								$atts[] = $attachment['filename'];
+							}
+						}
+	
+						global $wpml_message, $wpmlhistory_id;
+						$wpml_message = $message;
+						$wpmlhistory_id = $history_id;
+	
+						if ($result = wp_mail($to, $subject, $message, $headers, $atts)) {
+							$sent = true;
+							$messageid = $phpmailer -> MessageID;
+						} else {
+							global $mailerrors, $phpmailer;
+							$mailerrors = $phpmailer -> ErrorInfo;
+	
+							return false;
+						}
 					}
 				}
 
@@ -8353,6 +8735,13 @@ if (!class_exists('wpMailPlugin')) {
 					$includeonly = (empty($history_lists)) ? $subscriber -> mailinglists : $history_lists;
 					$subscriber_lists = maybe_unserialize($Subscriber -> mailinglists($subscriber -> id, $includeonly, false, false));
 					$e_mailinglists = (empty($subscriber_lists)) ? $history_lists : $subscriber_lists;
+					
+					$owner_id = 0;
+					$owner_role = '';
+					if (!empty($history -> user_id) && $current_user = get_userdata($history -> user_id)) {
+						$owner_id = $current_user -> ID;
+						$owner_role = $current_user -> roles[0];
+					}
 
 					$e_data = array(
 						'eunique'				=>	$eunique,
@@ -8361,6 +8750,8 @@ if (!class_exists('wpMailPlugin')) {
 						'mailinglist_id'		=>	(!empty($subscriber -> mailinglist_id) ? $subscriber -> mailinglist_id : ''),
 						'mailinglists'			=>	maybe_serialize($e_mailinglists),
 						'history_id'			=>	$history_id,
+						'owner_id'				=>	$owner_id,
+						'owner_role'			=>	$owner_role,
 						'type'					=>	$emailtype,
 						'read'					=>	"N",
 						'status'				=>	"sent",
@@ -8493,7 +8884,7 @@ if (!class_exists('wpMailPlugin')) {
 				} else {
 					if (is_admin()) {
 						if (!$newsletters_managementpost_error) {
-							$error = sprintf(__('Newsletter plugin subscriber management post/page does not exist %s', 'wp-mailinglist'), '<a href="' . admin_url('admin.php') . '?page=' . $this -> sections -> settings . '&method=managementpost" class="button button-secondary button-small">' . __('please create it now', 'wp-mailinglist') . '</a>');
+							$error = sprintf(__('Newsletter plugin subscriber management post/page does not exist %s', 'wp-mailinglist'), '<a href="' . wp_nonce_url(admin_url('admin.php?page=' . $this -> sections -> settings . '&method=managementpost'), $this -> sections -> settings . '_managementpost') . '" class="button button-secondary button-small">' . __('please create it now', 'wp-mailinglist') . '</a>');
 							$this -> render_error($error);
 							$newsletters_managementpost_error = true;
 						}
@@ -8584,6 +8975,22 @@ if (!class_exists('wpMailPlugin')) {
 
 			return false;
 		}
+		
+		function ajax_perpage() {
+			define('DOING_AJAX', true);
+			define('SHORTINIT', true);
+			
+			$option = esc_html($_POST['option']);
+			$perpage = esc_html($_POST['perpage']);
+			
+			if (!empty($option) && !empty($perpage)) {
+				$user_id = get_current_user_id();
+				update_user_meta($user_id, $option, $perpage);
+			}
+			
+			exit();
+			die();
+		}
 
 		function ajax_latestposts_settings() {
 			define('DOING_AJAX', true);
@@ -8605,6 +9012,29 @@ if (!class_exists('wpMailPlugin')) {
 					echo 'success';
 				}
 			}
+
+			exit();
+			die();
+		}
+		
+		function ajax_latestposts_clearhistory() {
+			define('DOING_AJAX', true);
+			define('SHORTINIT', true);
+			
+			$success = false;
+
+			$id = esc_html($_POST['id']);
+			if (!empty($id)) {
+				if ($this -> Latestpost() -> delete_all(array('lps_id' => $id))) {
+					$success = true;
+				} else {
+					$success = false;
+				}
+			} else {
+				$success = false;
+			}
+			
+			echo json_encode(array('success' => $success));
 
 			exit();
 			die();
@@ -8692,6 +9122,7 @@ if (!class_exists('wpMailPlugin')) {
 			$success = false;
 
 			if (!empty($_POST)) {
+				check_ajax_referer('newsletters_latestposts_save');
 				$ajax = true;
 
 				foreach ($_POST as $pkey => $pval) {
@@ -9272,7 +9703,17 @@ if (!class_exists('wpMailPlugin')) {
 					$loadscripts[] = 'recaptcha';
 					$this -> update_option('loadscripts', $loadscripts);
 					
+					global $wpdb, $Theme;
+					$query = "ALTER TABLE `" . $wpdb -> prefix . $Theme -> table . "` CHANGE `type` `type` ENUM('upload','paste','builder') NOT NULL DEFAULT 'paste';";
+					$wpdb -> query($query);
+					
 					$version = '4.6.6.2';
+				}
+				
+				if (version_compare($cur_version, "4.6.7") < 0) {
+					$this -> update_options();
+					
+					$version = '4.6.7';	
 				}
 
 				//the current version is older.
@@ -9822,7 +10263,7 @@ if (!class_exists('wpMailPlugin')) {
 					$ssl = (empty($bouncepop_prot)) ? false : (($bouncepop_prot == "ssl") ? true : false);
 					
 					try {
-						$mailbox = new PhpImap\Mailbox('{' . $host . ':' . $port . '/' . $type . ((!empty($ssl)) ? '/ssl' : '') . '/novalidate-cert}INBOX', $user, $pass, __DIR__);
+						$mailbox = new PhpImap\Mailbox('{' . $host . ':' . $port . '/' . $type . ((!empty($ssl)) ? '/ssl' : '') . '/novalidate-cert}INBOX', $user, $pass, false);
 						
 						try {							
 							$mailids = $mailbox -> searchMailbox('ALL');
@@ -9898,7 +10339,6 @@ if (!class_exists('wpMailPlugin')) {
 								}
 								
 								$mailbox -> expungeDeletedMails();
-								$mailbox -> disconnect();
 
 								return array($deleted_subscribers, $deleted_emails);								
 							} else {
@@ -10033,7 +10473,11 @@ if (!class_exists('wpMailPlugin')) {
 
 		function redirect($location = null, $msgtype = null, $message = null, $jsredirect = false) {
 			global $Html;
-			$url = $location;
+			if (empty($location)) {
+				$url = remove_query_arg(array('action', 'action2', '_wpnonce', '_wp_http_referer'), wp_get_referer());				
+			} else {
+				$url = $location;
+			}
 
 			if (!empty($msgtype)) {
 				if (is_admin()) {
@@ -10179,7 +10623,7 @@ if (!class_exists('wpMailPlugin')) {
 		}
 
 		function render($file = null, $params = array(), $output = true, $folder = 'default', $extension = null) {
-			$this -> plugin_name = basename(dirname(__FILE__));
+			$this -> plugin_name = basename(NEWSLETTERS_DIR);
 			$this -> sections = apply_filters('newsletters_sections', (object) $this -> sections);
 
 			if (!empty($file)) {
@@ -10312,7 +10756,7 @@ if (!class_exists('wpMailPlugin')) {
 		}
 
 		function render_url($file = null, $folder = 'admin', $extension = null) {
-			$this -> plugin_name = basename(dirname(__FILE__));
+			$this -> plugin_name = basename(NEWSLETTERS_DIR);
 			$folderurl = plugins_url() . '/' . $this -> plugin_name . '/';
 
 			if (!empty($file)) {
@@ -10381,7 +10825,7 @@ if (!class_exists('wpMailPlugin')) {
 				if (preg_match("/^http\:\/\//si", $url) || preg_match("/^https\:\/\//si", $url)) {
 					$login = $this -> get_option('shortlinkLogin');
 					$appkey = $this -> get_option('shortlinkAPI');
-					$bitly = 'http://api.bit.ly/v3/shorten?longUrl=' . urlencode($url) . '&login=' . $login . '&apiKey=' . $appkey . '&format=' . $format;
+					$bitly = 'https://api.bit.ly/v3/shorten?longUrl=' . urlencode($url) . '&login=' . $login . '&apiKey=' . $appkey . '&format=' . $format;
 					$bitly = apply_filters('newsletters_bitly_url', $bitly);
 
 					$result = wp_remote_get($bitly, array('timeout' => 120));
@@ -10439,7 +10883,7 @@ if (!class_exists('wpMailPlugin')) {
 
 		function admin_footer_text($text = null) {
 			if (!empty($_GET['page']) && in_array($_GET['page'], (array) $this -> sections)) {
-				$plugin = '<a href="http://tribulant.com/plugins/view/1/wordpress-newsletter-plugin" target="_blank">Tribulant Newsletters</a>';
+				$plugin = '<a href="https://tribulant.com/plugins/view/1/wordpress-newsletter-plugin" target="_blank">Tribulant Newsletters</a>';
 
 				$stars = '<a href="https://wordpress.org/support/view/plugin-reviews/newsletters-lite?rate=5#postform" target="_blank"><span class="newsletters_footer_rating">
 		          <span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span>
@@ -10477,7 +10921,7 @@ if (!class_exists('wpMailPlugin')) {
 
 		function render_email($file = null, $params = array(), $output = false, $html = true, $renderht = true, $theme_id = 0, $shortlinks = true, $fullbody = false) {
 			global $newsletters_history_id, $newsletters_plaintext;
-			$this -> plugin_name = basename(dirname(__FILE__));
+			$this -> plugin_name = basename(NEWSLETTERS_DIR);
 
 			if (!empty($file) || !empty($fullbody)) {
 				$defaulttemplate = $this -> get_option('defaulttemplate');
@@ -10603,7 +11047,21 @@ if (!class_exists('wpMailPlugin')) {
 					global $Db, $Theme;
 					$Db -> model = $Theme -> model;
 					
-					if (!empty($theme_id) && $theme = $Db -> find(array('id' => $theme_id))) {
+					if (!empty($history -> builderon)) {	
+						$buildercontent = stripslashes($body);
+											
+						$body = '';
+						$body .= '<!doctype html>';
+						$body .= '<html lang="en">';
+						$body .= '<head>';
+						$body .= '<meta name="viewport" content="width=device-width" />';
+						$body .= '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />';
+						$body .= '</head>';
+						$body .= '<body>';
+						$body .= $buildercontent;
+						$body .= '</body>';
+						$body .= '</html>';
+					} elseif (!empty($theme_id) && $theme = $Db -> find(array('id' => $theme_id))) {
 						$theme_content = "";
 						ob_start();
 						echo stripslashes($theme -> content);
@@ -10818,6 +11276,9 @@ if (!class_exists('wpMailPlugin')) {
 							break;
 						case 'wpml'									:
 							$path = 'sitepress-multilingual-cms' . DS . 'sitepress.php';
+							break;
+						case 'polylang'								:
+							$path = 'polylang' . DS . 'polylang.php';
 							break;
 						case 'captcha'								:
 							$path = 'really-simple-captcha' . DS . 'really-simple-captcha.php';

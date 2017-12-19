@@ -16,12 +16,14 @@ $styling = maybe_unserialize($form -> styling);
 	<?php $this -> render('forms' . DS . 'navigation', array('form' => $form), true, 'admin'); ?>
 	
 	<form action="<?php echo admin_url('admin.php?page=' . $this -> sections -> forms . '&amp;method=settings&amp;id=' . $form -> id); ?>" method="post" id="post" name="post" enctype="multipart/form-data">
+		<?php wp_nonce_field($this -> sections -> forms . '_settings'); ?>
 		<input type="hidden" name="id" value="<?php echo esc_attr(stripslashes($form -> id)); ?>" />
 		
 		<div id="newsletters-forms-settings-tabs">
 			<ul>
 				<li><a href="#newsletters-forms-settings-tabs-general"><i class="fa fa-cogs"></i> <?php _e('General', 'wp-mailinglist'); ?></a></li>
 				<li><a href="#newsletters-forms-settings-tabs-confirmation"><i class="fa fa-check"></i> <?php _e('Confirmation', 'wp-mailinglist'); ?></a></li>
+				<li><a href="#newsletters-forms-settings-tabs-emails"><i class="fa fa-envelope-o"></i> <?php _e('Emails', 'wp-mailinglist'); ?></a></li>
 				<li><a href="#newsletters-forms-settings-tabs-styling"><i class="fa fa-paint-brush"></i> <?php _e('Styling', $tihs -> plugin_name); ?></a></li>
 				<?php /*<li><a href="#newsletters-forms-settings-tabs-notifications"><?php _e('Notifications', 'wp-mailinglist'); ?></a></li>*/ ?>
 			</ul>
@@ -93,7 +95,7 @@ $styling = maybe_unserialize($form -> styling);
 								<td>
 									<label><input <?php echo (!$this -> use_captcha()) ? 'disabled="disabled"' : ''; ?> <?php echo (!empty($form -> captcha) && $this -> use_captcha()) ? 'checked="checked"' : ''; ?> type="checkbox" name="captcha" value="1" id="captcha" /> <?php _e('Yes, enable security captcha', 'wp-mailinglist'); ?></label>
 									<?php if (!$this -> use_captcha()) : ?>
-										<div class="newsletters_error"><?php _e('Please configure a security captcha under Newsletters > Configuration > System > Captcha in order to use this.', 'wp-mailinglist'); ?></div>
+										<div class="newsletters_error"><?php echo sprintf(__('Please configure a security captcha under %s > Configuration > System > Captcha in order to use this.', 'wp-mailinglist'), $this -> name); ?></div>
 									<?php else : ?>
 										<div class="newsletters_success"><?php echo sprintf(__('Captcha is already setup, you can %s.', 'wp-mailinglist'), '<a href="' . admin_url('admin.php?page=' . $this -> sections -> settings_system) . '#captchadiv">' . __('configure it here', 'wp-mailinglist') . '</a>'); ?></div>
 									<?php endif; ?>
@@ -202,7 +204,7 @@ $styling = maybe_unserialize($form -> styling);
 											</ul>
 											<?php foreach ($languages as $language) : ?>
 												<div id="confirmation_redirect-tabs-<?php echo $language; ?>">
-													<input type="text" class="widefat" name="confirmation_redirect[<?php echo $language; ?>]" value="<?php echo esc_attr(stripslashes($this -> language_use($language, $form -> confirmation_redirect))); ?>" id="confirmation_redirect_<?php echo $language; ?>" placeholder="http://..." />
+													<input type="text" class="widefat" name="confirmation_redirect[<?php echo $language; ?>]" value="<?php echo esc_attr(stripslashes($this -> language_use($language, $form -> confirmation_redirect))); ?>" id="confirmation_redirect_<?php echo $language; ?>" placeholder="https://..." />
 												</div>
 											<?php endforeach; ?>
 										</div>
@@ -223,6 +225,15 @@ $styling = maybe_unserialize($form -> styling);
 						</tbody>
 					</table>
 				</div>
+			</div>
+			
+			<!-- Emails Settings -->
+			<div id="newsletters-forms-settings-tabs-emails">
+				<h2><i class="fa fa-envelope-o fa-fw"></i> <?php _e('Emails', 'wp-mailinglist'); ?></h2>
+				
+				<h3><?php _e('Confirmation/Activation Email', 'wp-mailinglist'); ?></h3>
+				<p class="howto"><?php _e('Leave blank to use system default', 'wp-mailinglist'); ?></p>
+				<?php $this -> render('forms' . DS . 'emails' . DS . 'confirm', array('form' => $form, 'languages' => $languages), true, 'admin'); ?>
 			</div>
 			
 			<!-- Styling Settings -->
@@ -464,10 +475,6 @@ $styling = maybe_unserialize($form -> styling);
 										
 									?>		
 								<?php endif; ?>
-								<?php /*<div id="styling_beforeform_editor">
-									
-								</div>
-								<textarea name="styling_beforeform" id="styling_beforeform" class="widefat" rows="5" cols="100%"><?php echo htmlspecialchars(stripslashes($form -> styling_beforeform)); ?></textarea>*/ ?>
 							</td>
 						</tr>
 						<tr>
@@ -528,10 +535,6 @@ $styling = maybe_unserialize($form -> styling);
 										
 									?>		
 								<?php endif; ?>
-								<?php /*<div id="styling_afterform_editor">
-									
-								</div>
-								<textarea name="styling_afterform" id="styling_afterform" class="widefat" rows="5" cols="100%"><?php echo htmlspecialchars(stripslashes($form -> styling_afterform)); ?></textarea>*/ ?>
 							</td>
 						</tr>
 					</tbody>
@@ -561,7 +564,7 @@ $styling = maybe_unserialize($form -> styling);
 		
 		<p class="submit">
 			<button value="1" type="submit" name="save" class="button button-primary">
-				<?php _e('Save Settings', 'wp-mailinglist'); ?>
+				<i class="fa fa-check fa-fw"></i> <?php _e('Save Settings', 'wp-mailinglist'); ?>
 			</button>
 		</p>
 	</form>
@@ -632,30 +635,6 @@ jQuery(document).ready(function() {
 	editor.getSession().on('change', function(){
 		textarea.val(editor.getSession().getValue());
 	});
-	
-	/*var styling_beforeform_editor = ace.edit('styling_beforeform_editor');
-	var styling_beforeform_textarea = jQuery('#styling_beforeform').hide();
-	styling_beforeform_editor.getSession().setValue(styling_beforeform_textarea.val());
-	styling_beforeform_editor.getSession().setMode('ace/mode/html');
-	styling_beforeform_editor.setOptions({
-		minLines: 4,
-		maxLines: Infinity
-	});
-	styling_beforeform_editor.getSession().on('change', function(){
-		styling_beforeform_textarea.val(styling_beforeform_editor.getSession().getValue());
-	});
-	
-	var styling_afterform_editor = ace.edit('styling_afterform_editor');
-	var styling_afterform_textarea = jQuery('#styling_afterform').hide();
-	styling_afterform_editor.getSession().setValue(styling_afterform_textarea.val());
-	styling_afterform_editor.getSession().setMode('ace/mode/html');
-	styling_afterform_editor.setOptions({
-		minLines: 4,
-		maxLines: Infinity
-	});
-	styling_afterform_editor.getSession().on('change', function(){
-		styling_afterform_textarea.val(styling_afterform_editor.getSession().getValue());
-	});*/
 	
 	jQuery('input:not(:button,:submit),textarea,select').change(function() {    		
         window.onbeforeunload = function () {

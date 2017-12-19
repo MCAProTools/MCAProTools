@@ -5,6 +5,7 @@
 	<div style="float:none;" class="subsubsub"><?php echo $Html -> link(__('&larr; Back to Links', 'wp-mailinglist'), admin_url("admin.php?page=" . $this -> sections -> links)); ?></div> 
 	
 	<form id="posts-filter" action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
+		<?php wp_nonce_field($this -> sections -> clicks . '_search'); ?>
     	<?php if (!empty($clicks)) : ?>
             <ul class="subsubsub">
                 <li><?php echo (empty($_GET['showall'])) ? $paginate -> allcount : count($clicks); ?> <?php _e('clicks', 'wp-mailinglist'); ?> |</li>

@@ -1,4 +1,5 @@
 <form onsubmit="if (!confirm('<?php _e('Are you sure you wish to execute this action on the selected forms?', 'wp-mailinglist'); ?>')) { return false; }" action="?page=<?php echo $this -> sections -> forms; ?>&amp;method=mass" method="post">
+	<?php wp_nonce_field($this -> sections -> forms . '_mass'); ?>
 	<div class="tablenav">
 		<div class="alignleft">
 			<select name="action" style="width:auto;">
@@ -87,6 +88,9 @@
 						</td>
 						<td>
 							<code>[newsletters_subscribe form=<?php echo $form -> id; ?>]</code>
+							<button type="button" class="button button-secondary button-small copy-button" data-clipboard-text="[newsletters_subscribe form=<?php echo $form -> id; ?>]">
+								<i class="fa fa-copy fa-fw"></i>
+							</button>
 							<div class="row-actions">
 								<span class="edit"><a href="<?php echo admin_url('admin.php?page=' . $this -> sections -> forms . '&method=codes&id=' . $form -> id); ?>"><?php _e('More embedding options', 'wp-mailinglist'); ?></a></span>
 							</div>

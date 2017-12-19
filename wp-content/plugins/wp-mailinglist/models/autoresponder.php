@@ -130,6 +130,6 @@ class wpmlAutoresponder extends wpmlDbHelper {
 }
 }
 
-include_once(dirname(__FILE__) . DS . 'newsletter.php');
+include_once(NEWSLETTERS_DIR . DS . 'models' . DS . 'newsletter.php');
 
 ?>

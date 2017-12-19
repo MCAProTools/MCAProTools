@@ -18,6 +18,8 @@ class wpmlEmail extends wpMailPlugin {
 		'mailinglist_id'		=>	"INT(11) NOT NULL DEFAULT '0'",
 		'mailinglists'			=>	"TEXT NOT NULL",
 		'history_id'			=>	"INT(11) NOT NULL DEFAULT '0'",
+		'owner_id'				=>	"INT(11) NOT NULL DEFAULT '0'",
+		'owner_role'			=>	"VARCHAR(100) NOT NULL DEFAULT ''",
 		'type'					=>	"VARCHAR(255) NOT NULL DEFAULT ''",
 		'read'					=>	"ENUM('Y','N') NOT NULL DEFAULT 'N'",
 		'read_date'				=>	"DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00'",
@@ -38,6 +40,8 @@ class wpmlEmail extends wpMailPlugin {
 		'mailinglist_id'		=>	array("INT(11)", "NOT NULL DEFAULT '0'"),
 		'mailinglists'			=>	array("TEXT", "NOT NULL"),
 		'history_id'			=>	array("INT(11)", "NOT NULL DEFAULT '0'"),
+		'owner_id'				=>	array("INT(11)", "NOT NULL DEFAULT '0'"),
+		'owner_role'			=>	array("VARCHAR(100)", "NOT NULL DEFAULT ''"),
 		'type'					=>	array("VARCHAR(255)", "NOT NULL DEFAULT ''"),
 		'read'					=>	array("ENUM('Y','N')", "NOT NULL DEFAULT 'N'"),
 		'read_date'				=>	array("DATETIME", "NOT NULL DEFAULT '0000-00-00 00:00:00'"),
@@ -108,7 +112,7 @@ class wpmlEmail extends wpMailPlugin {
 		global $wpdb;
 		
 		$paginate = new wpMailPaginate($wpdb -> prefix . $this -> table, "*", $sub, $sub);
-		$paginate -> per_page = $perpage;
+		$paginate -> perpage = $perpage;
 		$paginate -> where = $conditions;
 		$paginate -> order = $order;
 		$paginate -> after = $after;

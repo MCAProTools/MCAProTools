@@ -17,4 +17,21 @@
 			</div>
 		</div>
 	<?php endif; ?>
+	
+	<div style="float:right; margin:10px 5px;">
+		<button class="button" type="button" name="togglepostboxes" id="togglepostboxes" value="expand"><?php _e('Expand All', 'wp-checkout'); ?></button>
+	</div>
 </div>
+
+<script type="text/javascript">
+jQuery('#togglepostboxes').on('click', function(e) {
+	var button = e.target;
+	if (button.value == "collapse") {
+		jQuery('#normal-sortables div.postbox').addClass('closed');
+		jQuery(button).val('expand').text('<?php _e('Expand All', 'wp-checkout'); ?>');
+	} else {
+		jQuery('#normal-sortables div.postbox').removeClass('closed');
+		jQuery(button).val('collapse').text('<?php _e('Collapse All', 'wp-checkout'); ?>');
+	}
+});
+</script>

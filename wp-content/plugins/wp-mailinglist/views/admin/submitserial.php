@@ -2,18 +2,18 @@
 var newsletters_ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>?';
 </script>
 
-<h3><?php _e('Newsletters Serial Key', 'wp-mailinglist'); ?></h3>
+<h3><?php echo sprintf(__('%s Serial Key', 'wp-mailinglist'), $this -> name); ?></h3>
 
 <?php if (empty($success) || $success == false) : ?>
 	<?php if (!$this -> ci_serial_valid()) : ?>
         <p style="width:400px;">
-        	<?php _e('You are running Newsletters LITE.', 'wp-mailinglist'); ?>
+        	<?php echo sprintf(__('You are running %s LITE.', 'wp-mailinglist'), $this -> name); ?>
         	<?php echo sprintf(__('To remove limits, you can submit a serial key or %s.'), '<a href="' . admin_url('admin.php?page=' . $this -> sections -> lite_upgrade) . '">' . __('Upgrade to PRO', 'wp-mailinglist') . '</a>'); ?>
         </p>
         <p style="width:400px;">
 	        <?php _e('Please obtain a serial key from the downloads section in your Tribulant Software account.', 'wp-mailinglist'); ?>
 	        <?php _e('Once in the downloads section, click the KEY icon to request a serial key.', 'wp-mailinglist'); ?>
-	        <a href="http://tribulant.com/downloads/" title="Tribulant Software Downloads" target="_blank"><?php _e('Downloads Section', 'wp-mailinglist'); ?></a>
+	        <a href="https://tribulant.com/downloads/" title="Tribulant Software Downloads" target="_blank"><?php _e('Downloads Section', 'wp-mailinglist'); ?></a>
         </p>
     
         <div class="newsletters_error">
@@ -26,10 +26,10 @@ var newsletters_ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>?';
             </p>
             <p class="submit">
             	<input type="button" class="button-secondary" name="close" onclick="jQuery.colorbox.close();" value="<?php _e('Cancel', 'wp-mailinglist'); ?>" />
-            	<button value="1" type="submit" class="button-primary" name="submit">
-            		<?php _e('Submit Serial Key', 'wp-mailinglist'); ?>
+            	<button value="1" type="submit" class="button-primary" name="submit" id="newsletters_submitserial_button">
+            		<i class="fa fa-check fa-fw"></i> <?php _e('Submit Serial Key', 'wp-mailinglist'); ?>
+            		<span style="display:none;" id="wpml_submitserial_loading"><i class="fa fa-refresh fa-spin fa-fw"></i></span>
             	</button>
-            	<span style="display:none;" id="wpml_submitserial_loading"><i class="fa fa-refresh fa-spin fa-fw"></i></span>
             </p>
         </form>        
     <?php else : ?>
@@ -49,7 +49,7 @@ var newsletters_ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>?';
     <p><?php _e('The serial key is valid and you can now continue using the Newsletter plugin. Thank you for your business and support!', 'wp-mailinglist'); ?></p>
     <p>
 	    <button value="1" type="button" onclick="jQuery.colorbox.close(); parent.location = '<?php echo rtrim(get_admin_url(), '/'); ?>/admin.php?page=newsletters';" class="button-primary" name="close">
-			<?php _e('Apply Serial and Close Window', 'wp-mailinglist'); ?>
+			<i class="fa fa-check fa-fw"></i> <?php _e('Apply Serial and Close Window', 'wp-mailinglist'); ?>
 	    </button>
     </p>
 <?php endif; ?>

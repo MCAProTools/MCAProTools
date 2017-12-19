@@ -27,7 +27,7 @@ class wpmlpaginate extends wpMailPlugin {
 	 * Records to show per page
 	 *
 	 */
-	var $per_page = 10;
+	var $perpage = 10;
 	
 	var $order = array('modified', "DESC");
 	
@@ -83,6 +83,9 @@ class wpmlpaginate extends wpMailPlugin {
 			case 'SubscribersList'					:
 				$countvar = "rel_id";
 				break;
+			case 'Click'							:
+				$countvar = $clicks_table . '.id';
+				break;
 			default 								:
 				$countvar = "id";
 				break;
@@ -135,8 +138,10 @@ class wpmlpaginate extends wpMailPlugin {
 				}
 				break;
 			case 'Click'						:
-				//$query .= " LEFT JOIN " . $links_table . " ON " . $clicks_table . ".link_id = " . $links_table . ".id";
-				//$countquery .= " LEFT JOIN " . $links_table . " ON " . $clicks_table . ".link_id = " . $links_table . ".id";
+				$query = "SELECT DISTINCT " . $this -> table . ".* FROM `" . $this -> table . "`";
+				$countquery = "SELECT COUNT(DISTINCT " . $this -> table . ".id) FROM `" . $this -> table . "`";
+				$query .= " LEFT JOIN " . $links_table . " ON " . $clicks_table . ".link_id = " . $links_table . ".id";
+				$countquery .= " LEFT JOIN " . $links_table . " ON " . $clicks_table . ".link_id = " . $links_table . ".id";
 				break;
 			case 'SubscribersList'				:
 				$query .= " LEFT JOIN " . $wpdb -> prefix . $Subscriber -> table . " ON " . $wpdb -> prefix . $SubscribersList -> table . ".subscriber_id = " . $wpdb -> prefix . $Subscriber -> table . ".id";	
@@ -266,7 +271,7 @@ class wpmlpaginate extends wpMailPlugin {
 		$r = 1;
 		
 		if ($this -> page > 1) {
-			$begRecord = (($this -> page * $this -> per_page) - ($this -> per_page));
+			$begRecord = (($this -> page * $this -> perpage) - ($this -> perpage));
 		} else {
 			$begRecord = 0;
 		}
@@ -286,15 +291,15 @@ class wpmlpaginate extends wpMailPlugin {
 				break;
 		}
 			
-		$endRecord = $begRecord + $this -> per_page;
+		$endRecord = $begRecord + $this -> perpage;
 		list($ofield, $odir) = $this -> order;
 		
 		switch ($this -> model) {
 			case 'Email'					:
 				if ($ofield == $clicks_table . ".subscriber_id" && $odir == "DESC") {
-					$query .= " ORDER BY " . $ofield . " " . $odir . " LIMIT " . $begRecord . " , " . $this -> per_page . ";";
+					$query .= " ORDER BY " . $ofield . " " . $odir . " LIMIT " . $begRecord . " , " . $this -> perpage . ";";
 				} else {
-					$query .= " ORDER BY " . $ofield . " " . $odir . " LIMIT " . $begRecord . " , " . $this -> per_page . ";";
+					$query .= " ORDER BY " . $ofield . " " . $odir . " LIMIT " . $begRecord . " , " . $this -> perpage . ";";
 				}
 				
 				if ($ofield == $clicks_table . ".subscriber_id") {
@@ -306,28 +311,28 @@ class wpmlpaginate extends wpMailPlugin {
 			case 'Subscriber'				:			
 				switch ($ofield) {
 					case 'lists'				:
-						$query .= " ORDER BY " . $subscriberslists_table . ".list_id " . $odir . " LIMIT " . $begRecord . " , " . $this -> per_page . ";";
+						$query .= " ORDER BY " . $subscriberslists_table . ".list_id " . $odir . " LIMIT " . $begRecord . " , " . $this -> perpage . ";";
 						break;
 					default						:
-						$query .= " ORDER BY " . $this -> table . "." . $ofield . " " . $odir . " LIMIT " . $begRecord . " , " . $this -> per_page . ";";	
+						$query .= " ORDER BY " . $this -> table . "." . $ofield . " " . $odir . " LIMIT " . $begRecord . " , " . $this -> perpage . ";";	
 						break;
 				}
 				break;
 			case 'SubscribersList'			:
 				switch ($ofield) {
 					case 'lists'				:
-						$query .= " ORDER BY " . $subscriberslists_table . ".list_id " . $odir . " LIMIT " . $begRecord . " , " . $this -> per_page . ";";
+						$query .= " ORDER BY " . $subscriberslists_table . ".list_id " . $odir . " LIMIT " . $begRecord . " , " . $this -> perpage . ";";
 						break;
 					default						:
-						$query .= " ORDER BY " . $subscribers_table . "." . $ofield . " " . $odir . " LIMIT " . $begRecord . " , " . $this -> per_page . ";";	
+						$query .= " ORDER BY " . $subscribers_table . "." . $ofield . " " . $odir . " LIMIT " . $begRecord . " , " . $this -> perpage . ";";	
 						break;
 				}
 				break;
 			case 'AutorespondersList'		:
-				$query .= " ORDER BY " . $autoresponders_table . "." . $ofield . " " . $odir . " LIMIT " . $begRecord . " , " . $this -> per_page . ";";	
+				$query .= " ORDER BY " . $autoresponders_table . "." . $ofield . " " . $odir . " LIMIT " . $begRecord . " , " . $this -> perpage . ";";	
 				break;
 			default							:
-				$query .= " ORDER BY " . $this -> table . "." . $ofield . " " . $odir . " LIMIT " . $begRecord . " , " . $this -> per_page . ";";	
+				$query .= " ORDER BY " . $this -> table . "." . $ofield . " " . $odir . " LIMIT " . $begRecord . " , " . $this -> perpage . ";";	
 				break;
 		}
 		
@@ -338,7 +343,7 @@ class wpmlpaginate extends wpMailPlugin {
 			$this -> allcount = (int) $result;
 		}
 			
-		$totalpagescount = ceil($this -> allcount / $this -> per_page);
+		$totalpagescount = ceil($this -> allcount / $this -> perpage);
 		
 		if (empty($this -> url_page)) {
 			$this -> url_page = $this -> sub;	
@@ -352,14 +357,14 @@ class wpmlpaginate extends wpMailPlugin {
 			}
 		}
 		
-		if (count($records) < $this -> allcount && $this -> allcount > $this -> per_page) {			
+		if (count($records) < $this -> allcount && $this -> allcount > $this -> perpage) {			
 			$p = 1;
 			$k = 1;
 			$n = $this -> page;
 			$search = (empty($this -> searchterm)) ? '' : '&' . $this -> pre . 'searchterm=' . urlencode($this -> searchterm);
 			$orderby = (empty($ofield)) ? '' : '&orderby=' . $ofield;
 			$order = (empty($odir)) ? '' : '&order=' . strtolower($odir);
-			$this -> pagination .= '<span class="displaying-num">' . sprintf(__('%s items', 'wp-mailinglist'), $this -> per_page) . '</span>';
+			$this -> pagination .= '<span class="displaying-num">' . sprintf(__('%s items', 'wp-mailinglist'), $this -> perpage) . '</span>';
 			$this -> pagination .= '<span class="pagination-links">';
 			$this -> pagination .= '<a href="' . $Html -> retainquery(((!empty($this -> sub)) ? 'page=' . $this -> sub . '&amp;' : false) . $this -> pre . 'page=1' . $search . $orderby . $order . $this -> after) . '" class="first-page' . (($this -> page == 1) ? ' disabled" onclick="return false;' : '') . '">&laquo;</a>';
 			$this -> pagination .= '<a class="prev-page' . (($this -> page == 1) ? ' disabled" onclick="return false;' : '') . '" href="' . $Html -> retainquery(((!empty($this -> sub)) ? 'page=' . $this -> sub . '&amp;' : false) . $this -> pre . 'page=' . ($this -> page - 1) . $search . $orderby . $order . $this -> after) . '" title="' . __('Previous Page', 'wp-mailinglist') . '">&#8249;</a>';

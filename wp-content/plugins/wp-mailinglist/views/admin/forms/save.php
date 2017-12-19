@@ -7,7 +7,7 @@ $p_id = (empty($_POST['p_id'])) ? $imagespost : $_POST['p_id'];
 $ID = $p_id;
 $post_ID = $p_id;
 
-wp_enqueue_media(array('post' => $p_id));
+//wp_enqueue_media(array('post' => $p_id));
 wp_nonce_field('closedpostboxes', 'closedpostboxesnonce', false);
 wp_nonce_field('meta-box-order', 'meta-box-order-nonce', false);
 
@@ -41,7 +41,7 @@ if ($this -> language_do()) {
 	<?php $this -> render('forms' . DS . 'navigation', array('form' => $form), true, 'admin'); ?>
 	
 	<form action="<?php echo admin_url('admin.php?page=' . $this -> sections -> forms . '&amp;method=save'); ?>" method="post" id="post" name="post" enctype="multipart/form-data">
-		<?php wp_nonce_field($this -> sections -> forms); ?>
+		<?php wp_nonce_field($this -> sections -> forms . '_save'); ?>
 		
 		<input type="hidden" name="fields" id="fields" value="" />
 		<input type="hidden" name="id" id="id" value="<?php echo esc_attr(stripslashes($form -> id)); ?>" />
@@ -94,7 +94,13 @@ if ($this -> language_do()) {
 							<div class="inside">
 								<div id="edit-slug-box">
 									<strong><?php _e('Shortcode:', 'wp-mailinglist'); ?></strong>
-									<span id="sample-permalink"><code>[newsletters_subscribe form=<?php echo $form -> id; ?>]</code> <?php echo $Html -> help(__('Copy/paste this shortcode into any post/page to display this subscribe form.', 'wp-mailinglist')); ?></span>
+									<span id="sample-permalink">
+										<code>[newsletters_subscribe form=<?php echo $form -> id; ?>]</code>
+										<button type="button" class="button button-secondary button-small copy-button" data-clipboard-text="[newsletters_subscribe form=<?php echo $form -> id; ?>]">
+											<i class="fa fa-copy fa-fw"></i>
+										</button>
+										<?php echo $Html -> help(__('Copy/paste this shortcode into any post/page to display this subscribe form.', 'wp-mailinglist')); ?>
+									</span>
 								</div>
 							</div>
 						<?php endif; ?>
@@ -297,6 +303,7 @@ jQuery(document).ready(function() {
     
     jQuery('input:submit').click(function(e) {
         warnMessage = null;
+        return true;
     });
 });
 </script>

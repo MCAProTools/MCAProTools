@@ -111,10 +111,17 @@ if (!class_exists('wpmlDbHelper')) {
 											$this -> FieldsForm() -> save($fieldform_data);
 											$order++;
 										}
-									}							
+									}
+																		
+									$emailfields = array('etsubject_confirm', 'etmessage_confirm');
+									foreach ($object -> data as $okey => $oval) {										
+										if (!empty($okey) && in_array($okey, $emailfields)) {											
+											$this -> update_option($okey . '_form_' . $insertid, $oval);
+										}
+									}															
 									break;
-								case 'Latestpostssubscription'	:
-									$this -> latestposts_scheduling($object -> data -> interval, $object -> data -> startdate, array((int) $object -> insertid));								
+								case 'Latestpostssubscription'	:								
+									$this -> latestposts_scheduling($object -> data -> interval, $object -> data -> startdate, array((int) $object -> insertid));																																			
 									break;
 								case 'Autoresponder'			:															
 									global $Html, $Subscriber, $SubscribersList;

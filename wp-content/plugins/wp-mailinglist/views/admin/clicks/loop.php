@@ -1,5 +1,6 @@
 
 	<form action="?page=<?php echo $this -> sections -> clicks; ?>&amp;method=mass" method="post" onsubmit="if (!confirm('<?php _e('Are you sure you want to apply this action to the selected clicks?', 'wp-mailinglist'); ?>')) { return false; }">
+		<?php wp_nonce_field($this -> sections -> clicks . '_mass'); ?>
 		<div class="tablenav">
 			<div class="alignleft actions">
 				<a href="<?php echo admin_url('admin.php?page=' . $this -> sections -> links); ?>" class="button"><i class="fa fa-link"></i> <?php _e('Links', 'wp-mailinglist'); ?></a>
@@ -91,7 +92,7 @@
 					<?php $class = false; ?>
 					<?php foreach ($clicks as $click) : ?>
 						<tr class="<?php $class = (empty($class)) ? 'alternate' : false; ?>">
-							<th class="check-column"><input type="checkbox" name="clicks[]" value="<?php echo $click -> id; ?>" id="clicks_<?php echo $click -> id; ?>" /></th>
+							<th class="check-column"><input type="checkbox" name="clicks[]" value="<?php echo esc_attr($click -> id); ?>" id="clicks_<?php echo $click -> id; ?>" /></th>
 							<td>
 								<?php if (!empty($click -> subscriber_id)) : ?>
 									<?php

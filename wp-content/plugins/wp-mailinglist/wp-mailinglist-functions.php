@@ -132,6 +132,12 @@ if (!function_exists('wpml_get_themes')) {
 	}
 }
 
+if (!function_exists('newsletters_get_fields')) {
+	function newsletters_get_fields($args = array()) {
+		return wpml_get_fields($args);
+	}
+}
+
 if (!function_exists('wpml_get_fields')) {
 	function wpml_get_fields($args = array()) {
 		global $wpdb, $Field, $wpMail;

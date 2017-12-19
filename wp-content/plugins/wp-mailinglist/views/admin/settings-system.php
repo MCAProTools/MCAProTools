@@ -13,7 +13,7 @@ wp_nonce_field('meta-box-order', 'meta-box-order-nonce', false);
 	<h2><?php _e('System Configuration', 'wp-mailinglist'); ?></h2>
 	<form action="?page=<?php echo $this -> sections -> settings_system; ?>" method="post">
 		<?php $this -> render('settings-navigation', array('tableofcontents' => "tableofcontents-system"), true, 'admin'); ?>
-		<?php wp_nonce_field($this -> sections -> settings); ?>
+		<?php wp_nonce_field($this -> sections -> settings_system); ?>
 		<div id="poststuff">
 			<div id="post-body" class="metabox-holder columns-2">
 				<div id="postbox-container-1" class="postbox-container">

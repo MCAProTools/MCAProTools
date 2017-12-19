@@ -53,7 +53,7 @@ $mandatory = $Html -> field_value('Subscriber[mandatory]');
 					<th><label for="preventautoresponders"><?php _e('Prevent Autoresponders?', 'wp-mailinglist'); ?></label>
 					<?php echo $Html -> help(__('Tick this box to prevent the automatic creation of autoresponder emails as you save this subscriber.', 'wp-mailinglist')); ?></th>
 					<td>
-						<label><input type="checkbox" name="preventautoresponders" value="1" id="preventautoresponders" /> <?php _e('Yes, prevent creation of autoresponders', 'wp-mailinglist'); ?></label>
+						<label><input type="checkbox" name="Subscriber[preventautoresponders]" value="1" id="preventautoresponders" /> <?php _e('Yes, prevent creation of autoresponders', 'wp-mailinglist'); ?></label>
 					</td>
 				</tr>
 				<?php if (apply_filters($this -> pre . '_admin_subscriber_save_register', true)) : ?>										
@@ -90,7 +90,7 @@ $mandatory = $Html -> field_value('Subscriber[mandatory]');
 						<?php $formats = array('html' => __('Html', 'wp-mailinglist'), 'text' => __('Text', 'wp-mailinglist')); ?>
 						<?php echo $Form -> radio('Subscriber[format]', $formats, array('default' => "html", 'separator' => false)); ?>
 						
-						<span class="howto"><?php _e('it is recommended that you use HTML format and turn on multi-part emails under Newsletters > Configuration for compatibility.', 'wp-mailinglist'); ?></span>
+						<span class="howto"><?php echo sprintf(__('it is recommended that you use HTML format and turn on multi-part emails under %s > Configuration for compatibility.', 'wp-mailinglist'), $this -> name); ?></span>
 					</td>
 				</tr>
 			</tbody>

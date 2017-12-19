@@ -18,6 +18,7 @@ $Html -> field_value('Autoresponder[lists]');
 	<h1><?php _e('Save an Autoresponder', 'wp-mailinglist'); ?></h1>
     
     <form action="?page=<?php echo $this -> sections -> autoresponders; ?>&amp;method=save" method="post">
+	    <?php wp_nonce_field($this -> sections -> autoresponders . '_save'); ?>
     	<?php echo $Form -> hidden('Autoresponder[id]'); ?>
     	
     	<?php do_action('newsletters_admin_autoresponder_save_fields_before', $this -> Autoresponder() -> data); ?>
@@ -80,7 +81,7 @@ $Html -> field_value('Autoresponder[lists]');
                 </tr>
                 <tr>
                 	<th><label for="Autoresponder.newsletter.exi"><?php _e('Newsletter', 'wp-mailinglist'); ?></label>
-                	<?php echo $Html -> help(__('The email which will be used for the autoresponder can be either an existing sent/draft email from the Newsletters > Sent &amp; Draft Emails section or you can choose to create a new email below.', 'wp-mailinglist')); ?></th>
+                	<?php echo $Html -> help(sprintf(__('The email which will be used for the autoresponder can be either an existing sent/draft email from the %s > Sent &amp; Draft Emails section or you can choose to create a new email below.', 'wp-mailinglist'), $this -> name)); ?></th>
                     <td>                    
                     	<label><input onclick="jQuery('#newsletterdiv_exi').show(); jQuery('#newsletterdiv_new').hide();" <?php echo (empty($this -> Autoresponder() -> data -> newsletter) || (!empty($this -> Autoresponder() -> data -> newsletter) && $this -> Autoresponder() -> data -> newsletter == "exi")) ? 'checked="checked"' : ''; ?> type="radio" name="Autoresponder[newsletter]" value="exi" id="Autoresponder.newsletter.exi" /> <?php _e('Choose Newsletter', 'wp-mailinglist'); ?></label>
                         <label><input onclick="jQuery('#newsletterdiv_exi').hide(); jQuery('#newsletterdiv_new').show();" <?php echo (!empty($this -> Autoresponder() -> data -> newsletter) && $this -> Autoresponder() -> data -> newsletter == "new") ? 'checked="checked"' : ''; ?> type="radio" name="Autoresponder[newsletter]" value="new" id="Autoresponder.newsletter.new" /> <?php _e('Create Newsletter', 'wp-mailinglist'); ?></label>
@@ -96,7 +97,7 @@ $Html -> field_value('Autoresponder[lists]');
             	<tbody>
                 	<tr>
                     	<th><label for="Autoresponder.history_id"><?php _e('Sent/Draft Newsletter', 'wp-mailinglist'); ?></label>
-                    	<?php echo $Html -> help(__('Choose the existing sent/draft email to use from the Newsletters > History/Draft Emails section as is.', 'wp-mailinglist')); ?></th>
+                    	<?php echo $Html -> help(sprintf(__('Choose the existing sent/draft email to use from the %s > History/Draft Emails section as is.', 'wp-mailinglist'), $this -> name)); ?></th>
                         <td>
                         	<?php if ($histories = $this -> History() -> select()) : ?>
                             	<select name="Autoresponder[history_id]" id="Autoresponder.history_id">

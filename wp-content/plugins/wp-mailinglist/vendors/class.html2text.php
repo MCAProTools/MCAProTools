@@ -43,11 +43,15 @@ class Html2Text {
 		if (function_exists('mb_convert_encoding')) {
 			$html = mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8');
 		}
+		
+		libxml_use_internal_errors(true);
 
 		$doc = new \DOMDocument();
 		if (!$doc->loadHTML($html)) {
 			throw new Html2TextException("Could not load HTML - badly formed?", $html);
 		}
+		
+		libxml_use_internal_errors(false);
 
 		$output = static::iterateOverNode($doc);
 

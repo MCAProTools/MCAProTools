@@ -4,7 +4,7 @@
 	<h2><?php _e('Step 2: Configure your DNS', 'wp-mailinglist'); ?></h2>
 	
 	<p>
-		<?php echo sprintf(__('Create the DNS entry below on the hosting of the domain above for %s in TXT. For help, see %s or ask your domain/hosting provider.', 'wp-mailinglist'), '<strong>' . $selector . '._domainkey.' . $domain . '</strong>', '<a href="http://support.google.com/a/bin/answer.py?hl=en&answer=183895" target="_blank">' . __('these instructions', 'wp-mailinglist') . '</a>'); ?>
+		<?php echo sprintf(__('Create the DNS entry below on the hosting of the domain above for %s in TXT. For help, see %s or ask your domain/hosting provider.', 'wp-mailinglist'), '<strong>' . $selector . '._domainkey.' . $domain . '</strong>', '<a href="https://support.google.com/a/bin/answer.py?hl=en&answer=183895" target="_blank">' . __('these instructions', 'wp-mailinglist') . '</a>'); ?>
 	</p>
 	
 	<?php
@@ -17,7 +17,7 @@
 	<textarea onmouseup="jQuery(this).unbind('mouseup'); return false;" onfocus="jQuery(this).select();" style="white-space:nowrap;" class="code" rows="2" cols="60"><?php echo esc_attr(stripslashes($dns)); ?></textarea>
 	
 	<p>
-		<?php echo sprintf(__('Once you have added the DNS entry, %s to check the status of the DNS to ensure it is working.', 'wp-mailinglist'), '<a href="http://www.dnswatch.info/dns/dnslookup?la=en&host=' . $selector . '._domainkey.' . $domain . '&type=TXT&submit=Resolve" target="_blank">' . __('click here', 'wp-mailinglist') . '</a>'); ?>
+		<?php echo sprintf(__('Once you have added the DNS entry, %s to check the status of the DNS to ensure it is working.', 'wp-mailinglist'), '<a href="https://www.dnswatch.info/dns/dnslookup?la=en&host=' . $selector . '._domainkey.' . $domain . '&type=TXT&submit=Resolve" target="_blank">' . __('click here', 'wp-mailinglist') . '</a>'); ?>
 	</p>
 	
 	<form action="" onsubmit="jQuery('#dkimbutton').prop('disabled', true); jQuery('#dkimloading').show(); dkimwizard(jQuery(this).serialize()); return false;" id="dkimform2">

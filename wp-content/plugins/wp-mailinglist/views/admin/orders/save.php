@@ -2,6 +2,7 @@
 	<h2><?php _e('Save Subscription Order', 'wp-mailinglist'); ?></h2>
 
 	<form action="?page=<?php echo $this -> sections -> orders; ?>&amp;method=save&amp;id=<?php echo $order -> id; ?>" method="post">
+		<?php wp_nonce_field($this -> sections -> orders . '_save'); ?>
 		<input type="hidden" name="id" value="<?php echo $order -> id; ?>" />
 		
 		<table class="form-table">

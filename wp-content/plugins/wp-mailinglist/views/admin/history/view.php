@@ -23,8 +23,8 @@ $todate = (empty($_GET['to'])) ? $Html -> gen_date("Y-m-d") : $_GET['to'];
 			<a href="?page=<?php echo $this -> sections -> send; ?>&amp;method=history&amp;id=<?php echo $history -> id; ?>" class="button button-primary"><i class="fa fa-paper-plane"></i> <?php _e('Send/Edit', 'wp-mailinglist'); ?></a>
 			<a onclick="jQuery.colorbox({iframe:true, width:'80%', height:'80%', href:'<?php echo $preview_src; ?>'}); return false;" href="#" class="button"><i class="fa fa-eye"></i> <?php _e('Preview', 'wp-mailinglist'); ?></a>
 			<a href="?page=<?php echo $this -> sections -> history; ?>&amp;method=delete&amp;id=<?php echo $history -> id; ?>" class="button button-highlighted" onclick="if (!confirm('<?php _e('Are you sure you wish to remove this history email?', 'wp-mailinglist'); ?>')) { return false; }"><i class="fa fa-trash"></i> <?php _e('Delete', 'wp-mailinglist'); ?></a>
-			<?php /*echo $Html -> link(__('Duplicate', 'wp-mailinglist'), '?page=' . $this -> sections -> history . '&amp;method=duplicate&amp;id=' . $history -> id, array('class' => "button"));*/ ?>
 			<a href="<?php echo admin_url('admin.php?page=' . $this -> sections -> history . '&amp;method=duplicate&amp;id=' . $history -> id); ?>" class="button"><i class="fa fa-clipboard"></i> <?php _e('Duplicate', 'wp-mailinglist'); ?></a>
+			<a href="<?php echo admin_url('admin-ajax.php?action=newsletters_history_download&id=' . $history -> id); ?>" class="button"><i class="fa fa-download fa-fw"></i> <?php _e('Download HTML', 'wp-mailinglist'); ?></a>
 		</div>
 	</div>
 	

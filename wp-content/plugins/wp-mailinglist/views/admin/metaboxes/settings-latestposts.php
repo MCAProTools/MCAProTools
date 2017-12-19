@@ -69,8 +69,9 @@ $latestpostssubscriptions = $this -> Latestpostssubscription() -> find_all();
 						
 						?>
 						
-						<a href="" onclick="jQuery.colorbox({href:newsletters_ajaxurl + 'action=newsletters_lpsposts&id=<?php echo $latestpostssubscription -> id; ?>'}); return false;"><?php echo sprintf(__('%s posts used/sent', 'wp-mailinglist'), $posts_used); ?></a>
-						<a onclick="if (!confirm('<?php _e('Are you sure you want to clear the posts history for this latest posts subscription?', 'wp-mailinglist'); ?>')) { return false; }" href="<?php echo admin_url('admin.php?page=' . $this -> sections -> settings . '&amp;method=clearlpshistory&id=' . $latestpostssubscription -> id); ?>" class=""><i class="fa fa-trash"></i></a>
+						<a href="" onclick="jQuery.colorbox({href:newsletters_ajaxurl + 'action=newsletters_lpsposts&id=<?php echo $latestpostssubscription -> id; ?>'}); return false;" id="latestposts_history_count_<?php echo esc_attr(stripslashes($latestpostssubscription -> id)); ?>"><?php echo sprintf(__('%s posts used/sent', 'wp-mailinglist'), $posts_used); ?></a>
+						<a onclick="if (confirm('<?php _e('Are you sure you want to clear the posts history for this latest posts subscription?', 'wp-mailinglist'); ?>')) { latestposts_clearhistory('<?php echo esc_attr(stripslashes($latestpostssubscription -> id)); ?>'); } return false;" href="<?php echo admin_url('admin.php?page=' . $this -> sections -> settings . '&amp;method=clearlpshistory&id=' . $latestpostssubscription -> id); ?>" class=""><i class="fa fa-trash"></i></a>
+						<span id="latestposts_history_loading_<?php echo esc_attr(stripslashes($latestpostssubscription -> id)); ?>" style="display:none;"><i class="fa fa-refresh fa-spin fa-fw"></i></span>
 					</td>
 					<td>
 						<?php if (empty($latestpostssubscription -> status) || $latestpostssubscription -> status == "active") : ?>
@@ -90,12 +91,14 @@ $latestpostssubscriptions = $this -> Latestpostssubscription() -> find_all();
 </table>
 
 <p>
-	<a href="" class="button latestposts-addrow"><i class="fa fa-plus-circle"></i> <?php _e('Add Instance', 'wp-mailinglist'); ?></a>
+	<button type="button" class="button latestposts-addrow">
+		<i class="fa fa-plus-circle"></i> <?php _e('Add Instance', 'wp-mailinglist'); ?>
+	</button>
 </p>
 
 <script type="text/javascript">
 jQuery(document).ready(function() {
-	jQuery('.latestposts-addrow').live('click', function() {
+	jQuery('.latestposts-addrow').on('click', function(event) {
 		latestposts_add_row();
 		return false;
 	});
@@ -103,7 +106,6 @@ jQuery(document).ready(function() {
 
 function latestposts_changestatus(id, status) {
 	jQuery('#latestpostssubscription_changestatus_' + id).attr('disabled', "disabled").html('<i class="fa fa-refresh fa-spin"></i>');
-	
 	jQuery.ajax({
 		type: "POST",
 		url: newsletters_ajaxurl + 'action=newsletters_latestposts_changestatus',
@@ -122,10 +124,30 @@ function latestposts_add_row() {
 }
 
 function latestposts_del_row(id) {
-	//jQuery('#latestposts_loading_' + id).show();
 	jQuery('#latestposts_delete_' + id).attr('disabled', "disabled").html('<i class="fa fa-refresh fa-spin"></i>');
 	jQuery.post(newsletters_ajaxurl + 'action=newsletters_latestposts_delete&id=' + id, false, function(response) {
 		jQuery('#latestposts_row_' + id).remove();
+	});
+}
+
+function latestposts_clearhistory(id) {
+	var count = jQuery('#latestposts_history_count_' + id);
+	var loading = jQuery('#latestposts_history_loading_' + id);
+	loading.show();
+	
+	jQuery.ajax({
+		type: "POST",
+		url: newsletters_ajaxurl + 'action=newsletters_latestposts_clearhistory',
+		data: {
+			id: id
+		}
+	}).done(function(data, textStatus, jqXHR) {		
+		// this is successful
+		count.html('<?php echo esc_attr(stripslashes(__('0 posts used/sent', 'wp-mailinglist'))); ?>');
+	}).error(function(data) {
+		alert('<?php _e('Ajax call failed, please try again', 'wp-mailinglist'); ?>');
+	}).always(function(data) {
+		loading.hide();
 	});
 }
 </script>

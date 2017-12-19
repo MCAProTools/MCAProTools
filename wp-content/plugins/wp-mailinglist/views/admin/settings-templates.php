@@ -15,11 +15,11 @@ wp_nonce_field('meta-box-order', 'meta-box-order-nonce', false);
     	<?php _e('System emails are messages sent as notifications to users/admins on events.', 'wp-mailinglist'); ?><br/>
     	<?php _e('You can configure each email template individually according to your needs.', 'wp-mailinglist'); ?><br/>
     	<?php _e('You may use any of the', 'wp-mailinglist'); ?> <a class="button button-secondary" title="<?php _e('Shortcodes/Variables', 'wp-mailinglist'); ?>" href="" onclick="jQuery.colorbox({title:'<?php _e('Shortcodes/Variables', 'wp-mailinglist'); ?>', maxHeight:'80%', maxWidth:'80%', href:'<?php echo admin_url('admin-ajax.php'); ?>?action=<?php echo $this -> pre; ?>setvariables'}); return false;"> <?php _e('shortcodes/variables', 'wp-mailinglist'); ?></a> <?php _e('inside the subjects/messages of system emails.', 'wp-mailinglist'); ?><br/>
-    	<?php _e('Each template is inserted where the <code>[newsletters_main_content]</code> tag is in the default template chosen under Newsletters > Templates.', 'wp-mailinglist'); ?>
+    	<?php echo sprintf(__('Each template is inserted where the <code>[newsletters_main_content]</code> tag is in the default template chosen under %s > Templates.', 'wp-mailinglist'), $this -> name); ?>
     </p>
 	<form action="?page=<?php echo $this -> sections -> settings_templates; ?>" method="post">
 		<?php $this -> render('settings-navigation', array('tableofcontents' => "tableofcontents-templates"), true, 'admin'); ?>
-		<?php wp_nonce_field($this -> sections -> settings); ?>
+		<?php wp_nonce_field($this -> sections -> settings_templates); ?>
 		<div id="poststuff">
 			<div id="post-body" class="metabox-holder columns-2">
 				<div id="postbox-container-1" class="postbox-container">

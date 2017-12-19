@@ -1,5 +1,6 @@
 
 	<form action="?page=<?php echo $this -> sections -> links; ?>&amp;method=mass" method="post" onsubmit="if (!confirm('<?php _e('Are you sure you want to apply this action to the selected links?', 'wp-mailinglist'); ?>')) { return false; }">
+		<?php wp_nonce_field($this -> sections -> links . '_mass'); ?>
 		<div class="tablenav">
 			<div class="alignleft actions">
 				<a href="?page=<?php echo $this -> sections -> clicks; ?>" class="button"><i class="fa fa-mouse-pointer"></i> <?php _e('Clicks', 'wp-mailinglist'); ?></a>

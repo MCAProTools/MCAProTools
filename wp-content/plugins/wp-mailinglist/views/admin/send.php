@@ -11,10 +11,15 @@ $p_id = (empty($_POST['p_id'])) ? $imagespost : $_POST['p_id'];
 $ID = $p_id;
 $post_ID = $p_id;
 
-wp_enqueue_media(array('post' => $p_id));
+//wp_enqueue_media(array('post' => $p_id));
 
 wp_nonce_field('closedpostboxes', 'closedpostboxesnonce', false);
 wp_nonce_field('meta-box-order', 'meta-box-order-nonce', false);
+
+$builderon = get_user_option('newsletters_builderon', get_current_user_id());
+if (empty($builderon) && !empty($_POST['builderon'])) {
+	$builderon = 1;
+}
 
 ?>
 
@@ -31,6 +36,7 @@ wp_nonce_field('meta-box-order', 'meta-box-order-nonce', false);
 		<input type="hidden" id="ishistory" name="ishistory" value="<?php echo $_POST['ishistory']; ?>" />
 		<input type="hidden" id="p_id" name="p_id" value="<?php echo $_POST['p_id']; ?>" />
 		<input type="hidden" name="inctemplate" value="<?php echo $_POST['inctemplate']; ?>" />
+		<input type="hidden" id="builderon" name="builderon" value="<?php echo $builderon; ?>" />
 		<input type="hidden" name="recurringsent" value="<?php echo esc_attr(stripslashes($_POST['sendrecurringsent'])); ?>" />
 		<input type="hidden" name="post_id" value="<?php echo esc_attr(stripslashes($_POST['post_id'])); ?>" />
 		
@@ -67,7 +73,187 @@ wp_nonce_field('meta-box-order', 'meta-box-order-nonce', false);
 						</div>
 					</div>
 					<?php do_action('edit_form_after_title', $post); ?>
-					<div id="<?php echo (user_can_richedit()) ? 'postdivrich' : 'postdiv'; ?>" class="postarea edit-form-section" style="position:relative;">
+					
+					<div id="usebuilder-wrapper">
+						<button type="button" name="usebuilder" id="usebuilder" class="btn btn-lg btn-success <?php echo (!empty($builderon)) ? 'active builderon' : 'builderoff'; ?>">
+							<i class="fa fa-eye fa-fw"></i> <?php _e('Use Newsletter Builder', 'wp-mailinglist'); ?> <sup>beta</sup>
+						</button>
+						
+						<script type="text/javascript">
+						var usebuilder_request = false;
+							
+						jQuery('#usebuilder').on('click', function(event) {
+							var builderbutton = jQuery(this);
+							var status = false;
+							if (builderbutton.hasClass('builderoff')) {
+								jQuery('input#builderon').val('1');
+								builderbutton.removeClass('builderoff').addClass('builderon active');
+								jQuery('#postdivrich, #postdiv, #previewdiv, #themesdiv').hide();
+								jQuery('#newsletters_builder').show();
+								status = true;
+							} else if (builderbutton.hasClass('builderon')) {
+								jQuery('input#builderon').val('');
+								builderbutton.removeClass('builderon active').addClass('builderoff');
+								jQuery('#postdivrich, #postdiv, #previewdiv, #themesdiv').show();	
+								jQuery('#newsletters_builder').hide();
+								status = false;
+							}
+							
+							if (usebuilder_request) {
+								usebuilder_request.abort();
+							}
+							
+							usebuilder_request = jQuery.ajax({
+								method: "POST",
+								url: newsletters_ajaxurl + 'action=newsletters_builderon',
+								data: {
+									status: status
+								}
+							}).done(function(response) {
+								//done
+							}).error(function(response) {
+								//error
+							}).always(function(response) {
+								//always
+							});
+						});
+						</script>
+					</div>
+					
+					<div id="newsletters_builder" style="display:<?php echo (!empty($builderon)) ? 'block' : 'none'; ?>;">
+						<p>
+							<select name="newsletters_builder_template" id="newsletters_builder_template">
+								<option value=""><?php _e('- No Template -', 'wp-mailinglist'); ?></option>
+								<?php if ($templates = newsletters_get_templates()) : ?>
+									<?php foreach ($templates as $template) : ?>
+										<option value="<?php echo esc_attr(stripslashes($template -> id)); ?>"><?php _e($template -> title); ?></option>
+									<?php endforeach; ?>
+								<?php endif; ?>
+							</select>
+							<button type="button" id="updatebuilder" class="btn btn-sm btn-info">
+								<i class="fa fa-paint-brush fa-fw"></i> <?php _e('Load Template', 'wp-mailinglist'); ?>
+								<span id="newsletters_builder_template_loading" style="display:none;">
+									<i class="fa fa-refresh fa-spin fa-fw"></i>
+								</span>
+							</button>
+						</p>
+						
+						<div id="gjs">
+		                    <!-- Builder content goes here -->
+		                    <?php echo $this -> getbodyandcss($_POST['content']); ?>
+	                    </div>
+	                    
+	                    <?php 
+		                    
+		                $assets = array();
+		                
+		                $args = array(
+			                'post_type'				=>	"attachment",
+							'orderby'				=>	"date",
+							'order'					=>	"DESC",
+							'numberposts'			=>	50,
+		                );
+		                
+		                if ($attachments = get_posts($args)) {
+			                foreach ($attachments as $attachment) {
+				                $assets[] = array('src' => $attachment -> guid);
+			                }
+		                }  
+		                    
+		                ?>
+						
+						<script type="text/javascript">
+						function startbuilder() {
+							var assets = <?php echo json_encode($assets); ?>;
+							
+							var editor = grapesjs.init({
+								container : '#gjs',
+								clearOnRender: true,
+								fromElement: true,
+								storageManager: {
+									id: 'newsletters-builder-<?php echo esc_js($_POST['ishistory']); ?>',
+									autosave: true,
+									stepsBeforeSave: 1,
+									type: ''
+								},
+								assetManager: {
+									assets: assets,
+									upload: newsletters_ajaxurl + "action=newsletters_importmedia",
+								},
+								plugins: ['gjs-preset-newsletter', 'gjs-plugin-wordpress'],
+								pluginsOpts: {
+									'gjs-preset-newsletter': {
+										modalTitleImport: 'Import template',
+										// ... other options
+									},
+									'gjs-plugin-wordpress': {
+										// options here...
+									}
+								}
+							});
+							
+							jQuery('*[title]').each(function () {
+								var el = $(this);
+								var title = el.attr('title').trim();
+								
+								if(!title)
+									return;
+									
+								el.attr('data-tooltip', el.attr('title'));
+								el.attr('title', '');
+						    });
+							
+							editor.on('change', function(event) {								
+								var updatecontent = '<style>' + editor.getCss() + '</style>' + editor.getHtml();
+								newsletters_tinymce_setcontent(updatecontent);
+							});
+						}
+						
+						startbuilder();
+						
+						jQuery(document).ready(function() {							
+							jQuery('#gjs .gjs-frame').attr('id', "gjs-frame");
+							
+							<?php if (!empty($builderon)) : ?>
+								jQuery('#postdivrich, #postdiv, #previewdiv, #themesdiv').hide();
+							<?php endif; ?>
+						});
+						
+						jQuery('#updatebuilder').on('click', function(event) {							
+							if (!confirm('<?php echo esc_js(stripslashes(__('Current content in the builder will be lost, are you sure?', 'wp-mailinglist'))); ?>')) {
+								return false;
+							}
+							
+							var template_id = jQuery('#newsletters_builder_template').val();
+							if (typeof template_id != 'undefined' && template_id != '') {
+								jQuery('#newsletters_builder_template_loading').show();
+								jQuery('#updatebuilder').prop('disabled', true);
+								jQuery("input[name=theme_id]").val([template_id]);
+								
+								var buildertemplate_request = jQuery.ajax({
+									method: "POST",
+									url: newsletters_ajaxurl + 'action=newsletters_get_template',
+									data: {
+										template_id: template_id
+									}
+								}).done(function(response) {
+									jQuery('#gjs').html(response);
+									startbuilder();
+									newsletters_tinymce_setcontent(response);
+								}).error(function(response) {
+									alert('<?php _e('Ajax call failed, please try again', 'wp-mailinglist'); ?>');
+								}).always(function(response) {
+									jQuery('#newsletters_builder_template_loading').hide();
+									jQuery('#updatebuilder').prop('disabled', false);
+								});
+							}
+							
+							return false;
+						});
+						</script>					
+					</div>
+					
+					<div id="<?php echo (user_can_richedit()) ? 'postdivrich' : 'postdiv'; ?>" class="postarea edit-form-section" style="position:relative; display:<?php echo (!empty($builderon)) ? 'none' : 'block'; ?>;">
 						<!-- The Editor -->
 						
 						<?php
@@ -260,9 +446,7 @@ function newsletter_autosave() {
 }
 
 function newsletter_autosave_running() {
-	jQuery('#sendbutton, #sendbutton2').prop('disabled', true);
-	//jQuery('#savedraftbutton, #savedraftbutton2').prop('disabled', true);
-	
+	jQuery('#sendbutton, #sendbutton2').prop('disabled', true);	
 	jQuery('#spamscore_report_link_holder').hide();
 	jQuery('iframe#content_ifr').attr('tabindex', "2");
 	jQuery('#spamscorerunnerbutton').attr('disabled', "disabled");
@@ -295,10 +479,8 @@ jQuery(document).ready(function() {
 		jQuery('.newsletters-preview-fromname').html(jQuery(this).val());
 	});
 	
-	var media = wp.media;
-
-	if ( media ) {
-
+	/*var media = wp.media;
+	if (media) {
 		media.view.MediaFrame.Select.prototype.initialize = function() {
 
 			media.view.MediaFrame.prototype.initialize.apply( this, arguments );
@@ -352,8 +534,7 @@ jQuery(document).ready(function() {
 
 			library.observe( this.get('selection') );
 		};
-		
-	}
+	}*/
 	
 	_wpMediaViewsL10n.insertIntoPost = "<?php _e('Insert into Newsletter', 'wp-mailinglist'); ?>";
 	_wpMediaViewsL10n.uploadedToThisPost = "<?php _e('Uploaded to this Newsletter', 'wp-mailinglist'); ?>";

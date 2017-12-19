@@ -19,10 +19,33 @@ var wpmlUrl = '<?php echo $this -> url(); ?>';
 	jQuery.noConflict();
 	$ = jQuery.noConflict();
 
-	jQuery(document).ready(function() {		
+	jQuery(document).ready(function() {					
+		// ZeroClipboard		
+		if (typeof ZeroClipboard != 'undefined' && typeof ZeroClipboard == "function") {			
+			var client = new ZeroClipboard(jQuery('.newsletters .copy-button'));		
+			client.on("ready", function( readyEvent) {			
+				client.on("aftercopy", function(event) {
+					// text has been copied
+				});
+			});
+			
+			client.on('error', function(event) {
+				ZeroClipboard.destroy();
+				jQuery('.newsletters .copy-button').remove();
+			});
+		}
+		
+		jQuery('.newsletters #doaction, .newsletters #doaction2').on('click', function(event) {
+			if (!confirm('<?php _e('Are you sure you want to apply this action?', 'wp-mailinglist'); ?>')) {
+				event.preventDefault();
+				return false;
+			}
+		});
+		
+		// Select2
 		<?php if (!empty($page) && in_array($page, (array) $this -> sections)) : ?>
 			if (jQuery.isFunction(jQuery.fn.select2)) {
-				jQuery('.newsletters select, .newsletters_select2').select2({});
+				jQuery('.newsletters select, .newsletters_select2').not('select[class*="gjs"]').not('#gjs select').not('.gjs-select select').select2();
 				
 				jQuery('.newsletters select[name="perpage"]').select2({
 					tags: true
@@ -30,6 +53,7 @@ var wpmlUrl = '<?php echo $this -> url(); ?>';
 			}
 		<?php endif; ?>
 		
+		// Tooltips
 		if (jQuery.isFunction(jQuery.fn.tooltip)) {
 			jQuery(".wpmlhelp a").tooltip({
 				tooltipClass: 'newsletters-ui-tooltip',

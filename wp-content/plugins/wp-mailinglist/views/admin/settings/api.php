@@ -70,7 +70,7 @@ $api_hosts = $this -> get_option('api_hosts');
 		
 		<p class="submit">
 			<button value="1" type="submit" name="save" class="button button-primary">
-				<?php _e('Save Settings', 'wp-mailinglist'); ?>
+				<i class="fa fa-check fa-fw"></i> <?php _e('Save Settings', 'wp-mailinglist'); ?>
 			</button>
 		</p>
 	</form>

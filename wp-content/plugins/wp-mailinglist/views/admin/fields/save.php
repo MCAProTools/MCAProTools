@@ -16,6 +16,7 @@ $regex = $Html -> field_value('Field[regex]');
 	<?php $slug = $Html -> field_value('Field[slug]'); ?>
     
 	<form action="?page=<?php echo $this -> sections -> fields; ?>&amp;method=save" method="post" id="Field.saveform">
+		<?php wp_nonce_field($this -> sections -> fields . '_save'); ?>
 		<?php echo $Form -> hidden('Field[id]'); ?>
 		<table class="form-table">
 			<tbody>
@@ -150,11 +151,6 @@ $regex = $Html -> field_value('Field[regex]');
 						<span class="howto"><small><?php _e('(optional)', 'wp-mailinglist'); ?></small> <?php _e('Watermark to show inside the input field which will disappear when the field is clicked on.', 'wp-mailinglist'); ?></span>
 					</td>
 				</tr>
-				<?php if (empty($slug) || ($slug != 'email' && $slug != "list")) : ?>
-					
-				<?php else : ?>
-					<input type="hidden" name="Field[required]" value="Y" />
-				<?php endif; ?>
 			</tbody>
 		</table>
 		
@@ -396,9 +392,6 @@ $regex = $Html -> field_value('Field[regex]');
 		</div>
 		
 		<?php if (empty($slug) || ($slug != 'email' && $slug != "list")) : ?>
-			<h2><?php _e('Legacy Selections', 'wp-mailinglist'); ?></h2>
-			<p><?php _e('When using the new subscribe forms under Newsletters > Subscribe Forms, no need to change these settings below.', 'wp-mailinglist'); ?></p>
-		
 			<table class="form-table">
 				<tbody>
 					<tr>
@@ -410,73 +403,80 @@ $regex = $Html -> field_value('Field[regex]');
 					</tr>
 				</tbody>
 			</table>
+		<?php else : ?>
+			<input type="hidden" name="Field[required]" value="Y" />
+		<?php endif; ?>
+		
+		<div id="errormessagediv" style="display:<?php echo (!empty($Field -> data -> required) && $Field -> data -> required == "Y") ? 'block' : 'none'; ?>;">
+			<table class="form-table">
+				<tbody>
+					<tr>
+						<th><label for="Field_validation"><?php _e('Validation', 'wp-mailinglist'); ?></label></th>
+						<td>
+							<select onchange="validation_change(this.value);" name="Field[validation]" id="Field_validation">
+								<?php foreach ($validation_rules as $validation_key => $validation_rule) : ?>
+									<option <?php echo (!empty($validation) && $validation == $validation_key) ? 'selected="selected"' : ''; ?> value="<?php echo $validation_key; ?>"><?php echo __($validation_rule['title']); ?></option>
+								<?php endforeach; ?>
+							</select>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 			
-			<div id="errormessagediv" style="display:<?php echo ($Html -> field_value('Field[required]') == "Y") ? 'block' : 'none'; ?>;">
+			<div id="validation_custom_div" style="display:<?php echo (!empty($validation) && $validation == "custom") ? 'block' : 'none'; ?>;">
 				<table class="form-table">
 					<tbody>
 						<tr>
-							<th><label for="Field_validation"><?php _e('Validation', 'wp-mailinglist'); ?></label></th>
+							<th><label for="Field_regex"><?php _e('Custom Regex', 'wp-mailinglist'); ?></label></th>
 							<td>
-								<select onchange="validation_change(this.value);" name="Field[validation]" id="Field_validation">
-									<?php foreach ($validation_rules as $validation_key => $validation_rule) : ?>
-										<option <?php echo (!empty($validation) && $validation == $validation_key) ? 'selected="selected"' : ''; ?> value="<?php echo $validation_key; ?>"><?php echo __($validation_rule['title']); ?></option>
-									<?php endforeach; ?>
-								</select>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				
-				<div id="validation_custom_div" style="display:<?php echo (!empty($validation) && $validation == "custom") ? 'block' : 'none'; ?>;">
-					<table class="form-table">
-						<tbody>
-							<tr>
-								<th><label for="Field_regex"><?php _e('Custom Regex', 'wp-mailinglist'); ?></label></th>
-								<td>
-									<input type="text" name="Field[regex]" value="<?php echo esc_attr(($regex)); ?>" id="Field_regex" class="widefat" />
-									<span class="howto"><?php echo sprintf(__('Specify a custom PHP regular expression, eg. %s', 'wp-mailinglist'), "<code>/^[0-9]*$/</code>"); ?></span>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				
-				<table class="form-table">
-					<tbody>
-						<tr>
-							<th><label for="Field.errormessage"><?php _e('Error Message', 'wp-mailinglist'); ?></label></th>
-							<td>
-								<?php if ($this -> language_do()) : ?>
-									<div id="tabs_errormessage">
-										<ul>
-											<?php $tabs_errormessage = 1; ?>
-											<?php foreach ($languages as $language) : ?>
-												<li>
-													<a href="#tabs_errormessage_<?php echo $tabs_errormessage; ?>">
-														<?php echo $this -> language_flag($language); ?>
-													</a>
-												</li>
-												<?php $tabs_errormessage++; ?>
-											<?php endforeach; ?>
-										</ul>
-										
-										<?php $tabs_errormessage = 1; ?>
-										<?php foreach ($languages as $language) : ?>
-											<div id="tabs_errormessage_<?php echo $tabs_errormessage; ?>">
-												<input type="text" class="widefat" name="Field[errormessage][<?php echo $language; ?>]" value="<?php echo esc_attr(stripslashes($Html -> field_value('Field[errormessage]', $language))); ?>" id="Field_errormessage_<?php echo $tabs_errormessage; ?>" />
-											</div>
-											<?php $tabs_errormessage++; ?>
-										<?php endforeach; ?>
-									</div>
-								<?php else : ?>
-									<?php echo $Form -> text('Field[errormessage]'); ?>
-								<?php endif; ?>
-								<div class="howto"><?php _e('Error message which will be displayed when the field is left empty', 'wp-mailinglist'); ?></div>
+								<input type="text" name="Field[regex]" value="<?php echo esc_attr(($regex)); ?>" id="Field_regex" class="widefat" />
+								<span class="howto"><?php echo sprintf(__('Specify a custom PHP regular expression, eg. %s', 'wp-mailinglist'), "<code>/^[0-9]*$/</code>"); ?></span>
 							</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
+			
+			<table class="form-table">
+				<tbody>
+					<tr>
+						<th><label for="Field.errormessage"><?php _e('Error Message', 'wp-mailinglist'); ?></label></th>
+						<td>
+							<?php if ($this -> language_do()) : ?>
+								<div id="tabs_errormessage">
+									<ul>
+										<?php $tabs_errormessage = 1; ?>
+										<?php foreach ($languages as $language) : ?>
+											<li>
+												<a href="#tabs_errormessage_<?php echo $tabs_errormessage; ?>">
+													<?php echo $this -> language_flag($language); ?>
+												</a>
+											</li>
+											<?php $tabs_errormessage++; ?>
+										<?php endforeach; ?>
+									</ul>
+									
+									<?php $tabs_errormessage = 1; ?>
+									<?php foreach ($languages as $language) : ?>
+										<div id="tabs_errormessage_<?php echo $tabs_errormessage; ?>">
+											<input type="text" class="widefat" name="Field[errormessage][<?php echo $language; ?>]" value="<?php echo esc_attr(stripslashes($this -> language_use($language, $Field -> data -> errormessage))); ?>" id="Field_errormessage_<?php echo $tabs_errormessage; ?>" />
+										</div>
+										<?php $tabs_errormessage++; ?>
+									<?php endforeach; ?>
+								</div>
+							<?php else : ?>
+								<?php echo $Form -> text('Field[errormessage]'); ?>
+							<?php endif; ?>
+							<div class="howto"><?php _e('Error message which will be displayed when the field is left empty', 'wp-mailinglist'); ?></div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<?php if (empty($slug) || ($slug != 'email' && $slug != "list")) : ?>
+			<h2><?php _e('Legacy Selections', 'wp-mailinglist'); ?></h2>
+			<p><?php echo sprintf(__('When using the new subscribe forms under %s > Subscribe Forms, no need to change these settings below.', 'wp-mailinglist'), $this -> name); ?></p>
 			
 			<table class="form-table">
 				<tbody>

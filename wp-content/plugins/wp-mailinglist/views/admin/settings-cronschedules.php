@@ -17,7 +17,7 @@ $importusers = $this -> get_option('importusers');
     
     <p>
 		<?php _e('These are scheduled tasks which are automatically run using the WordPress cron.', 'wp-mailinglist'); ?><br/>
-        <?php _e('The current time is:', 'wp-mailinglist'); ?> <strong><?php echo $Html -> gen_date("Y-m-d H:i:s", false); ?></strong>
+        <?php _e('The current time is:', 'wp-mailinglist'); ?> <strong><?php echo $Html -> gen_date(false, false, false, true); ?></strong>
     </p>
     
     <table class="widefat">
@@ -52,6 +52,11 @@ $importusers = $this -> get_option('importusers');
         	<tr>
             	<th>
 					<a class="row-title" href="<?php echo admin_url('admin.php?page=' . $this -> sections -> importexport); ?>"><?php _e('Import', 'wp-mailinglist'); ?></a>
+					<?php if ($import_count = $this -> import_process -> get_import_count()) : ?>
+						<?php if (!empty($import_count)) : ?>
+							<small>(<?php echo sprintf(__('%s importing in the background', 'wp-mailinglist'), $import_count); ?>)</small>
+						<?php endif; ?>
+					<?php endif; ?>
                     <div class="row-actions">
                     	<span class="edit"><?php echo $Html -> link(__('Run Now', 'wp-mailinglist'), '?page=' . $this -> sections -> settings_tasks . '&amp;method=runschedule&amp;hook=wp_import_process_cron', array('onclick' => "if (!confirm('" . __('Are you sure you want to execute this task right now? It may take a while to execute, please do not refresh or close this window.', 'wp-mailinglist') . "')) { return false; }")); ?> |</span>
                         <span class="edit"><?php echo $Html -> link(__('Reschedule', 'wp-mailinglist'), '?page=' . $this -> sections -> settings_tasks . '&amp;method=reschedule&amp;hook=wp_import_process_cron', array('onclick' => "if (!confirm('" . __('Are you sure you want to reset this schedule?', 'wp-mailinglist') . "')) { return false; }")); ?> |</span>

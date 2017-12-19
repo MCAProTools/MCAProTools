@@ -34,8 +34,8 @@
 			return {
 				longname : 'Newsletters TinyMCE Plugin',
 				author : 'Tribulant Software',
-				authorurl : 'http://tribulant.com',
-				infourl : 'http://tribulant.com',
+				authorurl : 'https://tribulant.com',
+				infourl : 'https://tribulant.com',
 				version : "1.0"
 			};
 		}

@@ -77,6 +77,45 @@ if (!class_exists('WP_Import_Process')) {
 			return $batches;
 	    }
 	    
+	    function get_import_count($key = null) {
+		    global $wpdb, $wpMail;
+		    
+		    if ($import_count = get_transient('newsletters_import_count')) {
+			    return $import_count;
+		    }
+		    
+		    $count = 0;
+
+			$table        = $wpdb->options;
+			$column       = 'option_name';
+			$key_column   = 'option_id';
+			$value_column = 'option_value';
+
+			$key = $this -> identifier . '_batch_%';
+
+			$query = $wpdb -> prepare( "
+			SELECT {$value_column}
+			FROM {$table}
+			WHERE {$column} LIKE %s
+			ORDER BY {$key_column} ASC", $key );
+
+			$results = $wpdb -> get_results($query);
+			
+			foreach ($results as $result) {
+				$batchcount = preg_match("/^a:([0-9]+):.*/si", $result -> {$value_column}, $matches);
+				$batchcount = $matches[1];
+				$count += $batchcount;
+				
+				if ($this -> memory_exceeded()) {
+					$count = (string) $count . '+';
+					break;
+				}
+			}
+		    
+		    set_transient('newsletters_import_count', $count, (2 * MINUTE_IN_SECONDS));
+		    return $count;
+	    }
+	    
 	    function cancel_all_processes() {
 		    if ($batches = $this -> get_batches(true)) {
 			    foreach ($batches as $batch) {
@@ -119,10 +158,13 @@ if (!class_exists('WP_Import_Process')) {
 						$sub = $Db -> find(array('id' => $Subscriber -> insertid));
 	
 						foreach ($subscriber['mailinglists'] as $list_id) {
+							$subject = $confirmation_subject;
+							$message = $confirmation_email;
+							
 							$queue_process_data = array(
 								'subscriber_id'				=>	$sub -> id,
-								'subject'					=>	$confirmation_subject,
-								'message'					=>	$confirmation_email,
+								'subject'					=>	$subject,
+								'message'					=>	$message,
 								'attachments'				=>	false,
 								'post_id'					=>	false,
 								'history_id'				=>	false,
@@ -137,7 +179,7 @@ if (!class_exists('WP_Import_Process')) {
 						}
 					}
 				} else {
-					$wpMail -> log_error(sprintf(__('Subscriber (%s) could not be imported: %s', $wpMail -> plugin_name), $sub -> email, implode(", ", $Subscriber -> errors)));
+					$wpMail -> log_error(sprintf(__('Subscriber (%s) could not be imported: %s', $wpMail -> plugin_name), $subscriber['email'], implode(", ", $Subscriber -> errors)));
 				}
 			}
 	        
@@ -232,6 +274,19 @@ if (!class_exists('WP_Import_Process')) {
 
 			// Perform remote post.
 			//return parent::dispatch();
+		}
+		
+		public function scheduling() {
+			$this -> clear_scheduled_event();
+			$this -> schedule_event();
+		}
+		
+		public function clear_scheduled_event() {
+			$timestamp = wp_next_scheduled( $this->cron_hook_identifier );
+
+			if ( $timestamp ) {
+				wp_unschedule_event( $timestamp, $this->cron_hook_identifier );
+			}
 		}
 	
 	    /**

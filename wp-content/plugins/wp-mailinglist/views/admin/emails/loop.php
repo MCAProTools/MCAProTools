@@ -10,6 +10,8 @@
 	    	<input type="hidden" name="method" value="view" />
 	    	<input type="hidden" name="id" value="<?php echo $history -> id; ?>" />
 	    	
+	    	<?php wp_nonce_field($this -> sections -> history . '_filter'); ?>
+	    	
 	    	<?php if (!empty($_GET['order']) && !empty($_GET['orderby'])) : ?>
 	    		<input type="hidden" name="order" value="<?php echo esc_html($_GET['order']); ?>" />
 	    		<input type="hidden" name="orderby" value="<?php echo esc_html($_GET['orderby']); ?>" />
@@ -49,6 +51,7 @@
 	    <br class="clear" />
 	    
 	    <form onsubmit="if (!confirm('<?php _e('Are you sure you want to apply this action?', 'wp-mailinglist'); ?>')) { return false; }" action="<?php echo admin_url('admin.php?page=' . $this -> sections -> history . '&method=emails-mass'); ?>" method="post" id="newsletters-emails-form">
+		    <?php wp_nonce_field($this -> sections -> history . '_emails-mass'); ?>
 		    <input type="hidden" name="id" value="<?php echo $history -> id; ?>" />
 		    
 		    <div class="tablenav">

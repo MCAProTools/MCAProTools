@@ -7,6 +7,7 @@ include $this -> plugin_base() . DS . 'includes' . DS . 'variables.php';
 ?>
 
 	<form action="?page=<?php echo $this -> sections -> fields; ?>&amp;method=mass" method="post" id="Field.form" onsubmit="if (!confirm('<?php _e('Are you sure you wish to execute this action?', 'wp-mailinglist'); ?>')) { return false; };">
+		<?php wp_nonce_field($this -> sections -> fields . '_mass'); ?>
 		<div class="tablenav">
 			<div class="alignleft actions">
 				<a href="?page=<?php echo $this -> sections -> fields; ?>&amp;method=order" title="<?php _e('Sort/order all your custom fields', 'wp-mailinglist'); ?>" class="button action"><i class="fa fa-sort"></i> <?php _e('Order Fields', 'wp-mailinglist'); ?></a>
@@ -207,7 +208,12 @@ include $this -> plugin_base() . DS . 'includes' . DS . 'variables.php';
 									<?php endif; ?>
 								<?php endif; ?>
 							</td>
-							<td><code>[newsletters_field name=<?php echo $field -> slug; ?>]</code></td>
+							<td>
+								<code>[newsletters_field name=<?php echo $field -> slug; ?>]</code>
+								<button type="button" class="button button-secondary button-small copy-button" data-clipboard-text="[newsletters_field name=<?php echo esc_attr(stripslashes($field -> slug)); ?>]">
+									<i class="fa fa-copy fa-fw"></i>
+								</button>
+							</td>
 							<td><label for="checklist<?php echo $field -> id; ?>"><?php echo (empty($field -> required) || $field -> required == "N") ? '<span class="newsletters_success"><i class="fa fa-times"></i>' : '<span class="newsletters_error"><i class="fa fa-check"></i>'; ?></span></label></td>
 							<td>
 								<?php if (empty($field -> validation) || $field -> validation == "notempty") : ?>

@@ -23,7 +23,7 @@ class wpMailAPI extends wpMail {
 		// check if the API is enabled
 		$api_enable = $this -> get_option('api_enable');
 		if (empty($api_enable)) {
-			$error = __('The API is disabled, please turn it on under Newsletters > Configuration > API.', 'wp-mailinglist');
+			$error = sprintf(__('The API is disabled, please turn it on under %s > Configuration > API.', 'wp-mailinglist'), $this -> name);
 			$this -> api_error($error);
 			
 			exit();

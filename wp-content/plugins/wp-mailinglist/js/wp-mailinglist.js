@@ -31,13 +31,25 @@ function newsletters_focus(element) {
 }
 
 function newsletters_tinymce_content(contentid) {	
-	if (jQuery("#wp-" + contentid + "-wrap").hasClass("tmce-active")) {
+	if (jQuery("#wp-" + contentid + "-wrap").hasClass("tmce-active")) {		
 		if (typeof(tinyMCE.activeEditor) == "object" && typeof(tinyMCE.activeEditor.getContent) == "function") {
+			tinyMCE.triggerSave();
 			return tinyMCE.activeEditor.getContent();
 		}
 	}
 	
 	return jQuery('#' + contentid).val();
+}
+
+function newsletters_tinymce_setcontent(content) {
+	jQuery('.wp-editor-wrap .switch-tmce').trigger('click');	
+	if (typeof(tinyMCE.activeEditor) == "object" && tinyMCE.activeEditor.setContent != null && typeof(tinyMCE.activeEditor.setContent) == "function") {
+		tinyMCE.activeEditor.setContent(content);
+		tinyMCE.triggerSave();
+	}
+	
+	jQuery('textarea#content').html(content);
+	return true;
 }
 
 function newsletters_change_filter(section, filter, value) {
@@ -91,6 +103,7 @@ function HueToRgb(m1, m2, hue) {
 }
 
 function wpml_submitserial(form) {
+	jQuery('#newsletters_submitserial_button').prop('disabled', true);
 	jQuery('#wpml_submitserial_loading').show();
 	var formdata = jQuery(form).serialize();
 

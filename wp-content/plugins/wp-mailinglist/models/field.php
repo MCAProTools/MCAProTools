@@ -887,7 +887,7 @@ if (!class_exists('wpmlField')) {
 					//$this -> data = (array) $this -> data;
 					//$this -> data[$this -> model] = $this -> init_class($this -> model, $field);
 					//$this -> set_cache($query_hash, $this -> data[$this -> model]);
-					$this -> data = (!empty($this -> data)) ? (array) $this -> data : array();
+					$this -> data = (!empty($this -> data)) ? (object) $this -> data : array();
 					$newdata = $this -> init_class($this -> model, $field);
 					
 					if (!empty($assign)) {

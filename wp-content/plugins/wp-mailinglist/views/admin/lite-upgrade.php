@@ -2,7 +2,7 @@
 
 <?php
 
-$plugin_link = "http://tribulant.com/plugins/view/1/wordpress-newsletter-plugin";
+$plugin_link = "https://tribulant.com/plugins/view/1/wordpress-newsletter-plugin";
 
 global $Db, $Mailinglist, $Subscriber;
 
@@ -63,7 +63,7 @@ $emails_percentage = (($emails / 1000) * 100);
 				<h4><?php _e('Benefits of PRO', 'wp-mailinglist'); ?></h4>
 				<p><?php _e('Tribulant Newsletters PRO gives these benefits:', 'wp-mailinglist'); ?></p>
 				<ul>
-					<li><?php echo sprintf(__('PRO, %s', 'wp-mailinglist'), '<a href="http://tribulant.com/support/" target="_blank">' . __('priority support', 'wp-mailinglist') . '</a>'); ?></li>
+					<li><?php echo sprintf(__('PRO, %s', 'wp-mailinglist'), '<a href="https://tribulant.com/support/" target="_blank">' . __('priority support', 'wp-mailinglist') . '</a>'); ?></li>
 					<li><?php _e('Unlimited mailing lists', 'wp-mailinglist'); ?></li>
 					<li><?php _e('Unlimited subscribers', 'wp-mailinglist'); ?></li>
 					<li><?php _e('Unlimited email sending', 'wp-mailinglist'); ?></li>
@@ -82,11 +82,11 @@ $emails_percentage = (($emails / 1000) * 100);
 	
 	<div class="changelog newsletters-changelog">
 		<h3><?php _e('About Tribulant Software', 'wp-mailinglist'); ?></h3>
-		<p><a href="http://tribulant.com" target="_blank"><img src="<?php echo $this -> url(); ?>/images/logo.png" alt="tribulant" /></a></p>
+		<p><a href="https://tribulant.com" target="_blank"><img src="<?php echo $this -> url(); ?>/images/logo.png" alt="tribulant" /></a></p>
 		<p><?php _e('At Tribulant Software, we strive to provide the best WordPress plugins on the market.', 'wp-mailinglist'); ?><br/>
 		<?php _e('We are a full-time business developing, promoting and supporting WordPress plugins to the community.', 'wp-mailinglist'); ?></p>
 		<p>
-			<a class="button button-primary button-large" target="_blank" href="http://tribulant.com"><?php _e('Visit Our Site', 'wp-mailinglist'); ?></a>
+			<a class="button button-primary button-large" target="_blank" href="https://tribulant.com"><?php _e('Visit Our Site', 'wp-mailinglist'); ?></a>
 		</p>
 		
 		<h3><?php _e('Find Us On Social Networks', 'wp-mailinglist'); ?></h3>

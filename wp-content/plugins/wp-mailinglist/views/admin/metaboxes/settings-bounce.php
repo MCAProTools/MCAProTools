@@ -143,7 +143,7 @@ $bouncepop_prot = $this -> get_option('bouncepop_prot');
             <tr>
                 <th><label for="bouncepop_pass"><?php _e('Password', 'wp-mailinglist'); ?></label></th>
                 <td>
-                    <input class="widefat" autocomplete="off" type="text" name="bouncepop_pass" value="<?php echo esc_attr(stripslashes($this -> get_option('bouncepop_pass'))); ?>" id="bouncepop_pass" />
+                    <input class="widefat" autocomplete="off" type="password" name="bouncepop_pass" value="<?php echo esc_attr(stripslashes($this -> get_option('bouncepop_pass'))); ?>" id="bouncepop_pass" />
                     <span class="howto"><?php _e('Email password', 'wp-mailinglist'); ?></span>
                 </td>
             </tr>

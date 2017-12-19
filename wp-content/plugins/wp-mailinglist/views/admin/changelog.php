@@ -1,26 +1,18 @@
 <div id="tribulant_header_full">
 	<div id="tribulant_header">
-		<a id="tribulant_logo" href="http://tribulant.com" target="_blank">
+		<a id="tribulant_logo" href="https://tribulant.com" target="_blank">
 			Tribulant Plugin
 		</a>
 	</div>
 </div>
 <div id="tribulant_content_full">
-	<div id="tribulant_content">
-		<?php /*
-		<div id="tribulant_sidebar">
-			<a href="http://tribulant.com" target="_blank">Our Plugins</a>
-			<a href="http://tribulant.com/support/" target="_blank">Support Helpdesk</a>
-			<a href="http://docs.tribulant.com/" target="_blank">Online Documentation</a>
-			<a href="http://tribulant.com/forums/" target="_blank">Community Forums</a>
-		</div>*/ ?>
-		
+	<div id="tribulant_content">		
 		<?php echo stripslashes($changelog); ?>
 	</div>
 </div>
 <div id="tribulant_footer_full">
 	<div id="tribulant_footer">
-		<a href="http://tribulant.com" target="_blank">Tribulant Software - All rights reserved</a>
+		<a href="https://tribulant.com" target="_blank">Tribulant Software - All rights reserved</a>
 	</div>
 </div>
 
@@ -40,10 +32,10 @@
 	body { color:#666; font-size:14px; line-height:21px; font-family:Arial, sans-serif; }
 	h3 { color:#213123; }
 	#tribulant_header_full, #tribulant_footer_full, #tribulant_content_full { float:left; width:100%; clear:both; }
-	#tribulant_header_full { background:url(http://blog.tribulant.com/wp-content/themes/fusion/style/images/bg-header.png) repeat-x; }
+	#tribulant_header_full { background:url(https://tribulant.com/blog/wp-content/themes/fusion/style/images/bg-header.png) repeat-x; }
 	#tribulant_header, #tribulant_footer, #tribulant_content { float:left; width:587px; padding:0 32px; }
 	#tribulant_header { height:100px; }
-	#tribulant_logo { background:url(http://blog.tribulant.com/wp-content/themes/fusion/style/images/logo.png) no-repeat; text-indent:-9999px; width:251px; height:59px; position:absolute; top:23px; }
+	#tribulant_logo { background:url(https://tribulant.com/blog/wp-content/themes/fusion/style/images/logo.png) no-repeat; text-indent:-9999px; width:251px; height:59px; position:absolute; top:23px; }
 	#tribulant_content_full { float:left; padding-top:20px; position:relative;}
 	#tribulant_content { position:relative; }
 	h2 { font-size:21px; padding-bottom:18px; line-height:26px; float:left; width:100%; clear:both;}

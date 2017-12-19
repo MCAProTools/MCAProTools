@@ -27,7 +27,8 @@ if (!class_exists('wpmlHistory')) {
 			'preheader'			=>	"VARCHAR(100) NOT NULL DEFAULT ''",
 			'spamscore'			=>	"VARCHAR(20) NOT NULL DEFAULT ''",
 			'mailinglists'		=>	"TEXT NOT NULL",
-			'status'			=>	"VARCHAR(50) NOT NULL DEFAULT 'active'",
+			'status'			=>	"VARCHAR(50) NOT NULL DEFAULT 'active'",	// subscriber status
+			'state'				=>	"VARCHAR(50) NOT NULL DEFAULT 'created'",
 			'groups'			=>	"TEXT NOT NULL",
 			'roles'				=>	"TEXT NOT NULL",
 			'theme_id'			=>	"INT(11) NOT NULL DEFAULT '0'",
@@ -50,6 +51,7 @@ if (!class_exists('wpmlHistory')) {
 			'recurringsent'		=>	"INT(11) NOT NULL DEFAULT '0'",
 			'scheduled'			=>	"ENUM('Y','N') NOT NULL DEFAULT 'N'",
 			'format'			=>	"ENUM('html','text') NOT NULL DEFAULT 'html'",
+			'builderon'			=>	"INT(1) NOT NULL DEFAULT '0'",
 			'created'			=>	"DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00'",
 			'modified'			=>	"DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00'",
 			'key'				=>	"PRIMARY KEY (`id`), INDEX(`theme_id`), INDEX(`sent`), INDEX(`post_id`), INDEX(`user_id`)",
@@ -67,6 +69,7 @@ if (!class_exists('wpmlHistory')) {
 			'spamscore'			=>	array("VARCHAR(20)", "NOT NULL DEFAULT ''"),
 			'mailinglists'		=>	array("TEXT", "NOT NULL"),
 			'status'			=>	array("VARCHAR(50)", "NOT NULL DEFAULT 'active'"),
+			'state'				=>	array("VARCHAR(50)", "NOT NULL DEFAULT 'created'"),
 			'groups'			=>	array("TEXT", "NOT NULL"),
 			'roles'				=>	array("TEXT", "NOT NULL"),
 			'theme_id'			=>	array("INT(11)", "NOT NULL DEFAULT '0'"),
@@ -89,6 +92,7 @@ if (!class_exists('wpmlHistory')) {
 			'recurringsent'		=>	array("INT(11)", "NOT NULL DEFAULT '0'"),
 			'scheduled'			=>	array("ENUM('Y','N')", "NOT NULL DEFAULT 'N'"),
 			'format'			=>	array("ENUM('html','text')", "NOT NULL DEFAULT 'html'"),
+			'builderon'			=>	array("INT(1)", "NOT NULL DEFAULT '0'"),
 			'created'			=>	array("DATETIME", "NOT NULL DEFAULT '0000-00-00 00:00:00'"),
 			'modified'			=>	array("DATETIME", "NOT NULL DEFAULT '0000-00-00 00:00:00'"),
 			'key'				=>	"PRIMARY KEY (`id`), INDEX(`theme_id`), INDEX(`sent`), INDEX(`post_id`), INDEX(`user_id`)",					   
@@ -646,6 +650,8 @@ if (!class_exists('wpmlHistory')) {
 								//custom post has been inserted/updated
 								$Db -> model = $this -> model;
 								$Db -> save_field('p_id', $p_id, array('id' => $history_id));
+								
+								do_action('newsletters_history_post_updated', $p_id, $history, $post_data);
 							}
 						}
 					}

@@ -8,7 +8,10 @@ class Newsletters_Widget extends WP_Widget {
 	public function __construct() {
 		$widget_ops = array('classname' => 'newsletters widget_newsletters wpml', 'description' => __('Subscribe form for your sidebar(s)', 'wp-mailinglist'));
 		$control_ops = array('width' => 300, 'height' => 350, 'id_base' => 'newsletters');
-		parent::__construct('newsletters', __('Newsletters', 'wp-mailinglist'), $widget_ops, $control_ops);
+		
+		global $wpMail;
+		
+		parent::__construct('newsletters', __($wpMail -> name, 'wp-mailinglist'), $widget_ops, $control_ops);
 	}
 	
 	public function widget($args, $instance) {	
@@ -154,9 +157,9 @@ class Newsletters_Widget extends WP_Widget {
 											<label for="<?php echo $this -> get_field_id('captcha'); ?>-<?php echo $language; ?>-N"><?php _e('Security Captcha:', $wpMail -> plugin_name); ?></label>
 											<label><input <?php echo (empty($captcha_type) || $captcha_type == "none") ? 'disabled="disabled"' : ''; ?> <?php echo (!empty($captcha_type) && $captcha_type != "none" && $instance['captcha'][$language] == "Y") ? 'checked="checked"' : ''; ?> type="radio" name="<?php echo $this -> get_field_name('captcha'); ?>[<?php echo $language; ?>]" value="Y" id="<?php echo $this -> get_field_id('captcha'); ?>-<?php echo $language; ?>-Y" /> <?php _e('On', $wpMail -> plugin_name); ?></label>
 											<label><input <?php echo (empty($captcha_type) || $captcha_type == "none") ? 'disabled="disabled"' : ''; ?> <?php echo (empty($captcha_type) || $captcha_type == "none" || $instance['captcha'][$language] == "N") ? 'checked="checked"' : ''; ?> type="radio" name="<?php echo $this -> get_field_name('captcha'); ?>[<?php echo $language; ?>]" value="N" id="<?php echo $this -> get_field_id('captcha'); ?>-<?php echo $language; ?>-N" /> <?php _e('Off', $wpMail -> plugin_name); ?></label>
-											<?php echo $Html -> help(__('Display a security captcha image on the subscribe form to prevent spam submissions. It is simply a "human" check to stop bots from subscribing. Configure a captcha under Newsletters > Configuration > System > Captcha accordingly.', $wpMail -> plugin_name)); ?>
+											<?php echo $Html -> help(sprintf(__('Display a security captcha image on the subscribe form to prevent spam submissions. It is simply a "human" check to stop bots from subscribing. Configure a captcha under %s > Configuration > System > Captcha accordingly.', $wpMail -> plugin_name), $this -> name)); ?>
 											<?php if (empty($captcha_type) || $captcha_type == "none") : ?>
-												<br/><small class="newsletters_error"><?php _e('Please configure a security captcha under Newsletters > Configuration > System > Captcha in order to use this.', $wpMail -> plugin_name); ?></small>
+												<br/><small class="newsletters_error"><?php echo sprintf(__('Please configure a security captcha under %s > Configuration > System > Captcha in order to use this.', $wpMail -> plugin_name), $this -> name); ?></small>
 											<?php endif; ?>
 										</p>
 										<p>

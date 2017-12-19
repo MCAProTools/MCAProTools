@@ -20,7 +20,7 @@ if (!class_exists('WP_Queue_Process')) {
 	    }
 	    
 	    public function default_time_limit($time_limit = null) {
-		    $time_limit = (MINUTE_IN_SECONDS * 5);
+		    $time_limit = (MINUTE_IN_SECONDS * 2);
 		    
 		    $scheduleintervalseconds = get_option('wpmlscheduleintervalseconds');
 		    if (!empty($scheduleintervalseconds)) {
@@ -163,7 +163,7 @@ if (!class_exists('WP_Queue_Process')) {
 				}
 			}
 		    
-		    set_transient('newsletters_queue_count', $count, (5 * MINUTE_IN_SECONDS));
+		    set_transient('newsletters_queue_count', $count, (2 * MINUTE_IN_SECONDS));
 		    return $count;
 	    }
 	    
@@ -214,7 +214,7 @@ if (!class_exists('WP_Queue_Process')) {
 		        }
 		    }
 	        
-			if ($wpMail -> send_queued_email($item)) {
+			if ($wpMail -> send_queued_email($item)) {				
 				return false;
 			} else {
 				global $mailerrors;
@@ -264,7 +264,7 @@ if (!class_exists('WP_Queue_Process')) {
 		 * @return mixed
 		 */
 		public function schedule_cron_healthcheck( $schedules ) {
-			$interval = apply_filters( $this->identifier . '_cron_interval', 5 );
+			$interval = apply_filters( $this->identifier . '_cron_interval', 2);
 
 			if ( property_exists( $this, 'cron_interval' ) ) {
 				$interval = apply_filters( $this->identifier . '_cron_interval', $this->cron_interval_identifier );
@@ -274,7 +274,7 @@ if (!class_exists('WP_Queue_Process')) {
 			if (!empty($schedules[$scheduleinterval])) {
 				$schedules[$this -> identifier . '_cron_interval'] = $schedules[$scheduleinterval];
 			} else {				
-				// Adds every 5 minutes to the existing schedules.
+				// Adds every 2 minutes to the existing schedules.
 				$schedules[$this -> identifier . '_cron_interval'] = array(
 					'interval' => MINUTE_IN_SECONDS * $interval,
 					'display'  => sprintf( __( 'Every %d Minutes' ), $interval ),
@@ -310,7 +310,7 @@ if (!class_exists('WP_Queue_Process')) {
 		 */
 		protected function handle() {		
 			$scheduleintervalseconds = get_option('wpmlscheduleintervalseconds');	
-			$this -> queue_lock_time = (empty($scheduleintervalseconds)) ? (MINUTE_IN_SECONDS * 5) : $scheduleintervalseconds;
+			$this -> queue_lock_time = (empty($scheduleintervalseconds)) ? (MINUTE_IN_SECONDS * 2) : $scheduleintervalseconds;
 			$this -> lock_process();
 			
 			$emailsperinterval = get_option('wpmlemailsperinterval');

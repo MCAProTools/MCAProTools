@@ -27,7 +27,7 @@ $downloadurl = $Html -> retainquery('wpmlmethod=exportdownload&file=' . urlencod
 				<?php _e('This newsletter will be sent immediately, as fast as possible.', 'wp-mailinglist'); ?><br/>
 				<?php _e('Please consult your hosting provider to find out if you have hourly/daily/weekly/monthly email sending limits.', 'wp-mailinglist'); ?><br/>
 				<?php _e('In case there are limits, rather tick the "Queue this newsletter instead" checkbox below to queue and throttle accordingly.', 'wp-mailinglist'); ?><br/>
-				<?php _e('Check Newsletters > Configuration > Email Scheduling for queue/schedule/throttling settings.', 'wp-mailinglist'); ?>
+				<?php echo sprintf(__('Check %s > Configuration > Email Scheduling for queue/schedule/throttling settings.', 'wp-mailinglist'), $this -> name); ?>
 			</p>
 		<?php endif; ?>
 	

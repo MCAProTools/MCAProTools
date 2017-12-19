@@ -9,6 +9,7 @@
 	<?php $this -> render('error', array('errors' => $errors), true, 'admin'); ?>
 	
 	<form action="?page=<?php echo $this -> sections -> submitserial; ?>" method="post">
+		<?php wp_nonce_field($this -> sections -> submitserial); ?>
 		<table class="form-table">
 			<tbody>
 				<tr>
@@ -22,7 +23,7 @@
 	
 		<p class="submit">
 			<button value="1" type="submit" class="button button-primary" name="submit">
-				<?php _e('Submit Serial Key', 'wp-mailinglist'); ?>
+				<i class="fa fa-check fa-fw"></i> <?php _e('Submit Serial Key', 'wp-mailinglist'); ?>
 			</button>
 		</p>
 	</form>

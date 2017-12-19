@@ -199,12 +199,36 @@ $tracking_image_file = $this -> get_option('tracking_image_file');
 			<th><label for="<?php echo $this -> pre; ?>mailtype"><?php _e('Mail Type', 'wp-mailinglist'); ?></label>
 			<?php echo $Html -> help(__('Choose your preferred way of sending emails. If you are not sure, leave it on "Local Server" setting to send through your own server. Advanced users can use an "SMTP Server" if needed.', 'wp-mailinglist')); ?></th>
 			<td>
-				<?php $mailtype = $this -> get_option('mailtype'); ?>
-				<label><input <?php echo ($mailtype == "smtp") ? 'checked="checked"' : ''; ?> onclick="jQuery('#mailtypediv').show(); jQuery('#mailtypeapi').hide();" type="radio" name="mailtype" value="smtp" />&nbsp;<?php _e('SMTP Server', 'wp-mailinglist'); ?></label>
-				<?php echo $Html -> help(__('Use this for any remote or local SMTP server or popular email and relay services such as Gmail, AuthSMTP, AmazonSES, SendGrid, etc.', 'wp-mailinglist')); ?>
-				<label><input id="<?php echo $this -> pre; ?>mailtype" <?php echo ($mailtype == "mail") ? 'checked="checked"' : ''; ?> onclick="jQuery('#mailtypediv').hide(); jQuery('#mailtypeapi').hide();" type="radio" name="mailtype" value="mail" />&nbsp;<?php _e('Local Server', 'wp-mailinglist'); ?></label>
-				<?php echo $Html -> help(__('Local server uses WordPress wp_mail() which by default uses your local email exchange on this hosting. This is the recommended option as it should work without any additional setup.', 'wp-mailinglist')); ?>
-				<label><input <?php echo (!$this -> ci_serial_valid()) ? 'disabled="disabled"' : ''; ?> id="<?php echo $this -> pre; ?>mailtype" <?php echo ($mailtype == "api") ? 'checked="checked"' : ''; ?> onclick="jQuery('#mailtypediv').hide(); jQuery('#mailtypeapi').show();" type="radio" name="mailtype" value="api" />&nbsp;<?php _e('API', 'wp-mailinglist'); ?></label>
+				<?php 
+					
+				$mailtypes = array(
+					'smtp'			=>	array(
+						'label'			=>	__('SMTP Server', 'wp-mailinglist'),
+						'help'			=>	__('Use this for any remote or local SMTP server or popular email and relay services such as Gmail, AuthSMTP, AmazonSES, SendGrid, etc.', 'wp-mailinglist'),
+						'serial'		=>	false,
+					),
+					'mail'			=>	array(
+						'label'			=>	__('Local Server', 'wp-mailinglist'),
+						'help'			=>	__('Local server uses WordPress wp_mail() which by default uses your local email exchange on this hosting. This is the recommended option as it should work without any additional setup.', 'wp-mailinglist'),
+						'serial'		=>	false,
+					),
+					'api'			=>	array(
+						'label'			=>	__('API', 'wp-mailinglist'),
+						'help'			=>	false,
+						'serial'		=>	true,
+					),
+				);
+					
+				$mailtypes = apply_filters('newsletters_mailtypes', $mailtypes, $mailtype_current); 
+				$mailtype_current = $this -> get_option('mailtype');
+				
+				?>
+				<?php foreach ($mailtypes as $mailtype_key => $mailtype) : ?>
+					<label><input <?php echo ($mailtype_current == $mailtype_key) ? 'checked="checked"' : ''; ?> <?php echo (!empty($mailtype['serial']) && !$this -> ci_serial_valid()) ? 'disabled="disabled"' : ''; ?> onclick="<?php if ($mailtype_key == "smtp") : ?>jQuery('#mailtypediv').show(); jQuery('#mailtypeapi').hide();<?php elseif ($mailtype_key == "api") : ?>jQuery('#mailtypediv').hide(); jQuery('#mailtypeapi').show();<?php elseif ($mailtype_key == "mail") : ?>jQuery('#mailtypediv').hide(); jQuery('#mailtypeapi').hide();<?php endif; ?>" type="radio" name="mailtype" value="<?php echo $mailtype_key; ?>" /> <?php echo $mailtype['label']; ?></label>
+					<?php if (!empty($mailtype['help'])) : ?>
+						<?php echo $Html -> help($mailtype['help']); ?>
+					<?php endif; ?>
+				<?php endforeach; ?>
                 <span class="howto"><?php _e('The method of sending out emails globally.', 'wp-mailinglist'); ?></span>
 			</td>
 		</tr>
@@ -212,7 +236,7 @@ $tracking_image_file = $this -> get_option('tracking_image_file');
 </table>
 
 <!-- SMTP Server -->
-<div id="mailtypediv" style="display:<?php echo $mailtypedisplay = ($mailtype == "smtp" || $mailtype == "gmail") ? 'block' : 'none'; ?>;">
+<div id="mailtypediv" style="display:<?php echo $mailtypedisplay = ($mailtype_current == "smtp" || $mailtype_current == "gmail") ? 'block' : 'none'; ?>;">
 	<table class="form-table">
 		<tbody>
 			<tr>
@@ -262,7 +286,7 @@ $tracking_image_file = $this -> get_option('tracking_image_file');
 				</tr>
 				<tr>
 					<th><label for="<?php echo $this -> pre; ?>smtppass"><?php _e('SMTP Password', 'wp-mailinglist'); ?></label></th>
-					<td><input autocomplete="off" class="widefat" type="text" id="<?php echo $this -> pre; ?>smtppass" name="smtppass" value="<?php echo esc_attr(stripslashes($this -> get_option('smtppass', false))); ?>" /></td>
+					<td><input autocomplete="off" class="widefat" type="password" id="<?php echo $this -> pre; ?>smtppass" name="smtppass" value="<?php echo esc_attr(stripslashes($this -> get_option('smtppass', false))); ?>" /></td>
 				</tr>
 			</tbody>
 		</table>
@@ -270,7 +294,7 @@ $tracking_image_file = $this -> get_option('tracking_image_file');
 </div>
 
 <!-- API -->
-<div id="mailtypeapi" style="display:<?php echo (!empty($mailtype) && $mailtype == "api") ? 'block' : 'none'; ?>;">
+<div id="mailtypeapi" style="display:<?php echo (!empty($mailtype_current) && $mailtype_current == "api") ? 'block' : 'none'; ?>;">
 	<table class="form-table">
 		<tbody>
 			<tr>

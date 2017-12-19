@@ -30,6 +30,8 @@ if (!class_exists('wpmlSubscriber')) {
 			'ip_address'	=>	"VARCHAR(20) NOT NULL DEFAULT ''",
 			'referer'		=>	"VARCHAR(200) NOT NULL DEFAULT ''",
 			'user_id'		=>	"INT(11) NOT NULL DEFAULT '0'",
+			'owner_id'		=>	"INT(11) NOT NULL DEFAULT '0'",
+			'owner_role'	=>	"VARCHAR(100) NOT NULL DEFAULT ''",
 			'emailssent'	=>	"INT(11) NOT NULL DEFAULT '0'",
 			'format'		=>	"ENUM('html','text') NOT NULL DEFAULT 'html'",
 			'cookieauth'	=>	"TEXT NOT NULL",
@@ -51,6 +53,8 @@ if (!class_exists('wpmlSubscriber')) {
 			'ip_address'	=>	array("VARCHAR(20)", "NOT NULL DEFAULT ''"),
 			'referer'		=>	array("VARCHAR(200)", "NOT NULL DEFAULT ''"),
 			'user_id'		=>	array("INT(11)", "NOT NULL DEFAULT '0'"),
+			'owner_id'		=>	array("INT(11)", "NOT NULL DEFAULT '0'"),
+			'owner_role'	=>	array("VARCHAR(100)", "NOT NULL DEFAULT ''"),
 			'emailssent'	=>	array("INT(11)", "NOT NULL DEFAULT '0'"),
 			'format'		=>	array("ENUM('html','text')", "NOT NULL DEFAULT 'html'"),
 			'cookieauth'	=> 	array("TEXT", "NOT NULL"),
@@ -673,9 +677,11 @@ if (!class_exists('wpmlSubscriber')) {
 						if (!empty($checkexists) && $checkexists == true && !empty($lists)) {																
 							
 							if ($this -> get_option('subscriberexistsredirect') == "management") {
-								$redirecturl = $Html -> retainquery('email=' . $data['email'], $this -> get_managementpost(true));
+								//$redirecturl = $Html -> retainquery('email=' . $data['email'], $this -> get_managementpost(true));
+								$redirecturl = $this -> get_managementpost(true);
 							} elseif ($this -> get_option('subscriberexistsredirect') == "custom") {
-								$redirecturl = $Html -> retainquery('email=' . $data['email'], $this -> get_option('subscriberexistsredirecturl'));	
+								//$redirecturl = $Html -> retainquery('email=' . $data['email'], $this -> get_option('subscriberexistsredirecturl'));	
+								$redirecturl = $this -> get_option('subscriberexistsredirecturl');
 							} else {
 								//do nothing...	
 								$redirecturl = false;
@@ -758,6 +764,14 @@ if (!class_exists('wpmlSubscriber')) {
 			
 			$this -> errors = false;
 			
+			$owner_id = 0;
+			$owner_role = 0;
+			include_once(ABSPATH . 'wp-includes/pluggable.php');
+			if ($current_user = wp_get_current_user()) {
+				$owner_id = $current_user -> ID;
+				$owner_role = $current_user -> roles[0];
+			}
+			
 			$defaults = array(
 				'ip_address'		=>	$_SERVER['REMOTE_ADDR'],
 				'referer'			=>	wp_get_referer(),
@@ -772,6 +786,8 @@ if (!class_exists('wpmlSubscriber')) {
 				'active' 			=>	"N",
 	            'bouncecount'       =>  0,
 				'user_id'			=>	0,
+				'owner_id'			=>	$owner_id,
+				'owner_role'		=>	$owner_role,
 				'device'			=>	$this -> get_device(),
 				'created' 			=> 	$Html -> gen_date(), 
 				'modified' 			=> 	$Html -> gen_date()
@@ -890,6 +906,7 @@ if (!class_exists('wpmlSubscriber')) {
 				if (empty($email)) { $this -> errors['email'] = __($emailfield -> errormessage); }
 			}
 			
+			$this -> errors = apply_filters('newsletters_subscriber_validation', $this -> errors, $this -> data);
 			$this -> errors = apply_filters($this -> pre . '_subscriber_validation', $this -> errors, $this -> data);
 			
 			if (empty($this -> errors)) {
@@ -1259,7 +1276,7 @@ if (!class_exists('wpmlSubscriber')) {
 							$wpdb -> query($subscriberquery);
 						}
 						
-						if (empty($_POST['preventautoresponders'])) {						
+						if (empty($preventautoresponders)) {						
 							if (!empty($mailinglists)) {							
 								foreach ($mailinglists as $mkey => $mval) {								
 									$subscriber = $this -> get($subscriber_id, false);
@@ -1271,6 +1288,7 @@ if (!class_exists('wpmlSubscriber')) {
 						}
 						
 						do_action($this -> pre . '_subscriber_saved', $insertid, $data);
+						do_action('newsletters_subscriber_saved', $insertid, $data);
 					}
 					
 					return true;
@@ -1489,6 +1507,6 @@ if (!class_exists('wpmlSubscriber')) {
 	}
 }
 
-include_once(dirname(__FILE__) . DS . 'newsletter.php');
+include_once(NEWSLETTERS_DIR . DS . 'models' . DS . 'newsletter.php');
 
 ?>

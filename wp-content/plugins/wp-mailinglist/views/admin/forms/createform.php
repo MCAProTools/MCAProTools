@@ -14,6 +14,7 @@
 		<?php $this -> render('error', array('errors' => $errors), true, 'admin'); ?>
 
 		<form onsubmit="newsletters_forms_createform(); return false;" action="<?php echo admin_url('admin-ajax.php?action=newsletters_forms_createform'); ?>" method="post" id="newsletters_forms_createform">
+			<?php wp_nonce_field($this -> sections -> forms . '_createform'); ?>
 			<p>
 				<label for="Subscribeform_title" style="font-weight:bold;"><?php _e('Title', 'wp-mailinglist'); ?></label>
 				<?php if ($this -> language_do()) : ?>
@@ -82,6 +83,9 @@ function newsletters_forms_createform() {
 		jQuery('#newsletters_forms_createform_wrapper').html(response);
 	}).error(function(response) {
 		alert('<?php _e('Ajax call failed, please try again', 'wp-mailinglist'); ?>');
+	}).always(function(response) {
+		jQuery('#newsletters_forms_createform_submit').prop('disabled', false);
+		jQuery('#newsletters_forms_createform_loading').hide();
 	});
 	
 	return false;

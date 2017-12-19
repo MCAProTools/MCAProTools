@@ -1,24 +1,27 @@
 <div class="wrap newsletters <?php echo $this -> pre; ?>">
     <h1><?php _e('Manage Autoresponders', 'wp-mailinglist'); ?> <a class="add-new-h2" href="?page=<?php echo $this -> sections -> autoresponders; ?>&amp;method=save" title="<?php _e('Add a new autoresponder', 'wp-mailinglist'); ?>"><?php _e('Add New', 'wp-mailinglist'); ?></a></h1>
     
-    <form method="post" action="?page=<?php echo $this -> sections -> autoresponders; ?>&amp;method=autoresponderscheduling">
-    	<label for="autoresponderscheduling"><?php _e('Schedule Interval:', 'wp-mailinglist'); ?></label>
-        <?php $scheduleinterval = $this -> get_option('autoresponderscheduling'); ?>
-    	<select name="autoresponderscheduling" id="autoresponderscheduling">
-        	<?php $schedules = wp_get_schedules(); ?>
-			<?php if (!empty($schedules)) : ?>
-                <?php foreach ($schedules as $key => $val) : ?>
-                <?php $sel = ($scheduleinterval == $key) ? 'selected="selected"' : ''; ?>
-                <option <?php echo $sel; ?> value="<?php echo $key ?>"><?php echo $val['display']; ?> (<?php echo $val['interval'] ?> <?php _e('seconds', 'wp-mailinglist'); ?>)</option>
-                <?php endforeach; ?>
-            <?php endif; ?>
-        </select>
-        <button class="button" value="1" type="submit" name="submit">
-        	<?php _e('Save Interval', 'wp-mailinglist'); ?>
-        </button>
-        <?php echo $Html -> help(__('You can set the interval at which the plugin will check for autoresponder emails which need to be loaded and sent to the subscribers. This schedule runs using the WordPress cron jobs and can be monitored under Newsletters > Configuration > Scheduled Tasks as well.', 'wp-mailinglist')); ?>
-    </form>
-	<form id="posts-filter" action="<?php echo $this -> url; ?>" method="post">
+    <?php if (apply_filters('newsletters_autoresponders_allow_schedule_interval', true)) : ?>
+	    <form method="post" action="<?php echo wp_nonce_url(admin_url('admin.php?page=' . $this -> sections -> autoresponders . '&method=autoresponderscheduling'), $this -> sections -> autoresponders . '_scheduling'); ?>">
+	    	<label for="autoresponderscheduling"><?php _e('Schedule Interval:', 'wp-mailinglist'); ?></label>
+	        <?php $scheduleinterval = $this -> get_option('autoresponderscheduling'); ?>
+	    	<select name="autoresponderscheduling" id="autoresponderscheduling">
+	        	<?php $schedules = wp_get_schedules(); ?>
+				<?php if (!empty($schedules)) : ?>
+	                <?php foreach ($schedules as $key => $val) : ?>
+	                <?php $sel = ($scheduleinterval == $key) ? 'selected="selected"' : ''; ?>
+	                <option <?php echo $sel; ?> value="<?php echo $key ?>"><?php echo $val['display']; ?> (<?php echo $val['interval'] ?> <?php _e('seconds', 'wp-mailinglist'); ?>)</option>
+	                <?php endforeach; ?>
+	            <?php endif; ?>
+	        </select>
+	        <button class="button" value="1" type="submit" name="submit">
+	        	<?php _e('Save Interval', 'wp-mailinglist'); ?>
+	        </button>
+	        <?php echo $Html -> help(sprintf(__('You can set the interval at which the plugin will check for autoresponder emails which need to be loaded and sent to the subscribers. This schedule runs using the WordPress cron jobs and can be monitored under %s > Configuration > Scheduled Tasks as well.', 'wp-mailinglist'), $this -> name)); ?>
+	    </form>
+	<?php endif; ?>
+	    
+	<form id="posts-filter" action="<?php echo wp_nonce_url(admin_url('admin.php?page=' . $this -> sections -> autoresponders), $this -> sections -> autoresponders . '_search'); ?>" method="post">
 		<ul class="subsubsub">
 			<li><?php echo (empty($_GET['showall'])) ? $paginate -> allcount : count($autoresponders); ?> <?php _e('autoresponders', 'wp-mailinglist'); ?> |</li>
 			<?php if (empty($_GET['showall'])) : ?>
@@ -35,8 +38,9 @@
 		</p>
 	</form>
 	<br class="clear" />
-	<form id="posts-filter" action="?page=<?php echo $this -> sections -> autoresponders; ?>" method="get">
-    	<input type="hidden" name="page" value="<?php echo $this -> sections -> autoresponders; ?>" />
+	<form id="posts-filter" action="<?php echo admin_url('admin.php?page=' . $this -> sections -> autoresponders); ?>" method="get">
+		<input type="hidden" name="page" value="<?php echo $this -> sections -> autoresponders; ?>" />
+		<?php wp_nonce_field($this -> sections -> autoresponders . '_filter'); ?>
     	
     	<?php if (!empty($_GET[$this -> pre . 'searchterm'])) : ?>
     		<input type="hidden" name="<?php echo $this -> pre; ?>searchterm" value="<?php echo esc_attr(stripslashes(esc_html($_GET[$this -> pre . 'searchterm']))); ?>" />

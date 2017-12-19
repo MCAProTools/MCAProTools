@@ -28,7 +28,7 @@ class wpMailPaginate extends wpMailPlugin {
 	 * Records to show per page
 	 *
 	 */
-	var $per_page = 10;
+	var $perpage = 10;
 	
 	var $order = array('modified', "DESC");
 	
@@ -100,19 +100,19 @@ class wpMailPaginate extends wpMailPlugin {
 		$r = 1;
 		
 		if ($this -> page > 1) {
-			$begRecord = (($this -> page * $this -> per_page) - ($this -> per_page));
+			$begRecord = (($this -> page * $this -> perpage) - ($this -> perpage));
 		} else {
 			$begRecord = 0;
 		}
 			
-		$endRecord = $begRecord + $this -> per_page;
+		$endRecord = $begRecord + $this -> perpage;
 		list($ofield, $odir) = $this -> order;
-		$query .= " ORDER BY IF (`" . $ofield . "` = '' OR `" . $ofield . "` IS NULL,1,0), `" . $ofield . "` " . $odir . " LIMIT " . $begRecord . " , " . $this -> per_page . ";";
+		$query .= " ORDER BY IF (`" . $ofield . "` = '' OR `" . $ofield . "` IS NULL,1,0), `" . $ofield . "` " . $odir . " LIMIT " . $begRecord . " , " . $this -> perpage . ";";
 		$records = $wpdb -> get_results($query);
 				
 		$records_count = count($records);
 		$this -> allcount = $allRecordsCount = $wpdb -> get_var($countquery);
-		$totalpagescount = round($records_count / $this -> per_page);
+		$totalpagescount = round($records_count / $this -> perpage);
 		
 		if (empty($this -> url_page)) {
 			$this -> url_page = $this -> sub;	
@@ -140,7 +140,7 @@ class wpMailPaginate extends wpMailPlugin {
 					}
 				}
 				
-				$p = $p + $this -> per_page;
+				$p = $p + $this -> perpage;
 				$k++;
 			}
 			

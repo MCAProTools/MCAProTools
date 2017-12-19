@@ -14,6 +14,7 @@ if ($this -> language_do()) {
 	<h2><?php _e('Save a Mailing List', 'wp-mailinglist'); ?></h2>
 	<?php $this -> render('error', array('errors' => $errors), true, 'admin'); ?>
 	<form action="?page=<?php echo $this -> sections -> lists; ?>&amp;method=save" method="post" id="mailinglistform">
+		<?php wp_nonce_field($this -> sections -> lists . '_save'); ?>
 		<?php echo $Form -> hidden('Mailinglist[id]'); ?>
 	
 		<table class="form-table">
@@ -95,14 +96,14 @@ if ($this -> language_do()) {
                 <tr>
 	                <th><label for="Mailinglist.subredirect"><?php _e('Subscribe Redirect URL', 'wp-mailinglist'); ?></label></th>
 	                <td>
-		                <?php echo $Form -> text('Mailinglist[subredirect]', array('placeholder' => __('http://domain.com/custom/url/to/go/to/', 'wp-mailinglist'))); ?>
+		                <?php echo $Form -> text('Mailinglist[subredirect]', array('placeholder' => __('https://domain.com/custom/url/to/go/to/', 'wp-mailinglist'))); ?>
 		                <span class="howto"><small><?php _e('(optional)', 'wp-mailinglist'); ?></small> <?php _e('Leave empty for default, global behaviour. Else fill in a subscribe redirect URL for this list', 'wp-mailinglist'); ?></span>
 	                </td>
                 </tr>
                 <tr>
                 	<th><label for="Mailinglist.redirect"><?php _e('Confirm Redirect URL', 'wp-mailinglist'); ?></label></th>
                 	<td>
-                		<?php echo $Form -> text('Mailinglist[redirect]', array('placeholder' => __('http://domain.com/custom/url/to/go/to/', 'wp-mailinglist'))); ?>
+                		<?php echo $Form -> text('Mailinglist[redirect]', array('placeholder' => __('https://domain.com/custom/url/to/go/to/', 'wp-mailinglist'))); ?>
                 		<span class="howto"><small><?php _e('(optional)', 'wp-mailinglist'); ?></small> <?php _e('Leave empty for default, global behaviour, else fill in a confirmation redirect URL location for this list.', 'wp-mailinglist'); ?></span>
                 	</td>
                 </tr>

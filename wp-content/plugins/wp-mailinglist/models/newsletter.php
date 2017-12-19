@@ -48,7 +48,7 @@ if (!class_exists('newsletters_lite')) {
 		
 			$args = array(
 				'id'		=>	'newsletterslite',
-				'title'		=>	__('Newsletters LITE', 'wp-mailinglist'),
+				'title'		=>	sprintf(__('%s LITE', 'wp-mailinglist'), $this -> name),
 				'href'		=>	admin_url('admin.php?page=' . $this -> sections -> lite_upgrade),
 				'meta'		=>	array('class' => 'newsletters-lite'),
 			);

@@ -4,7 +4,7 @@
 # Upload to your "cgi-bin" directory and chmod to 0755 so that it is executable
 
 # Absolute URL to your Wordpress installation. No trailing slash
-$wordpress_url = "http://domain.com";
+$wordpress_url = "https://domain.com";
 
 # Program and paramaters to pass URL to
 # Usually works as default (may be /usr/local/bin/wget or other)

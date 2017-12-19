@@ -82,7 +82,7 @@ $rr_active = (empty($captcha_type) || $captcha_type == "none") ? false : true;
                                     <label><input <?php if (!$rr_active) { echo 'disabled="disabled"'; } else { echo ($embed['captcha'][$language] == "Y") ? 'checked="checked"' : ''; } ?> type="radio" name="embed[captcha][<?php echo $language; ?>]" value="Y" id="captchaY_<?php echo $language; ?>" /> <?php _e('Yes', 'wp-mailinglist'); ?></label>
                                     <label><input <?php if (!$rr_active) { echo 'disabled="disabled" checked="checked"'; } else { echo (empty($embed['captcha'][$language]) || $embed['captcha'][$language] == "N") ? 'checked="checked"' : ''; } ?> type="radio" name="embed[captcha][<?php echo $language; ?>]" value="N" id="captchaN_<?php echo $language; ?>" /> <?php _e('No', 'wp-mailinglist'); ?></label>
                                     <?php if (!$rr_active) : ?>
-                                        <br/><span class="newsletters_error"><?php _e('Please configure a security captcha under Newsletters > Configuration > System > Captcha in order to use this.', 'wp-mailinglist'); ?></span>
+                                        <br/><span class="newsletters_error"><?php echo sprintf(__('Please configure a security captcha under %s > Configuration > System > Captcha in order to use this.', 'wp-mailinglist'), $this -> name); ?></span>
                                         <input type="hidden" name="captcha" value="N" />
                                     <?php endif; ?>
                                     <span class="howto"><?php _e('Requires captcha/turing image input upon subscribing.', 'wp-mailinglist'); ?></span>

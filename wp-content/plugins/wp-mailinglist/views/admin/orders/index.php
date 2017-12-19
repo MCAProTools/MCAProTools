@@ -1,6 +1,7 @@
 <div class="wrap newsletters">
 	<h1><?php _e('Manage Orders', 'wp-mailinglist'); ?></h1>
 	<form id="posts-filter" action="?page=<?php echo $this -> sections -> orders; ?>" method="post">
+		<?php wp_nonce_field($this -> sections -> orders . '_search'); ?>
 		<ul class="subsubsub">
 			<li><?php echo (empty($_GET['showall'])) ? $paginate -> allcount : count($orders); ?> <?php _e('subscription orders', 'wp-mailinglist'); ?> |</li>
 			<?php if (empty($_GET['showall'])) : ?>

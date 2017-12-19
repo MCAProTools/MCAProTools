@@ -1,5 +1,6 @@
 
 	<form action="?page=<?php echo $this -> sections -> orders; ?>&amp;method=mass" method="post" onsubmit="if (!confirm('<?php _e('Are you sure you wish to execute this action?', 'wp-mailinglist'); ?>')) { return false; }" id="ordersform">
+		<?php wp_nonce_field($this -> sections -> orders . '_mass'); ?>
 		<div class="tablenav">
 			<div class="alignleft">
 				<select name="action" style="width:auto;" class="widefat">

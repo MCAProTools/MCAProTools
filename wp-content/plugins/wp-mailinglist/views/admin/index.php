@@ -10,7 +10,7 @@ wp_nonce_field('meta-box-order', 'meta-box-order-nonce', false);
 ?>
 
 <div class="wrap <?php echo $this -> pre; ?> <?php echo $this -> sections -> welcome; ?> newsletters">
-	<h1><i class="fa fa-envelope fa-lg fa-fw"></i> <?php echo sprintf(__('Newsletters %s', 'wp-mailinglist'), $this -> get_option('version')); ?></h1>    
+	<h1><i class="fa fa-envelope fa-lg fa-fw"></i> <?php echo sprintf(__('%s %s', 'wp-mailinglist'), $this -> name, $this -> get_option('version')); ?></h1>    
 	<div id="poststuff">
 		<div id="post-body" class="metabox-holder columns-2">
 			<div id="postbox-container-1" class="postbox-container">

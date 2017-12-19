@@ -21,7 +21,7 @@ $debugging = get_option('tridebugging');
 				<?php echo $Html -> help(__('This function will check all database tables of the plugin to ensure that all fields/columns are available and created as intended. In addition to that, it will run a simple optimize query on each database table to clear overheads, fix indexes, etc.', 'wp-mailinglist')); ?>
 			</div>
 			<div class="misc-pub-section">
-				<a class="delete" onclick="if (!confirm('<?php _e('Are you sure you wish to reset all configuration settings to their defaults?', 'wp-mailinglist'); ?>')) { return false; }" href="?page=newsletters-settings&amp;method=reset"><i class="fa fa-undo"></i> <?php _e('Reset Defaults', 'wp-mailinglist'); ?></a>
+				<a class="delete" onclick="if (!confirm('<?php _e('Are you sure you wish to reset all configuration settings to their defaults?', 'wp-mailinglist'); ?>')) { return false; }" href="<?php echo wp_nonce_url(admin_url('admin.php?page=newsletters-settings&method=reset'), $this -> sections -> settings . '_reset'); ?>"><i class="fa fa-undo"></i> <?php _e('Reset Defaults', 'wp-mailinglist'); ?></a>
 				<?php echo $Html -> help(__('Upon confirmation, this action will permanently reset all configuration settings to their defaults. You will not lose lists, subscribers, sent/draft emails or other data, just the actual configuration settings are reset.', 'wp-mailinglist')); ?>
 			</div>
 			<div class="misc-pub-section">
@@ -31,12 +31,18 @@ $debugging = get_option('tridebugging');
 			<div class="misc-pub-section misc-pub-section-last">
 				<label><input <?php echo (!empty($debugging) && $debugging == 1) ? 'checked="checked"' : ''; ?> type="checkbox" name="debugging" value="1" id="debugging" /><i class="fa fa-bug"></i> <?php _e('Turn on debugging', 'wp-mailinglist'); ?></label>
 				<?php echo $Html -> help(sprintf(__('Ticking/checking this setting and saving the settings will turn on debugging. It will turn on PHP error reporting and also WordPress database errors. It will help you to troubleshoot problems where something is not working as expected or a blank page is appearing. Certain things are also logged in the %s', 'wp-mailinglist'), '<a target="_blank" href="' . plugins_url() . '/' . $this -> plugin_name . '/' . basename(NEWSLETTERS_LOG_FILE) . '">' . __('log file', 'wp-mailinglist') . '</a>')); ?>
+				<p>
+					<a target="_blank" href="<?php echo esc_attr(stripslashes(plugins_url() . '/' . $this -> plugin_name . '/' . basename(NEWSLETTERS_LOG_FILE))); ?>"><?php _e('View the log file', 'wp-mailinglist'); ?></a>
+					<a onclick="if (!confirm('<?php echo esc_attr(__('Are you sure you want to clear the log file?', 'wp-mailinglist')); ?>')) { return false; }" href="<?php echo wp_nonce_url(admin_url('admin.php?page=' . $this -> sections -> settings . '&method=clearlog'), $this -> sections -> settings . '_clearlog'); ?>" class="newsletters_error"><i class="fa fa-times fa-fw"></i></a>
+				</p>
 			</div>
 		</div>
 	</div>
 	<div id="major-publishing-actions">
 		<div id="publishing-action">
-			<input id="publish" class="button button-primary button-large" type="submit" name="save" value="<?php _e('Save Settings', 'wp-mailinglist'); ?>" class="button button-highlighted" />	
+			<button id="publish" class="button button-primary button-large" type="submit" name="save" value="1" class="button button-highlighted">
+				<i class="fa fa-check fa-fw"></i> <?php _e('Save Settings', 'wp-mailinglist'); ?>
+			</button>
 		</div>
 		<br class="clear" />
 	</div>

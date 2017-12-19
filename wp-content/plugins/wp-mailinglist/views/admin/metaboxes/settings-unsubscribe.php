@@ -214,7 +214,7 @@ $unsubscribe_usernotification = $this -> get_option('unsubscribe_usernotificatio
 		</tr>
 		<tr>
 			<th><?php _e('Admin Notification on Unsubscription', 'wp-mailinglist'); ?>
-			<?php echo $Html -> help(__('Turn this on to let the system send the administrator an email notification when a subscriber unsubscribes. The notification is sent to the "Administrator Email" setting under Newsletters > Configuration > General > General Mail Settings.', 'wp-mailinglist')); ?></th>
+			<?php echo $Html -> help(sprintf(__('Turn this on to let the system send the administrator an email notification when a subscriber unsubscribes. The notification is sent to the "Administrator Email" setting under %s > Configuration > General > General Mail Settings.', 'wp-mailinglist'), $this -> name)); ?></th>
 			<td>
 				<?php $adminemailonunsubscription = $this -> get_option('adminemailonunsubscription'); ?>
 				<label><input onclick="jQuery('#adminemailonunsubscribe_div').show();" <?php echo $check1 = ($adminemailonunsubscription == "Y") ? 'checked="checked"' : ''; ?> type="radio" name="adminemailonunsubscription" value="Y" /> <?php _e('On'); ?></label>

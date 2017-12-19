@@ -10,6 +10,6 @@
 
 <p class="savebutton">
 	<button value="1" type="submit" class="button button-primary button-large" name="save">
-		<?php _e('Save Settings', 'wp-mailinglist'); ?>
+		<i class="fa fa-check fa-fw"></i> <?php _e('Save Settings', 'wp-mailinglist'); ?>
 	</button>
 </p>

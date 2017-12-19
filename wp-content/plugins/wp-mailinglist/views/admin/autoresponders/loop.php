@@ -1,5 +1,5 @@
 
-	<form action="?page=<?php echo $this -> sections -> autoresponders; ?>&amp;method=mass" onsubmit="if (!confirm('<?php _e('Are you sure you want to execute this action on the selected autoresponders?', 'wp-mailinglist'); ?>')) { return false; }" method="post">
+	<form action="<?php echo wp_nonce_url(admin_url('admin.php?page=' . $this -> sections -> autoresponders . '&method=mass'), $this -> sections -> autoresponders . '_mass'); ?>" onsubmit="if (!confirm('<?php _e('Are you sure you want to execute this action on the selected autoresponders?', 'wp-mailinglist'); ?>')) { return false; }" method="post">
     	<div class="tablenav">
         	<div class="alignleft actions">
             	<a href="?page=<?php echo $this -> sections -> autoresponderemails; ?>" class="button"><i class="fa fa-envelope"></i> <?php _e('Autoresponder Emails', 'wp-mailinglist'); ?></a>

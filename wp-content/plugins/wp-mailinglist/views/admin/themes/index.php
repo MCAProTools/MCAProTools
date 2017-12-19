@@ -1,7 +1,7 @@
 <div class="wrap newsletters <?php echo $this -> pre; ?>">
 	<h1><?php _e('Manage Templates', 'wp-mailinglist'); ?>
 	<a class="add-new-h2" href="?page=<?php echo $this -> sections -> themes; ?>&amp;method=save"><?php _e('Add New', 'wp-mailinglist'); ?></a>
-	<a class="add-new-h2-green" href="http://tribulant.com/emailthemes/" target="_blank"><?php _e('Get More Templates', 'wp-mailinglist'); ?></a>
+	<?php if (apply_filters('newsletters_whitelabel', true)) : ?><a class="add-new-h2-green" href="https://tribulant.com/emailthemes/" target="_blank"><?php _e('Get More Templates', 'wp-mailinglist'); ?></a><?php endif; ?>
 	</h1>
 	
 	<!-- Default Template Setting -->

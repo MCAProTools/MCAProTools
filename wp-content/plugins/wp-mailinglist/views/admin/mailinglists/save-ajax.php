@@ -10,6 +10,7 @@
 	<?php endif; ?>
 	
 	<form action="" method="post" id="newsletters-mailinglist-form">
+		<?php wp_nonce_field($this -> sections -> lists . '_save'); ?>
 		<table class="form-table">
 			<tbody>
 				<tr>

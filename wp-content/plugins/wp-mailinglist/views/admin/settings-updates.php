@@ -22,10 +22,10 @@
 
 		<div class="updated"><p><i class="fa fa-check"></i> <?php _e('Your version of the Newsletter plugin is up to date.', 'wp-mailinglist'); ?></p></div>
 		
-		<?php if ($raw_response = get_transient($this -> pre . 'update_info')) : ?>
+		<?php if ($raw_response = get_transient('newsletters_update_info')) : ?>
 			<?php if (!empty($raw_response['headers']['date'])) : ?>
-				<p><?php echo sprintf(__('Last checked on <b>%s</b>', 'wp-mailinglist'), $raw_response['headers']['date']); ?></p>
-				<p><a href="?page=<?php echo $this -> sections -> settings_updates; ?>&amp;method=check" class="button-primary"><i class="fa fa-history"></i> <?php _e('Check Again', 'wp-mailinglist'); ?></a>
+				<p><?php echo sprintf(__('Last checked on <b>%s</b>', 'wp-mailinglist'), get_date_from_gmt(date("Y-m-d H:i:s", strtotime($raw_response['headers']['date'])), get_option('date_format') . ' ' . get_option('time_format'))); ?></p>
+				<p><a href="?page=<?php echo $this -> sections -> settings_updates; ?>&amp;method=check" class="button-primary"><i class="fa fa-history fa-fw"></i> <?php _e('Check Again', 'wp-mailinglist'); ?></a>
 				<?php echo $Html -> help(__('The plugin checks for new versions every 24 hours. If you want to check right now, click the "Check Again" button in order to do so.', 'wp-mailinglist')); ?></p>
 			<?php endif; ?>
 		<?php endif; ?>

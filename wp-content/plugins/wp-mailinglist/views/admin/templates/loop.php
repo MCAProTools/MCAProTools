@@ -107,6 +107,9 @@
 							<td><label for="checklist<?php echo $template -> id; ?>"><?php echo $template -> sent; ?></label></td>
 							<td>
 								<code>[newsletters_snippet id="<?php echo $template -> id; ?>"]</code>
+								<button type="button" class="button button-secondary button-small copy-button" data-clipboard-text="[newsletters_snippet id=<?php echo $template -> id; ?>]">
+									<i class="fa fa-copy fa-fw"></i>
+								</button>
 							</td>
 							<td><label for="checklist<?php echo $template -> id; ?>"><?php echo $Html -> gen_date(false, strtotime($template -> modified)); ?></label></td>
 						</tr>

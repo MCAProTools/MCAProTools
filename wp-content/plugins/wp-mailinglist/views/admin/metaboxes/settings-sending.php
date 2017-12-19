@@ -8,6 +8,7 @@ $themeintextversion = $this -> get_option('themeintextversion');
 $inlinestyles = $this -> get_option('inlinestyles');
 $videoembed = $this -> get_option('videoembed');
 $defaulttemplate = $this -> get_option('defaulttemplate');
+$remove_width_height_attr = $this -> get_option('remove_width_height_attr');
 
 ?>
 
@@ -24,7 +25,7 @@ $defaulttemplate = $this -> get_option('defaulttemplate');
 		</tr>
 		<tr class="advanced-setting">
 			<th><label for="createpreview_Y"><?php _e('Preview', 'wp-mailinglist'); ?></label>
-			<?php echo $Html -> help(__('When you create or edit a newsletter under Newsletters > Create Newsletter, there is a "Preview" box which periodically updates and shows what the newsletter will look like. You can turn this feature On or Off here according to your needs.', 'wp-mailinglist')); ?></th>
+			<?php echo $Html -> help(sprintf(__('When you create or edit a newsletter under %s > Create Newsletter, there is a "Preview" box which periodically updates and shows what the newsletter will look like. You can turn this feature On or Off here according to your needs.', 'wp-mailinglist'), $this -> name)); ?></th>
 			<td>
 				<label><input <?php echo (!empty($createpreview) && $createpreview == "Y") ? 'checked="checked"' : ''; ?> type="radio" name="createpreview" value="Y" id="createpreview_Y" /> <?php _e('On', 'wp-mailinglist'); ?></label>
 				<label><input <?php echo (!empty($createpreview) && $createpreview == "N") ? 'checked="checked"' : ''; ?> type="radio" name="createpreview" value="N" id="createpreview_N" /> <?php _e('Off', 'wp-mailinglist'); ?></label>
@@ -130,7 +131,7 @@ $defaulttemplate = $this -> get_option('defaulttemplate');
 
 <?php $div_display = ($this -> get_option('shortlinks') == "Y") ? 'block' : 'none'; ?>
 <div id="shortlinksdiv" style="display:<?php echo $div_display; ?>;">
-	<p><?php _e('You need a <a href="http://bit.ly" target="_blank">Bit.ly</a> account in order to use this feature. Get your username/login and API key <a href="http://bit.ly/a/your_api_key" target="_blank">here</a>.', 'wp-mailinglist'); ?></p>
+	<p><?php _e('You need a <a href="https://bit.ly" target="_blank">Bit.ly</a> account in order to use this feature. Get your username/login and API key <a href="https://bit.ly/a/your_api_key" target="_blank">here</a>.', 'wp-mailinglist'); ?></p>
 
 	<table class="form-table">
 		<tbody>

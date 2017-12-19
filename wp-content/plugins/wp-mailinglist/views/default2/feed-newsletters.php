@@ -1,6 +1,6 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
-		<title><?php echo get_bloginfo('name'); ?> <?php _e('Newsletters', 'wp-mailinglist'); ?></title>
+		<title><?php echo get_bloginfo('name'); ?> <?php _e($this -> name, 'wp-mailinglist'); ?></title>
 		<link><?php echo home_url(); ?></link>
 		<description><?php echo get_bloginfo('description'); ?></description>
 		<lastBuildDate><?php echo $Html -> gen_date("r"); ?></lastBuildDate>

@@ -3,8 +3,8 @@
 <div class="wrap newsletters <?php echo $this -> pre; ?> <?php echo $this -> sections -> queue; ?>">
 	<h1>
 		<?php _e('Email Queue', 'wp-mailinglist'); ?> 
-		<a href="?page=<?php echo $this -> sections -> queue; ?>" class="add-new-h2"><?php _e('Refresh', 'wp-mailinglist'); ?></a>
-		<a href="<?php echo admin_url('admin.php?page=' . $this -> sections -> settings . '#schedulingdiv'); ?>" class="add-new-h2"><?php _e('Configure Queue', 'wp-mailinglist'); ?></a>
+		<a href="?page=<?php echo $this -> sections -> queue; ?>" class="add-new-h2"><i class="fa fa-refresh fa-fw"></i> <?php _e('Refresh', 'wp-mailinglist'); ?></a>
+		<a href="<?php echo admin_url('admin.php?page=' . $this -> sections -> settings . '#schedulingdiv'); ?>" class="add-new-h2"><i class="fa fa-cog fa-fw"></i> <?php _e('Configure Queue', 'wp-mailinglist'); ?></a>
 	</h1>
 	
 	<?php
@@ -70,7 +70,7 @@
 	
 	<ul>
 		<li><i class="fa fa-check fa-fw newsletters_success"></i> <?php echo sprintf(__('Check if there are %s preventing emails from going out.', 'wp-mailinglist'), '<a href="' . admin_url('admin.php?page=' . $this -> sections -> queue . '&method=errors') . '">' . __('queue errors', 'wp-mailinglist') . '</a>'); ?></li>
-		<?php if (defined('DISABLE_WP_CRON')) : ?>
+		<?php if (defined('DISABLE_WP_CRON') && DISABLE_WP_CRON == true) : ?>
 			<li><i class="fa fa-check fa-fw newsletters_success"></i> <?php echo sprintf(__('Your WordPress cron is turned off! <code>DISABLE_WP_CRON</code> is defined in your <code>wp-config.php</code> file, %s', 'wp-mailinglist'), '<a href="https://tribulant.com/docs/wordpress-mailing-list-plugin/11164" target="_blank">' . __('make sure the WordPress cron is running', 'wp-mailinglist') . '</a>'); ?></li>
 		<?php endif; ?>
 		<li>

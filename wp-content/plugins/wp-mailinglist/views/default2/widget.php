@@ -88,10 +88,12 @@
 	
 	<div id="<?php echo $widget_id; ?>-submit" class="form-group newsletters-fieldholder newsletters_submit">
 		<span id="newsletters_buttonwrap">
-			<input <?php echo $Html -> tabindex($widget_id); ?> type="submit" class="button btn btn-primary" name="subscribe" value="<?php echo esc_attr(stripslashes(__($instance['button']))); ?>" id="<?php echo $widget_id; ?>-button" />
-		</span>
-		<span id="<?php echo $widget_id; ?>-loading" class="newsletters-loading-wrapper" style="display:none;">
-			<i class="fa fa-refresh fa-spin fa-fw"></i>
+			<button <?php echo $Html -> tabindex($widget_id); ?> type="submit" class="button btn btn-primary" name="subscribe" id="<?php echo $widget_id; ?>-button">
+				<?php echo esc_attr(stripslashes(__($instance['button']))); ?>
+				<span id="<?php echo $widget_id; ?>-loading" class="newsletters-loading-wrapper" style="display:none;">
+					<i class="fa fa-refresh fa-spin fa-fw"></i>
+				</span>
+			</button>
 		</span>
 	</div>
 	

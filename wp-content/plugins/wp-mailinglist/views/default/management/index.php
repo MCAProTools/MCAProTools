@@ -12,6 +12,10 @@ if (!empty($subscriber -> subscriptions)) {
 do_action('newsletters_management_before');
 $logouturl = $Html -> retainquery('method=logout', get_permalink($this -> get_managementpost()));
 
+$updated = esc_html($_REQUEST['updated']);
+$success = esc_html($_REQUEST['success']);
+$error = esc_html($_REQUEST['error']);
+
 ?>
 
 <div class="newsletters newsletters-management">
@@ -31,15 +35,15 @@ $logouturl = $Html -> retainquery('method=logout', get_permalink($this -> get_ma
 	    <span class="managementlogout"><a class="newsletters_button ui-button-error" onclick="if (!confirm('<?php _e('Are you sure you wish to logout?', 'wp-mailinglist'); ?>')) { return false; }" href="<?php echo $logouturl; ?>"><i class="fa fa-sign-out"></i> <?php _e('Logout', 'wp-mailinglist'); ?></a></span>
 	</p>
 	
-	<?php if (!empty($_REQUEST['updated'])) : ?>
-		<?php if (!empty($_REQUEST['success'])) : ?>
+	<?php if (!empty($updated)) : ?>
+		<?php if (!empty($success)) : ?>
 			<div class="ui-state-highlight ui-corner-all">
-				<p><i class="fa fa-check"></i> <?php echo stripslashes($_REQUEST['success']); ?></p>
+				<p><i class="fa fa-check"></i> <?php echo stripslashes($success); ?></p>
 			</div>
 		<?php endif; ?>
-		<?php if (!empty($_REQUEST['error'])) : ?>
+		<?php if (!empty($error)) : ?>
 			<div class="ui-state-error ui-corner-all">
-				<p><i class="fa fa-exclamation-triangle"></i> <?php echo stripslashes($_REQUEST['error']); ?></p>
+				<p><i class="fa fa-exclamation-triangle"></i> <?php echo stripslashes($error); ?></p>
 			</div>
 		<?php endif; ?>
 	<?php endif; ?>

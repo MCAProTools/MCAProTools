@@ -1,5 +1,6 @@
-
+<?php /*
 	<form action="?page=<?php echo $this -> sections -> history; ?>&amp;method=mass" id="newsletters-history-form" onsubmit="if (!confirm('<?php _e('Are you sure you wish to execute this action on the selected history emails?', 'wp-mailinglist'); ?>')) { return false; }" method="post">
+		<?php wp_nonce_field($this -> sections -> history . '_mass'); ?>
 		<div class="tablenav">
 			<div class="alignleft actions">
 				<?php $rssfeed = $this -> get_option('rssfeed'); ?>
@@ -10,7 +11,6 @@
                 	<a onclick="jQuery('#newsletters-history-action').val('export'); jQuery('#newsletters-history-form').removeAttr('onsubmit').submit(); return false;" href="" class="button"><i class="fa fa-download"></i> <?php _e('Export', 'wp-mailinglist'); ?></a>
 				<?php endif; ?>
 				<a href="<?php echo $this -> url; ?>&amp;method=clear" onclick="if (!confirm('<?php _e('Are you sure you wish to clear the email history?', 'wp-mailinglist'); ?>')) { return false; } else { if (!confirm('<?php echo addslashes(__('Are you really sure? All newsletters will be deleted permanently!', 'wp-mailinglist')); ?>')) { return false; } }" class="button"><i class="fa fa-trash"></i> <?php _e('Clear', 'wp-mailinglist'); ?></a>
-				<?php /*<a href="<?php echo admin_url('admin.php?page=' . $this -> sections -> emails); ?>" class="button"><i class="fa fa-history"></i> <?php _e('All Emails', 'wp-mailinglist'); ?></a>*/ ?>
 			</div>
 			<div class="alignleft actions">
 				<select name="action" id="newsletters-history-action">
@@ -125,8 +125,6 @@
 													<?php _e('- Scheduled', 'wp-mailinglist'); ?>
 												<?php elseif ($email -> sent <= 0) : ?>
 													<?php _e('- Draft', 'wp-mailinglist'); ?>
-												<?php else : ?>
-													<?php /*<?php _e('Sent', 'wp-mailinglist'); ?>-->*/ ?>
 												<?php endif; ?>
 											</span>
 										</strong>
@@ -309,20 +307,38 @@
 						<option value=""><?php _e('- Per Page -', 'wp-mailinglist'); ?></option>
 						<?php $p = 5; ?>
 						<?php while ($p < 100) : ?>
-							<option <?php echo (!empty($_COOKIE[$this -> pre . 'historiesperpage']) && $_COOKIE[$this -> pre . 'historiesperpage'] == $p) ? 'selected="selected"' : ''; ?> value="<?php echo $p; ?>"><?php echo $p; ?> <?php _e('per page', 'wp-mailinglist'); ?></option>
+							<option <?php echo (!empty($perpage) && $perpage == $p) ? 'selected="selected"' : ''; ?> value="<?php echo $p; ?>"><?php echo $p; ?> <?php _e('per page', 'wp-mailinglist'); ?></option>
 							<?php $p += 5; ?>
 						<?php endwhile; ?>
-						<?php if (isset($_COOKIE[$this -> pre . 'historiesperpage'])) : ?>
-							<option selected="selected" value="<?php echo $_COOKIE[$this -> pre . 'historiesperpage']; ?>"><?php echo $_COOKIE[$this -> pre . 'historiesperpage']; ?></option>
+						<?php if (isset($perpage)) : ?>
+							<option selected="selected" value="<?php echo $perpage; ?>"><?php echo $perpage; ?></option>
 						<?php endif; ?>
 					</select>
+					<span id="newsletters_history_perpage_loading" style="display:none;"><i class="fa fa-refresh fa-spin fa-fw"></i></span>
 				<?php endif; ?>
 				
 				<script type="text/javascript">
 				function change_perpage(perpage) {
 					if (perpage != "") {
-						document.cookie = "<?php echo $this -> pre; ?>historiesperpage=" + perpage + "; expires=<?php echo $Html -> gen_date($this -> get_option('cookieformat'), strtotime("+30 days")); ?> UTC; path=/";
-						window.location = "<?php echo preg_replace("/\&?" . $this -> pre . "page\=(.*)?/si", "", $_SERVER['REQUEST_URI']); ?>";
+						jQuery('#newsletters_history_perpage_loading').show();
+						jQuery.ajax({
+							url: newsletters_ajaxurl + 'action=newsletters_perpage',
+							method: "POST",
+							data: {
+								screen: '<?php echo $this -> menus['newsletters-history']; ?>',
+								option: 'newsletters_history_perpage',
+								perpage: perpage
+							}
+						}).done(function(response) {
+							// all good
+							window.location = "<?php echo preg_replace("/\&?" . $this -> pre . "page\=(.*)?/si", "", $_SERVER['REQUEST_URI']); ?>";
+						}).error(function(response) {
+							alert('<?php _e('Ajax call failed, please try again', 'wp-mailinglist'); ?>');
+						}).always(function(response) {
+							jQuery('#newsletters_history_perpage_loading').hide();
+						});
+						
+						//document.cookie = "<?php echo $this -> pre; ?>historiesperpage=" + perpage + "; expires=<?php echo $Html -> gen_date($this -> get_option('cookieformat'), strtotime("+30 days")); ?> UTC; path=/";
 					}
 				}
 				
@@ -335,4 +351,4 @@
 			</div>
 			<?php $this -> render('pagination', array('paginate' => $paginate), true, 'admin'); ?>
 		</div>
-	</form>
+	</form>*/ ?>

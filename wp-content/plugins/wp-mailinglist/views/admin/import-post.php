@@ -111,8 +111,7 @@
 		
 			requests += importsubscribers.length;
 		
-			requestArray.push(jQuery.post(newsletters_ajaxurl + 'action=newsletters_importmultiple', {subscribers:importsubscribers, import_preventbu:import_preventbu, import_overwrite:import_overwrite, confirmation_subject:confirmation_subject, confirmation_email:confirmation_email}, function(response) {					
-				
+			requestArray.push(jQuery.post(newsletters_ajaxurl + 'action=newsletters_importmultiple', {subscribers:importsubscribers, import_preventbu:import_preventbu, import_overwrite:import_overwrite, confirmation_subject:confirmation_subject, confirmation_email:confirmation_email}, function(response) {
 				var importdata = response.split("<||>");
 				
 				for (d = 0; d < importdata.length; d++) {
@@ -145,7 +144,7 @@
 						jQuery("#importprogressbar").progressbar("value", value);
 					}
 				}
-			}).success(function() {							 			
+			}).done(function(response) {							 			
 				if (completed >= subscribercount) {
 					jQuery('#cancelimporting').hide();
 					warnMessage = null;
@@ -153,52 +152,11 @@
 					jQuery('#importmore').show();
 					jQuery('#import_loading').hide();
 				}
-			}).fail(function() {
+			}).error(function(response) {
 				failed += importsubscribers.length;
 				completed += importsubscribers.length;
-			}));
-		}
-		
-		function importsubscriber(subscriber) {
-			if (requests >= subscribercount || cancelimport == "Y") { return; }
-		
-			requests++;
-		
-			requestArray.push(jQuery.post(newsletters_ajaxurl + 'action=<?php echo $this -> pre; ?>importsubscribers', {subscriber:subscriber, import_preventbu:import_preventbu, import_overwrite:import_overwrite, confirmation_subject:confirmation_subject, confirmation_email:confirmation_email}, function(response) {					
-				var data = response.split('<|>');
-				var success = data[0];
-				var email = data[1];
-				var message = data[2];
-											
-				if (success == "Y") {
-					imported++;
-					
-					if ((imported + failed) <= subscribercount) {
-						jQuery('#importajaxcountinside').text(imported);
-						jQuery('#importajaxsuccessrecords').prepend('<div class="ui-state-highlight ui-corner-all" style="margin-bottom:3px;"><p><i class="fa fa-check"></i> ' + email + '</p></div>').fadeIn().prev().fadeIn();
-					}
-				} else {
-					failed++;
-					
-					if ((imported + failed) <= subscribercount) {
-						jQuery('#importajaxfailedcountinside').text(failed);
-						jQuery('#importajaxfailedrecords').prepend('<div class="ui-state-error ui-corner-all" style="margin-bottom:3px;"><p><i class="fa fa-exclamation-triangle"></i> ' + email + ' - ' + message + '</p></div>').fadeIn().prev().fadeIn();
-					}
-				}
+			}).always(function(response) {
 				
-				completed++;
-				var value = (completed * 100) / subscribercount;
-				jQuery("#importprogressbar").progressbar("value", value);
-			}).success(function() { 			
-				if (completed == subscribercount) {
-					jQuery('#cancelimporting').hide();
-					warnMessage = null;
-					jQuery('#startimporting').html('<?php echo addslashes(__('Continue to Subscribers', 'wp-mailinglist')); ?> <i class="fa fa-arrow-right"></i>').removeAttr('disabled').removeAttr('onclick').attr("href", "?page=<?php echo $this -> sections -> subscribers; ?>");
-					jQuery('#importmore').show();
-					jQuery('#import_loading').hide();
-				} else {
-					importsubscriber(subscribers[(requests + 1)]); 
-				}
 			}));
 		}
 		

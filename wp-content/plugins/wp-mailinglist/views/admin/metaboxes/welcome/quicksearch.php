@@ -1,5 +1,6 @@
 <div>
 	<form action="<?php echo admin_url('admin.php'); ?>?page=<?php echo $this -> sections -> subscribers; ?>" method="post">
+		<?php wp_nonce_field($this -> sections -> subscribers . '_search'); ?>
 		<p>
 			<label>
 				<?php _e('Subscriber:', 'wp-mailinglist'); ?><br/>

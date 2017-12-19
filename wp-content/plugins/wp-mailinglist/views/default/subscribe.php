@@ -57,14 +57,17 @@
 						            <input size="<?php echo esc_attr(stripslashes($captcha -> char_length)); ?>" <?php echo $Html -> tabindex('newsletters-' . $form -> id); ?> class="form-control <?php echo $this -> pre; ?>captchacode <?php echo $this -> pre; ?>text <?php echo (!empty($errors['captcha_code'])) ? 'newsletters_fielderror' : ''; ?>" type="text" name="captcha_code" id="<?php echo $this -> pre; ?>captcha_code" value="" />
 						            <input type="hidden" name="captcha_prefix" value="<?php echo $captcha_prefix; ?>" />
 						    	</div>
+						    	
+						    	<?php if (!empty($errors['captcha_code']) && !empty($form_styling['fielderrors'])) : ?>
+									<div id="newsletters-<?php echo $number; ?>-captcha-error" class="newsletters-field-error alert alert-danger">
+										<p><i class="fa fa-exclamation-triangle"></i> <?php echo stripslashes($errors['captcha_code']); ?></p>
+									</div>
+								<?php endif; ?>
 							</div>
 						<?php elseif ($captcha_type == "recaptcha") : ?>
-							<div id="newsletters-<?php echo $form -> id; ?>-recaptcha-challenge" class="newsletters-recaptcha-challenge"></div>
-						<?php endif; ?>
-						
-						<?php if (!empty($errors['captcha_code']) && !empty($form_styling['fielderrors'])) : ?>
-							<div id="newsletters-<?php echo $number; ?>-captcha-error" class="newsletters-field-error alert alert-danger">
-								<p><i class="fa fa-exclamation-triangle"></i> <?php echo stripslashes($errors['captcha_code']); ?></p>
+							<?php $recaptcha_type = $this -> get_option('recaptcha_type'); ?>
+							<div class="newsletters-captcha-wrapper form-group newsletters-fieldholder <?php echo ($recaptcha_type == "invisible") ? 'newsletters-fieldholder-hidden hidden' : ''; ?>">
+								<div id="newsletters-<?php echo $form -> id; ?>-recaptcha-challenge" class="newsletters-recaptcha-challenge"></div>
 							</div>
 						<?php endif; ?>
 				    <?php endif; ?>

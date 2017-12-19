@@ -1,5 +1,6 @@
 
 	<form onsubmit="if (!confirm('<?php _e('Are you sure you wish to execute this action on the selected mailing lists?', 'wp-mailinglist'); ?>')) { return false; }" action="?page=<?php echo $this -> sections -> lists; ?>&amp;method=mass" method="post">
+		<?php wp_nonce_field($this -> sections -> lists . '_mass'); ?>
 		<div class="tablenav">
 			<div class="alignleft">
 				<select name="action" style="width:auto;" onchange="change_action(this.value); return false;">
@@ -232,7 +233,12 @@
 							<?php endif; ?>
 							<td><label for="checklist<?php echo $list -> id; ?>"><b><?php echo $SubscribersList -> count(array('list_id' => $list -> id)); ?></b> (<?php echo $SubscribersList -> count(array('list_id' => $list -> id, 'active' => "Y")); ?> <?php _e('active', 'wp-mailinglist'); ?>)</label></td>
 							<?php if (apply_filters($this -> pre . '_admin_mailinglists_groupcolumn', true)) : ?>
-								<td><code>[newsletters_subscribe list="<?php echo $list -> id; ?>"]</code></td>
+								<td>
+									<code>[newsletters_subscribe list="<?php echo $list -> id; ?>"]</code>
+									<button type="button" class="button button-secondary button-small copy-button" data-clipboard-text="[newsletters_subscribe list=<?php echo $list -> id; ?>]">
+										<i class="fa fa-copy fa-fw"></i>
+									</button>
+								</td>
 							<?php endif; ?>
 						</tr>
 					<?php endforeach; ?>

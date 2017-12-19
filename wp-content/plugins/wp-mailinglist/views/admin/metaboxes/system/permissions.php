@@ -13,7 +13,7 @@ $permissions = $this -> get_option('permissions');
         <tbody>
         	<tr>
         		<th><label for=""><?php _e('Send to Roles Permissions', 'wp-mailinglist'); ?></label>
-        		<?php echo $Html -> help(__('Choose which user roles are able to see the roles checkboxes list under Newsletters > Create Newsletter to send to users.', 'wp-mailinglist')); ?></th>
+        		<?php echo $Html -> help(sprintf(__('Choose which user roles are able to see the roles checkboxes list under %s > Create Newsletter to send to users.', 'wp-mailinglist'), $this -> name)); ?></th>
         		<td>
         			<label style="font-weight:bold;"><input type="checkbox" name="" value="" id="" /> <?php _e('Select all', 'wp-mailinglist'); ?></label><br/>
         			<?php foreach ($wp_roles -> role_names as $role_key => $role_name) : ?>

@@ -63,3 +63,5 @@
 	}
 	</script>
 </div>
+
+<?php do_action('newsletters_create_email_attachment_below'); ?>

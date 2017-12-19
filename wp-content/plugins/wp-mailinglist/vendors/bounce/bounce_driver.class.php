@@ -3,27 +3,27 @@
 
 /* BOUNCE HANDLER Class, Version 7.4
  * Description: "chops up the bounce into associative arrays"
- *     ~ http://www.anti-spam-man.com/php_bouncehandler/v7.3/
+ *     ~ https://www.anti-spam-man.com/php_bouncehandler/v7.3/
  *     ~ https://github.com/cfortune/PHP-Bounce-Handler/
- *     ~ http://www.phpclasses.org/browse/file/11665.html
+ *     ~ https://www.phpclasses.org/browse/file/11665.html
  */
 
 /* Debugging / Contributers:
     * "Kanon"
-    * Jamie McClelland http://mayfirst.org
+    * Jamie McClelland https://mayfirst.org
     * Michael Cooper
     * Thomas Seifert
-    * Tim Petrowsky http://neuecouch.de
-    * Willy T. Koch http://apeland.no
+    * Tim Petrowsky https://neuecouch.de
+    * Willy T. Koch https://apeland.no
     * ganeshaspeaks.com - FBL development
     * Richard Catto - FBL development
-    * Scott Brynen - FBL development  http://visioncritical.com
+    * Scott Brynen - FBL development  https://visioncritical.com
 */
 
 
 /*
  The BSD License
- Copyright (c) 2006-forever, Chris Fortune http://cfortune.kics.bc.ca
+ Copyright (c) 2006-forever, Chris Fortune https://cfortune.kics.bc.ca
  All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -51,7 +51,7 @@ class BounceHandler{
     
     // these are for feedback reports, so you can extract uids from the emails
     // eg X-my-custom-header: userId12345
-    // eg <img src="http://mysite.com/track.php?u=userId12345">
+    // eg <img src="https://mysite.com/track.php?u=userId12345">
     public $web_beacon_preg_1 = "";
     public $web_beacon_preg_2 = "";
     public $x_header_search_1 = "";
@@ -126,7 +126,7 @@ class BounceHandler{
         /*** now we try all our weird text parsing methods (E-mail is weird!) ******************************/
 
         // is it a Feedback Loop, in Abuse Feedback Reporting Format (ARF)?
-        // http://en.wikipedia.org/wiki/Abuse_Reporting_Format#Abuse_Feedback_Reporting_Format_.28ARF.29
+        // https://en.wikipedia.org/wiki/Abuse_Reporting_Format#Abuse_Feedback_Reporting_Format_.28ARF.29
         if($this->looks_like_an_FBL){
             $this->output[0]['action'] = 'failed';
             $this->output[0]['status'] = "5.7.1";

@@ -1,6 +1,10 @@
 <?php
 
 class wpmlupdate extends wpMailPlugin {
+	
+	function __construct() {
+		
+	}
 
 	function get_changelog(){
 	
@@ -26,9 +30,13 @@ class wpmlupdate extends wpMailPlugin {
 
 	function get_version_info($cache = true) {	
 		$raw_response = get_transient('newsletters_update_info');
-		if (!$cache) { $raw_response = false; }
+		
+		// Check if cached data should be used
+		if (empty($cache)) { 
+			$raw_response = false; 
+		}
 	
-		if (!$raw_response) {		
+		if (empty($raw_response)) {		
 			$options = array('method' => 'POST', 'timeout' => 120);
 	        $options['headers'] = array(
 	            'Content-Type' => 'application/x-www-form-urlencoded; charset=' . get_option('blog_charset'),

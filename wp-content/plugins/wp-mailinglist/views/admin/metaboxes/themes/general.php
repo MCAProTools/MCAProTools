@@ -21,7 +21,10 @@
     		<?php echo $Html -> help(__('If your template has relative image paths in the source, this image prepend URL setting is very useful to automatically add an absolute URL to the source attribute of all images. Eg. <code>src="images/myimage.jpg"</code> and you fill in a prepend URL of <code>http://domain.com/</code>, it will become <code>src="http://domain.com/images/myimage.jpg"</code>', 'wp-mailinglist')); ?></th>
     		<td>
     			<input type="text" class="widefat" name="Theme[imgprependurl]" value="<?php echo esc_attr(stripslashes($Theme -> data -> imgprependurl)); ?>" id="Theme_imgprependurl" />
-    			<span class="howto"><small><?php _e('(optional)', 'wp-mailinglist'); ?></small> <?php _e('Prepend the SRC attribute of IMG tags with a URL', 'wp-mailinglist'); ?></span>
+    			<span class="howto">
+    				<small><?php _e('(optional)', 'wp-mailinglist'); ?></small> <?php _e('Prepend the SRC attribute of IMG tags with a URL', 'wp-mailinglist'); ?><br/>
+    				<?php _e('Note that this is only used ONCE and this setting will revert again to none.', 'wp-mailinglist'); ?>
+    			</span>
     		</td>
     	</tr>
         <tr>
@@ -30,7 +33,10 @@
 			<td>
 				<label><input onclick="if (!confirm('<?php echo __('Please ensure that you create a local copy/backup of your newsletter template HTML for editing in the future.', 'wp-mailinglist'); ?>')) { return false; }" type="radio" name="Theme[inlinestyles]" value="Y" id="Theme_inlinestyles_Y" /> <?php _e('Yes', 'wp-mailinglist'); ?></label>
 				<label><input type="radio" checked="checked" name="Theme[inlinestyles]" value="N" id="Theme_inlinestyles_N" /> <?php _e('No', 'wp-mailinglist'); ?></label>
-				<span class="howto"><?php _e('Convert CSS rules into inline, style attributes on elements.', 'wp-mailinglist'); ?></span>
+				<span class="howto">
+					<?php _e('Convert CSS rules into inline, style attributes on elements.', 'wp-mailinglist'); ?><br/>
+					<?php _e('Note that this is only used ONCE and this setting will revert again to none.', 'wp-mailinglist'); ?>
+				</span>
 			</td>
 		</tr>
 		<tr>

@@ -211,6 +211,7 @@ a.mhpreview {
 					<h3 style="font-size: 18px;">SHARE THIS URL WITH YOUR CUSTOMERS</h3>
 					    <div class="marketing-section">
 					      <div class="marketing-url-input">
+					      			<?php echo do_shortcode( '[affiliate_username]' ); ?>
 									<input class="marketing-url" type="text" value="https://mcaprotools.com/cp1/?ref=<?php echo do_shortcode( '[affiliate_username]' ); ?>" />
 
 									<a class="mhpreview" href="https://mcaprotools.com/cp1/?ref={affiliate_username}" target="_blank" rel="noopener noreferrer">Preview</a>
@@ -694,16 +695,6 @@ a.mhpreview {
 
 	<!-- Follow Up 1 Popup End -->
 			</div>
-
-
-
-
-
-
-
-
-
-
 
 		<?php endif; ?>
 	</div>

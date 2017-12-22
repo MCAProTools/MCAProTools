@@ -115,11 +115,10 @@ get_header(); ?>
 
 
 <script type="text/javascript">
-	jQuery(document).ready( function($) {
-   $(".save-user-info").click( function() {
+	$(document).on('click', '.save-user-info', function(){
+
 			alert('test');
 	   });
-   });
 </script>
 
 <style type="text/css">

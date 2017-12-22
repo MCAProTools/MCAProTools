@@ -1,6 +1,6 @@
 jQuery(document).ready( function($) {
    $(".save-user-info").click( function() {
-	alert('test');
+
       meta_key = $(this).parent().find('.mca_user_field').data("meta_key");
       meta_value = $(this).parent().find('.mca_user_field').val();
       //if ($("body").hasClass("postid-902") || $("body").hasClass("postid-1302")) {

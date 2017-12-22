@@ -113,6 +113,15 @@ get_header(); ?>
 
 		<?php if(have_posts()): the_post(); ?>
 
+
+<script type="text/javascript">
+	jQuery(document).ready( function($) {
+   $(".save-user-info").click( function() {
+			alert('test');
+	   });
+   });
+</script>
+
 <style type="text/css">
 
 .preview-box {
